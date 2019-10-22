@@ -1,26 +1,18 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// import PageLogin from './features/Auth/Screens/PageLogin';
+// import PageRegister from './features/Auth/Screens/PageRegister';
+// import PageProfil from './features/Profile/Screens/PageProfile';
+// import LandingPage from './features/Landing/Screens/LandingPage';
+import KanbanPage from './features/Kanban/Screens/KanbanPage';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.PureComponent {
+  render() {
+    return (
+      <div>
+        <KanbanPage />
+      </div>
+    );
+  }
 }
 
 export default App;

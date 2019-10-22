@@ -1,0 +1,14 @@
+.bg-green {
+  background-color: #3BD16F;
+  background: #3BD16F;
+}
+
+.bg-grey {
+  background: #E3E3E3;
+  background-color: #E3E3E3;
+}
+
+.scrolling-width {
+  width: 100%;
+  overflow-x: scroll;
+}

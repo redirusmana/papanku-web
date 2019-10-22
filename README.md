@@ -1,68 +1,44 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Papanku 2018
 
-## Available Scripts
+Papanku Website with React. Created using create-react-app
 
-In the project directory, you can run:
+## Requirement
 
-### `npm start`
+- Node.js >= v8
+- Yarn / npm
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## How To
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+### Setup
 
-### `npm test`
+Run `yarn install` or `npm install` to install dependencies and you are ready to role
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Development Environment
 
-### `npm run build`
+- Make sure Papanku API Backend server is running, default to: 'http://localhost:8000'
+- Check `apiUrl` inside `src/config/general.js`, and sync backend api url value in `development` object key
+- Run `yarn start` or `npm start` to start development server
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Staging Environment
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+- Make sure Papanku API Backend server is running, default to: 'https://backpapanku.agranara.com'.
+- Check `apiUrl` inside `src/config/general.js` and sync backend api url valie in `staging` object key
+- Run `yarn run build-js` or `npm run build-js` to build staging static files
+- Serve files from `build` folder
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  - Using Apache:
 
-### `npm run eject`
+    - Copy files inside `build` folder to staging public asset (eg: `/var/www/papanku2018-site`)
+    - Make sure virtual host setting is pointing to right assets and url domain is synced with `apiUrl` that defined before
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Notes
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+All builded site should be pushed to other repository [Papanku2018-site](http://206.189.41.47/r_e_d_d/Papanku2018-site) to avoid installing unnecessary package that can be run from development phase (eg: installing node.js, run npm install, run npm build).
+The other repository contains 2 branch for respective environment, excluding 'development' environment:
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- Master: for production build
+- Staging: for staging build
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## License
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Agranara, 2018-\*
