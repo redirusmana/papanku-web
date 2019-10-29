@@ -1,5 +1,6 @@
 import React from 'react';
 import logo from '../../../assets/images/bootstrap.png';
+import '../Style/style.css';
 
 class PageLogin extends React.PureComponent {
   render() {
@@ -59,11 +60,11 @@ class PageLogin extends React.PureComponent {
                   <div className="form-group mb-0">
                     <button
                       type="submit"
-                      className="btn btn-success btn-block"
+                      className="btn btn-success btn-block font-weight-bold"
                       // disabled={submitting}
                     >
                       {/* {submitting && <i className="la la-circle-o-notch animate-spin mr-2" />} */}
-                      Log In
+                      Login <i className="icofont-login"></i>
                     </button>
                   </div>
                   <div className="form-footer d-flex flex-row flex-nowrap justify-content-between align-items-center mt-4">

@@ -1,8 +1,16 @@
 import React from 'react';
 import logo from '../../../assets/images/bootstrap.png';
-import './style/style.css';
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import '../Style/style.css';
+import '../../style/style.css';
 
 class KanbanPage extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      btnDropright: false
+    };
+  }
   render() {
     return (
       <React.Fragment>
@@ -41,39 +49,94 @@ class KanbanPage extends React.PureComponent {
             </ul>
           </div>
         </nav>
-        <nav class="navbar navbar-expand-sm navbar-light bg-transparent">
+        <nav class="navbar navbar-expand-sm navbar-light bg-secondary">
           <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
-              <li class="nav-item py-0 ">
-                <p className=" font-weight-bold  ">
-                  BOARD NAME | Board |
-                  <img src={logo} width="15" height="15" alt="" />
-                  <img src={logo} width="15" height="15" alt="" />
-                  <img src={logo} width="15" height="15" alt="" />
-                  <img src={logo} width="15" height="15" alt="" />
-                </p>
+              <li class="nav-item py-0 font-weight-bold">
+                BOARD NAME | Board |
+                <img src={logo} width="15" height="15" alt="" />
+                <img src={logo} width="15" height="15" alt="" />
+                <img src={logo} width="15" height="15" alt="" />
               </li>
             </ul>
           </div>
         </nav>
 
-        <div className="container-fluid">
-          <div class="scrolling-width d-flex justify-content-start">
-            <img className="mx-1" src={logo} width="200" height="200" alt="" />
-            <img className="mx-1" src={logo} width="200" height="200" alt="" />
-            <img className="mx-1" src={logo} width="200" height="200" alt="" />
-            <img className="mx-1" src={logo} width="200" height="200" alt="" />
-            <img className="mx-1" src={logo} width="200" height="200" alt="" />
-            <img className="mx-1" src={logo} width="200" height="200" alt="" />
-            <img className="mx-1" src={logo} width="200" height="200" alt="" />
-            <img className="mx-1" src={logo} width="200" height="200" alt="" />
-            <img className="mx-1" src={logo} width="200" height="200" alt="" />
-            <img className="mx-1" src={logo} width="200" height="200" alt="" />
-            <img className="mx-1" src={logo} width="200" height="200" alt="" />
-            <img className="mx-1" src={logo} width="200" height="200" alt="" />
-            <img className="mx-1" src={logo} width="200" height="200" alt="" />
-            <img className="mx-1" src={logo} width="200" height="200" alt="" />
+        <div className="container-fluid bg-grey py-2">
+          <div className="box-cards py-2">
+            <div className="box-cards-child-title ">
+              <div className="clearfix mx-2">
+                <span className="float-left">Name Cardnya (1)</span>
+                <span className="float-right">
+                  <Dropdown
+                    size="sm"
+                    direction="right"
+                    isOpen={this.state.btnDropright}
+                    toggle={() => {
+                      this.setState({ btnDropright: !this.state.btnDropright });
+                    }}
+                  >
+                    <DropdownToggle>
+                      <i className="font-weight-normal icofont-settings" />
+                    </DropdownToggle>
+                    <DropdownMenu>
+                      <DropdownItem>Another Action</DropdownItem>
+                      <DropdownItem>Another Action</DropdownItem>
+                    </DropdownMenu>
+                  </Dropdown>
+                </span>
+              </div>
+              {/* <div class="d-flex bd-highlight mx-2">
+                <div class=" bd-highlight Roboto">Name Cardnya (1)</div>
+                <div class="ml-auto bd-highlight">
+                  <i className="font-weight-normal icofont-settings" />
+                </div>
+              </div> */}
+            </div>
+
+            <div className="box-cards-child-body mx-auto ">
+              <div className="box-cards-child mx-auto my-1">
+                <div className="font-weight-normal px-2">
+                  <span className="badge badge-primary">Primary</span>{' '}
+                  <span className="badge badge-danger">danger</span>
+                </div>
+                <div className="size-6 px-2 py-1">
+                  <span>Name Child CardName Child </span>
+                </div>
+                <div className="px-2">
+                  <div class="d-flex bd-highlight ">
+                    <div class=" bd-highlight pr-2">
+                      <i className="font-weight-normal icofont-checked" /> 2
+                    </div>
+                    <div class=" bd-highlight">
+                      <i className="font-weight-normal icofont-ui-file" /> 2
+                    </div>
+                    <div class="ml-auto  bd-highlight">
+                      <img src={logo} width="15" height="15" alt="" />
+                      <img src={logo} width="15" height="15" alt="" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="box-cards-child-footer">
+              <div className="px-3 py-2">
+                <button
+                  type="button"
+                  className="font-weight-bold btn btn-sm btn-primary btn-block "
+                >
+                  Add new list card <i className="font-weight-normal icofont-plus" />
+                </button>
+              </div>
+            </div>
           </div>
+        </div>
+
+        <div>
+          <a href={{}} className="act-btn btn-success">
+            +
+          </a>
         </div>
       </React.Fragment>
     );

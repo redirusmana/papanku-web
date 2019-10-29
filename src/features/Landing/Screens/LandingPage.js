@@ -3,7 +3,7 @@ import example from '../../../assets/images/example.jpg';
 import logo from '../../../assets/images/bootstrap.png';
 import bgCard from '../../../assets/images/bg-card1.jpg';
 import bgCards from '../../../assets/images/bg-card.jpg';
-import './style/style.css';
+import '../Style/style.css';
 
 class LandingPage extends React.PureComponent {
   render() {
@@ -26,7 +26,7 @@ class LandingPage extends React.PureComponent {
                   href={{}}
                   className="btn btn-md font-weight-bold btn-light btn-rounded-circle text-success"
                 >
-                  Sign Up
+                  Sign Up {/*  <i class="icofont-sign-in icofont-1x"></i> */}
                 </a>
               </li>
             </ul>
@@ -374,7 +374,7 @@ class LandingPage extends React.PureComponent {
           <div className="row p-5">
             <div className="col-lg-24">
               <div className="text-center p-5">
-                <h1 className="text-center text-white m-5">
+                <h1 className="italic text-center text-white m-5">
                   Bergabunglah dengan orang orang yang menggunakan PAPANKU dalam menyelesaikan semua
                   pekerjaan - pekerjaanmu
                 </h1>
@@ -390,9 +390,7 @@ class LandingPage extends React.PureComponent {
           <div className="row text-white">
             <div className="col-lg-24">
               {/* PAPANKU */}
-              <p className="text-center m-2 font-weight-bold">
-                Copyright &copy; 2019. All rights reserved.
-              </p>
+              <p className="text-center m-2">Copyright &copy; 2019. All rights reserved.</p>
             </div>
           </div>
         </div>
