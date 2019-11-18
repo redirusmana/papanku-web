@@ -13,6 +13,20 @@
   background-color: transparent;
 }
 
+/* Kanban */
+.box-kanban {
+  display: flex;
+  width: 100%;
+  height: 540px;
+  /* background: #fff;
+  background-color: #fff; */
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap
+}
+
+
+
 /* card */
 .box-cards {
   width: 300px;
@@ -49,6 +63,18 @@
 
 .box-cards-child-footer {
   margin: auto;
+}
+
+/* kanban modal */
+.body-kanban-scroll {
+  min-height: 100px;
+  /* max-height: 120px; */
+  max-height: 400px;
+  margin: 0 auto;
+  padding: 0 auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  white-space: nowrap
 }
 
 

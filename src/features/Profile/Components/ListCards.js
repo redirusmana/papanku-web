@@ -6,6 +6,7 @@ class ListCards extends React.PureComponent {
   render() {
     return (
       <React.Fragment>
+        {/* List Board */}
         <div className="col-lg-8 mb-3">
           <div class="card text-white">
             <img src={logo} class="card-img card-picture" alt="..." />
@@ -19,6 +20,8 @@ class ListCards extends React.PureComponent {
             </div>
           </div>
         </div>
+
+        {/* Add new Board */}
         <div className="col-lg-8 mb-3">
           <div class="card text-white">
             <img src={logo} class="card-img card-picture" alt="..." />

@@ -9,6 +9,7 @@ class LandingPage extends React.PureComponent {
   render() {
     return (
       <React.Fragment>
+        {/* Navbar */}
         <nav class="navbar  navbar-expand-lg navbar-light bg-green">
           {/*bg-transparent fixed-top */}
           <a class="navbar-brand" href={{}}>
@@ -32,7 +33,9 @@ class LandingPage extends React.PureComponent {
             </ul>
           </div>
         </nav>
+        {/* Navbar */}
 
+        {/* Landing Page */}
         <div className="container-fluid bg-green">
           <div className="row p-5">
             <div className="col-lg-15">
@@ -55,7 +58,9 @@ class LandingPage extends React.PureComponent {
             </div>
           </div>
         </div>
+        {/* Landing Page */}
 
+        {/* Page 2 */}
         <div
           className="container-fluid"
           style={{
@@ -106,7 +111,9 @@ class LandingPage extends React.PureComponent {
             </div>
           </div>
         </div>
+        {/* Page 2 */}
 
+        {/* Page 3 */}
         <div className="container-fluid">
           <div className="container p-5">
             <p className="text-center text-success font-weight-bold">KEUNTUNGAN</p>
@@ -152,7 +159,9 @@ class LandingPage extends React.PureComponent {
             </div>
           </div>
         </div>
+        {/* Page 3 */}
 
+        {/* Page 4 */}
         <div className="container-fluid">
           <div className="row p-5">
             <div className="col-lg-24">
@@ -163,7 +172,9 @@ class LandingPage extends React.PureComponent {
             </div>
           </div>
         </div>
+        {/* Page 4 */}
 
+        {/* Page 5 */}
         <div className="container-fluid">
           <div className="container">
             <div className="row p-5">
@@ -213,7 +224,9 @@ class LandingPage extends React.PureComponent {
             </div>
           </div>
         </div>
+        {/* Page 5 */}
 
+        {/* Page 6 */}
         <div className="container-fluid">
           <div className="container">
             <div className="row p-5">
@@ -264,7 +277,9 @@ class LandingPage extends React.PureComponent {
             </div>
           </div>
         </div>
+        {/* Page 6 */}
 
+        {/* Page 7 */}
         <div className="container-fluid">
           <div className="container">
             <div className="row p-5">
@@ -319,7 +334,9 @@ class LandingPage extends React.PureComponent {
             </div>
           </div>
         </div>
+        {/* Page 7 */}
 
+        {/* Page 8 */}
         <div className="container-fluid">
           <div className="container">
             <div className="row p-5">
@@ -369,7 +386,9 @@ class LandingPage extends React.PureComponent {
             </div>
           </div>
         </div>
+        {/* Page 8 */}
 
+        {/* Page 9 */}
         <div className="container-fluid bg-green">
           <div className="row p-5">
             <div className="col-lg-24">
@@ -385,7 +404,9 @@ class LandingPage extends React.PureComponent {
             </div>
           </div>
         </div>
+        {/* Page 9 */}
 
+        {/* Footer */}
         <div className="container-fluid bg-success">
           <div className="row text-white">
             <div className="col-lg-24">
@@ -394,6 +415,7 @@ class LandingPage extends React.PureComponent {
             </div>
           </div>
         </div>
+        {/* Footer */}
       </React.Fragment>
     );
   }

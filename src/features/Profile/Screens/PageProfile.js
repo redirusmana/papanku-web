@@ -1,8 +1,8 @@
 import React from 'react';
 import logo from '../../../assets/images/bootstrap.png';
 import profileBg from '../../../assets/images/profileBg.jpg';
-import ListFriends from '../Components/ListFriends';
-// import ListFriendsRequest from '../Components/ListFriendsRequest';
+// import ListFriends from '../Components/ListFriends';
+import ListFriendsRequest from '../Components/ListFriendsRequest';
 // import ListCards from '../Components/ListCards';
 import ListSearch from '../Components/ListSearch';
 import '../Style/style.css';
@@ -11,6 +11,7 @@ class PageLogin extends React.PureComponent {
   render() {
     return (
       <React.Fragment>
+        {/* Profile Info */}
         <div className="container-fluid">
           <div className="row">
             <div className="col-lg-24 m-0 p-0">
@@ -50,14 +51,18 @@ class PageLogin extends React.PureComponent {
             </div>
           </div>
         </div>
+        {/* Profile Info */}
 
         <div className="container-fluid">
           <div className="row p-3">
+            {/* Profile Personal Info */}
             <div className="col-lg-6">
               <div className="card mb-3">
                 <div className="card-header clearfix">
                   <span className="float-left">Profile</span>
-                  <span className="float-right">Edit Profile</span>
+                  <span className="float-right">
+                    <i className="font-weight-normal icofont-ui-edit" />
+                  </span>
                 </div>
                 <div className="card-body">
                   <h3 className="text-center">Marteen urseela</h3>
@@ -73,7 +78,7 @@ class PageLogin extends React.PureComponent {
                   </p>
                   <p className="clearfix font-weight-normal">
                     <span className="float-left">Tanggal Lahir</span>
-                    <span className="float-right">10-10-2010</span>
+                    <span className="float-right">10/10/2010</span>
                   </p>
                   <p className="clearfix font-weight-normal">
                     <span className="float-left">Status</span>
@@ -90,50 +95,41 @@ class PageLogin extends React.PureComponent {
 
               <div className="card mb-3">
                 <div className="card-header clearfix">
-                  <span className="float-left">Email Address</span>
-                  <span className="float-right">Edit Email</span>
+                  <span className="float-left">Personal Info</span>
                 </div>
                 <div className="card-body">
                   <p className="clearfix font-weight-normal">
                     {/* <span className="float-left">redirusmana30@gmail.com (primary)</span> */}
-                    <span className="float-left">redirusmana30@gmail.com</span>
+                    <span className="float-left text-break">redirusmana30@gmail.com</span>
                     {/* <span className="float-left">redirusmana30@gmail.com</span> */}
+                    <span className="float-right">
+                      <i className="font-weight-normal icofont-ui-edit" />
+                    </span>
                   </p>
-                </div>
-              </div>
 
-              <div className="card mb-3">
-                <div className="card-header clearfix">
-                  <span className="float-left">Phone</span>
-                  <span className="float-right">Edit Phone</span>
-                </div>
-                <div className="card-body">
                   <p className="clearfix font-weight-normal">
-                    <span className="float-left">Phone</span>
-                    <span className="float-right">08917387386</span>
+                    <span className="float-left">08917387386</span>
+                    <span className="float-right">
+                      <i className="font-weight-normal icofont-ui-edit" />
+                    </span>
                   </p>
-                </div>
-              </div>
 
-              <div className="card mb-3">
-                <div className="card-header clearfix">
-                  <span className="float-left">Security</span>
-                  <span className="float-right">Change Password</span>
-                </div>
-                <div className="card-body">
                   <p className="clearfix font-weight-normal">
-                    <span className="float-left">Password</span>
-                    <span className="float-right">************</span>
+                    <span className="float-left">***********</span>
+                    <span className="float-right">
+                      <i className="font-weight-normal icofont-ui-edit" />
+                    </span>
                   </p>
                 </div>
               </div>
             </div>
+            {/* Profile Personal Info */}
             <div className="col-lg-18">
               <div className="row">
                 <ListSearch />
                 {/* <ListCards /> */}
-                <ListFriends />
-                {/* <ListFriendsRequest /> */}
+                {/* <ListFriends /> */}
+                <ListFriendsRequest />
               </div>
             </div>
           </div>

@@ -6,6 +6,7 @@ class ListFriends extends React.PureComponent {
     return (
       <React.Fragment>
         <div className="col-lg-24 ">
+          {/* Request Friend from Other */}
           <div className="row mb-3">
             <div className="col-lg-8">
               <div className="card">
@@ -29,7 +30,9 @@ class ListFriends extends React.PureComponent {
               </div>
             </div>
           </div>
+          {/* Request Friend from Other */}
           <hr />
+          {/* Request Friend From Us */}
           <div className="row mb-3">
             <div className="col-lg-8">
               <div className="card">
@@ -50,6 +53,7 @@ class ListFriends extends React.PureComponent {
               </div>
             </div>
           </div>
+          {/* Request Friend From Us */}
         </div>
       </React.Fragment>
     );

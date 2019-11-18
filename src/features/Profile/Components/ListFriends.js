@@ -5,6 +5,7 @@ class ListFriends extends React.PureComponent {
   render() {
     return (
       <React.Fragment>
+        {/* List Friend */}
         <div className="col-lg-8 mb-3">
           <div className="card">
             <div className="card-body">
@@ -13,16 +14,19 @@ class ListFriends extends React.PureComponent {
                 <h5 className="card-title text-center">Martin</h5>
                 <h6 className="card-title text-center text-secondary">Martin</h6>
                 <button type="button" className="btn rounded-pill btn-primary mr-1">
-                  Messages
+                  <i className="font-weight-normal icofont-ui-message" />
+                  {/* Message */}
                 </button>
                 <button type="button" className="btn rounded-pill btn-danger ml-1">
-                  Remove
+                  <i className="font-weight-normal icofont-bin" />
+                  {/* Remove */}
                 </button>
               </div>
             </div>
           </div>
         </div>
 
+        {/* Add new Friend */}
         <div className="col-lg-8 mb-3">
           <div className="card p-5">
             <div className="card-body ">
@@ -31,7 +35,8 @@ class ListFriends extends React.PureComponent {
               </div>
               <div className="text-center">
                 <button type="button" className="btn rounded-pill btn-success ">
-                  Add new Friend
+                  <i className="font-weight-normal icofont-plus" />
+                  {/* Add new Friend */} Friend
                 </button>
               </div>
             </div>

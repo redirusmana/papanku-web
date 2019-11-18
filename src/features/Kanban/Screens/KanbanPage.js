@@ -14,6 +14,7 @@ class KanbanPage extends React.PureComponent {
   render() {
     return (
       <React.Fragment>
+        {/* Navbar 1 */}
         <nav class="navbar navbar-expand-sm navbar-light bg-green">
           {/*bg-transparent */}
           {/* <a class="navbar-brand" href={{}}>
@@ -49,6 +50,9 @@ class KanbanPage extends React.PureComponent {
             </ul>
           </div>
         </nav>
+        {/* Navbar 1 */}
+
+        {/* Navbar 2 */}
         <nav class="navbar navbar-expand-sm navbar-light bg-secondary">
           <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
@@ -61,9 +65,12 @@ class KanbanPage extends React.PureComponent {
             </ul>
           </div>
         </nav>
+        {/* Navbar 2 */}
 
         <div className="container-fluid bg-grey py-2">
+          {/* Card  */}
           <div className="box-cards py-2">
+            {/* Card */}
             <div className="box-cards-child-title ">
               <div className="clearfix mx-2">
                 <span className="float-left">Name Cardnya (1)</span>
@@ -77,7 +84,7 @@ class KanbanPage extends React.PureComponent {
                     }}
                   >
                     <DropdownToggle>
-                      <i className="font-weight-normal icofont-settings" />
+                      <i className="font-weight-normal icofont-gears" />
                     </DropdownToggle>
                     <DropdownMenu>
                       <DropdownItem>Another Action</DropdownItem>
@@ -89,15 +96,18 @@ class KanbanPage extends React.PureComponent {
               {/* <div class="d-flex bd-highlight mx-2">
                 <div class=" bd-highlight Roboto">Name Cardnya (1)</div>
                 <div class="ml-auto bd-highlight">
-                  <i className="font-weight-normal icofont-settings" />
+                  <i className="font-weight-normal icofont-gears" />
                 </div>
               </div> */}
             </div>
+            {/* Card */}
 
-            <div className="box-cards-child-body mx-auto ">
+            {/* {Status, Proprity} */}
+            <div className="box-cards-child-body mx-auto">
+              {/* Result Maps */}
               <div className="box-cards-child mx-auto my-1">
                 <div className="font-weight-normal px-2">
-                  <span className="badge badge-primary">Primary</span>{' '}
+                  <span className="badge badge-primary">Primary</span>
                   <span className="badge badge-danger">danger</span>
                 </div>
                 <div className="size-6 px-2 py-1">
@@ -118,8 +128,12 @@ class KanbanPage extends React.PureComponent {
                   </div>
                 </div>
               </div>
+              {/* Result Maps */}
             </div>
 
+            {/* {Status, Proprity} */}
+
+            {/* Add New Card */}
             <div className="box-cards-child-footer">
               <div className="px-3 py-2">
                 <button
@@ -131,6 +145,8 @@ class KanbanPage extends React.PureComponent {
               </div>
             </div>
           </div>
+          {/* Add New Card */}
+          {/* Card  */}
         </div>
 
         <div>

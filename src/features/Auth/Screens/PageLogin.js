@@ -8,11 +8,15 @@ class PageLogin extends React.PureComponent {
       <React.Fragment>
         <div className="container-fluid">
           <div className="row p-5">
+            {/* image  */}
             <div className="col-lg-14">
               <div>
                 <img className="m-auto" src={logo} width="500" height="500" alt="" />
               </div>
             </div>
+            {/* image  */}
+
+            {/* Form  */}
             <div className="col-lg-10 m-auto">
               <div className="">
                 <div className="text-center">
@@ -83,6 +87,7 @@ class PageLogin extends React.PureComponent {
                 </form>
               </div>
             </div>
+            {/* Form  */}
           </div>
         </div>
       </React.Fragment>
