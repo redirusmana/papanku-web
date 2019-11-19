@@ -1,6 +1,5 @@
-import React from 'react';
-import '../Style/style.css';
-import logo from '../../../assets/images/bootstrap.png';
+import React from "react";
+import "../Style/style.css";
 
 class ListCards extends React.PureComponent {
   render() {
@@ -8,30 +7,29 @@ class ListCards extends React.PureComponent {
       <React.Fragment>
         {/* List Board */}
         <div className="col-lg-8 mb-3">
-          <div class="card text-white">
-            <img src={logo} class="card-img card-picture" alt="..." />
-            <div class="card-img-overlay text-center">
-              <div className="card-body m-5">
-                <h3 class="card-title text-dark">Card title</h3>
-                <a href={{}} class="btn btn-sm btn-light font-weight-bold">
-                  Board
-                </a>
-              </div>
+          <div className="card ">
+            <div className="card-body">
+              <h5 className="card-title">Nama Board</h5>
+              <p className="card-text text-right">
+                <small className="text-muted">Last updated 3 mins ago</small>
+              </p>
+            </div>
+            <div className="card-footer text-right">
+              <button
+                type="button"
+                className="btn btn-sm btn-dark font-weight-bold "
+              >
+                Board
+              </button>
             </div>
           </div>
         </div>
 
         {/* Add new Board */}
-        <div className="col-lg-8 mb-3">
-          <div class="card text-white">
-            <img src={logo} class="card-img card-picture" alt="..." />
-            <div class="card-img-overlay text-center">
-              <div className="card-body m-5">
-                <h3 class="card-title text-dark">Add Board</h3>
-                <a href={{}} class="btn btn-sm btn-light font-weight-bold">
-                  Create
-                </a>
-              </div>
+        <div className="col-lg-8 ">
+          <div className="card button-grey">
+            <div className="card-body text-center">
+              <h6 className="m-auto py-5 font-weight-bold">Add new Board</h6>
             </div>
           </div>
         </div>

@@ -1,5 +1,5 @@
-import React from 'react';
-import logo from '../../../assets/images/bootstrap.png';
+import React from "react";
+import Avatar from "../../../provider/Display/Avatar";
 
 class ListFriends extends React.PureComponent {
   render() {
@@ -10,14 +10,26 @@ class ListFriends extends React.PureComponent {
           <div className="card">
             <div className="card-body">
               <div className="text-center">
-                <img src={logo} className="rounded-circle profile-picture-rad img-fluid" alt="" />
+                <Avatar
+                  name="Martin E"
+                  size="xxxl"
+                  avatarClass="avatar-link mb-1"
+                />
                 <h5 className="card-title text-center">Martin</h5>
-                <h6 className="card-title text-center text-secondary">Martin</h6>
-                <button type="button" className="btn rounded-pill btn-primary mr-1">
+                <h6 className="card-title text-center text-secondary">
+                  Martin
+                </h6>
+                <button
+                  type="button"
+                  className="btn rounded-pill btn-primary mr-1"
+                >
                   <i className="font-weight-normal icofont-ui-message" />
                   {/* Message */}
                 </button>
-                <button type="button" className="btn rounded-pill btn-danger ml-1">
+                <button
+                  type="button"
+                  className="btn rounded-pill btn-danger ml-1"
+                >
                   <i className="font-weight-normal icofont-bin" />
                   {/* Remove */}
                 </button>

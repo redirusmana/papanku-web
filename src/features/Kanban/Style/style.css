@@ -3,6 +3,11 @@
   background: #3BD16F;
 }
 
+.bg-dark-green {
+  background-color: rgb(49, 165, 90);
+  background: rgb(49, 165, 90);
+}
+
 .bg-grey {
   background: #E3E3E3;
   background-color: #E3E3E3;
@@ -17,7 +22,7 @@
 .box-kanban {
   display: flex;
   width: 100%;
-  height: 540px;
+  /* height: 560px; */
   /* background: #fff;
   background-color: #fff; */
   overflow-x: auto;
@@ -25,27 +30,28 @@
   white-space: nowrap
 }
 
-
-
 /* card */
 .box-cards {
   width: 300px;
-  min-height: 160px;
-  max-height: 400px;
+  margin: 0 10px;
+  height: auto;
+  /*.box-kanban*/
   border-radius: 5px;
-  border-top: 5px solid #3BD16F;
-  background: #fff;
-  background-color: #fff;
+  border-top: 5px solid rgb(49, 165, 90);
+  background: #e0f2f1;
+  background-color: #e0f2f1;
 }
 
 .box-cards-child-title {
-  font-size: 20px;
+  margin: auto 0;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .box-cards-child-body {
   width: 100%;
   min-height: 80px;
-  max-height: 300px;
+  max-height: 450px;
   margin: 0 auto;
   padding: 0 auto;
   overflow-y: auto;
@@ -55,8 +61,8 @@
 .box-cards-child {
   width: 90%;
   min-height: 80px;
-  background: #E3E3E3;
-  background-color: #E3E3E3;
+  background: #fff;
+  background-color: #fff;
   border-radius: 5px;
   border-left: 5px solid #3BD16F;
 }
@@ -117,4 +123,21 @@
   position: fixed;
   right: 30px;
   bottom: 30px;
+  background: #3BD16F;
+  background-color: #3BD16F;
+}
+
+/* Button  */
+.btn-success {
+  background: #3BD16F;
+  background-color: #3BD16F;
+  border: 1px solid #3BD16F;
+}
+
+
+/* Status badge */
+.badge-status-task {
+  width: 50px;
+  padding: 0;
+  line-height: .375rem;
 }

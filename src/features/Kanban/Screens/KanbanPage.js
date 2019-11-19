@@ -1,51 +1,59 @@
-import React from 'react';
-import logo from '../../../assets/images/bootstrap.png';
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-import '../Style/style.css';
-import '../../style/style.css';
+import React from "react";
+import logo from "../../../assets/images/bootstrap.png";
+import CardList from "../Components/CardList";
+import Avatar from "../../../provider/Display/Avatar";
+import "../Style/style.css";
+import "../../style/style.css";
 
 class KanbanPage extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      btnDropright: false
-    };
+    this.state = {};
   }
   render() {
     return (
       <React.Fragment>
         {/* Navbar 1 */}
-        <nav class="navbar navbar-expand-sm navbar-light bg-green">
+        <nav className="navbar navbar-expand-sm navbar-light bg-dark-green">
           {/*bg-transparent */}
-          {/* <a class="navbar-brand" href={{}}>
+          {/* <a className="navbar-brand" href={{}}>
             <img src={logo} width="20" height="20" alt="" />
           </a> */}
-          <div class="collapse navbar-collapse">
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item py-0 ">
-                <a href={{}} className="btn btn-sm font-weight-bold btn-outline-light ">
-                  BOARD
+          <div className="collapse navbar-collapse">
+            <ul className="navbar-nav mr-auto">
+              <li className="nav-item py-0 ">
+                <a
+                  href={{}}
+                  className="btn btn-sm font-weight-bold btn-outline-light"
+                >
+                  <i className="icofont-home" />
                 </a>
               </li>
             </ul>
-            <ul class="navbar-nav m-auto">
-              <li class="nav-item py-0 ">
+            <ul className="navbar-nav m-auto">
+              <li className="nav-item py-0 ">
                 <img src={logo} width="30" height="30" alt="" />
               </li>
             </ul>
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item py-0 mx-1">
-                <a href={{}} className="btn btn-sm font-weight-bold btn-outline-light ">
-                  A
+            <ul className="navbar-nav ml-auto">
+              <li className="nav-item py-0 mr-1">
+                <a
+                  href={{}}
+                  className="btn btn-sm font-weight-bold btn-outline-light "
+                >
+                  <i className="icofont-alarm" />
                 </a>
               </li>
-              <li class="nav-item py-0 mx-1">
-                <a href={{}} className="btn btn-sm font-weight-bold btn-outline-light ">
-                  B
-                </a>
-              </li>
-              <li class="nav-item py-0 mx-1">
-                <img src={logo} width="30" height="30" alt="" />
+              <li className="nav-item py-0 mx-1">
+                <Avatar
+                  name="redi rsmn"
+                  style={{
+                    width: "2.0rem",
+                    height: "2.0rem",
+                    lineHeight: "2.0rem",
+                    fontSize: "1rem"
+                  }}
+                />
               </li>
             </ul>
           </div>
@@ -53,100 +61,38 @@ class KanbanPage extends React.PureComponent {
         {/* Navbar 1 */}
 
         {/* Navbar 2 */}
-        <nav class="navbar navbar-expand-sm navbar-light bg-secondary">
-          <div class="collapse navbar-collapse">
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item py-0 font-weight-bold">
+        <nav className="navbar navbar-expand-sm navbar-light bg-green">
+          <div className="collapse navbar-collapse">
+            <ul className="navbar-nav mr-auto">
+              <li className="nav-item py-0 font-weight-bold text-white">
                 BOARD NAME | Board |
-                <img src={logo} width="15" height="15" alt="" />
-                <img src={logo} width="15" height="15" alt="" />
-                <img src={logo} width="15" height="15" alt="" />
+              </li>
+              <li className="nav-item py-0 px-1 font-weight-bold text-white">
+                <Avatar name="redirsmn" size="sm" />
+                <Avatar name="sss" size="sm" />
+                <Avatar name={2} size="sm" />
               </li>
             </ul>
           </div>
         </nav>
         {/* Navbar 2 */}
 
-        <div className="container-fluid bg-grey py-2">
-          {/* Card  */}
-          <div className="box-cards py-2">
-            {/* Card */}
-            <div className="box-cards-child-title ">
-              <div className="clearfix mx-2">
-                <span className="float-left">Name Cardnya (1)</span>
-                <span className="float-right">
-                  <Dropdown
-                    size="sm"
-                    direction="right"
-                    isOpen={this.state.btnDropright}
-                    toggle={() => {
-                      this.setState({ btnDropright: !this.state.btnDropright });
-                    }}
-                  >
-                    <DropdownToggle>
-                      <i className="font-weight-normal icofont-gears" />
-                    </DropdownToggle>
-                    <DropdownMenu>
-                      <DropdownItem>Another Action</DropdownItem>
-                      <DropdownItem>Another Action</DropdownItem>
-                    </DropdownMenu>
-                  </Dropdown>
-                </span>
-              </div>
-              {/* <div class="d-flex bd-highlight mx-2">
-                <div class=" bd-highlight Roboto">Name Cardnya (1)</div>
-                <div class="ml-auto bd-highlight">
-                  <i className="font-weight-normal icofont-gears" />
-                </div>
-              </div> */}
-            </div>
-            {/* Card */}
-
-            {/* {Status, Proprity} */}
-            <div className="box-cards-child-body mx-auto">
-              {/* Result Maps */}
-              <div className="box-cards-child mx-auto my-1">
-                <div className="font-weight-normal px-2">
-                  <span className="badge badge-primary">Primary</span>
-                  <span className="badge badge-danger">danger</span>
-                </div>
-                <div className="size-6 px-2 py-1">
-                  <span>Name Child CardName Child </span>
-                </div>
-                <div className="px-2">
-                  <div class="d-flex bd-highlight ">
-                    <div class=" bd-highlight pr-2">
-                      <i className="font-weight-normal icofont-checked" /> 2
-                    </div>
-                    <div class=" bd-highlight">
-                      <i className="font-weight-normal icofont-ui-file" /> 2
-                    </div>
-                    <div class="ml-auto  bd-highlight">
-                      <img src={logo} width="15" height="15" alt="" />
-                      <img src={logo} width="15" height="15" alt="" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {/* Result Maps */}
-            </div>
-
-            {/* {Status, Proprity} */}
-
-            {/* Add New Card */}
-            <div className="box-cards-child-footer">
-              <div className="px-3 py-2">
-                <button
-                  type="button"
-                  className="font-weight-bold btn btn-sm btn-primary btn-block "
-                >
-                  Add new list card <i className="font-weight-normal icofont-plus" />
-                </button>
-              </div>
-            </div>
+        <div className="container-fluid py-2">
+          <div className="box-kanban pb-2">
+            <CardList />
+            {/* <CardList />
+            <CardList />
+            <CardList />
+            <CardList />
+            <CardList />
+            <CardList />
+            <CardList />
+            <CardList />
+            <CardList />
+            <CardList />
+            <CardList />
+            <CardList /> */}
           </div>
-          {/* Add New Card */}
-          {/* Card  */}
         </div>
 
         <div>

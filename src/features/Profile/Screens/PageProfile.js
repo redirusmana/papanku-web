@@ -1,11 +1,11 @@
-import React from 'react';
-import logo from '../../../assets/images/bootstrap.png';
-import profileBg from '../../../assets/images/profileBg.jpg';
-// import ListFriends from '../Components/ListFriends';
-import ListFriendsRequest from '../Components/ListFriendsRequest';
-// import ListCards from '../Components/ListCards';
-import ListSearch from '../Components/ListSearch';
-import '../Style/style.css';
+import React from "react";
+import Avatar from "../../../provider/Display/Avatar";
+import profileBg from "../../../assets/images/profileBg.jpg";
+// import ListFriends from "../Components/ListFriends";
+// import ListFriendsRequest from "../Components/ListFriendsRequest";
+import ListSearch from "../Components/ListSearch";
+import ListCards from "../Components/ListCards";
+import "../Style/style.css";
 
 class PageLogin extends React.PureComponent {
   render() {
@@ -23,7 +23,10 @@ class PageLogin extends React.PureComponent {
                 />
                 <div className="profile-img">
                   <a href={{}}>
-                    <img src={logo} alt="" title="" />
+                    <Avatar
+                      name="sss sss"
+                      avatarClass="avatar-link avatar-huge"
+                    />
                   </a>
                 </div>
                 <div className="profile-name">
@@ -66,14 +69,16 @@ class PageLogin extends React.PureComponent {
                 </div>
                 <div className="card-body">
                   <h3 className="text-center">Marteen urseela</h3>
-                  <h5 className="text-center text-secondary">Marteen_urseela</h5>
+                  <h5 className="text-center text-secondary">
+                    Marteen_urseela
+                  </h5>
                   <hr />
                   <p className="clearfix font-weight-normal">
                     <span className="float-left">id</span>
                     <span className="float-right">Marteen_urseela</span>
                   </p>
                   <p className="clearfix font-weight-normal">
-                    <span className="float-left">Gender</span>
+                    <span className="float-left">Jenis Kelamin</span>
                     <span className="float-right">Laki Laki</span>
                   </p>
                   <p className="clearfix font-weight-normal">
@@ -83,7 +88,9 @@ class PageLogin extends React.PureComponent {
                   <p className="clearfix font-weight-normal">
                     <span className="float-left">Status</span>
                     <span className="float-right">
-                      <span className="font-weight-normal badge badge-primary">Active</span>
+                      <span className="font-weight-normal badge badge-primary">
+                        Active
+                      </span>
                     </span>
                   </p>
                   {/* <p className="clearfix font-weight-normal">
@@ -100,7 +107,9 @@ class PageLogin extends React.PureComponent {
                 <div className="card-body">
                   <p className="clearfix font-weight-normal">
                     {/* <span className="float-left">redirusmana30@gmail.com (primary)</span> */}
-                    <span className="float-left text-break">redirusmana30@gmail.com</span>
+                    <span className="float-left text-break">
+                      redirusmana30@gmail.com
+                    </span>
                     {/* <span className="float-left">redirusmana30@gmail.com</span> */}
                     <span className="float-right">
                       <i className="font-weight-normal icofont-ui-edit" />
@@ -120,6 +129,13 @@ class PageLogin extends React.PureComponent {
                       <i className="font-weight-normal icofont-ui-edit" />
                     </span>
                   </p>
+
+                  <p className="clearfix font-weight-normal">
+                    <span className="text-left">
+                      Logout &nbsp;
+                      <i className="font-weight-normal icofont-exit" />
+                    </span>
+                  </p>
                 </div>
               </div>
             </div>
@@ -127,9 +143,9 @@ class PageLogin extends React.PureComponent {
             <div className="col-lg-18">
               <div className="row">
                 <ListSearch />
-                {/* <ListCards /> */}
+                <ListCards />
                 {/* <ListFriends /> */}
-                <ListFriendsRequest />
+                {/* <ListFriendsRequest /> */}
               </div>
             </div>
           </div>

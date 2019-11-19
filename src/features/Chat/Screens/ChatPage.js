@@ -1,14 +1,14 @@
-import React from 'react';
-import logo from '../../../assets/images/bootstrap.png';
+import React from "react";
+import logo from "../../../assets/images/bootstrap.png";
 // import Avatar from '../../../provider/Display/Avatar';
-import '../Style/style.css';
+import "../Style/style.css";
 
 class ChatPage extends React.PureComponent {
   render() {
     return (
       <React.Fragment>
-        <div class="container-fluid">
-          <div class="row">
+        <div className="container-fluid">
+          <div className="row">
             {/* SideBar - left - List Chat  */}
             <div className="col-lg-8 p-0">
               <div className="card">
@@ -89,8 +89,12 @@ class ChatPage extends React.PureComponent {
                   <div className="message-body">
                     <div className=" message-main-receiver">
                       <div className="receiver">
-                        <div className="message-text">Hi, what are you doing?!</div>
-                        <span className="message-time pull-right">Sun, 17:01</span>
+                        <div className="message-text">
+                          Hi, what are you doing?!
+                        </div>
+                        <span className="message-time pull-right">
+                          Sun, 17:01
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -99,8 +103,12 @@ class ChatPage extends React.PureComponent {
                   <div className=" message-body">
                     <div className=" message-main-sender">
                       <div className="sender">
-                        <div className="message-text">I am doing nothing man!</div>
-                        <span className="message-time pull-right">Sun, 17:02</span>
+                        <div className="message-text">
+                          I am doing nothing man!
+                        </div>
+                        <span className="message-time pull-right">
+                          Sun, 17:02
+                        </span>
                       </div>
                     </div>
                   </div>
