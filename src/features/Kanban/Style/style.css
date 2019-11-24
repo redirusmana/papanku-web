@@ -133,11 +133,3 @@
   background-color: #3BD16F;
   border: 1px solid #3BD16F;
 }
-
-
-/* Status badge */
-.badge-status-task {
-  width: 50px;
-  padding: 0;
-  line-height: .375rem;
-}
