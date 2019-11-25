@@ -14,7 +14,7 @@ class KanbanPage extends React.PureComponent {
     return (
       <React.Fragment>
         {/* Navbar 1 */}
-        <nav className="navbar navbar-expand-sm navbar-light bg-dark-green">
+        <nav className="navbar navbar-expand-sm navbar-light bg-green">
           {/*bg-transparent */}
           {/* <a className="navbar-brand" href={{}}>
             <img src={logo} width="20" height="20" alt="" />
@@ -29,6 +29,11 @@ class KanbanPage extends React.PureComponent {
                   <i className="icofont-home" />
                 </a>
               </li>
+              <li className="nav-item py-0 ">
+                <button type="button" className="btn btn-sm btn-outline-light">
+                  BOARD
+                </button>
+              </li>
             </ul>
             <ul className="navbar-nav m-auto">
               <li className="nav-item py-0 ">
@@ -36,15 +41,12 @@ class KanbanPage extends React.PureComponent {
               </li>
             </ul>
             <ul className="navbar-nav ml-auto">
-              <li className="nav-item py-0 mr-1">
-                <a
-                  href={{}}
-                  className="btn btn-sm font-weight-bold btn-outline-light "
-                >
+              <li className="nav-item py-0">
+                <a href={{}} className="btn btn-sm btn-outline-light">
                   <i className="icofont-alarm" />
                 </a>
               </li>
-              <li className="nav-item py-0 mx-1">
+              <li className="nav-item py-0">
                 <Avatar
                   name="redi rsmn"
                   style={{
@@ -61,16 +63,36 @@ class KanbanPage extends React.PureComponent {
         {/* Navbar 1 */}
 
         {/* Navbar 2 */}
-        <nav className="navbar navbar-expand-sm navbar-light bg-green">
+        <nav className="navbar navbar-expand-sm navbar-light">
           <div className="collapse navbar-collapse">
             <ul className="navbar-nav mr-auto">
-              <li className="nav-item py-0 font-weight-bold text-white">
-                BOARD NAME | Board |
-              </li>
+              <li className="nav-item py-0 font-weight-bold">BOARD NAME | </li>
               <li className="nav-item py-0 px-1 font-weight-bold text-white">
-                <Avatar name="redirsmn" size="sm" />
-                <Avatar name="sss" size="sm" />
+                <Avatar name="aku" size="sm" />
+                <Avatar name="mereka" size="sm" />
+                <Avatar name="kamu" size="sm" />
+                <Avatar name="bukan" size="sm" />
+                <Avatar name="dia" size="sm" />
+                <Avatar name="hakim kita" size="sm" />
                 <Avatar name={2} size="sm" />
+              </li>
+              <li className="nav-item py-0 font-weight-bold">
+                <button
+                  type="button"
+                  className="btn btn-sm btn-outline-success"
+                >
+                  Invite
+                </button>
+              </li>
+            </ul>
+            <ul className="navbar-nav ml-auto">
+              <li className="nav-item py-0 font-weight-bold">
+                <button
+                  type="button"
+                  className="btn btn-sm btn-outline-success"
+                >
+                  All Activity
+                </button>
               </li>
             </ul>
           </div>

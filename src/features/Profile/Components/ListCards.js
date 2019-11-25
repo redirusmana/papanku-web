@@ -9,15 +9,15 @@ class ListCards extends React.PureComponent {
         <div className="col-lg-8 mb-3">
           <div className="card ">
             <div className="card-body">
-              <h5 className="card-title">Nama Board</h5>
+              <p className="card-title">Nama Board</p>
               <p className="card-text text-right">
                 <small className="text-muted">Last updated 3 mins ago</small>
               </p>
             </div>
-            <div className="card-footer text-right">
+            <div className="card-footer text-right py-2">
               <button
                 type="button"
-                className="btn btn-sm btn-dark font-weight-bold "
+                className="btn btn-sm btn-success font-weight-bold "
               >
                 Board
               </button>
@@ -27,9 +27,11 @@ class ListCards extends React.PureComponent {
 
         {/* Add new Board */}
         <div className="col-lg-8 ">
-          <div className="card button-grey">
+          <div className="card bg-light">
             <div className="card-body text-center">
-              <h6 className="m-auto py-5 font-weight-bold">Add new Board</h6>
+              <h3 className="my-5 mx-auto py-4 font-weight-bold">
+                Add New Board
+              </h3>
             </div>
           </div>
         </div>

@@ -35,7 +35,8 @@ class CardList extends React.PureComponent {
               </div>
               {/* Status & Due Date */}
               {/* Title */}
-              <div className="size-6 px-2 py-1">
+              {/* size-6 */}
+              <div className=" px-2 py-1">
                 <span>Name Child CardName Child </span>
               </div>
               {/* Title */}

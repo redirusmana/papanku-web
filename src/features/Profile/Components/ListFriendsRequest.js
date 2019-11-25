@@ -17,19 +17,16 @@ class ListFriends extends React.PureComponent {
                       size="xxxl"
                       avatarClass="avatar-link mb-1"
                     />
-                    <h5 className="card-title text-center">Martin</h5>
-                    <h6 className="card-title text-center text-secondary">
-                      Martin
-                    </h6>
+                    <h4 className="card-title text-center pt-2">Skrean Joy</h4>
                     <button
                       type="button"
-                      className="btn rounded-pill btn-primary mr-1"
+                      className="btn rounded-pill btn-success mr-1" //primary
                     >
                       Accept
                     </button>
                     <button
                       type="button"
-                      className="btn rounded-pill btn-danger ml-1"
+                      className="btn rounded-pill btn-success ml-1" //primary
                     >
                       Decline
                     </button>
@@ -51,13 +48,10 @@ class ListFriends extends React.PureComponent {
                       size="xxxl"
                       avatarClass="avatar-link mb-1"
                     />
-                    <h5 className="card-title text-center">Martin</h5>
-                    <h6 className="card-title text-center text-secondary">
-                      Martin
-                    </h6>
+                    <h4 className="card-title text-center pt-2">Krepoy Toy</h4>
                     <button
                       type="button"
-                      className="btn rounded-pill btn-warning mr-1"
+                      className="btn rounded-pill btn-success mr-1" //warning
                     >
                       Cancel Add Friend
                     </button>

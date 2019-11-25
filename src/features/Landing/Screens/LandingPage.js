@@ -1,7 +1,7 @@
 import React from "react";
 import example from "../../../assets/images/example.jpg";
 import logo from "../../../assets/images/bootstrap.png";
-import bgCard from "../../../assets/images/bg-card1.jpg";
+// import bgCard from "../../../assets/images/bg-card1.jpg";
 import bgCards from "../../../assets/images/bg-card.jpg";
 import "../Style/style.css";
 
@@ -10,7 +10,7 @@ class LandingPage extends React.PureComponent {
     return (
       <React.Fragment>
         {/* Navbar */}
-        <nav className="navbar  navbar-expand-lg navbar-light bg-green">
+        <nav className="navbar  navbar-expand-lg navbar-light bg-success">
           {/*bg-transparent fixed-top */}
           <a className="navbar-brand" href={{}}>
             <img src={logo} width="40" height="40" alt="" />
@@ -39,7 +39,7 @@ class LandingPage extends React.PureComponent {
         {/* Navbar */}
 
         {/* Landing Page */}
-        <div className="container-fluid bg-green">
+        <div className="container-fluid bg-success">
           <div className="row p-5">
             <div className="col-lg-15">
               <div className="row p-5">
@@ -53,10 +53,10 @@ class LandingPage extends React.PureComponent {
               </div>
             </div>
             <div className="col-lg-9 m-auto">
-              <div className="text-white">
-                <h1 className="font-weight-bold">PAPANKU</h1>
+              <div className="">
+                <h1 className="font-weight-bold text-white">PAPANKU</h1>
                 <br />
-                <h2>
+                <h2 className="text-white">
                   Buat Keputusan yang Lebih Cerdas untuk dalam menyelesaikan
                   perkerjaan anda
                 </h2>
@@ -70,7 +70,7 @@ class LandingPage extends React.PureComponent {
         <div
           className="container-fluid"
           style={{
-            backgroundImage: `url(${bgCard})`,
+            // backgroundImage: `url(${bgCard})`,
             backgroundPosition: "center",
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat"
@@ -450,7 +450,7 @@ class LandingPage extends React.PureComponent {
         {/* Page 8 */}
 
         {/* Page 9 */}
-        <div className="container-fluid bg-green">
+        <div className="container-fluid bg-success">
           <div className="row p-5">
             <div className="col-lg-24">
               <div className="text-center p-5">

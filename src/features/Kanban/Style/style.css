@@ -1,11 +1,6 @@
 .bg-green {
-  background-color: #3BD16F;
-  background: #3BD16F;
-}
-
-.bg-dark-green {
-  background-color: rgb(49, 165, 90);
-  background: rgb(49, 165, 90);
+  background-color: #04A777;
+  background: #04A777;
 }
 
 .bg-grey {
@@ -37,9 +32,12 @@
   height: auto;
   /*.box-kanban*/
   border-radius: 5px;
-  border-top: 5px solid rgb(49, 165, 90);
-  background: #e0f2f1;
-  background-color: #e0f2f1;
+  border-top: 5px solid #04A777;
+  background: #ebecf0;
+  background-color: #ebecf0;
+
+  /* background: #e0f2f1; 
+  background-color: #e0f2f1; */
 }
 
 .box-cards-child-title {
@@ -64,7 +62,7 @@
   background: #fff;
   background-color: #fff;
   border-radius: 5px;
-  border-left: 5px solid #3BD16F;
+  border-left: 5px solid #04A777;
 }
 
 .box-cards-child-footer {
@@ -85,10 +83,10 @@
 
 
 /* font-size */
-.size-6 {
+/* .size-6 {
   font-family: "Roboto" !important;
   font-size: 15px;
-}
+} */
 
 /* .size-5 {
   font-size: ? px;
@@ -123,13 +121,13 @@
   position: fixed;
   right: 30px;
   bottom: 30px;
-  background: #3BD16F;
-  background-color: #3BD16F;
+  background: #04A777;
+  background-color: #04A777;
 }
 
 /* Button  */
 .btn-success {
-  background: #3BD16F;
-  background-color: #3BD16F;
-  border: 1px solid #3BD16F;
+  background: #04A777;
+  background-color: #04A777;
+  border: 1px solid #04A777;
 }

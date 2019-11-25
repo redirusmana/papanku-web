@@ -15,23 +15,23 @@ class ListFriends extends React.PureComponent {
                   size="xxxl"
                   avatarClass="avatar-link mb-1"
                 />
-                <h5 className="card-title text-center">Martin</h5>
-                <h6 className="card-title text-center text-secondary">
-                  Martin
-                </h6>
+                <h4 className="card-title text-center pt-2">
+                  Muhammad Seftikara Al
+                </h4>
                 <button
                   type="button"
-                  className="btn rounded-pill btn-primary mr-1"
+                  className="btn rounded-pill btn-success mr-1"
                 >
-                  <i className="font-weight-normal icofont-ui-message" />
-                  {/* Message */}
+                  <i className="font-weight-normal icofont-plus-square" />
+                  {/* ui-message */}
+                  {/* Invite */}
                 </button>
                 <button
                   type="button"
-                  className="btn rounded-pill btn-danger ml-1"
+                  className="btn rounded-pill btn-success ml-1"
                 >
                   <i className="font-weight-normal icofont-bin" />
-                  {/* Remove */}
+                  {/* Remove / danger*/}
                 </button>
               </div>
             </div>
@@ -43,12 +43,15 @@ class ListFriends extends React.PureComponent {
           <div className="card p-5">
             <div className="card-body ">
               <div className="text-center">
-                <i className="text-success icofont-people icofont-5x" />
+                <h4 className="text-success ">
+                  <i className="icofont-people icofont-5x" />
+                  <br /> Tambahkan Teman
+                </h4>
               </div>
               <div className="text-center">
                 <button type="button" className="btn rounded-pill btn-success ">
                   <i className="font-weight-normal icofont-plus" />
-                  {/* Add new Friend */} Friend
+                  {/* Add new Friend */} Teman
                 </button>
               </div>
             </div>
