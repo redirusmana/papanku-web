@@ -1,10 +1,23 @@
 import React from "react";
+import ListSearch from "./ListSearch";
+import popConfirm from "../../../provider/Display/popConfirm";
 import Avatar from "../../../provider/Display/Avatar";
 
 class ListFriends extends React.PureComponent {
+  onAccept = () => {};
+  onDecline = () => {
+    popConfirm({
+      title: `Are you sure to remove this Request?`,
+      message: "Project Tracker will deleted permanently",
+      okText: " Yes",
+      cancelText: " No"
+    });
+  };
+  onCancelAdd = () => {};
   render() {
     return (
       <React.Fragment>
+        <ListSearch />
         <div className="col-lg-24 ">
           {/* Request Friend from Other */}
           <div className="row mb-3">
@@ -19,12 +32,14 @@ class ListFriends extends React.PureComponent {
                     />
                     <h4 className="card-title text-center pt-2">Skrean Joy</h4>
                     <button
+                      onClick={() => this.onAccept()}
                       type="button"
                       className="btn rounded-pill btn-success mr-1" //primary
                     >
                       Accept
                     </button>
                     <button
+                      onClick={() => this.onDecline()}
                       type="button"
                       className="btn rounded-pill btn-success ml-1" //primary
                     >
@@ -51,6 +66,7 @@ class ListFriends extends React.PureComponent {
                     <h4 className="card-title text-center pt-2">Krepoy Toy</h4>
                     <button
                       type="button"
+                      onClick={() => this.onCancelAdd()}
                       className="btn rounded-pill btn-success mr-1" //warning
                     >
                       Cancel Add Friend

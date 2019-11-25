@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import logo from "../../../assets/images/bootstrap.png";
 import CardList from "../Components/CardList";
 import Avatar from "../../../provider/Display/Avatar";
@@ -22,12 +23,12 @@ class KanbanPage extends React.PureComponent {
           <div className="collapse navbar-collapse">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item py-0 ">
-                <a
-                  href={{}}
+                <Link
+                  to="/user"
                   className="btn btn-sm font-weight-bold btn-outline-light"
                 >
                   <i className="icofont-home" />
-                </a>
+                </Link>
               </li>
               <li className="nav-item py-0 ">
                 <button type="button" className="btn btn-sm btn-outline-light">

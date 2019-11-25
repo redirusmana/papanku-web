@@ -1,6 +1,7 @@
-import React from 'react';
-import logo from '../../../assets/images/bootstrap.png';
-import '../Style/style.css';
+import React from "react";
+import { Link } from "react-router-dom";
+import logo from "../../../assets/images/bootstrap.png";
+import "../Style/style.css";
 
 class PageLogin extends React.PureComponent {
   render() {
@@ -11,7 +12,13 @@ class PageLogin extends React.PureComponent {
             {/* image  */}
             <div className="col-lg-14">
               <div>
-                <img className="m-auto" src={logo} width="500" height="500" alt="" />
+                <img
+                  className="m-auto"
+                  src={logo}
+                  width="500"
+                  height="500"
+                  alt=""
+                />
               </div>
             </div>
             {/* image  */}
@@ -20,7 +27,13 @@ class PageLogin extends React.PureComponent {
             <div className="col-lg-10 m-auto">
               <div className="">
                 <div className="text-center">
-                  <img className="mx-auto text-center" src={logo} width="100" height="100" alt="" />
+                  <img
+                    className="mx-auto text-center"
+                    src={logo}
+                    width="100"
+                    height="100"
+                    alt=""
+                  />
                 </div>
                 <form className="form-horizontal p-4" autoComplete="form-login">
                   {/* {message && (
@@ -34,7 +47,7 @@ class PageLogin extends React.PureComponent {
                     </label>
                     <input
                       type="text"
-                      className={'form-control'}
+                      className={"form-control"}
                       id="login-username"
                       aria-describedby="usernameHelp"
                       placeholder="Username"
@@ -51,7 +64,7 @@ class PageLogin extends React.PureComponent {
                     </label>
                     <input
                       type="password"
-                      className={'form-control'}
+                      className={"form-control"}
                       id="login-password"
                       placeholder="Password"
                       // onChange={handleChange}
@@ -62,17 +75,26 @@ class PageLogin extends React.PureComponent {
                     {/* <TextValidation isTouched={touched.password} errors={errors.password} /> */}
                   </div>
                   <div className="form-group mb-0">
-                    <button
+                    <Link
+                      to="/user"
+                      className="btn btn-success btn-block font-weight-bold"
+                    >
+                      Log In
+                    </Link>
+                    {/* <button
                       type="submit"
                       className="btn btn-success btn-block font-weight-bold"
-                      // disabled={submitting}
+                      disabled={submitting}
                     >
-                      {/* {submitting && <i className="la la-circle-o-notch animate-spin mr-2" />} */}
+                      {submitting && <i className="la la-circle-o-notch animate-spin mr-2" />}
                       Login <i className="icofont-login"></i>
-                    </button>
+                    </button> */}
                   </div>
                   <div className="form-footer d-flex flex-row flex-nowrap justify-content-between align-items-center mt-4">
-                    <label className="custom-control custom-checkbox mb-0" htmlFor="login-remember">
+                    <label
+                      className="custom-control custom-checkbox mb-0"
+                      htmlFor="login-remember"
+                    >
                       <input
                         type="checkbox"
                         className="custom-control-input"

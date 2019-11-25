@@ -40,3 +40,7 @@
 .block-menu .active {
   border-bottom: 3px solid #04A777;
 }
+
+.pointer {
+  cursor: pointer;
+}

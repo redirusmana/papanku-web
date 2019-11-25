@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import example from "../../../assets/images/example.jpg";
 import logo from "../../../assets/images/bootstrap.png";
 // import bgCard from "../../../assets/images/bg-card1.jpg";
@@ -18,20 +19,20 @@ class LandingPage extends React.PureComponent {
           <div className="collapse navbar-collapse">
             <ul className="navbar-nav ml-auto">
               <li className="nav-item ">
-                <a
-                  href={{}}
+                <Link
+                  to="/login"
                   className="btn btn-md font-weight-bold btn-link text-light"
                 >
                   Log In
-                </a>
+                </Link>
               </li>
               <li className="nav-item ">
-                <a
-                  href={{}}
+                <Link
+                  to="/register"
                   className="btn btn-md font-weight-bold btn-light btn-rounded-circle text-success"
                 >
                   Sign Up {/*  <i class="icofont-sign-in icofont-1x"></i> */}
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -136,9 +137,9 @@ class LandingPage extends React.PureComponent {
         {/* Page 3 */}
         <div className="container-fluid">
           <div className="container p-5">
-            <p className="text-center text-success font-weight-bold">
+            <h5 className="text-center text-success font-weight-bold">
               KEUNTUNGAN
-            </p>
+            </h5>
             <h6 className="text-center">
               <b className="font-weight-bold">PAPANKU</b> dibuat untuk membantu
               dan mempermudah orang
