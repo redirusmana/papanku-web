@@ -5,6 +5,7 @@ import PageRegister from "./features/Auth/Screens/PageRegister";
 import PageProfile from "./features/Profile/Screens/PageProfile";
 import LandingPage from "./features/Landing/Screens/LandingPage";
 import KanbanPage from "./features/Kanban/Screens/KanbanPage";
+// import CardPage from "./features/Kanban/Components/CardPage";
 
 class App extends React.PureComponent {
   render() {

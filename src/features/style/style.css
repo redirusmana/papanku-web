@@ -22,6 +22,31 @@ body ::-webkit-scrollbar-thumb {
   background-color: #04A777;
 }
 
+
+.app .ant-popover.sm {
+  width: 150px;
+}
+
+.app .ant-popover.md {
+  width: 200px;
+}
+
+.app .ant-popover.lg {
+  width: 250px;
+}
+
+.app .ant-popover.xl {
+  width: 300px;
+}
+
+.app .ant-popover-title {
+  min-width: auto;
+}
+
+/* .app .ant-popover-inner-content { */
+/* padding: 0px; */
+/* } */
+
 /* https://fonts.google.com/?query=lo&selection.family=Lato|Lobster+Two:400i|Open+Sans:400,700|Roboto:500 */
 /* @import url('https://fonts.googleapis.com/css?family=Lato|Lobster+Two:400i|Open+Sans:400,700|Roboto:500&display=swap'); */
 

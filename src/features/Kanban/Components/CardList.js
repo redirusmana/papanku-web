@@ -6,9 +6,7 @@ import "../../style/style.css";
 class CardList extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      btnDropright: false
-    };
+    this.state = {};
   }
   render() {
     return (
@@ -42,14 +40,14 @@ class CardList extends React.PureComponent {
               {/* Title */}
               {/* Checklist / Attachment / Member */}
               <div className="px-2">
-                <div class="d-flex bd-highlight ">
-                  <div class=" bd-highlight pr-2">
+                <div className="d-flex bd-highlight ">
+                  <div className=" bd-highlight pr-2">
                     <i className="font-weight-normal icofont-checked" /> 2
                   </div>
-                  <div class=" bd-highlight">
+                  <div className=" bd-highlight">
                     <i className="font-weight-normal icofont-ui-file" /> 2
                   </div>
-                  <div class="ml-auto bd-highlight pb-1">
+                  <div className="ml-auto bd-highlight pb-1">
                     <Avatar name="redirsmn" size="sm" />
                     <Avatar name="sss" size="sm" />
                     <Avatar name={3} size="sm" />

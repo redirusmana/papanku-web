@@ -131,3 +131,8 @@
   background-color: #04A777;
   border: 1px solid #04A777;
 }
+
+.slice {
+  margin-left: -5px;
+  margin-bottom: 5px;
+}

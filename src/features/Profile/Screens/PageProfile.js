@@ -9,6 +9,7 @@ import FormEditPhone from "../Modal/FormEditPhone";
 import FormEditProfile from "../Modal/FormEditProfile";
 import Modal from "../../../provider/Display/Modal";
 import ListBoards from "../Components/ListBoards";
+import ListActivity from "../Components/ListActivity";
 import "../Style/style.css";
 
 class PageProfile extends React.PureComponent {
@@ -156,7 +157,7 @@ class PageProfile extends React.PureComponent {
             <div className="col-lg-18">
               <div className="fb-profile-block-menu mb-3">
                 <div className="row block-menu">
-                  <div className="col-lg-8 px-0 navs">
+                  <div className="col-lg-6 px-0 navs">
                     <NavLink
                       className="text-secondary h-100 d-block"
                       activeClassName="text-success active"
@@ -166,16 +167,17 @@ class PageProfile extends React.PureComponent {
                       Papan
                     </NavLink>
                   </div>
-                  <div className="col-lg-8 px-0 navs ">
+                  <div className="col-lg-6 px-0 navs">
                     <NavLink
                       className="text-secondary h-100 d-block"
                       activeClassName="text-success active"
-                      to="/user/request-friend"
+                      to="/user/activity"
+                      exact
                     >
-                      Permintaan Pertemanan
+                      Activity
                     </NavLink>
                   </div>
-                  <div className="col-lg-8 px-0 navs ">
+                  <div className="col-lg-6 px-0 navs ">
                     <NavLink
                       className="text-secondary h-100 d-block"
                       activeClassName="text-success active"
@@ -184,11 +186,21 @@ class PageProfile extends React.PureComponent {
                       Teman
                     </NavLink>
                   </div>
+                  <div className="col-lg-6 px-0 navs ">
+                    <NavLink
+                      className="text-secondary h-100 d-block"
+                      activeClassName="text-success active"
+                      to="/user/request-friend"
+                    >
+                      Permintaan Pertemanan
+                    </NavLink>
+                  </div>
                 </div>
               </div>
               <div className="row">
                 <Switch>
                   <Route path="/user" exact component={ListBoards} />
+                  <Route path="/user/activity" exact component={ListActivity} />
                   <Route path="/user/friend" component={ListFriends} />
                   <Route
                     path="/user/request-friend"

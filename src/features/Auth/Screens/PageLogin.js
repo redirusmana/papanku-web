@@ -103,8 +103,15 @@ class PageLogin extends React.PureComponent {
                         // onChange={handleChange}
                         // onBlur={handleBlur}
                       />
+
                       <span className="custom-control-label">Remember me</span>
                     </label>
+                    <Link
+                      to="/register"
+                      className="btn btn-link text-success font-weight-bold"
+                    >
+                      Create New Account / Register
+                    </Link>
                   </div>
                 </form>
               </div>

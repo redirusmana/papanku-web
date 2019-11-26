@@ -13,9 +13,9 @@ class LandingPage extends React.PureComponent {
         {/* Navbar */}
         <nav className="navbar  navbar-expand-lg navbar-light bg-success">
           {/*bg-transparent fixed-top */}
-          <a className="navbar-brand" href={{}}>
+          <Link to="/" className="navbar-brand">
             <img src={logo} width="40" height="40" alt="" />
-          </a>
+          </Link>
           <div className="collapse navbar-collapse">
             <ul className="navbar-nav ml-auto">
               <li className="nav-item ">
@@ -243,12 +243,12 @@ class LandingPage extends React.PureComponent {
                         <p className="text-center font-weight-normal text-secondary">
                           Invite Your Friends
                         </p>
-                        <a
-                          href={{}}
+                        <Link
+                          to="/login"
                           className="btn btn-success rounded-pill font-weight-bold"
                         >
                           JOIN
-                        </a>
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -285,12 +285,12 @@ class LandingPage extends React.PureComponent {
                         <p className="text-center font-weight-normal text-secondary">
                           List Task
                         </p>
-                        <a
-                          href={{}}
+                        <Link
+                          to="/login"
                           className="btn btn-success rounded-pill font-weight-bold"
                         >
                           JOIN
-                        </a>
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -373,12 +373,12 @@ class LandingPage extends React.PureComponent {
                         <p className="text-center font-weight-normal text-secondary">
                           Distribution Task
                         </p>
-                        <a
-                          href={{}}
+                        <Link
+                          to="/login"
                           className="btn btn-success rounded-pill font-weight-bold"
                         >
                           JOIN
-                        </a>
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -415,12 +415,12 @@ class LandingPage extends React.PureComponent {
                         <p className="text-center font-weight-normal text-secondary">
                           Finish Your Yask
                         </p>
-                        <a
-                          href={{}}
+                        <Link
+                          to="/login"
                           className="btn btn-success rounded-pill font-weight-bold"
                         >
                           JOIN
-                        </a>
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -459,12 +459,12 @@ class LandingPage extends React.PureComponent {
                   Bergabunglah dengan orang orang yang menggunakan PAPANKU dalam
                   menyelesaikan semua pekerjaan - pekerjaanmu
                 </h1>
-                <a
-                  href={{}}
+                <Link
+                  to="/register"
                   className="btn btn-outline-light btn-lg rounded-pill m-5"
                 >
                   Let's Get Started
-                </a>
+                </Link>
               </div>
             </div>
           </div>

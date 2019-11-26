@@ -148,6 +148,14 @@ class PageLogin extends React.PureComponent {
                       Register <i className="icofont-sign-in"></i>
                     </button> */}
                   </div>
+                  <div className="form-footer d-flex flex-row flex-nowrap justify-content-center align-items-center mt-2">
+                    <Link
+                      to="/login"
+                      className="btn btn-link text-success font-weight-bold"
+                    >
+                      Do you have Account? / Login
+                    </Link>
+                  </div>
                 </form>
               </div>
             </div>
