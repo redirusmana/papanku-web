@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { getInitial, stringToColor } from "../Tools/converter";
+import cn from "classnames";
+import { getInitial } from "../Tools/converter";
 
 const generateAvatarStyle = (name, image, style) => {
   const result = {
@@ -9,8 +10,6 @@ const generateAvatarStyle = (name, image, style) => {
 
   if (image) {
     result.backgroundImage = `url(${image})`;
-  } else if (name) {
-    result.backgroundColor = stringToColor(name);
   }
 
   return result;
@@ -26,9 +25,11 @@ const Avatar = ({
   ...rest
 }) => (
   <Tag
-    className={
-      size ? `avatar ${avatarClass} avatar-${size}` : `avatar ${avatarClass} `
-    }
+    className={cn({
+      avatar: true,
+      [`avatar-${size}`]: !!size,
+      [avatarClass]: !!avatarClass
+    })}
     style={generateAvatarStyle(name, image, style)}
     {...rest}
   >

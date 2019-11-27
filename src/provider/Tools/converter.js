@@ -28,3 +28,5 @@ export const stringToColor = s => {
   }
   return colour;
 };
+
+// Option

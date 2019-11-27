@@ -76,7 +76,7 @@ class KanbanPage extends React.PureComponent {
                   title="Notification"
                   trigger="click"
                   content={<AllNotification />}
-                  overlayClassName="xl"
+                  overlayClassName="xl popover-noarrow"
                 >
                   <button
                     type="button"
@@ -93,15 +93,22 @@ class KanbanPage extends React.PureComponent {
                   content={<ProfileMenu />}
                   overlayClassName="xl px-0"
                 >
-                  <Avatar
-                    name="redi rsmn"
-                    style={{
-                      width: "2.0rem",
-                      height: "2.0rem",
-                      lineHeight: "2.0rem",
-                      fontSize: "1rem"
-                    }}
-                  />
+                  {/* <button
+                    type="button"
+                    className="btn btn-sm btn-light rounded-pill"
+                  > */}
+                  <div>
+                    <Avatar
+                      name="redi rsmn"
+                      style={{
+                        width: "2.0rem",
+                        height: "2.0rem",
+                        lineHeight: "2.0rem",
+                        fontSize: "1rem"
+                      }}
+                    />
+                  </div>
+                  {/* </button> */}
                 </Popover>
               </li>
             </ul>
@@ -205,7 +212,7 @@ class KanbanPage extends React.PureComponent {
           visible={isVisible}
           width={400}
           mask={false}
-          maskClosable={false}
+          // maskClosable={false}
           closable
         >
           <AllActivity />

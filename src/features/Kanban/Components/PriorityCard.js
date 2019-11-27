@@ -5,11 +5,11 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
-import { OptStatus } from "../../../provider/Tools/config";
+import { OptPriority } from "../../../provider/Tools/config";
 
-const TaskStatusChanger = ({
-  currentStatus,
-  onStatusClicked,
+const TaskPriorityChanger = ({
+  currentPriority,
+  onPriorityClicked,
   children,
   options
 }) => (
@@ -22,23 +22,23 @@ const TaskStatusChanger = ({
     </DropdownToggle>
     <DropdownMenu>
       <DropdownItem header className="px-3 py-1">
-        Available Status
+        Available Priority
       </DropdownItem>
       <DropdownItem divider />
       {options.map((option, index) => (
         <DropdownItem
           tag="span"
           key={index}
-          data-status={option.value}
+          data-priority={option.value}
           className="px-3"
-          onClick={onStatusClicked}
+          onClick={onPriorityClicked}
         >
           <span
             className={`badge badge-success w-100 d-inline-flex align-items-center justify-content-between`}
           >
             <span>{option.value}</span>
             <span className="d-block w-5 text-right">
-              {currentStatus === option.value && (
+              {currentPriority === option.value && (
                 <i className="icofont-check font-weight-bold" />
               )}
             </span>
@@ -49,48 +49,48 @@ const TaskStatusChanger = ({
   </UncontrolledDropdown>
 );
 
-class StatusCard extends React.PureComponent {
+class PriorityCard extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {};
   }
 
-  changeStatus = e => {
+  changePriority = e => {
     const { dataset } = e.currentTarget;
     this.setState({
-      status: dataset.status
+      priority: dataset.priority
     });
   };
 
   render() {
-    const { status } = this.state;
+    const { priority } = this.state;
 
-    const mappedStatus = status ? (
+    const mappedPriority = priority ? (
       <React.Fragment>
         {/* <i className="la la-tag icon-left" /> */}
-        <span className="badge badge-success">{status}</span>
+        <span className="badge badge-success">{priority}</span>
         <i className="icofont-rounded-down ml-2" />
       </React.Fragment>
     ) : (
       <React.Fragment>
-        <span className="badge badge-success">Available Status</span>
+        <span className="badge badge-success">Available Priority</span>
         <i className="icofont-rounded-down ml-2" />
       </React.Fragment>
     );
 
     return (
       <div className="task-detail-tag">
-        <p className="mb-0">Status</p>
-        <TaskStatusChanger
-          currentStatus={status}
-          onStatusClicked={this.changeStatus}
-          options={OptStatus}
+        <p className="mb-0">Priority</p>
+        <TaskPriorityChanger
+          currentPriority={priority}
+          onPriorityClicked={this.changePriority}
+          options={OptPriority}
         >
-          {mappedStatus}
-        </TaskStatusChanger>
+          {mappedPriority}
+        </TaskPriorityChanger>
       </div>
     );
   }
 }
 
-export default StatusCard;
+export default PriorityCard;

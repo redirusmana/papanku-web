@@ -2,13 +2,29 @@ import React from "react";
 import Avatar from "../../../provider/Display/Avatar";
 import "../Style/style.css";
 import "../../style/style.css";
+import Modal from "../../../provider/Display/Modal";
+import CardPage from "./CardPage";
 
 class CardList extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      isVisible: false
+    };
   }
+  handleModal = () => {
+    this.setState({
+      isVisible: true
+    });
+  };
+
+  handleClose = () => {
+    this.setState({
+      isVisible: false
+    });
+  };
   render() {
+    const { isVisible } = this.state;
     return (
       <div className="box-cards py-2 ">
         <div style={{ width: 300 }}>
@@ -64,6 +80,7 @@ class CardList extends React.PureComponent {
           <div className="box-cards-child-footer">
             <div className="px-3 py-2">
               <button
+                onClick={() => this.handleModal()}
                 type="button"
                 className="font-weight-bold btn btn-sm btn-success btn-block "
               >
@@ -76,6 +93,10 @@ class CardList extends React.PureComponent {
           {/* Card  */}
           {/* </React.Fragment> */}
         </div>
+
+        <Modal visible={isVisible} size="large" handleBack={this.handleClose}>
+          <CardPage />
+        </Modal>
       </div>
     );
   }

@@ -1,28 +1,72 @@
 import React from "react";
+import Popover from "antd/lib/popover";
+import "antd/lib/popover/style/index.css";
+// import get from "lodash/get";
+// import uniqBy from "lodash/uniqBy";
 import Avatar from "../../../provider/Display/Avatar";
-import "../Style/style.css";
 
-class CardPage extends React.PureComponent {
+class MembersCard extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      searchMember: ""
+    };
+  }
+
+  onSearchChange(e) {
+    const { value } = e.target;
+    this.setState({
+      searchMember: value
+    });
+  }
+
+  renderMembers() {
+    return (
+      <div className="avatar-list">
+        <Avatar name="eaku" size="md" />
+        <Avatar name="aku" size="md" />
+      </div>
+    );
+  }
+
   render() {
+    const { searchMember } = this.state;
+    const popoverContent = (
+      <div>
+        <div style={{ minWidth: 250 }}>
+          <div className="mb-2 text-center font-weight-bold">List Members</div>
+          <div className="mb-2">
+            <input
+              type="search"
+              value={searchMember}
+              onChange={this.onSearchChange}
+              placeholder="Search member"
+              className="form-control"
+            />
+          </div>
+        </div>
+      </div>
+    );
+
     return (
       <React.Fragment>
-        <div className="row  p-2">
-          {/* List / Add Member */}
-          <div className="col-lg-20">
-            <Avatar name="wr" size="md" />
-            <Avatar name="wr" size="md" />
-            <Avatar name="wr" size="md" />
-          </div>
-          <div className="col-lg-4 text-right">
-            <a href={{}} className="btn btn-link ">
-              <i className="icofont-plus"></i> Add Member
-            </a>
-          </div>
-          {/* List / Add Member */}
+        {this.renderMembers()}
+        <div>
+          <Popover
+            trigger="click"
+            content={popoverContent}
+            placement="top"
+            overlayClassName="popover-noarrow"
+          >
+            <button type="button" className="btn btn-link text-success">
+              <i className="icofont-plus icon-left" /> Add Member
+            </button>
+          </Popover>
         </div>
       </React.Fragment>
     );
   }
 }
 
-export default CardPage;
+export default MembersCard;
