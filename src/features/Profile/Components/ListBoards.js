@@ -108,7 +108,7 @@ class ListBoard extends React.PureComponent {
                   <button
                     onClick={() => this.onDecline()}
                     type="button"
-                    className="btn btn-sm rounded-pill btn-success ml-1" //primary
+                    className="btn btn-sm rounded-pill btn-danger ml-1" //primary
                   >
                     Decline
                   </button>

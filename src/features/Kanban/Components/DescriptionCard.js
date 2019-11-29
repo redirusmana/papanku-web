@@ -16,9 +16,9 @@ class DescriptionCard extends React.PureComponent {
     };
   }
 
-  componentWillUnmount = () => {
+  componentWillUnmount() {
     document.removeEventListener("click", this.handleClickOutside, false);
-  };
+  }
 
   onTaskDescriptionChange = e => {
     const { value } = e.target;

@@ -15,7 +15,7 @@ class ProfileMember extends React.PureComponent {
             name="Redi Rusmana"
             // image={user.avatar_path ? assetsApiUrl(user.avatar_path) : undefined}
             title="Redi Rusmana"
-            style={{ margin: ".3rem" }}
+            style={{ margin: ".7rem" }}
           />
           <div
             className="media-body pl-1 align-self-center"
@@ -42,11 +42,16 @@ class ProfileMember extends React.PureComponent {
           </div>
         </div>
         <div className="d-flex flex-column my-2">
-          <div className="p-2 btn-light pointer">
+          <div className="p-2  pointer hovered-button-popover">
             Permission <b>(Admin)</b>
           </div>
-          <div className="p-2 btn-light pointer">Views Activity</div>
-          <div className="p-2 btn-light pointer">Remove From Board..</div>
+          <div className="p-2  pointer hovered-button-popover">
+            Views Activity
+          </div>
+          <div className="p-2 pointer hovered-button-popover">
+            {/*  mb-1 */}
+            Remove From Board..
+          </div>
         </div>
       </React.Fragment>
     );

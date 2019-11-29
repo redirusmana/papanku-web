@@ -1,22 +1,49 @@
 import React from "react";
-import "../Style/style.css";
+import Upload from "antd/lib/upload";
+import "antd/lib/upload/style/index.css";
 
-class CardPage extends React.PureComponent {
+const { Dragger } = Upload;
+
+class FileCard extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {};
+  }
+  renderAttachments() {
+    return <em>No attachment found</em>;
+  }
+
   render() {
+    const { temporaryAttachments } = this.state;
     return (
-      <React.Fragment>
-        <div className="row  p-2">
-          {/* Attach File */}
-          <div className="col-lg-1">
-            <i className=" icofont-ui-file icofont-1x m-3"></i>
+      <section className="task-detail-group">
+        <i className="icofont-papers" />
+        <div className="task-detail-subheader">
+          <div className="task-detail-subtitle">
+            <span>Attachments</span>
           </div>
-          <div className="col-lg-20">
-            <h3 className="font-weight-bold">Attachment</h3>
+          <div style={{ height: 150, marginBottom: "1rem" }}>
+            <Dragger
+              className="upload-drag"
+              beforeUpload={() => false}
+              showUploadList={false}
+              fileList={temporaryAttachments}
+              onChange={this.handleFileChange}
+              multiple
+            >
+              <div className="d-block">
+                <div className="mb-0" style={{ fontSize: 48 }}>
+                  <i className="icofont-cloud-upload" />
+                </div>
+                Upload an attachment
+              </div>
+            </Dragger>
           </div>
         </div>
-      </React.Fragment>
+      </section>
     );
   }
 }
 
-export default CardPage;
+export default FileCard;

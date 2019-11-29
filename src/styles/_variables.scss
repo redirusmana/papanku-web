@@ -11,8 +11,18 @@ $enable-grid-classes: true;
 $enable-print-styles: true;
 
 //Fonts
-$font-family-base: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-$font-family-monospace: Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+$font-family-base: 'Poppins',
+-apple-system,
+BlinkMacSystemFont,
+"Segoe UI",
+"Helvetica Neue",
+Arial,
+sans-serif;
+$font-family-monospace: Monaco,
+Consolas,
+"Liberation Mono",
+"Courier New",
+monospace;
 $font-family-serif: 'PT Serif';
 
 $font-size-base: 14px; //.9375rem;
@@ -97,8 +107,7 @@ $danger: $red;
 $light: $gray-100;
 $dark: $gray-800;
 
-$colors: (
-	"blue": $blue,
+$colors: ("blue": $blue,
 	"azure": $azure,
 	"indigo": $indigo,
 	"purple": $purple,
@@ -112,22 +121,18 @@ $colors: (
 	"cyan": $cyan,
 	"white": $white,
 	"gray": $gray-600,
-	"gray-dark": $gray-800
-);
+	"gray-dark": $gray-800);
 
-$theme-colors: (
-	"primary": $primary,
+$theme-colors: ("primary": $primary,
 	"secondary": $secondary,
 	"success": $success,
 	"info": $info,
 	"warning": $warning,
 	"danger": $danger,
 	"light": $light,
-	"dark": $dark
-);
+	"dark": $dark);
 
-$social-colors: (
-	"facebook": #3b5998,
+$social-colors: ("facebook": #3b5998,
 	"twitter": #1da1f2,
 	"google": #dc4e41,
 	"youtube": #f00,
@@ -142,6 +147,9 @@ $social-colors: (
 	"bitbucket": #0052cc,
 );
 
+
+$custom-control-indicator-checked-bg: $success;
+
 $body-bg: $white; // #f5f7fb;
 $body-color: #575962; //$gray-700;
 
@@ -155,10 +163,16 @@ $kbd-bg: $gray-800;
 $pre-color: $gray-900;
 
 $headings-margin-bottom: .66em;
-$headings-font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+$headings-font-family: 'Roboto',
+-apple-system,
+BlinkMacSystemFont,
+"Segoe UI",
+"Helvetica Neue",
+Arial,
+sans-serif;
 $headings-font-weight: 600;
 $headings-line-height: 1.1;
-$headings-color: #57606f;// $color-master;
+$headings-color: #57606f; // $color-master;
 
 $display1-size: 4.5rem;
 $display2-size: 4rem;
@@ -225,22 +239,18 @@ $input-placeholder-color: $gray-500;
 $grid-columns: 24;
 $grid-gutter-width: 1rem; //1.25rem;//1.5rem;
 
-$grid-breakpoints: (
-	xs: 0,
+$grid-breakpoints: (xs: 0,
 	sm: 576px,
 	md: 768px,
 	lg: 992px,
 	xl: 1280px,
-	xxl: 1400px
-);
+	xxl: 1400px);
 
-$container-max-widths: (
-	sm: 540px,
+$container-max-widths: (sm: 540px,
 	md: 720px,
 	lg: 960px,
 	xl: 1200px,
-	xxl: 1366px
-);
+	xxl: 1366px);
 
 // Header
 $header-bg: #0667d0;
@@ -257,7 +267,7 @@ $card-cap-bg: none;
 $card-header-spacer-y: 0.5rem;
 $card-footer-spacer-y: 1rem;
 
- 
+
 // $card-spacer-y:                     .75rem !default;
 // $card-spacer-x:                     1.25rem !default;
 // $card-border-width:                 $border-width !default;
@@ -281,8 +291,7 @@ $alert-link-font-weight: 600;
 
 // Spacing
 $spacer: 1rem;
-$spacers: (
-	0: 0,
+$spacers: (0: 0,
 	1: $spacer * .25,
 	2: $spacer * .5,
 	3: $spacer * .75,
@@ -291,11 +300,9 @@ $spacers: (
 	6: $spacer * 2,
 	7: $spacer * 3,
 	8: $spacer * 4,
-	9: $spacer * 6
-);
+	9: $spacer * 6);
 
-$sizes: (
-	0: 0,
+$sizes: (0: 0,
 	1: $spacer * .25,
 	2: $spacer * .5,
 	3: $spacer * .75,
@@ -309,8 +316,7 @@ $sizes: (
 	50: 50%,
 	75: 75%,
 	100: 100%,
-	auto: auto
-);
+	auto: auto);
 
 // Footer
 $footer-bg: #fff;
@@ -393,17 +399,14 @@ $pagination-disabled-color: $gray-400;
 $nav-tabs-link-active-bg: transparent;
 
 // Font icon
-$icon-size: (
-	'lineawesome': 1.1rem,
+$icon-size: ('lineawesome': 1.1rem,
 	'fontawesome': 1.2rem,
-	'metronic': 1.1rem
-);
+	'metronic': 1.1rem);
 
-$icon-content: (
-	close: '\f191',
+$icon-content: (close: '\f191',
 	down: '\f110',
 	up: '\f113',
-	left: '\f111',  
+	left: '\f111',
 	right: '\f112',
 	plus: '\f2c2',
 	minus: '\f28e'
@@ -421,13 +424,11 @@ $org-card-line-offset: 10px;
 
 $breadcrumb-divider: quote($string: ">");
 
-$file-icons: (
-	xs: 1rem,
+$file-icons: (xs: 1rem,
 	sm: 1.5rem,
 	md: 2rem,
 	lg: 2.5rem,
-	xl: 3rem
-);
+	xl: 3rem);
 
 $link-hover-decoration: none;
 

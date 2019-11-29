@@ -60,9 +60,9 @@ class ListFriends extends React.PureComponent {
                 <button
                   type="button"
                   onClick={() => this.onDeleteFriend()}
-                  className="btn rounded-pill btn-success ml-1"
+                  className="btn rounded-pill btn-danger ml-1"
                 >
-                  <i className="font-weight-normal icofont-bin" />
+                  <i className="font-weight-normal icofont-bin " />
                   {/* Remove / danger*/}
                 </button>
               </div>

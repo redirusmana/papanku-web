@@ -39,13 +39,28 @@ body ::-webkit-scrollbar-thumb {
   width: 300px;
 }
 
+.app .ant-popover.xll {
+  width: 330px;
+}
+
 .app .ant-popover-title {
   min-width: auto;
 }
 
-/* .app .ant-popover-inner-content { */
-/* padding: 0px; */
-/* } */
+.app .ant-popover.popover-no-padding .ant-popover-inner-content {
+  padding: 0px;
+}
+
+.app .ant-popover.popover-no-padding-right .ant-popover-inner-content {
+  padding-right: 0px;
+}
+
+.line-h-r {
+  width: 100%;
+  height: 1px;
+  color: #e8ecf5;
+  background: #e8ecf5;
+}
 
 /* https://fonts.google.com/?query=lo&selection.family=Lato|Lobster+Two:400i|Open+Sans:400,700|Roboto:500 */
 /* @import url('https://fonts.googleapis.com/css?family=Lato|Lobster+Two:400i|Open+Sans:400,700|Roboto:500&display=swap'); */

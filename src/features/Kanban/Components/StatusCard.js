@@ -6,6 +6,7 @@ import {
   DropdownItem
 } from "reactstrap";
 import { OptStatus } from "../../../provider/Tools/config";
+import { OptStatusClass } from "../../../provider/Tools/config";
 
 const TaskStatusChanger = ({
   currentStatus,
@@ -34,7 +35,9 @@ const TaskStatusChanger = ({
           onClick={onStatusClicked}
         >
           <span
-            className={`badge badge-success w-100 d-inline-flex align-items-center justify-content-between`}
+            className={`${
+              OptStatusClass[option.value]
+            } w-100 d-inline-flex align-items-center justify-content-between`}
           >
             <span>{option.value}</span>
             <span className="d-block w-5 text-right">
@@ -68,12 +71,13 @@ class StatusCard extends React.PureComponent {
     const mappedStatus = status ? (
       <React.Fragment>
         {/* <i className="la la-tag icon-left" /> */}
-        <span className="badge badge-success">{status}</span>
+        <span className={`${OptStatusClass[status]}`}>{status}</span>
         <i className="icofont-rounded-down ml-2" />
       </React.Fragment>
     ) : (
       <React.Fragment>
-        <span className="badge badge-success">Available Status</span>
+        {/* dark */}
+        <span className="badge badge-light">Available Status</span>
         <i className="icofont-rounded-down ml-2" />
       </React.Fragment>
     );

@@ -41,7 +41,7 @@ class ListFriends extends React.PureComponent {
                     <button
                       onClick={() => this.onDecline()}
                       type="button"
-                      className="btn rounded-pill btn-success ml-1" //primary
+                      className="btn rounded-pill btn-danger ml-1" //primary
                     >
                       Decline
                     </button>
@@ -67,7 +67,7 @@ class ListFriends extends React.PureComponent {
                     <button
                       type="button"
                       onClick={() => this.onCancelAdd()}
-                      className="btn rounded-pill btn-success mr-1" //warning
+                      className="btn rounded-pill btn-danger mr-1" //warning
                     >
                       Cancel Add Friend
                     </button>

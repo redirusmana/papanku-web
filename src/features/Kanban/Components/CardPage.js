@@ -1,15 +1,14 @@
 import React from "react";
-// import logo from "../../../assets/images/bootstrap.png";
-// import ChecklistCard from "./ChecklistCard";
+import ChecklistCard from "./ChecklistCard";
 import DescriptionCard from "./DescriptionCard";
-// import FileCard from "./FileCard";
-// import HistoryCard from './HistoryCard';
+import FileCard from "./FileCard";
+import CommentCard from "./CommentCard";
+import ActivityCard from "./ActivityCard";
 import MemberCard from "./MemberCard";
 import StatusCard from "./StatusCard";
 import PriorityCard from "./PriorityCard";
 import DeadlineCard from "./DeadlineCard";
 import TitleCard from "./TitleCard";
-// import Modal from "./../../../provider/Display/Modal";
 import "../Style/style.css";
 
 class CardPage extends React.PureComponent {
@@ -65,7 +64,7 @@ class CardPage extends React.PureComponent {
                   </div>
                 </div>
                 <div style={{ flex: 0 }}>
-                  <button type="button" className="btn btn-success btn-sm">
+                  <button type="button" className="btn btn-danger btn-sm">
                     <i className="icofont-bin " /> Remove
                   </button>
                 </div>
@@ -73,17 +72,17 @@ class CardPage extends React.PureComponent {
             </div>
             <div className="task-detail-body">
               <DescriptionCard />
-              {/* <ChecklistCard /> */}
-              {/* <FileCard /> */}
+              <ChecklistCard />
+              <FileCard />
             </div>
             <div className="task-detail-footer">
               <MemberCard />
             </div>
           </div>
-          {/* <div className="task-detail-aside">
-            <TaskDetailActivity detail={task} steps={steps} detailId={task.id} renderChange={ActivityTaskChange} />
-            <TaskDetailComment detail={task} addComment={this.addComment} />
-          </div> */}
+          <div className="task-detail-aside">
+            <ActivityCard />
+            <CommentCard />
+          </div>
         </div>
         {/* </Modal> */}
       </React.Fragment>

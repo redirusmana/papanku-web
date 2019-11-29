@@ -136,3 +136,14 @@
   margin-left: -5px;
   margin-bottom: 5px;
 }
+
+.hovered-button-popover:hover {
+  color: #575962;
+  background-color: #f8f9fa;
+  border-color: #f8f9fa
+}
+
+#appMain {
+  -ms-flex: 1 1 100%;
+  flex: 1 1 100%;
+}

@@ -1,8 +1,9 @@
 .app {
-  
+
   // Timepicker
   .ant-time-picker {
     width: auto;
+
     input {
       height: #{$input-height - 0.1rem};
       border: 0;
@@ -10,7 +11,7 @@
       border-radius: $input-border-radius;
       color: $input-color;
       font-weight: 300;
-      
+
       &::placeholder {
         color: $input-placeholder-color;
       }
@@ -38,15 +39,16 @@
       border-radius: $input-border-radius;
       color: $input-color;
       font-weight: 300;
-      
+
       &::placeholder {
-        color: $input-placeholder-color;
+        color: $black;
+        // color: $input-placeholder-color;
       }
     }
 
     &-small {
       border-radius: $input-border-radius-sm;
-      
+
       input {
         height: $input-height-inner-sm;
         border: 0;
@@ -70,7 +72,7 @@
 
       a:not([href]):not([tabindex]) {
         color: $white;
-        
+
         @include hover-focus {
           color: $white;
         }
@@ -81,7 +83,7 @@
   .ant-calendar-ok-btn {
     &:not([href]):not([tabindex]) {
       color: $white;
-      
+
       @include hover-focus {
         color: $white;
       }

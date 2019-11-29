@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "../Style/style.css";
 import InputSearch from "../../../provider/Commons/InputSearch";
 
@@ -7,7 +8,7 @@ class BoardMenu extends React.PureComponent {
     return (
       <React.Fragment>
         {/* List Board */}
-        <div className="mb-2 mx-0">
+        <div className="mb-2 m-3">
           <InputSearch
             initialSearch={""}
             placeholder="Search Board"
@@ -16,45 +17,25 @@ class BoardMenu extends React.PureComponent {
           />
         </div>
         <div className="d-flex flex-column my-2 px-0">
-          <div className="p-2 btn-light pointer m-1 rounded">
+          {/* <Link
+            to="/board"
+            className="p-2 text-dark pointer hovered-button-popover pointer m-1 "
+          >
             <b>Nama Board</b>
-          </div>
-          <div className="p-2 btn-light pointer m-1 rounded">
+          </Link>
+          <Link
+            to="/board"
+            className="p-2 text-dark pointer hovered-button-popover pointer m-1 "
+          >
             <b>Nama Board</b>
-          </div>
-          <div className="p-2 btn-light pointer m-1 rounded">
+          </Link> */}
+          <Link to="/board" className="p-2 btn-light pointer m-1 rounded">
             <b>Nama Board</b>
-          </div>
-          {/* <div className="p-2 btn-light pointer m-1 rounded">
+          </Link>
+
+          <Link to="/board" className="p-2 btn-light pointer m-1 rounded">
             <b>Nama Board</b>
-          </div>
-          <div className="p-2 btn-light pointer m-1 rounded">
-            <b>Nama Board</b>
-          </div>
-          <div className="p-2 btn-light pointer m-1 rounded">
-            <b>Nama Board</b>
-          </div>
-          <div className="p-2 btn-light pointer m-1 rounded">
-            <b>Nama Board</b>
-          </div>
-          <div className="p-2 btn-light pointer m-1 rounded">
-            <b>Nama Board</b>
-          </div>
-          <div className="p-2 btn-light pointer m-1 rounded">
-            <b>Nama Board</b>
-          </div>
-          <div className="p-2 btn-light pointer m-1 rounded">
-            <b>Nama Board</b>
-          </div>
-          <div className="p-2 btn-light pointer m-1 rounded">
-            <b>Nama Board</b>
-          </div>
-          <div className="p-2 btn-light pointer m-1 rounded">
-            <b>Nama Board</b>
-          </div>
-          <div className="p-2 btn-light pointer m-1 rounded">
-            <b>Nama Board</b>
-          </div> */}
+          </Link>
         </div>
         <div className="text-left">
           <button

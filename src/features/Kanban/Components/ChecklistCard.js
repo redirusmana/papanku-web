@@ -1,52 +1,25 @@
 import React from "react";
 import "../Style/style.css";
+import ChecklistGroupCard from "./ChecklistGroupCard";
 
-class CardPage extends React.PureComponent {
+class ChecklistCard extends React.PureComponent {
   render() {
     return (
       <React.Fragment>
-        <div className="row p-2">
-          {/* List Checklist List Tasl */}
-          <div className="col-lg-1">
-            <i className="font-weight-light icofont-checked m-3"></i>
-          </div>
-          <div className="col-lg-19">
-            <h3 className="font-weight-bold">Checklist</h3>
-            <div>
-              <div>Nama Task</div>
-              <div className="progress">
-                <div
-                  className="progress-bar"
-                  role="progressbar"
-                  style={{ width: "60%" }}
-                  aria-valuenow="60"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                >
-                  60%
-                </div>
+        <section className="task-detail-group">
+          <i className="icofont-checked" />
+          <div>
+            <div className="task-detail-subtitle">
+              <span>Checklist</span>
+              <div className="task-detail-options">
+                <ChecklistGroupCard />
               </div>
-              {/* listTask Checklist */}
-              <div>
-                <div className="custom-control custom-checkbox ">
-                  <input type="checkbox" className="custom-control-input" />
-                  <label className="custom-control-label">
-                    Check this custom checkbox
-                  </label>
-                </div>
-              </div>
-              {/* listTask Checklist */}
             </div>
           </div>
-          <div className="col-lg-4 text-right">
-            <a href={{}} className="btn btn-link">
-              <i className=" icofont-plus" /> Add Checklist
-            </a>
-          </div>
-        </div>
+        </section>
       </React.Fragment>
     );
   }
 }
 
-export default CardPage;
+export default ChecklistCard;

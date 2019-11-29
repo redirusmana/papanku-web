@@ -6,6 +6,7 @@ import {
   DropdownItem
 } from "reactstrap";
 import { OptPriority } from "../../../provider/Tools/config";
+import { OptPriorityClass } from "../../../provider/Tools/config";
 
 const TaskPriorityChanger = ({
   currentPriority,
@@ -34,7 +35,9 @@ const TaskPriorityChanger = ({
           onClick={onPriorityClicked}
         >
           <span
-            className={`badge badge-success w-100 d-inline-flex align-items-center justify-content-between`}
+            className={`${
+              OptPriorityClass[option.value]
+            }  w-100 d-inline-flex align-items-center justify-content-between`}
           >
             <span>{option.value}</span>
             <span className="d-block w-5 text-right">
@@ -68,12 +71,12 @@ class PriorityCard extends React.PureComponent {
     const mappedPriority = priority ? (
       <React.Fragment>
         {/* <i className="la la-tag icon-left" /> */}
-        <span className="badge badge-success">{priority}</span>
+        <span className={`${OptPriorityClass[priority]}`}>{priority}</span>
         <i className="icofont-rounded-down ml-2" />
       </React.Fragment>
     ) : (
       <React.Fragment>
-        <span className="badge badge-success">Available Priority</span>
+        <span className="badge badge-light">Available Priority</span>
         <i className="icofont-rounded-down ml-2" />
       </React.Fragment>
     );
