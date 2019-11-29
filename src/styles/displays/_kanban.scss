@@ -25,7 +25,7 @@
 
     @extend .custom-scrollbar;
   }
-  
+
   &-column {
     width: $kanban-column-width;
     height: 100%;
@@ -45,7 +45,7 @@
       padding: $kanban-column-padding-y $kanban-column-padding-x;
       background-color: $kanban-column-bg;
     }
-  
+
     &-body {
       padding: 0 $kanban-board-padding-x;
       max-height: 100%;
@@ -58,6 +58,7 @@
     &-header {
       border-top-left-radius: 4px;
       border-top-right-radius: 4px;
+      border-top: 4px solid $success;
 
       h5 {
         user-select: none;
@@ -81,6 +82,7 @@
     cursor: pointer;
     margin: $kanban-cell-margin;
     padding: $kanban-cell-padding;
+    border-left: 4px solid $success;
 
     &:hover {
       background: #EEF8FF;
@@ -88,4 +90,3 @@
   }
 
 }
-

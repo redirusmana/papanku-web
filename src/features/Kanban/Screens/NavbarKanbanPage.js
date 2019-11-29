@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../../../assets/images/bootstrap.png";
-import CardList from "../Components/CardList";
+// import TaskList from "../Components/TaskList";
 import ProfileMember from "../Assists/ProfileMember";
 import FormInviteFriend from "../Assists/FormInviteFriend";
 import ListMemberFriend from "../Assists/ListMemberFriend";
@@ -17,7 +17,7 @@ import "antd/lib/popover/style/index.css";
 import "../Style/style.css";
 import "../../style/style.css";
 
-class KanbanPage extends React.PureComponent {
+class KanbanPageIndex extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = { isVisible: false };
@@ -37,7 +37,6 @@ class KanbanPage extends React.PureComponent {
     const { isVisible } = this.state;
     return (
       <React.Fragment>
-        {/* Navbar 1 */}
         <nav className="navbar navbar-expand-sm navbar-light bg-green">
           <div className="collapse navbar-collapse">
             <ul className="navbar-nav mr-auto">
@@ -177,26 +176,6 @@ class KanbanPage extends React.PureComponent {
             </ul>
           </div>
         </nav>
-        {/* Navbar 2 */}
-
-        <div className="container-fluid py-2">
-          <div className="box-kanban pb-2">
-            <CardList />
-            {/* <CardList />
-            <CardList />
-            <CardList />
-            <CardList />
-            <CardList />
-            <CardList />
-            <CardList />
-            <CardList />
-            <CardList />
-            <CardList />
-            <CardList />
-            <CardList /> */}
-          </div>
-        </div>
-
         <Drawer
           title={"All Activity"}
           // headerStyle={{ position: "fixed" }}
@@ -215,4 +194,4 @@ class KanbanPage extends React.PureComponent {
   }
 }
 
-export default KanbanPage;
+export default KanbanPageIndex;

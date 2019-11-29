@@ -9,6 +9,7 @@ import StatusCard from "./StatusCard";
 import PriorityCard from "./PriorityCard";
 import DeadlineCard from "./DeadlineCard";
 import TitleCard from "./TitleCard";
+// import Modal from "../../../provider/Display/Modal";
 import "../Style/style.css";
 
 class CardPage extends React.PureComponent {

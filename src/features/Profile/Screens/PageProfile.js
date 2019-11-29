@@ -98,7 +98,7 @@ class PageProfile extends React.PureComponent {
                         type="button"
                         className="btn btn-block btn-success btn-sm"
                       >
-                        <i className="icofont-ui-edit" />
+                        <i className="icofont-pencil-alt-2" />
                       </button>
                     </span>
                   </p>
@@ -111,7 +111,7 @@ class PageProfile extends React.PureComponent {
                         type="button"
                         className="btn btn-block btn-success btn-sm"
                       >
-                        <i className="icofont-ui-edit" />
+                        <i className="icofont-pencil-alt-2" />
                       </button>
                     </span>
                   </p>
@@ -124,7 +124,7 @@ class PageProfile extends React.PureComponent {
                         type="button"
                         className="btn btn-block btn-success btn-sm"
                       >
-                        <i className="icofont-ui-edit" />
+                        <i className="icofont-pencil-alt-2" />
                       </button>
                     </span>
                   </p>

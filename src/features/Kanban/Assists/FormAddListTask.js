@@ -134,11 +134,12 @@ class FormAddListTask extends React.PureComponent {
             >
               {false ? (
                 <React.Fragment>
-                  <i className="la la-circle-o-notch animate-spin" /> Saving
+                  {/* plus */}
+                  <i className="icofont-clock-time animate-spin" /> Saving
                 </React.Fragment>
               ) : (
                 <React.Fragment>
-                  <i className="la la-save" /> Submit Task
+                  <i className="icofont-save" /> Submit Task
                 </React.Fragment>
               )}
             </button>

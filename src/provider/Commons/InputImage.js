@@ -1,13 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Upload from 'antd/lib/upload';
-import 'antd/lib/upload/style/index.css';
+import React from "react";
+import PropTypes from "prop-types";
+import Upload from "antd/lib/upload";
+import "antd/lib/upload/style/index.css";
 
 const { Dragger } = Upload;
 
 const getBase64 = (img, callback) => {
   const reader = new FileReader();
-  reader.addEventListener('load', () => callback(reader.result));
+  reader.addEventListener("load", () => callback(reader.result));
   reader.readAsDataURL(img);
 };
 
@@ -17,12 +17,15 @@ class InputImage extends React.Component {
 
     this.state = {
       previewImage: props.previewImage,
-      previewName: ''
+      previewName: ""
     };
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.previewImage && this.props.previewImage !== prevProps.previewImage) {
+    if (
+      this.props.previewImage &&
+      this.props.previewImage !== prevProps.previewImage
+    ) {
       this.setPreviewImage();
     }
   }
@@ -67,7 +70,11 @@ class InputImage extends React.Component {
       >
         {previewImage ? (
           <div className="d-block">
-            <img src={previewImage} className="img-fluid" alt="preview-input-upload" />
+            <img
+              src={previewImage}
+              className="img-fluid"
+              alt="preview-input-upload"
+            />
             <p className="mt-3 mb-0">{previewName}</p>
           </div>
         ) : (
@@ -93,12 +100,12 @@ InputImage.propTypes = {
 };
 
 InputImage.defaultProps = {
-  name: 'file',
-  placeholder: 'Choose a file to upload',
+  name: "file",
+  placeholder: "Choose a file to upload",
   multiple: false,
   onFileChange: () => {},
-  previewImage: '',
-  icon: 'la la-cloud-upload'
+  previewImage: "",
+  icon: "icofont-box"
 };
 
 export default InputImage;

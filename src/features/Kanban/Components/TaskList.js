@@ -6,6 +6,7 @@ class TaskList extends React.PureComponent {
     return (
       <div className="avatar-list avatar-list-stacked">
         <Avatar name="Redi Rusmana" size="sm" />
+        <Avatar name="Redi Rusmana" size="sm" />
       </div>
     );
   }
@@ -23,8 +24,8 @@ class TaskList extends React.PureComponent {
 
   renderDeadline() {
     return (
-      <div className={"task-badge badge badge-danger"}>
-        <i className="icofont-clock-time mr-1" />
+      <div className={"ml-auto task-badge badge badge-danger"}>
+        <i className="icofont-clock-time" />
         <span>12 January 2020</span>
       </div>
     );
@@ -33,7 +34,7 @@ class TaskList extends React.PureComponent {
   renderAttachment() {
     return (
       <div title="This task has attachment" className="mx-1">
-        <i className="icofont-ebook " />
+        <i className="icofont-clip " />
         {/* papers */}
         <small>{2}</small>
       </div>
@@ -42,9 +43,18 @@ class TaskList extends React.PureComponent {
 
   renderStatus() {
     return (
+      <div className="task-status ">
+        <span className="task-badge badge badge-primary hide-badge mr-1">
+          nbsp;
+        </span>
+      </div>
+    );
+  }
+  renderPriority() {
+    return (
       <div className="task-status">
-        <span className="task-badge badge badge-primary hide-badge ">
-          <React.Fragment>Not Started</React.Fragment>
+        <span className="task-badge badge badge-warning hide-badge ">
+          nbsp;
         </span>
       </div>
     );
@@ -52,8 +62,8 @@ class TaskList extends React.PureComponent {
 
   renderDescription() {
     return (
-      <div title="This task has description inside it">
-        <i className="icofont-info icon-only" />
+      <div title="This task has description inside it" className="mx-1">
+        <i className="icofont-info-circle icon-only" />
       </div>
     );
   }
@@ -61,7 +71,12 @@ class TaskList extends React.PureComponent {
   render() {
     return (
       <div className="text-casual">
-        {this.renderStatus()}
+        <div className="d-flex flow-row">
+          {this.renderStatus()}
+          {this.renderPriority()}
+          {this.renderDeadline()}
+        </div>
+
         <div className="my-1">Nama Task</div>
         <div className="d-flex flex-row flex-nowrap justify-content-between align-items-center">
           <div>{this.renderMembers()}</div>
@@ -69,7 +84,7 @@ class TaskList extends React.PureComponent {
             {this.renderDescription()}
             {this.renderAttachment()}
             {this.renderChecklist()}
-            {this.renderDeadline()}
+            {/* {this.renderDeadline()} */}
           </div>
         </div>
       </div>

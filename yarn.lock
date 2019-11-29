@@ -8450,7 +8450,7 @@ prompts@^2.0.1:
     kleur "^3.0.3"
     sisteransi "^1.0.3"
 
-prop-types@15.x, prop-types@>=15.6.0, prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.6, prop-types@^15.5.7, prop-types@^15.5.8, prop-types@^15.5.9, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@15.x, prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.6, prop-types@^15.5.7, prop-types@^15.5.8, prop-types@^15.5.9, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -9321,13 +9321,12 @@ react-slick@~0.25.2:
     lodash.debounce "^4.0.8"
     resize-observer-polyfill "^1.5.0"
 
-react-smooth-dnd@^0.11.1:
-  version "0.11.1"
-  resolved "https://registry.yarnpkg.com/react-smooth-dnd/-/react-smooth-dnd-0.11.1.tgz#8d976137854c95f8fc09aa1ebc3069f69ceed6fa"
-  integrity sha512-+lVWQwPlK980VbFLtMSKfAJBt5ep37H/rVm3OnFiTpMFAghB9YQmrj3MnoIZ8tF+/niM/FFLpnSo8IgnbEY4Kg==
+react-smooth-dnd@0.5.2:
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/react-smooth-dnd/-/react-smooth-dnd-0.5.2.tgz#4cdb314ece6a4541534b9a1be6da68c5762fb158"
+  integrity sha512-LdAZGpbjK8+6+zLFJDGy/m+5ySPvAaJhjTqGu8+hOKDXifPQOhVsZsXBaOUOOlB5hIfYCkIYX9ZwhFObszL2/A==
   dependencies:
-    prop-types ">=15.6.0"
-    smooth-dnd "0.12.1"
+    smooth-dnd "0.6.2"
 
 react-transition-group@^2.3.1:
   version "2.9.0"
@@ -10128,10 +10127,10 @@ slice-ansi@^2.1.0:
     astral-regex "^1.0.0"
     is-fullwidth-code-point "^2.0.0"
 
-smooth-dnd@0.12.1:
-  version "0.12.1"
-  resolved "https://registry.yarnpkg.com/smooth-dnd/-/smooth-dnd-0.12.1.tgz#cdb44c972355659e32770368b29b6a80e0ed96f1"
-  integrity sha512-Dndj/MOG7VP83mvzfGCLGzV2HuK1lWachMtWl/Iuk6zV7noDycIBnflwaPuDzoaapEl3Pc4+ybJArkkx9sxPZg==
+smooth-dnd@0.6.2:
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/smooth-dnd/-/smooth-dnd-0.6.2.tgz#e21f6aac1a5b9626f0376d55107838012b349d6e"
+  integrity sha512-O3ndsZoYoOyjhKViVruUn4GX/X1IcnS2xqgoiW3D0eF3XTgazAO7F4falGKBlkEBpLP5te3wk79L/Jfvgjntbw==
 
 snapdragon-node@^2.0.1:
   version "2.1.1"

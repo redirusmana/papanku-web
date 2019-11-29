@@ -104,8 +104,7 @@ class DescriptionCard extends React.PureComponent {
           />
           <div className="my-2">
             <button type="submit" className="btn btn-success btn-sm">
-              {/* <i className="icofont-check" /> */}
-              Save
+              <i className="icofont-save" /> Save
             </button>
             {/* <button
               type="submit"
