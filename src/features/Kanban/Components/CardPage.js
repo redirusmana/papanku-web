@@ -51,8 +51,7 @@ class CardPage extends React.PureComponent {
                   <TitleCard />
                   <div className="task-detail-meta">
                     <span>
-                      Pada{" "}
-                      <strong className="text-success">"Nama Tugas"</strong>{" "}
+                      In <strong className="text-success">"Name Task"</strong>{" "}
                       Created by{" "}
                     </span>
                     <strong className="text-success">Redi Rusmanda</strong>, 28

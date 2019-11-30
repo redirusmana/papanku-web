@@ -1,8 +1,9 @@
 import React from "react";
+import { Formik } from "formik";
 import InputDate from "../../../provider/Commons/InputDate";
 import InputSelectLong from "../../../provider/Commons/InputSelectLong";
 import InputImage from "../../../provider/Commons/InputImage";
-import { Formik } from "formik";
+import { OptActiveStatus } from "../../../provider/Tools/config";
 import "../Style/style.css";
 
 class FormEditMail extends React.PureComponent {
@@ -30,7 +31,10 @@ class FormEditMail extends React.PureComponent {
                     <label className="form-label" htmlFor="">
                       Profile Photo
                     </label>
-                    <InputImage name="profile_photo" />
+                    <InputImage
+                      name="profile_photo"
+                      placeholder="Choose a file image to upload"
+                    />
                   </div>
                   <div className="form-group">
                     <label className="form-label" htmlFor="">
@@ -94,11 +98,8 @@ class FormEditMail extends React.PureComponent {
                     <InputSelectLong
                       className="form-control"
                       name="status_type"
-                      onChange={value => setFieldValue("Status", value)}
-                      options={[
-                        { label: "Active", value: "Active" },
-                        { label: "InActive", value: "InActive" }
-                      ]}
+                      onChange={value => setFieldValue("status_type", value)}
+                      options={OptActiveStatus}
                       placeholder="Status"
                       // value={}
                     />

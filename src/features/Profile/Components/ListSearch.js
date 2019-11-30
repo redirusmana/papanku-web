@@ -28,8 +28,8 @@ class ListSearch extends React.PureComponent {
             options={[
               { label: "A - Z", value: "asc" },
               { label: "Z - A", value: "desc" },
-              { label: "Terbaru", value: "newest" },
-              { label: "Terlama", value: "oldest" }
+              { label: "Newest", value: "newest" },
+              { label: "Oldest", value: "oldest" }
             ]}
             placeholder="Sort"
             // value={}

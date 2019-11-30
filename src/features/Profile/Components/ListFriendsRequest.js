@@ -7,8 +7,8 @@ class ListFriends extends React.PureComponent {
   onAccept = () => {};
   onDecline = () => {
     popConfirm({
-      title: `Are you sure to remove this Request?`,
-      message: "Project Tracker will deleted permanently",
+      title: `Are you sure to cancel Friend Request?`,
+      message: "Friend will deleted on List Request Friend",
       okText: " Yes",
       cancelText: " No"
     });

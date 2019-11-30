@@ -1,16 +1,16 @@
-import AntModal from 'antd/lib/modal';
-import 'antd/lib/modal/style/index.css';
+import AntModal from "antd/lib/modal";
+import "antd/lib/modal/style/index.css";
 
 const AntConfirm = AntModal.confirm;
 const popConfirm = ({
-  title = '',
+  title = "",
   message,
   onOkay = () => {},
   onCancel = () => {},
-  okText = 'Yes',
-  cancelText = 'No',
-  okType = 'primary',
-  iconType = 'question-circle'
+  okText = "Yes",
+  cancelText = "No",
+  okType = "primary",
+  iconType = "question-circle"
 }) => {
   AntConfirm({
     title,

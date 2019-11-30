@@ -82,7 +82,7 @@ class CommentCard extends React.PureComponent {
                 </label>
               </div>
               <button type="submit" className="btn btn-success btn-sm">
-                Submit
+                Send
               </button>
             </div>
           </form>

@@ -5,8 +5,7 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
-import { OptStatus } from "../../../provider/Tools/config";
-import { OptStatusClass } from "../../../provider/Tools/config";
+import { OptStatus, OptStatusClass } from "../../../provider/Tools/config";
 
 const TaskStatusChanger = ({
   currentStatus,

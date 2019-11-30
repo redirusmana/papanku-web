@@ -21,20 +21,20 @@ class BoardMenu extends React.PureComponent {
             to="/board"
             className="p-2 text-dark pointer hovered-button-popover pointer m-1 "
           >
-            <b>Nama Board</b>
+            <b>Name Board</b>
           </Link>
           <Link
             to="/board"
             className="p-2 text-dark pointer hovered-button-popover pointer m-1 "
           >
-            <b>Nama Board</b>
+            <b>Name Board</b>
           </Link> */}
           <Link to="/board" className="p-2 btn-light pointer m-1 rounded">
-            <b>Nama Board</b>
+            <b>Name Board</b>
           </Link>
 
           <Link to="/board" className="p-2 btn-light pointer m-1 rounded">
-            <b>Nama Board</b>
+            <b>Name Board</b>
           </Link>
         </div>
         <div className="text-left">

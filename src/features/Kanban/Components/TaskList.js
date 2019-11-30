@@ -1,5 +1,10 @@
 import React from "react";
 import Avatar from "../../../provider/Display/Avatar";
+import {
+  OptStatusClass,
+  OptPriorityClass,
+  OptDeadlineClass
+} from "../../../provider/Tools/config";
 
 class TaskList extends React.PureComponent {
   renderMembers() {
@@ -24,9 +29,9 @@ class TaskList extends React.PureComponent {
 
   renderDeadline() {
     return (
-      <div className={"ml-auto task-badge badge badge-danger"}>
+      <div className={`ml-auto task-badge ${OptDeadlineClass["unSoon"]}`}>
         <i className="icofont-clock-time" />
-        <span>12 January 2020</span>
+        <span> 12 January 2020</span>
       </div>
     );
   }
@@ -44,8 +49,10 @@ class TaskList extends React.PureComponent {
   renderStatus() {
     return (
       <div className="task-status ">
-        <span className="task-badge badge badge-primary hide-badge mr-1">
-          nbsp;
+        <span
+          className={`task-badge ${OptStatusClass["In Progress"]} hide-badge mr-1`}
+        >
+          &nbsp;
         </span>
       </div>
     );
@@ -53,8 +60,10 @@ class TaskList extends React.PureComponent {
   renderPriority() {
     return (
       <div className="task-status">
-        <span className="task-badge badge badge-warning hide-badge ">
-          nbsp;
+        <span
+          className={`task-badge ${OptPriorityClass["Medium Priority"]} hide-badge `}
+        >
+          &nbsp;
         </span>
       </div>
     );
@@ -77,14 +86,13 @@ class TaskList extends React.PureComponent {
           {this.renderDeadline()}
         </div>
 
-        <div className="my-1">Nama Task</div>
+        <div className="my-1">Name Task</div>
         <div className="d-flex flex-row flex-nowrap justify-content-between align-items-center">
           <div>{this.renderMembers()}</div>
           <div className="form-inline mb-0">
             {this.renderDescription()}
             {this.renderAttachment()}
             {this.renderChecklist()}
-            {/* {this.renderDeadline()} */}
           </div>
         </div>
       </div>

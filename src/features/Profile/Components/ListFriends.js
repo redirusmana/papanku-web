@@ -25,8 +25,8 @@ class ListFriends extends React.PureComponent {
   };
   onDeleteFriend = () => {
     popConfirm({
-      title: `Are you sure to remove this Request?`,
-      message: "Project Tracker will deleted permanently",
+      title: `Are you sure to remove this Frined?`,
+      message: "Friend will deleted on List Friend",
       okText: " Yes",
       cancelText: " No"
     });
@@ -77,7 +77,7 @@ class ListFriends extends React.PureComponent {
               <div className="text-center">
                 <h4 className="text-success ">
                   <i className="icofont-people icofont-5x" />
-                  <br /> Tambahkan Teman
+                  <br /> Add Friend
                 </h4>
               </div>
               <div className="text-center">
@@ -87,7 +87,7 @@ class ListFriends extends React.PureComponent {
                   className="btn rounded-pill btn-success "
                 >
                   <i className="font-weight-normal icofont-plus" />
-                  {/* Add new Friend */} Teman
+                  {/* Add new Friend */} Friend
                 </button>
               </div>
             </div>

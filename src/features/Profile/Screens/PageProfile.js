@@ -10,6 +10,10 @@ import FormEditProfile from "../Modal/FormEditProfile";
 import Modal from "../../../provider/Display/Modal";
 import ListBoards from "../Components/ListBoards";
 import ListActivity from "../Components/ListActivity";
+import {
+  OptActiveStatus,
+  OptActiveStatusClass
+} from "../../../provider/Tools/config";
 import "../Style/style.css";
 
 class PageProfile extends React.PureComponent {
@@ -50,27 +54,37 @@ class PageProfile extends React.PureComponent {
                 <div className="card-body">
                   <h3 className="text-center">Marteen urseela</h3>
                   <hr />
-                  <p className="clearfix font-weight-normal">
-                    <span className="float-left">id</span>
-                    <span className="float-right">Marteen_urseela</span>
-                  </p>
-                  <p className="clearfix font-weight-normal">
-                    <span className="float-left">Jenis Kelamin</span>
-                    <span className="float-right">Laki Laki</span>
-                  </p>
-                  <p className="clearfix font-weight-normal">
-                    <span className="float-left">Tanggal Lahir</span>
-                    <span className="float-right">10/10/2010</span>
-                  </p>
-                  <p className="clearfix font-weight-normal">
-                    <span className="float-left">Status</span>
-                    <span className="float-right">
-                      <span className="font-weight-normal badge badge-success">
-                        {/* primary */}
-                        Active
+                  <div className="d-flex my-2 flex-row font-weight-normal">
+                    <div className="mr-auto" style={{ wordBreak: "break-all" }}>
+                      Username
+                      {/* id */}
+                    </div>
+                    <div className="ml-2">Marteen_urseela</div>
+                  </div>
+                  <div className="d-flex my-2 flex-row font-weight-normal">
+                    <div className="mr-auto" style={{ wordBreak: "break-all" }}>
+                      Gender
+                    </div>
+                    <div className="ml-2">Male</div>
+                  </div>
+                  <div className="d-flex my-2 flex-row font-weight-normal">
+                    <div className="mr-auto" style={{ wordBreak: "break-all" }}>
+                      Date of Birth
+                    </div>
+                    <div className="ml-2">10/10/2010</div>
+                  </div>
+                  <div className="d-flex my-2 flex-row font-weight-normal">
+                    <div className="mr-auto" style={{ wordBreak: "break-all" }}>
+                      Status
+                    </div>
+                    <div className="ml-2">
+                      <span
+                        className={`font-weight-normal ${OptActiveStatusClass["Active"]}`}
+                      >
+                        {OptActiveStatus[0].value}
                       </span>
-                    </span>
-                  </p>
+                    </div>
+                  </div>
                   <p className="font-weight-normal">
                     <button
                       type="button"
@@ -84,28 +98,30 @@ class PageProfile extends React.PureComponent {
               </div>
 
               <div className="card mb-3">
-                {/* <div className="card-header clearfix">
-                  <span className="float-left">Personal Info</span>
+                {/* <div className="card-header">
+                  <span className=" font-weight-bold">Personal Info</span>
                 </div> */}
                 <div className="card-body">
-                  <p className="clearfix font-weight-normal">
-                    <span className="float-left text-break">
-                      redirusmana30@gmail.com
-                    </span>
-                    <span className="float-right">
+                  <div className="d-flex my-2 flex-row font-weight-normal">
+                    <div className="mr-auto" style={{ wordBreak: "break-all" }}>
+                      redirusmana30redius@gmail.com
+                    </div>
+                    <div className="ml-2">
                       <button
                         onClick={() => this.handleModal("edit-mail")}
                         type="button"
-                        className="btn btn-block btn-success btn-sm"
+                        className="btn btn-block btn-success btn-sm "
                       >
                         <i className="icofont-pencil-alt-2" />
                       </button>
-                    </span>
-                  </p>
+                    </div>
+                  </div>
 
-                  <p className="clearfix font-weight-normal">
-                    <span className="float-left">08917387386</span>
-                    <span className="float-right">
+                  <div className="d-flex my-2 flex-row font-weight-normal">
+                    <div className="mr-auto" style={{ wordBreak: "break-all" }}>
+                      08917387386
+                    </div>
+                    <div className="ml-2">
                       <button
                         onClick={() => this.handleModal("edit-phone")}
                         type="button"
@@ -113,12 +129,14 @@ class PageProfile extends React.PureComponent {
                       >
                         <i className="icofont-pencil-alt-2" />
                       </button>
-                    </span>
-                  </p>
+                    </div>
+                  </div>
 
-                  <p className="clearfix font-weight-normal">
-                    <span className="float-left">***********</span>
-                    <span className="float-right">
+                  <div className="d-flex my-2 flex-row font-weight-normal">
+                    <div className="mr-auto" style={{ wordBreak: "break-all" }}>
+                      ***********
+                    </div>
+                    <div className="ml-2">
                       <button
                         onClick={() => this.handleModal("edit-password")}
                         type="button"
@@ -126,9 +144,8 @@ class PageProfile extends React.PureComponent {
                       >
                         <i className="icofont-pencil-alt-2" />
                       </button>
-                    </span>
-                  </p>
-
+                    </div>
+                  </div>
                   <p className="font-weight-normal">
                     <Link
                       to={"/login"}

@@ -5,8 +5,7 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
-import { OptPriority } from "../../../provider/Tools/config";
-import { OptPriorityClass } from "../../../provider/Tools/config";
+import { OptPriority, OptPriorityClass } from "../../../provider/Tools/config";
 
 const TaskPriorityChanger = ({
   currentPriority,

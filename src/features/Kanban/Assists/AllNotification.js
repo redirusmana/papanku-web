@@ -31,14 +31,12 @@ class AllNotification extends React.PureComponent {
                     melakukan Sesuatu Telah melakukan Sesuatu Telah melakukan
                     Sesuatu Telah melakukan Sesuatu Telah melakukan Sesuatu
                     Telah melakukan Sesuatu Telah melakukan Sesuatu Telah
-                    melakukan Sesuatu Telah melakukan Sesuatu Pada <u>Card</u>
+                    melakukan Sesuatu Telah melakukan Sesuatu on <u>Card</u>
                   </small>
                 </div>
                 <div>
                   {/* <small>{dateFromNowString(created_at)}</small> */}
-                  <small className="font-weight-light">
-                    13 menit yang lalu
-                  </small>
+                  <small className="font-weight-light">13 minutes ago</small>
                 </div>
               </div>
               {/* <div
@@ -68,14 +66,12 @@ class AllNotification extends React.PureComponent {
                     melakukan Sesuatu Telah melakukan Sesuatu Telah melakukan
                     Sesuatu Telah melakukan Sesuatu Telah melakukan Sesuatu
                     Telah melakukan Sesuatu Telah melakukan Sesuatu Telah
-                    melakukan Sesuatu Telah melakukan Sesuatu Pada <u>Card</u>
+                    melakukan Sesuatu Telah melakukan Sesuatu on <u>Card</u>
                   </small>
                 </div>
                 <div>
                   {/* <small>{dateFromNowString(created_at)}</small> */}
-                  <small className="font-weight-light">
-                    13 menit yang lalu
-                  </small>
+                  <small className="font-weight-light">13 minutes ago</small>
                 </div>
               </div>
               {/* <div
@@ -105,14 +101,12 @@ class AllNotification extends React.PureComponent {
                     melakukan Sesuatu Telah melakukan Sesuatu Telah melakukan
                     Sesuatu Telah melakukan Sesuatu Telah melakukan Sesuatu
                     Telah melakukan Sesuatu Telah melakukan Sesuatu Telah
-                    melakukan Sesuatu Telah melakukan Sesuatu Pada <u>Card</u>
+                    melakukan Sesuatu Telah melakukan Sesuatu on <u>Card</u>
                   </small>
                 </div>
                 <div>
                   {/* <small>{dateFromNowString(created_at)}</small> */}
-                  <small className="font-weight-light">
-                    13 menit yang lalu
-                  </small>
+                  <small className="font-weight-light">13 minutes ago</small>
                 </div>
               </div>
               {/* <div
@@ -142,14 +136,12 @@ class AllNotification extends React.PureComponent {
                     melakukan Sesuatu Telah melakukan Sesuatu Telah melakukan
                     Sesuatu Telah melakukan Sesuatu Telah melakukan Sesuatu
                     Telah melakukan Sesuatu Telah melakukan Sesuatu Telah
-                    melakukan Sesuatu Telah melakukan Sesuatu Pada <u>Card</u>
+                    melakukan Sesuatu Telah melakukan Sesuatu on <u>Card</u>
                   </small>
                 </div>
                 <div>
                   {/* <small>{dateFromNowString(created_at)}</small> */}
-                  <small className="font-weight-light">
-                    13 menit yang lalu
-                  </small>
+                  <small className="font-weight-light">13 minutes ago</small>
                 </div>
               </div>
               {/* <div
@@ -164,7 +156,7 @@ class AllNotification extends React.PureComponent {
               className="pointer"
               // onClick={() => this.handleLoadMore()}
             >
-              Muat lebih banyak...
+              Load More...
             </u>
           </div>
         </div>

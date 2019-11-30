@@ -45,7 +45,7 @@ class ListActivity extends React.PureComponent {
                     <div>
                       {/* <small>{dateFromNowString(created_at)}</small> */}
                       <small className="font-weight-light">
-                        13 minutes ago - Pada Board{" "}
+                        13 minutes ago - On Board{" "}
                         <b className="font-weight-bold">'something'</b>
                       </small>
                     </div>
@@ -85,7 +85,7 @@ class ListActivity extends React.PureComponent {
                     <div>
                       {/* <small>{dateFromNowString(created_at)}</small> */}
                       <small className="font-weight-light">
-                        13 minutes ago - Pada Board{" "}
+                        13 minutes ago - On Board{" "}
                         <b className="font-weight-bold">'something'</b>
                       </small>
                     </div>
@@ -102,7 +102,7 @@ class ListActivity extends React.PureComponent {
                 className="pointer"
                 // onClick={() => this.handleLoadMore()}
               >
-                Muat lebih banyak...
+                Load More...
               </u>
             </div>
           </div>

@@ -27,8 +27,8 @@ class ListBoard extends React.PureComponent {
   onAccept = () => {};
   onDecline = () => {
     popConfirm({
-      title: `Are you sure to remove this Request?`,
-      message: "Project Tracker will deleted permanently",
+      title: `Are you sure to remove this Board?`,
+      message: "Name Board will deleted permanently",
       okText: " Yes",
       cancelText: " No"
     });
@@ -45,7 +45,7 @@ class ListBoard extends React.PureComponent {
             <div className="col-lg-8 mb-3">
               <div className="card ">
                 <div className="card-body">
-                  <p className="card-title">Nama Board</p>
+                  <p className="card-title">Name Board</p>
                   <p className="card-text text-right">
                     <small className="text-muted">
                       Last updated 3 mins ago
@@ -90,10 +90,10 @@ class ListBoard extends React.PureComponent {
             <div className="col-lg-8 mb-3">
               <div className="card ">
                 <div className="card-body">
-                  <p className="card-title">Nama Board</p>
+                  <p className="card-title">Name Board</p>
                   <p className="card-text text-right">
                     <small className="text-muted">
-                      <b>redirsmn </b> menambahkan Anda ke Board
+                      <b>redirsmn </b> Added you to <b>Board</b>
                     </small>
                   </p>
                 </div>
