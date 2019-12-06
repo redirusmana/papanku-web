@@ -30,6 +30,7 @@ class ListBoard extends React.PureComponent {
       title: `Are you sure to remove this Board?`,
       message: "Name Board will deleted permanently",
       okText: " Yes",
+      okType: "danger",
       cancelText: " No"
     });
   };

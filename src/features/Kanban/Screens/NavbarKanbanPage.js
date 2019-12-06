@@ -178,12 +178,12 @@ class KanbanPageIndex extends React.PureComponent {
         </nav>
         <Drawer
           title={"All Activity"}
-          // headerStyle={{ position: "fixed" }}
           placement={"right"}
           onClose={this.handleClose}
           visible={isVisible}
           width={400}
           mask={false}
+          className="drawer-sticky-header"
           // maskClosable={false}
           closable
         >

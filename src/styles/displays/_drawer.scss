@@ -5,11 +5,18 @@
     .ant-drawer {
       top: 115px;
     }
-    
+
     &.kanban-drawer-open {
       .kanban-board {
         width: calc(100% - 400px);
       }
     }
   }
+}
+
+.ant-drawer.drawer-sticky-header .ant-drawer-header {
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  z-index: 2;
 }

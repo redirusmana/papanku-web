@@ -84,6 +84,24 @@ class PageLogin extends React.PureComponent {
                   </div>
 
                   <div className="form-group">
+                    <label className="form-label" htmlFor="register-username">
+                      Username
+                    </label>
+                    <input
+                      type="text"
+                      className={"form-control"}
+                      id="register-username"
+                      aria-describedby="usernamelHelp"
+                      placeholder="Username"
+                      // onChange={handleChange}
+                      // onBlur={handleBlur}
+                      name="username"
+                      autoComplete="username"
+                    />
+                    {/* <TextValidation isTouched={touched.username} errors={errors.username} /> */}
+                  </div>
+
+                  <div className="form-group">
                     <label className="form-label" htmlFor="register-email">
                       Email
                     </label>
@@ -100,6 +118,7 @@ class PageLogin extends React.PureComponent {
                     />
                     {/* <TextValidation isTouched={touched.email} errors={errors.email} /> */}
                   </div>
+
                   <div className="form-group">
                     <label className="form-label" htmlFor="registes-password">
                       Password

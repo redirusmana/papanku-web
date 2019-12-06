@@ -10,6 +10,7 @@ class ListFriends extends React.PureComponent {
       title: `Are you sure to cancel Friend Request?`,
       message: "Friend will deleted on List Request Friend",
       okText: " Yes",
+      okType: "danger",
       cancelText: " No"
     });
   };

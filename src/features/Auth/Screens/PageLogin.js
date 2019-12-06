@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import logo from "../../../assets/images/bootstrap.png";
+import logoLanding from "../../../assets/images/logo-landing.jpeg";
+import logoTitle from "../../../assets/images/logo-title.jpeg";
 import "../Style/style.css";
 
 class PageLogin extends React.PureComponent {
@@ -14,7 +15,7 @@ class PageLogin extends React.PureComponent {
               <div>
                 <img
                   className="m-auto"
-                  src={logo}
+                  src={logoLanding}
                   width="500"
                   height="500"
                   alt=""
@@ -29,7 +30,7 @@ class PageLogin extends React.PureComponent {
                 <div className="text-center">
                   <img
                     className="mx-auto text-center"
-                    src={logo}
+                    src={logoTitle}
                     width="100"
                     height="100"
                     alt=""

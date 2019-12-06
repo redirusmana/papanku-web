@@ -181,7 +181,7 @@ class PageProfile extends React.PureComponent {
                       to="/user"
                       exact
                     >
-                      Papan
+                      Board
                     </NavLink>
                   </div>
                   <div className="col-lg-6 px-0 navs">
@@ -200,7 +200,7 @@ class PageProfile extends React.PureComponent {
                       activeClassName="text-success active"
                       to="/user/friend"
                     >
-                      Teman
+                      Friend
                     </NavLink>
                   </div>
                   <div className="col-lg-6 px-0 navs ">
@@ -209,7 +209,7 @@ class PageProfile extends React.PureComponent {
                       activeClassName="text-success active"
                       to="/user/request-friend"
                     >
-                      Permintaan Pertemanan
+                      Friend Request
                     </NavLink>
                   </div>
                 </div>

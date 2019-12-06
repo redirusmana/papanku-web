@@ -9,6 +9,7 @@ import StatusCard from "./StatusCard";
 import PriorityCard from "./PriorityCard";
 import DeadlineCard from "./DeadlineCard";
 import TitleCard from "./TitleCard";
+import popConfirm from "../../../provider/Display/popConfirm";
 // import Modal from "../../../provider/Display/Modal";
 import "../Style/style.css";
 
@@ -30,6 +31,19 @@ class CardPage extends React.PureComponent {
       isVisible: false
     });
   };
+
+  onAccept = () => {};
+  onDecline = () => {
+    popConfirm({
+      title: `Are you sure to remove this Card?`,
+      message: "Name Card will deleted permanently",
+      okText: " Yes",
+      okType: "danger",
+      cancelText: " No"
+    });
+  };
+  onCancelAdd = () => {};
+
   render() {
     return (
       <React.Fragment>
@@ -64,7 +78,11 @@ class CardPage extends React.PureComponent {
                   </div>
                 </div>
                 <div style={{ flex: 0 }}>
-                  <button type="button" className="btn btn-danger btn-sm">
+                  <button
+                    type="button"
+                    className="btn btn-danger btn-sm"
+                    onClick={() => this.onDecline()}
+                  >
                     <i className="icofont-bin " /> Remove
                   </button>
                 </div>

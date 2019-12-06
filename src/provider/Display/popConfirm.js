@@ -9,7 +9,7 @@ const popConfirm = ({
   onCancel = () => {},
   okText = "Yes",
   cancelText = "No",
-  okType = "primary",
+  okType = "danger",
   iconType = "question-circle"
 }) => {
   AntConfirm({
