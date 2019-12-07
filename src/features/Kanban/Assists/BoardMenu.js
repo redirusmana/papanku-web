@@ -17,30 +17,30 @@ class BoardMenu extends React.PureComponent {
           />
         </div>
         <div className="d-flex flex-column my-2 px-0">
-          {/* <Link
+          <Link
             to="/board"
-            className="p-2 text-dark pointer hovered-button-popover pointer m-1 "
+            className="p-2 text-dark pointer hovered-button-popover pointer "
           >
             <b>Name Board</b>
           </Link>
           <Link
             to="/board"
-            className="p-2 text-dark pointer hovered-button-popover pointer m-1 "
+            className="p-2 text-dark pointer hovered-button-popover pointer "
           >
             <b>Name Board</b>
-          </Link> */}
-          <Link to="/board" className="p-2 btn-light pointer m-1 rounded">
+          </Link>
+          {/* <Link to="/board" className="p-2 btn-light pointer">
             <b>Name Board</b>
           </Link>
 
-          <Link to="/board" className="p-2 btn-light pointer m-1 rounded">
+          <Link to="/board" className="p-2 btn-light pointer">
             <b>Name Board</b>
-          </Link>
+          </Link> */}
         </div>
         <div className="text-left">
           <button
             type="submit"
-            className="btn btn-link text-success font-weight-bold"
+            className="btn btn-link text-primary font-weight-bold"
           >
             <u>Create New Board...</u>
           </button>

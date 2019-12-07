@@ -81,7 +81,7 @@ class CommentCard extends React.PureComponent {
                   <small>Send when enter</small>
                 </label>
               </div>
-              <button type="submit" className="btn btn-success btn-sm">
+              <button type="submit" className="btn btn-primary btn-sm">
                 Send
               </button>
             </div>

@@ -1,20 +1,93 @@
 import React from "react";
+import * as yup from "yup";
 import { Link } from "react-router-dom";
-import logo from "../../../assets/images/bootstrap.png";
+import { Formik } from "formik";
+import cn from "classnames";
+import api from "../../../provider/Tools/api";
+import { apiSignInAction } from "../action";
+import alertFloat from "../../../provider/Display/alertFloat";
+import {
+  axiosError,
+  AXIOS_CANCEL_MESSAGE
+} from "../../../provider/Tools/converter";
+import logoLanding from "../../../assets/images/logo-landing.jpeg";
+import logoTitle from "../../../assets/images/logo-title.png";
 import "../Style/style.css";
 
-class PageLogin extends React.PureComponent {
+const formRegisterValidation = yup.object().shape({
+  firstname: yup.string().required("Firstname is required"),
+  lastname: yup.string().required("Lastname is required"),
+  username: yup
+    .string()
+    .matches(/^[a-zA-Z0-9]*$/, "Must alphanumeric value")
+    .lowercase("Username should be lowercase")
+    .required("Username is required")
+    .trim(),
+  email: yup
+    .string()
+    .email("Current value is not an email")
+    .required("Email is required"),
+  password: yup
+    .string()
+    .required("Password is required")
+    .min(6, "Password too short"),
+  password_confirmation: yup
+    .string()
+    .oneOf([yup.ref("password")], "Password is not same")
+    .required("Password confirmation is required")
+});
+
+class PageRegister extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      initialValues: {
+        firstname: undefined,
+        lastname: undefined,
+        email: undefined,
+        username: undefined,
+        password: undefined,
+        password_confirmation: undefined
+      }
+    };
+  }
+
+  handleSubmit = async (values, actions) => {
+    try {
+      this._requestSource = api.generateCancelToken();
+
+      const response = await apiSignInAction(values, this._requestSource.token);
+      if (response.status === 200) {
+        alertFloat({
+          type: "success",
+          content: response.message
+        });
+      }
+    } catch (e) {
+      const error = axiosError(e);
+      if (error === AXIOS_CANCEL_MESSAGE) {
+        return;
+      }
+      alertFloat({
+        type: "error",
+        content: error
+      });
+      actions.setSubmitting(false);
+    }
+  };
+
   render() {
+    const { initialValues } = this.state;
     return (
       <React.Fragment>
         <div className="container-fluid">
           <div className="row p-5">
             {/* Image  */}
-            <div className="col-lg-14">
+            <div className="col-lg-11">
               <div>
                 <img
                   className="m-auto"
-                  src={logo}
+                  src={logoLanding}
                   width="500"
                   height="500"
                   alt=""
@@ -24,158 +97,192 @@ class PageLogin extends React.PureComponent {
             {/* Image  */}
 
             {/* Form  */}
-            <div className="col-lg-10 m-auto">
+            <div className="col-lg-9 m-auto">
               <div className="">
                 {" "}
                 <div className="text-center">
                   <img
                     className="mx-auto text-center"
-                    src={logo}
+                    src={logoTitle}
                     width="100"
                     height="100"
                     alt=""
                   />
                 </div>
-                <form className="form-horizontal p-4" autoComplete="form-login">
-                  {/* {message && (
-                    <div className="mb-2">
-                      <Alert type="error" message={`Whoops. ${message}`} showIcon />
-                    </div>
-                  )} */}
-                  <div className="row">
-                    <div className="col-lg-12">
-                      <div className="form-group">
-                        <label className="form-label" htmlFor="register-name">
-                          First Name
-                        </label>
-                        <input
-                          type="text"
-                          className={"form-control"}
-                          id="register-name"
-                          aria-describedby="firstnameHelp"
-                          placeholder="First Name"
-                          // onChange={handleChange}
-                          // onBlur={handleBlur}
-                          name="firstName"
-                          autoComplete="firstName"
-                        />
-                        {/* <TextValidation isTouched={touched.firstName} errors={errors.firstName} /> */}
+                <Formik
+                  initialValues={initialValues}
+                  validationSchema={formRegisterValidation}
+                  onSubmit={this.handleSubmit}
+                  render={({
+                    handleChange,
+                    isSubmitting,
+                    handleBlur,
+                    handleSubmit,
+                    values,
+                    errors
+                    // setFieldValue,
+                    // setValues,
+                  }) => (
+                    <form
+                      className="form-horizontal p-4"
+                      onSubmit={handleSubmit}
+                    >
+                      <div className="row">
+                        <div className="col-lg-24">
+                          <div className="row">
+                            <div className="col-lg-12">
+                              <div className="form-group">
+                                <label
+                                  className="form-label"
+                                  htmlFor="label_name"
+                                >
+                                  First Name
+                                </label>
+                                <input
+                                  type="text"
+                                  className={"form-control"}
+                                  placeholder="First Name"
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  name="firstname"
+                                  values={values.firstname}
+                                />
+                                {errors && errors.firstname && (
+                                  <p className="text-danger">
+                                    {errors.firstname}
+                                  </p>
+                                )}
+                                {console.log(values)}
+                                {console.log(errors)}
+                              </div>
+                            </div>
+                            <div className="col-lg-12">
+                              <div className="form-group">
+                                <label
+                                  className="form-label"
+                                  htmlFor="label_name"
+                                >
+                                  Last Name
+                                </label>
+                                <input
+                                  type="text"
+                                  className={"form-control"}
+                                  placeholder="Last Name"
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  name="lastname"
+                                  values={values.lastname}
+                                />
+                                {errors && errors.lastname && (
+                                  <p className="text-danger">
+                                    {errors.lastname}
+                                  </p>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                          <div className="form-group">
+                            <label className="form-label" htmlFor="label_name">
+                              Email
+                            </label>
+                            <input
+                              type="text"
+                              className={"form-control"}
+                              placeholder="Email"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              name="email"
+                              values={values.email}
+                            />
+                            {errors && errors.email && (
+                              <p className="text-danger">{errors.email}</p>
+                            )}
+                          </div>
+                          <div className="form-group">
+                            <label className="form-label" htmlFor="label_name">
+                              Username
+                            </label>
+                            <input
+                              type="text"
+                              className={"form-control"}
+                              placeholder="Username"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              name="username"
+                              values={values.username}
+                            />
+                            {errors && errors.username && (
+                              <p className="text-danger">{errors.username}</p>
+                            )}
+                          </div>
+                          <div className="form-group">
+                            <label className="form-label" htmlFor="label_name">
+                              Password
+                            </label>
+                            <input
+                              type="password"
+                              className={"form-control"}
+                              placeholder="Password"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              name="password"
+                              values={values.password}
+                            />
+                            {errors && errors.password && (
+                              <p className="text-danger">{errors.password}</p>
+                            )}
+                          </div>
+
+                          <div className="form-group">
+                            <label className="form-label" htmlFor="label_name">
+                              Re-type Password
+                            </label>
+                            <input
+                              type="password"
+                              className={"form-control"}
+                              placeholder="Re-type Password"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              name="password_confirmation"
+                              values={values.password_confirmation}
+                            />
+                            {errors && errors.password_confirmation && (
+                              <p className="text-danger">
+                                {errors.password_confirmation}
+                              </p>
+                            )}
+                          </div>
+
+                          <div className="form-group ">
+                            <button
+                              type="submit"
+                              className="btn btn-block btn-primary"
+                              disabled={isSubmitting}
+                            >
+                              <i
+                                className={cn({
+                                  la: true,
+                                  "la-save": !isSubmitting,
+                                  "la-circle-o-notch animate-spin": isSubmitting
+                                })}
+                              />{" "}
+                              {isSubmitting ? "Submitting" : "Submit"}
+                            </button>
+                          </div>
+
+                          <div className="form-footer d-flex flex-row flex-nowrap justify-content-center align-items-center mt-2">
+                            <Link
+                              to="/login"
+                              className="btn btn-link text-primary font-weight-bold"
+                            >
+                              Do you have Account? / Login
+                            </Link>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                    <div className="col-lg-12">
-                      <div className="form-group">
-                        <label className="form-label" htmlFor="register-name">
-                          Last Name
-                        </label>
-                        <input
-                          type="text"
-                          className={"form-control"}
-                          id="register-name"
-                          aria-describedby="lastnameHelp"
-                          placeholder="Last Name"
-                          // onChange={handleChange}
-                          // onBlur={handleBlur}
-                          name="lastName"
-                          autoComplete="lastName"
-                        />
-                        {/* <TextValidation isTouched={touched.lastName} errors={errors.lastName} /> */}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="form-group">
-                    <label className="form-label" htmlFor="register-username">
-                      Username
-                    </label>
-                    <input
-                      type="text"
-                      className={"form-control"}
-                      id="register-username"
-                      aria-describedby="usernamelHelp"
-                      placeholder="Username"
-                      // onChange={handleChange}
-                      // onBlur={handleBlur}
-                      name="username"
-                      autoComplete="username"
-                    />
-                    {/* <TextValidation isTouched={touched.username} errors={errors.username} /> */}
-                  </div>
-
-                  <div className="form-group">
-                    <label className="form-label" htmlFor="register-email">
-                      Email
-                    </label>
-                    <input
-                      type="text"
-                      className={"form-control"}
-                      id="register-email"
-                      aria-describedby="emailHelp"
-                      placeholder="Email"
-                      // onChange={handleChange}
-                      // onBlur={handleBlur}
-                      name="email"
-                      autoComplete="email"
-                    />
-                    {/* <TextValidation isTouched={touched.email} errors={errors.email} /> */}
-                  </div>
-
-                  <div className="form-group">
-                    <label className="form-label" htmlFor="registes-password">
-                      Password
-                    </label>
-                    <input
-                      type="password"
-                      className={"form-control"}
-                      id="registes-password"
-                      placeholder="Password"
-                      // onChange={handleChange}
-                      // onBlur={handleBlur}
-                      name="password1"
-                      autoComplete="password1"
-                    />
-                    {/* <TextValidation isTouched={touched.password1} errors={errors.password1} /> */}
-                  </div>
-                  <div className="form-group">
-                    <label className="form-label" htmlFor="registes-password">
-                      Password
-                    </label>
-                    <input
-                      type="password"
-                      className={"form-control"}
-                      id="registes-password"
-                      placeholder="Re-type Password"
-                      // onChange={handleChange}
-                      // onBlur={handleBlur}
-                      name="password2"
-                      autoComplete="password2"
-                    />
-                    {/* <TextValidation isTouched={touched.password2} errors={errors.password2} /> */}
-                  </div>
-                  <div className="form-group mb-0">
-                    <Link
-                      to="/user"
-                      className="btn btn-success btn-block font-weight-bold"
-                    >
-                      Register
-                    </Link>
-                    {/* <button
-                      type="submit"
-                      className="btn btn-success btn-block font-weight-bold"
-                      disabled={submitting}
-                    >
-                      {submitting && <i className="la la-circle-o-notch animate-spin mr-2" />}
-                      Register <i className="icofont-sign-in"></i>
-                    </button> */}
-                  </div>
-                  <div className="form-footer d-flex flex-row flex-nowrap justify-content-center align-items-center mt-2">
-                    <Link
-                      to="/login"
-                      className="btn btn-link text-success font-weight-bold"
-                    >
-                      Do you have Account? / Login
-                    </Link>
-                  </div>
-                </form>
+                    </form>
+                  )}
+                />
               </div>
             </div>
             {/* Form  */}
@@ -186,4 +293,4 @@ class PageLogin extends React.PureComponent {
   }
 }
 
-export default PageLogin;
+export default PageRegister;

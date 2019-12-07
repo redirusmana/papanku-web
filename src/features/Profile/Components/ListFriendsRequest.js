@@ -35,7 +35,7 @@ class ListFriends extends React.PureComponent {
                     <button
                       onClick={() => this.onAccept()}
                       type="button"
-                      className="btn rounded-pill btn-success mr-1" //primary
+                      className="btn rounded-pill btn-primary mr-1" //primary
                     >
                       Accept
                     </button>

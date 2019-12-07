@@ -78,12 +78,12 @@ $gray-700: #495057;
 $gray-800: #343a40;
 $gray-900: #212529;
 
-$blue: #2D95F3; //#2D95F3; // #007be8; // #467fcf;
+$blue: #111d5e; //#2D95F3; // #007be8; // #467fcf;
 $azure: #6990eb; // #45aaf2;
 $indigo: #6d5cae; // #6574cd;
 $purple: #a55eea;
 $pink: #f66d9b;
-$red: #ff486c; // #ea2c54; // #cd201f;
+$red: #fe346e; // #ea2c54; // #cd201f;
 $orange: #fd9644;
 $yellow: mix(#ffb822, $white, $mix-percentage-lighter); // #ffb822; //#ffb74c;
 $lime: #07c25f;
@@ -148,7 +148,7 @@ $social-colors: ("facebook": #3b5998,
 );
 
 
-$custom-control-indicator-checked-bg: $success;
+$custom-control-indicator-checked-bg: $primary;
 
 $body-bg: $white; // #f5f7fb;
 $body-color: #575962; //$gray-700;

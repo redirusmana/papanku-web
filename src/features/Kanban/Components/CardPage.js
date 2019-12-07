@@ -65,10 +65,10 @@ class CardPage extends React.PureComponent {
                   <TitleCard />
                   <div className="task-detail-meta">
                     <span>
-                      In <strong className="text-success">"Name Task"</strong>{" "}
+                      In <strong className="text-primary">"Name Task"</strong>{" "}
                       Created by{" "}
                     </span>
-                    <strong className="text-success">Redi Rusmanda</strong>, 28
+                    <strong className="text-primary">Redi Rusmanda</strong>, 28
                     Novemba 2019
                   </div>
                   <div className="task-detail-tags">

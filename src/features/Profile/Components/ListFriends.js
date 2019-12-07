@@ -52,7 +52,7 @@ class ListFriends extends React.PureComponent {
                 </h4>
                 <button
                   type="button"
-                  className="btn rounded-pill btn-success mr-1"
+                  className="btn rounded-pill btn-primary mr-1"
                 >
                   <i className="font-weight-normal icofont-info-circle" />
                   {/* ui-message */}
@@ -76,7 +76,7 @@ class ListFriends extends React.PureComponent {
           <div className="card p-5">
             <div className="card-body ">
               <div className="text-center">
-                <h4 className="text-success ">
+                <h4 className="text-primary ">
                   <i className="icofont-people icofont-5x" />
                   <br /> Add Friend
                 </h4>
@@ -85,7 +85,7 @@ class ListFriends extends React.PureComponent {
                 <button
                   type="button"
                   onClick={() => this.handleModal()}
-                  className="btn rounded-pill btn-success "
+                  className="btn rounded-pill btn-primary "
                 >
                   <i className="font-weight-normal icofont-plus" />
                   {/* Add new Friend */} Friend

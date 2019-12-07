@@ -1,4 +1,5 @@
 // eslint-disable-next-line import/prefer-default-export
+import axios from "axios";
 import "moment/locale/id";
 import moment from "moment";
 import bigint from "big-integer";
@@ -10,6 +11,7 @@ export const getInitial = name => {
   }
 
   if (typeof name === "number") {
+    // return `....`;
     return `+${name}`;
   }
 
@@ -57,3 +59,23 @@ export const dateNoYearString = date => moment(date).format("DD MMM");
 export const dateYearString = date => moment(date).format("YYYY");
 export const dateShortTimeString = date =>
   moment(date).format("DD MMM 'YY, HH:mm");
+
+export const AXIOS_CANCEL_MESSAGE = "Axios Cancelled";
+
+export const axiosError = e => {
+  if (axios.isCancel(e)) {
+    return AXIOS_CANCEL_MESSAGE;
+  }
+  const { message, response, request: eRequest } = e;
+  let error = message;
+  if (response) {
+    error =
+      typeof response.data.error !== "undefined"
+        ? response.data.error
+        : message;
+  } else if (eRequest) {
+    error = typeof eRequest === "object" ? JSON.stringify(eRequest) : eRequest;
+  }
+
+  return error;
+};

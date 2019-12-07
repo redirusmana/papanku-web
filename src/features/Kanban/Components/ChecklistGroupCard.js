@@ -77,7 +77,7 @@ class ChecklistCardGroup extends React.PureComponent {
           />
         </div>
         <div className="text-left">
-          <button type="submit" className="btn btn-success btn-sm">
+          <button type="submit" className="btn btn-primary btn-sm">
             <i className="icofont-plus" /> Create
           </button>
         </div>
@@ -95,7 +95,7 @@ class ChecklistCardGroup extends React.PureComponent {
         >
           <button
             type="button"
-            className="btn btn-link text-success"
+            className="btn btn-link text-primary"
             onClick={this.toggleForm}
           >
             <i className="icofont-plus" /> Add Checklist

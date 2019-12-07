@@ -1,4 +1,5 @@
 import React from "react";
+import { Popover } from "antd";
 import Avatar from "../../../provider/Display/Avatar";
 import {
   OptStatusClass,
@@ -71,8 +72,16 @@ class TaskList extends React.PureComponent {
 
   renderDescription() {
     return (
-      <div title="This task has description inside it" className="mx-1">
-        <i className="icofont-info-circle icon-only" />
+      <div className="mx-1">
+        <Popover
+          content={"This task has description inside it"}
+          trigger="hover"
+          placement="bottom"
+          overlayClassName="xl"
+          // title="Description"
+        >
+          <i className="icofont-info-circle icon-only" />
+        </Popover>
       </div>
     );
   }
@@ -86,7 +95,7 @@ class TaskList extends React.PureComponent {
           {this.renderDeadline()}
         </div>
 
-        <div className="my-1">Name Task</div>
+        <div className="my-1">Name Task Name Task Name Task</div>
         <div className="d-flex flex-row flex-nowrap justify-content-between align-items-center">
           <div>{this.renderMembers()}</div>
           <div className="form-inline mb-0">

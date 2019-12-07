@@ -68,10 +68,10 @@ class FormAddCard extends React.PureComponent {
             />
           </div>
           <div className="d-flex flex-row">
-            <button type="submit" className="btn btn-success">
+            <button type="submit" className="btn btn-primary">
               Create Card
             </button>
-            <button type="button" className="btn btn-link text-success">
+            <button type="button" className="btn btn-link text-primary">
               Cancel
             </button>
           </div>
@@ -83,7 +83,7 @@ class FormAddCard extends React.PureComponent {
       <div className="kanban-column-header p-2">
         <button
           type="button"
-          className="btn btn-success btn-block"
+          className="btn btn-primary btn-block"
           onClick={this.openEditable}
         >
           <i className="icofont-plus" /> <span>Add a new Card</span>

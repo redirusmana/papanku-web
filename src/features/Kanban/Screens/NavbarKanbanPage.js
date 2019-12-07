@@ -37,7 +37,7 @@ class KanbanPageIndex extends React.PureComponent {
     const { isVisible } = this.state;
     return (
       <React.Fragment>
-        <nav className="navbar navbar-expand-sm navbar-light bg-green">
+        <nav className="navbar navbar-expand-sm navbar-light bg-primary">
           <div className="collapse navbar-collapse">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item py-0 ">
@@ -140,12 +140,9 @@ class KanbanPageIndex extends React.PureComponent {
                   placement="bottomLeft"
                   overlayClassName="lg"
                 >
-                  <button
-                    type="button"
-                    className="btn btn-sm btn-outline-success mx-2"
-                  >
-                    Members
-                  </button>
+                  <div>
+                    <Avatar name={7} size="sm" />
+                  </div>
                 </Popover>
                 <Popover
                   title="Invite Friends"
@@ -156,7 +153,7 @@ class KanbanPageIndex extends React.PureComponent {
                 >
                   <button
                     type="button"
-                    className="btn btn-sm btn-outline-success"
+                    className="btn btn-sm btn-outline-primary mx-1"
                   >
                     Invite
                   </button>
@@ -164,11 +161,33 @@ class KanbanPageIndex extends React.PureComponent {
               </li>
             </ul>
             <ul className="navbar-nav ml-auto">
+              {/* <li className="nav-item font-weight-bold">
+                <div> Total Card : 2</div>
+              </li>
+              <li className="nav-item font-weight-bold">
+                <div> Total Task : 14</div>
+              </li>
+              <li className="nav-item font-weight-bold">
+                <div>Created At : 13/13/2013</div>
+              </li>
+              <li className="nav-item font-weight-bold">
+                <Popover
+                  title="Members"
+                  trigger="click"
+                  content={<ListMemberFriend />}
+                  placement="bottomLeft"
+                  overlayClassName="lg"
+                >
+                  <div>
+                    Created By : <Avatar name="R R" size="sm" /> Redi Rusmana
+                  </div>
+                </Popover>
+              </li> */}
               <li className="nav-item py-0 font-weight-bold">
                 <button
                   type="button"
                   onClick={() => this.handleModal()}
-                  className="btn btn-sm btn-outline-success"
+                  className="btn btn-sm btn-outline-primary"
                 >
                   All Activity
                 </button>

@@ -35,6 +35,6 @@ export const OptActiveStatus = [
   { label: "InActive", value: "InActive" }
 ];
 export const OptActiveStatusClass = {
-  Active: "badge badge-success",
+  Active: "badge badge-primary",
   InActive: "badge badge-danger"
 };

@@ -56,13 +56,13 @@ class ListBoard extends React.PureComponent {
                 <div className="card-footer text-right py-2">
                   <Link
                     to="/board"
-                    className="btn btn-sm btn-success font-weight-bold "
+                    className="btn btn-sm btn-primary font-weight-bold "
                   >
                     Board
                   </Link>
                   {/* <button
                 type="button"
-                className="btn btn-sm btn-success font-weight-bold "
+                className="btn btn-sm btn-primary font-weight-bold "
               >
                 Board
               </button> */}
@@ -76,7 +76,7 @@ class ListBoard extends React.PureComponent {
                   onClick={() => this.handleModal()}
                 >
                   <h3 className="my-5 mx-auto py-4 font-weight-bold">
-                    {/* <button type="button" className="btn btn-link btn-success"> */}
+                    {/* <button type="button" className="btn btn-link btn-primary"> */}
                     Add New Board
                     {/* </button> */}
                   </h3>
@@ -102,7 +102,7 @@ class ListBoard extends React.PureComponent {
                   <button
                     onClick={() => this.onAccept()}
                     type="button"
-                    className="btn btn-sm rounded-pill btn-success mr-1" //primary
+                    className="btn btn-sm rounded-pill btn-primary mr-1" //primary
                   >
                     Accept
                   </button>
@@ -115,7 +115,7 @@ class ListBoard extends React.PureComponent {
                   </button>
                   {/* <button
                 type="button"
-                className="btn btn-sm btn-success font-weight-bold "
+                className="btn btn-sm btn-primary font-weight-bold "
               >
                 Board
               </button> */}

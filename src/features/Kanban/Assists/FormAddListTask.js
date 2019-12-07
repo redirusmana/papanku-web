@@ -98,7 +98,7 @@ class FormAddListTask extends React.PureComponent {
       return (
         <button
           type="button"
-          className="btn btn-success btn-block"
+          className="btn btn-primary btn-block"
           onClick={this.onToggleCreate}
         >
           <i className="la la-plus icon-left" />
@@ -129,7 +129,7 @@ class FormAddListTask extends React.PureComponent {
           <div className="flex-grow-1 flex-shrink-1">
             <button
               type="submit"
-              className="btn btn-success btn-block"
+              className="btn btn-primary btn-block"
               disabled={false}
             >
               {false ? (

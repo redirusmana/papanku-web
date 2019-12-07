@@ -55,12 +55,15 @@ class FormEditTitleCard extends React.PureComponent {
             autoFocus
           />
         ) : (
-          <h5 className="mb-0">{renamingTitleName}</h5>
+          <h5 className="mb-0">
+            {renamingTitleName}
+            {/* {"(2)"} */}
+          </h5>
         )}
         <div>
           <UncontrolledDropdown tag="span">
             <DropdownToggle tag="button" className="btn btn-sm btn-icon">
-              <i className="icofont-navigation-menu" />
+              <i className="icofont-navigation-menu text-primary" />
               {/* <i className="icofont-listine-dots" /> */}
             </DropdownToggle>
             <DropdownMenu right>

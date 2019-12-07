@@ -107,7 +107,7 @@ class FormEditMail extends React.PureComponent {
                   <div className="form-group mb-0">
                     <button
                       type="submit"
-                      className="btn btn-success btn-block font-weight-bold"
+                      className="btn btn-primary btn-block font-weight-bold"
                     >
                       Submit
                     </button>

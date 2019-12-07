@@ -1,17 +1,71 @@
 import React from "react";
+import * as yup from "yup";
 import { Link } from "react-router-dom";
+import { Formik } from "formik";
+import cn from "classnames";
+import api from "../../../provider/Tools/api";
+import { apiLoginAction } from "../action";
+import alertFloat from "../../../provider/Display/alertFloat";
+import {
+  axiosError,
+  AXIOS_CANCEL_MESSAGE
+} from "../../../provider/Tools/converter";
 import logoLanding from "../../../assets/images/logo-landing.jpeg";
-import logoTitle from "../../../assets/images/logo-title.jpeg";
+import logoTitle from "../../../assets/images/logo-title.png";
 import "../Style/style.css";
 
+const formLoginValidation = yup.object().shape({
+  email: yup
+    .string()
+    .email("Current value is not an email")
+    .required("Email is required"),
+  password: yup
+    .string()
+    .required("Password is required")
+    .min(6, "Password too short")
+});
+
 class PageLogin extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      initialValues: {
+        email: undefined,
+        password: undefined
+      }
+    };
+  }
+  handleSubmit = async (values, actions) => {
+    try {
+      this._requestSource = api.generateCancelToken();
+
+      const response = await apiLoginAction(values, this._requestSource.token);
+      if (response.status === 200) {
+        alertFloat({
+          type: "success",
+          content: response.message
+        });
+      }
+    } catch (e) {
+      const error = axiosError(e);
+      if (error === AXIOS_CANCEL_MESSAGE) {
+        return;
+      }
+      alertFloat({
+        type: "error",
+        content: error
+      });
+      actions.setSubmitting(false);
+    }
+  };
   render() {
+    const { initialValues } = this.state;
     return (
       <React.Fragment>
         <div className="container-fluid">
           <div className="row p-5">
             {/* image  */}
-            <div className="col-lg-14">
+            <div className="col-lg-11">
               <div>
                 <img
                   className="m-auto"
@@ -25,7 +79,7 @@ class PageLogin extends React.PureComponent {
             {/* image  */}
 
             {/* Form  */}
-            <div className="col-lg-10 m-auto">
+            <div className="col-lg-9 m-auto">
               <div className="">
                 <div className="text-center">
                   <img
@@ -36,88 +90,92 @@ class PageLogin extends React.PureComponent {
                     alt=""
                   />
                 </div>
-                <form className="form-horizontal p-4" autoComplete="form-login">
-                  {/* {message && (
-                    <div className="mb-2">
-                      <Alert type="error" message={`Whoops. ${message}`} showIcon />
-                    </div>
-                  )} */}
-                  <div className="form-group">
-                    <label className="form-label" htmlFor="login-email">
-                      Username
-                    </label>
-                    <input
-                      type="text"
-                      className={"form-control"}
-                      id="login-username"
-                      aria-describedby="usernameHelp"
-                      placeholder="Username"
-                      // onChange={handleChange}
-                      // onBlur={handleBlur}
-                      name="username"
-                      autoComplete="username"
-                    />
-                    {/* <TextValidation isTouched={touched.username} errors={errors.username} /> */}
-                  </div>
-                  <div className="form-group">
-                    <label className="form-label" htmlFor="login-password">
-                      Password
-                    </label>
-                    <input
-                      type="password"
-                      className={"form-control"}
-                      id="login-password"
-                      placeholder="Password"
-                      // onChange={handleChange}
-                      // onBlur={handleBlur}
-                      name="password"
-                      autoComplete="password"
-                    />
-                    {/* <TextValidation isTouched={touched.password} errors={errors.password} /> */}
-                  </div>
-                  <div className="form-group mb-0">
-                    <Link
-                      to="/user"
-                      className="btn btn-success btn-block font-weight-bold"
+                <Formik
+                  initialValues={initialValues}
+                  validationSchema={formLoginValidation}
+                  onSubmit={this.handleSubmit}
+                  render={({
+                    handleChange,
+                    isSubmitting,
+                    handleBlur,
+                    handleSubmit,
+                    values,
+                    errors
+                    // setFieldValue,
+                    // setValues,
+                  }) => (
+                    <form
+                      className="form-horizontal p-4"
+                      onSubmit={handleSubmit}
                     >
-                      Log In
-                    </Link>
-                    {/* <button
-                      type="submit"
-                      className="btn btn-success btn-block font-weight-bold"
-                      disabled={submitting}
-                    >
-                      {submitting && <i className="la la-circle-o-notch animate-spin mr-2" />}
-                      Login <i className="icofont-login"></i>
-                    </button> */}
-                  </div>
-                  <div className="form-footer d-flex flex-row flex-nowrap justify-content-between align-items-center mt-4">
-                    <label
-                      className="custom-control custom-checkbox mb-0"
-                      htmlFor="login-remember"
-                    >
-                      <input
-                        type="checkbox"
-                        className="custom-control-input"
-                        id="login-remember"
-                        name="rememberMe"
-                        // onChange={handleChange}
-                        // onBlur={handleBlur}
-                      />
+                      <div className="row">
+                        <div className="col-lg-24">
+                          <div className="form-group">
+                            <label className="form-label" htmlFor="label_name">
+                              Email
+                            </label>
+                            <input
+                              type="text"
+                              className={"form-control"}
+                              placeholder="Email"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              name="email"
+                              values={values.email}
+                            />
+                            {errors && errors.email && (
+                              <p className="text-danger">{errors.email}</p>
+                            )}
+                          </div>
+                          <div className="form-group">
+                            <label className="form-label" htmlFor="label_name">
+                              Password
+                            </label>
+                            <input
+                              type="password"
+                              className={"form-control"}
+                              placeholder="Password"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              name="password"
+                              values={values.password}
+                            />
+                            {errors && errors.password && (
+                              <p className="text-danger">{errors.password}</p>
+                            )}
+                          </div>
 
-                      <span className="custom-control-label">Remember me</span>
-                    </label>
-                    <Link
-                      to="/register"
-                      className="btn btn-link text-success font-weight-bold"
-                    >
-                      Create New Account / Register
-                    </Link>
-                  </div>
-                </form>
+                          <div className="form-group ">
+                            <button
+                              type="submit"
+                              className="btn btn-block btn-primary"
+                              disabled={isSubmitting}
+                            >
+                              <i
+                                className={cn({
+                                  la: true,
+                                  "la-save": !isSubmitting,
+                                  "la-circle-o-notch animate-spin": isSubmitting
+                                })}
+                              />{" "}
+                              {isSubmitting ? "Submitting" : "Submit"}
+                            </button>
+                          </div>
+                          <div className="form-footer d-flex flex-row flex-nowrap justify-content-center align-items-center mt-2">
+                            <Link
+                              to="/register"
+                              className="btn btn-link text-primary font-weight-bold"
+                            >
+                              Create new a Account? / Sign In
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  )}
+                />
               </div>
             </div>
-            {/* Form  */}
           </div>
         </div>
       </React.Fragment>

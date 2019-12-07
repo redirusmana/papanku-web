@@ -59,7 +59,7 @@ class MembersCard extends React.PureComponent {
             placement="top"
             overlayClassName="popover-noarrow"
           >
-            <button type="button" className="btn btn-link text-success">
+            <button type="button" className="btn btn-link text-primary">
               <i className="icofont-plus icon-left" /> Add Member
             </button>
           </Popover>

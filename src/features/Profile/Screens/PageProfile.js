@@ -88,7 +88,7 @@ class PageProfile extends React.PureComponent {
                   <p className="font-weight-normal">
                     <button
                       type="button"
-                      className="btn btn-block btn-success btn-sm"
+                      className="btn btn-block btn-primary btn-sm"
                       onClick={() => this.handleModal("edit-profile")}
                     >
                       <i className="font-weight-normal icofont-gear" /> Edit
@@ -110,7 +110,7 @@ class PageProfile extends React.PureComponent {
                       <button
                         onClick={() => this.handleModal("edit-mail")}
                         type="button"
-                        className="btn btn-block btn-success btn-sm "
+                        className="btn btn-block btn-primary btn-sm "
                       >
                         <i className="icofont-pencil-alt-2" />
                       </button>
@@ -125,7 +125,7 @@ class PageProfile extends React.PureComponent {
                       <button
                         onClick={() => this.handleModal("edit-phone")}
                         type="button"
-                        className="btn btn-block btn-success btn-sm"
+                        className="btn btn-block btn-primary btn-sm"
                       >
                         <i className="icofont-pencil-alt-2" />
                       </button>
@@ -140,7 +140,7 @@ class PageProfile extends React.PureComponent {
                       <button
                         onClick={() => this.handleModal("edit-password")}
                         type="button"
-                        className="btn btn-block btn-success btn-sm"
+                        className="btn btn-block btn-primary btn-sm"
                       >
                         <i className="icofont-pencil-alt-2" />
                       </button>
@@ -149,7 +149,7 @@ class PageProfile extends React.PureComponent {
                   <p className="font-weight-normal">
                     <Link
                       to={"/login"}
-                      className="btn btn-block btn-success btn-sm" //danger
+                      className="btn btn-block btn-primary btn-sm" //danger
                     >
                       <i className="font-weight-normal icofont-exit" /> Logout
                     </Link>
@@ -176,8 +176,8 @@ class PageProfile extends React.PureComponent {
                 <div className="row block-menu">
                   <div className="col-lg-6 px-0 navs">
                     <NavLink
-                      className="text-secondary h-100 d-block"
-                      activeClassName="text-success active"
+                      className="text-primary h-100 d-block"
+                      activeClassName="text-primary active"
                       to="/user"
                       exact
                     >
@@ -186,8 +186,8 @@ class PageProfile extends React.PureComponent {
                   </div>
                   <div className="col-lg-6 px-0 navs">
                     <NavLink
-                      className="text-secondary h-100 d-block"
-                      activeClassName="text-success active"
+                      className="text-primary h-100 d-block"
+                      activeClassName="text-primary active"
                       to="/user/activity"
                       exact
                     >
@@ -196,8 +196,8 @@ class PageProfile extends React.PureComponent {
                   </div>
                   <div className="col-lg-6 px-0 navs ">
                     <NavLink
-                      className="text-secondary h-100 d-block"
-                      activeClassName="text-success active"
+                      className="text-primary h-100 d-block"
+                      activeClassName="text-primary active"
                       to="/user/friend"
                     >
                       Friend
@@ -205,8 +205,8 @@ class PageProfile extends React.PureComponent {
                   </div>
                   <div className="col-lg-6 px-0 navs ">
                     <NavLink
-                      className="text-secondary h-100 d-block"
-                      activeClassName="text-success active"
+                      className="text-primary h-100 d-block"
+                      activeClassName="text-primary active"
                       to="/user/request-friend"
                     >
                       Friend Request

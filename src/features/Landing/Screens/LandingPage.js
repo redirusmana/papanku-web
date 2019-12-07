@@ -11,7 +11,7 @@ class LandingPage extends React.PureComponent {
     return (
       <React.Fragment>
         {/* Navbar */}
-        <nav className="navbar  navbar-expand-lg navbar-light bg-success">
+        <nav className="navbar  navbar-expand-lg navbar-light bg-primary">
           {/*bg-transparent fixed-top */}
           <Link to="/" className="navbar-brand">
             <img src={logo} width="40" height="40" alt="" />
@@ -29,7 +29,7 @@ class LandingPage extends React.PureComponent {
               <li className="nav-item ">
                 <Link
                   to="/register"
-                  className="btn btn-md font-weight-bold btn-light btn-rounded-circle text-success"
+                  className="btn btn-md font-weight-bold btn-light btn-rounded-circle text-primary"
                 >
                   Sign Up {/*  <i class="icofont-sign-in icofont-1x"></i> */}
                 </Link>
@@ -40,7 +40,7 @@ class LandingPage extends React.PureComponent {
         {/* Navbar */}
 
         {/* Landing Page */}
-        <div className="container-fluid bg-success">
+        <div className="container-fluid bg-primary">
           <div className="row p-5">
             <div className="col-lg-15">
               <div className="row p-5">
@@ -69,7 +69,7 @@ class LandingPage extends React.PureComponent {
 
         {/* Page 2 */}
         <div
-          className="container-fluid bg-success"
+          className="container-fluid bg-primary"
           style={{
             // backgroundImage: `url(${bgCard})`,
             // backgroundPosition: "center",
@@ -137,7 +137,7 @@ class LandingPage extends React.PureComponent {
         {/* Page 3 */}
         <div className="container-fluid">
           <div className="container p-5">
-            <h5 className="text-center text-success font-weight-bold">
+            <h5 className="text-center text-primary font-weight-bold">
               KEUNTUNGAN
             </h5>
             <h6 className="text-center">
@@ -205,7 +205,7 @@ class LandingPage extends React.PureComponent {
             <div className="row p-5">
               <div className="col-lg-12 p-5">
                 <div className="text-left">
-                  <h6 className="font-weight-bold text-success">
+                  <h6 className="font-weight-bold text-primary">
                     Ajak Temanmu!!
                   </h6>
                   <br />
@@ -245,7 +245,7 @@ class LandingPage extends React.PureComponent {
                         </p>
                         <Link
                           to="/login"
-                          className="btn btn-success rounded-pill font-weight-bold"
+                          className="btn btn-primary rounded-pill font-weight-bold"
                         >
                           JOIN
                         </Link>
@@ -287,7 +287,7 @@ class LandingPage extends React.PureComponent {
                         </p>
                         <Link
                           to="/login"
-                          className="btn btn-success rounded-pill font-weight-bold"
+                          className="btn btn-primary rounded-pill font-weight-bold"
                         >
                           JOIN
                         </Link>
@@ -299,7 +299,7 @@ class LandingPage extends React.PureComponent {
               </div>
               <div className="col-lg-12 p-5">
                 <div className="text-left">
-                  <h6 className="font-weight-bold text-success">
+                  <h6 className="font-weight-bold text-primary">
                     List Daftar Tugasmu!!
                   </h6>
                   <br />
@@ -330,7 +330,7 @@ class LandingPage extends React.PureComponent {
             <div className="row p-5">
               <div className="col-lg-12 p-5">
                 <div className="text-left">
-                  <h6 className="font-weight-bold text-success">
+                  <h6 className="font-weight-bold text-primary">
                     Bagikan Tugas!!
                   </h6>
                   <br />
@@ -375,7 +375,7 @@ class LandingPage extends React.PureComponent {
                         </p>
                         <Link
                           to="/login"
-                          className="btn btn-success rounded-pill font-weight-bold"
+                          className="btn btn-primary rounded-pill font-weight-bold"
                         >
                           JOIN
                         </Link>
@@ -417,7 +417,7 @@ class LandingPage extends React.PureComponent {
                         </p>
                         <Link
                           to="/login"
-                          className="btn btn-success rounded-pill font-weight-bold"
+                          className="btn btn-primary rounded-pill font-weight-bold"
                         >
                           JOIN
                         </Link>
@@ -429,7 +429,7 @@ class LandingPage extends React.PureComponent {
               </div>
               <div className="col-lg-12 p-5">
                 <div className="text-left">
-                  <h6 className="font-weight-bold text-success">
+                  <h6 className="font-weight-bold text-primary">
                     Selesaikan!!
                   </h6>
                   <br />
@@ -451,7 +451,7 @@ class LandingPage extends React.PureComponent {
         {/* Page 8 */}
 
         {/* Page 9 */}
-        <div className="container-fluid bg-success">
+        <div className="container-fluid bg-primary">
           <div className="row p-5">
             <div className="col-lg-24">
               <div className="text-center p-5">
@@ -472,7 +472,7 @@ class LandingPage extends React.PureComponent {
         {/* Page 9 */}
 
         {/* Footer */}
-        <div className="container-fluid bg-success">
+        <div className="container-fluid bg-primary">
           <div className="row text-white">
             <div className="col-lg-24">
               {/* PAPANKU */}

@@ -103,12 +103,12 @@ class DescriptionCard extends React.PureComponent {
             }}
           />
           <div className="my-2">
-            <button type="submit" className="btn btn-success btn-sm">
+            <button type="submit" className="btn btn-primary btn-sm">
               <i className="icofont-save" /> Save
             </button>
             {/* <button
               type="submit"
-              className="btn btn-link text-success btn-sm mx-2"
+              className="btn btn-link text-primary btn-sm mx-2"
             >
               
             </button> */}
