@@ -43,7 +43,7 @@ class ListFriends extends React.PureComponent {
             <div className="card-body">
               <div className="text-center">
                 <Avatar
-                  name="Martin E"
+                  name="Muhammad Seftikara Al"
                   size="xxxl"
                   avatarClass="avatar-link mb-1"
                 />

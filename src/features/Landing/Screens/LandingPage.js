@@ -70,12 +70,14 @@ class LandingPage extends React.PureComponent {
         {/* Page 2 */}
         <div
           className="container-fluid bg-primary"
-          style={{
-            // backgroundImage: `url(${bgCard})`,
-            // backgroundPosition: "center",
-            // backgroundSize: "cover",
-            // backgroundRepeat: "no-repeat"
-          }}
+          style={
+            {
+              // backgroundImage: `url(${bgCard})`,
+              // backgroundPosition: "center",
+              // backgroundSize: "cover",
+              // backgroundRepeat: "no-repeat"
+            }
+          }
         >
           <div className="container">
             <div className="row pl-5 pr-5">

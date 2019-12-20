@@ -1,10 +1,11 @@
 import React from "react";
+import { connect } from "react-redux";
 import * as yup from "yup";
 import { Link } from "react-router-dom";
 import { Formik } from "formik";
 import cn from "classnames";
 import api from "../../../provider/Tools/api";
-import { apiLoginAction } from "../action";
+import { apiLoginAction, AUTH_SET_LOGIN, saveToken } from "../action";
 import alertFloat from "../../../provider/Display/alertFloat";
 import {
   axiosError,
@@ -40,10 +41,22 @@ class PageLogin extends React.PureComponent {
       this._requestSource = api.generateCancelToken();
 
       const response = await apiLoginAction(values, this._requestSource.token);
+      const { data } = response;
+
+      api.setToken(data.type, data.token);
+
+      saveToken(data.token);
+
+      this.props.setLogin({
+        token: data.token,
+        user: data.user,
+        type: data.type
+      });
+
       if (response.status === 200) {
         alertFloat({
           type: "success",
-          content: response.message
+          content: data.success
         });
       }
     } catch (e) {
@@ -183,4 +196,17 @@ class PageLogin extends React.PureComponent {
   }
 }
 
-export default PageLogin;
+const mapStateToProps = store => ({
+  user: store.auth.user,
+  token: store.auth.token
+});
+
+const mapDispatchToProps = dispatch => ({
+  setLogin: payload =>
+    dispatch({
+      type: AUTH_SET_LOGIN,
+      payload
+    })
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PageLogin);

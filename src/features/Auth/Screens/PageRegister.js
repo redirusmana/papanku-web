@@ -152,8 +152,6 @@ class PageRegister extends React.PureComponent {
                                     {errors.firstname}
                                   </p>
                                 )}
-                                {console.log(values)}
-                                {console.log(errors)}
                               </div>
                             </div>
                             <div className="col-lg-12">

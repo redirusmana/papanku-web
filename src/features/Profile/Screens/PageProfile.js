@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Route, Switch, NavLink, Link } from "react-router-dom";
 import Avatar from "../../../provider/Display/Avatar";
 import ListFriends from "../Components/ListFriends";
@@ -10,11 +11,14 @@ import FormEditProfile from "../Modal/FormEditProfile";
 import Modal from "../../../provider/Display/Modal";
 import ListBoards from "../Components/ListBoards";
 import ListActivity from "../Components/ListActivity";
+import { assetsApiUrl } from "../../../provider/Tools/general";
 import {
   OptActiveStatus,
   OptActiveStatusClass
 } from "../../../provider/Tools/config";
 import "../Style/style.css";
+import { AUTH_SET_LOGOUT, removeToken } from "../../Auth/action";
+import api from "../../../provider/Tools/api";
 
 class PageProfile extends React.PureComponent {
   constructor(props) {
@@ -36,8 +40,16 @@ class PageProfile extends React.PureComponent {
       isVisible: false
     });
   };
+
+  handleLogout = () => {
+    api.unsetToken();
+    removeToken();
+    this.props.setLogout();
+  };
+
   render() {
     const { isVisible, editAble } = this.state;
+    const { user } = this.props;
     return (
       <React.Fragment>
         <div className="container-fluid">
@@ -47,31 +59,37 @@ class PageProfile extends React.PureComponent {
               <div className="card mb-3">
                 <div className="card-header mx-auto my-2">
                   <Avatar
-                    name="sss sss"
                     avatarClass="avatar-link avatar-huge "
+                    image={
+                      user.avatar_path
+                        ? assetsApiUrl(user.avatar_path)
+                        : undefined
+                    }
+                    size="md"
+                    name={user.name || ""}
+                    title={user.name || ""}
                   />
                 </div>
                 <div className="card-body">
-                  <h3 className="text-center">Marteen urseela</h3>
+                  <h3 className="text-center">{user.name || " - "}</h3>
                   <hr />
                   <div className="d-flex my-2 flex-row font-weight-normal">
                     <div className="mr-auto" style={{ wordBreak: "break-all" }}>
                       Username
-                      {/* id */}
                     </div>
-                    <div className="ml-2">Marteen_urseela</div>
+                    <div className="ml-2">{user.name || " - "}</div>
                   </div>
                   <div className="d-flex my-2 flex-row font-weight-normal">
                     <div className="mr-auto" style={{ wordBreak: "break-all" }}>
                       Gender
                     </div>
-                    <div className="ml-2">Male</div>
+                    <div className="ml-2">{user.gender || " - "}</div>
                   </div>
                   <div className="d-flex my-2 flex-row font-weight-normal">
                     <div className="mr-auto" style={{ wordBreak: "break-all" }}>
                       Date of Birth
                     </div>
-                    <div className="ml-2">10/10/2010</div>
+                    <div className="ml-2">{user.date_of_birth || " - "}</div>
                   </div>
                   <div className="d-flex my-2 flex-row font-weight-normal">
                     <div className="mr-auto" style={{ wordBreak: "break-all" }}>
@@ -79,9 +97,11 @@ class PageProfile extends React.PureComponent {
                     </div>
                     <div className="ml-2">
                       <span
-                        className={`font-weight-normal ${OptActiveStatusClass["Active"]}`}
+                        className={`font-weight-normal ${
+                          OptActiveStatusClass[user.status || "active"]
+                        }`}
                       >
-                        {OptActiveStatus[0].value}
+                        {user.status || " - "}
                       </span>
                     </div>
                   </div>
@@ -104,7 +124,7 @@ class PageProfile extends React.PureComponent {
                 <div className="card-body">
                   <div className="d-flex my-2 flex-row font-weight-normal">
                     <div className="mr-auto" style={{ wordBreak: "break-all" }}>
-                      redirusmana30redius@gmail.com
+                      {user.email || " - "}
                     </div>
                     <div className="ml-2">
                       <button
@@ -119,7 +139,7 @@ class PageProfile extends React.PureComponent {
 
                   <div className="d-flex my-2 flex-row font-weight-normal">
                     <div className="mr-auto" style={{ wordBreak: "break-all" }}>
-                      08917387386
+                      {user.phone_number || " - "}
                     </div>
                     <div className="ml-2">
                       <button
@@ -134,7 +154,7 @@ class PageProfile extends React.PureComponent {
 
                   <div className="d-flex my-2 flex-row font-weight-normal">
                     <div className="mr-auto" style={{ wordBreak: "break-all" }}>
-                      ***********
+                      ****************
                     </div>
                     <div className="ml-2">
                       <button
@@ -147,12 +167,13 @@ class PageProfile extends React.PureComponent {
                     </div>
                   </div>
                   <p className="font-weight-normal">
-                    <Link
-                      to={"/login"}
+                    <button
+                      type="button"
+                      onClick={() => this.handleLogout()}
                       className="btn btn-block btn-primary btn-sm" //danger
                     >
                       <i className="font-weight-normal icofont-exit" /> Logout
-                    </Link>
+                    </button>
                   </p>
                 </div>
               </div>
@@ -233,4 +254,15 @@ class PageProfile extends React.PureComponent {
   }
 }
 
-export default PageProfile;
+const mapStateToProps = store => ({
+  user: store.auth.user
+});
+
+const mapDispatchToProps = dispatch => ({
+  setLogout: () =>
+    dispatch({
+      type: AUTH_SET_LOGOUT
+    })
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PageProfile);

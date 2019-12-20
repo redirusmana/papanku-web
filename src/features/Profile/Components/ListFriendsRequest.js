@@ -27,7 +27,7 @@ class ListFriends extends React.PureComponent {
                 <div className="card-body">
                   <div className="text-center">
                     <Avatar
-                      name="Martine"
+                      name="Skrean Joy"
                       size="xxxl"
                       avatarClass="avatar-link mb-1"
                     />
@@ -60,7 +60,7 @@ class ListFriends extends React.PureComponent {
                 <div className="card-body">
                   <div className="text-center">
                     <Avatar
-                      name="Martin E"
+                      name="Krepoy To"
                       size="xxxl"
                       avatarClass="avatar-link mb-1"
                     />

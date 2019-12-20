@@ -46,7 +46,7 @@ class ListBoard extends React.PureComponent {
             <div className="col-lg-8 mb-3">
               <div className="card ">
                 <div className="card-body">
-                  <p className="card-title">Name Board</p>
+                  <p className="card-title">Sigi Board</p>
                   <p className="card-text text-right">
                     <small className="text-muted">
                       Last updated 3 mins ago
@@ -91,7 +91,7 @@ class ListBoard extends React.PureComponent {
             <div className="col-lg-8 mb-3">
               <div className="card ">
                 <div className="card-body">
-                  <p className="card-title">Name Board</p>
+                  <p className="card-title">Bsm Board</p>
                   <p className="card-text text-right">
                     <small className="text-muted">
                       <b>redirsmn </b> Added you to <b>Board</b>
