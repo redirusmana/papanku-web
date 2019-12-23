@@ -2,8 +2,8 @@ import React from "react";
 import ListSearch from "./ListSearch";
 import Modal from "../../../provider/Display/Modal";
 import Avatar from "../../../provider/Display/Avatar";
-import get from 'lodash/get';
-import LoadingCard from '../../../provider/Display/LoadingCard';
+import get from "lodash/get";
+import LoadingCard from "../../../provider/Display/LoadingCard";
 import popConfirm from "../../../provider/Display/popConfirm";
 import FormAddFriend from "../Modal/FormAddFriend";
 // import { assetsApiUrl } from "../../../provider/Tools/general";
@@ -37,50 +37,51 @@ class ListFriends extends React.PureComponent {
   };
   render() {
     const { isVisible } = this.state;
-    const { dataSources,loading } = this.props;
+    const { dataSources, loading } = this.props;
 
-    const listFriends = 
-        Array.isArray(get(dataSources, 'friends')) && get(dataSources, 'friends').length > 0
-        ? get(dataSources, 'friends').map(result => (
+    const listFriends =
+      Array.isArray(get(dataSources, "friends")) &&
+      get(dataSources, "friends").length > 0
+        ? get(dataSources, "friends").map(result => (
             <React.Fragment key={`list-friend-${result.id}`}>
-        <div className="col-lg-8 mb-3">
-          <div className="card">
-            <div className="card-body">
-              <div className="text-center">
-                <Avatar
-                  name="Muhammad Seftikara Al"
-                  // image={user.avatar_path ? assetsApiUrl(user.avatar_path) : undefined}
-                  size="xxxl"
-                  avatarClass="avatar-link mb-1"
-                />
-                <h4 className="card-title text-center pt-2">
-                  Muhammad Seftikara Al
-                </h4>
-                <button
-                  type="button"
-                  className="btn rounded-pill btn-primary mr-1"
-                >
-                  <i className="font-weight-normal icofont-info-circle" />
-                  {/* ui-message */}
-                  {/* Invite */}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => this.onDeleteFriend()}
-                  className="btn rounded-pill btn-danger ml-1"
-                >
-                  <i className="font-weight-normal icofont-bin " />
-                  {/* Remove / danger*/}
-                </button>
+              <div className="col-lg-8 mb-3">
+                <div className="card">
+                  <div className="card-body">
+                    <div className="text-center">
+                      <Avatar
+                        name="Muhammad Seftikara Al"
+                        // image={user.avatar_path ? assetsApiUrl(user.avatar_path) : undefined}
+                        size="xxxl"
+                        avatarClass="avatar-link mb-1"
+                      />
+                      <h4 className="card-title text-center pt-2">
+                        Muhammad Seftikara Al
+                      </h4>
+                      <button
+                        type="button"
+                        className="btn rounded-pill btn-primary mr-1"
+                      >
+                        <i className="font-weight-normal icofont-info-circle" />
+                        {/* ui-message */}
+                        {/* Invite */}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => this.onDeleteFriend()}
+                        className="btn rounded-pill btn-danger ml-1"
+                      >
+                        <i className="font-weight-normal icofont-bin " />
+                        {/* Remove / danger*/}
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
-            </React.Fragment>            
-            ))
-            : [];
-    if(loading){
-      return <LoadingCard/>
+            </React.Fragment>
+          ))
+        : [];
+    if (loading) {
+      return <LoadingCard />;
     }
 
     return (
@@ -118,7 +119,7 @@ class ListFriends extends React.PureComponent {
           handleBack={this.handleClose}
         >
           <div className="container">
-            <FormAddFriend dataSources={dataSources}/>
+            <FormAddFriend dataSources={dataSources} />
           </div>
         </Modal>
       </React.Fragment>

@@ -34,21 +34,26 @@ class PageProfile extends React.PureComponent {
   }
 
   getUserInfo = () => {
-    this.setState({
-      loading:true
-    },()=>{
-      const { user } = this.props;
-      this._requestSource = api.generateCancelToken();
-      api.get(`/api/${user.email}`, this._requestSource.token)
-        .then(response => {
-          const { data } = response;
-          this.setState({
-            dataSource: data,
-            loading:false
-          });
-        }).catch(error => console.log(error));
-    })
-  }
+    this.setState(
+      {
+        loading: true
+      },
+      () => {
+        const { user } = this.props;
+        this._requestSource = api.generateCancelToken();
+        api
+          .get(`/api/${user.email}`, this._requestSource.token)
+          .then(response => {
+            const { data } = response;
+            this.setState({
+              dataSource: data,
+              loading: false
+            });
+          })
+          .catch(error => console.log(error));
+      }
+    );
+  };
 
   handleModal = editAble => {
     this.setState({
@@ -98,7 +103,9 @@ class PageProfile extends React.PureComponent {
                   />
                 </div>
                 <div className="card-body">
-                  <h3 className="text-center">{`${user.first_name} ${user.last_name}` || " - "}</h3>
+                  <h3 className="text-center">
+                    {`${user.first_name} ${user.last_name}` || " - "}
+                  </h3>
                   {/* user.name */}
                   <hr />
                   <div className="d-flex my-2 flex-row font-weight-normal">
@@ -225,16 +232,15 @@ class PageProfile extends React.PureComponent {
                 <div className="row block-menu">
                   {1 === 2 && (
                     <div className="col-lg-6 px-0 navs">
-                    <NavLink
-                      className="text-primary h-100 d-block"
-                      activeClassName="text-primary active"
-                      to="/user"
-                      exact
-                    >
-                      
-                    <i className="icofont-home text-primary" />
-                    </NavLink>
-                  </div>
+                      <NavLink
+                        className="text-primary h-100 d-block"
+                        activeClassName="text-primary active"
+                        to="/user"
+                        exact
+                      >
+                        <i className="icofont-home text-primary" />
+                      </NavLink>
+                    </div>
                   )}
                   <div className="col-lg-6 px-0 navs">
                     <NavLink
@@ -265,53 +271,62 @@ class PageProfile extends React.PureComponent {
                       Friend
                     </NavLink>
                   </div>
-                  {1 === (2-1) && (
+                  {1 === 2 - 1 && (
                     <div className="col-lg-6 px-0 navs ">
-                    <NavLink
-                      className="text-primary h-100 d-block"
-                      activeClassName="text-primary active"
-                      to="/user/request-friend"
-                    >
-                      Friend Request
-                    </NavLink>
-                  </div>
+                      <NavLink
+                        className="text-primary h-100 d-block"
+                        activeClassName="text-primary active"
+                        to="/user/request-friend"
+                      >
+                        Friend Request
+                      </NavLink>
+                    </div>
                   )}
                 </div>
               </div>
               <div className="row">
                 <Switch>
-                  <Route path="/user" exact render={routeProps => (
-                    <ListBoards
-                      {...routeProps}
-                      dataSources={dataSource}
-                      loading={loading}
-                    />
-                  )}  
-                  />
-                  <Route path="/user/activity" exact render={routeProps => (
-                    <ListActivity
-                      {...routeProps}
-                      dataSources={dataSource}
-                      loading={loading}
-                    />
-                  )} 
-                  />
-                  <Route path="/user/friend" render={routeProps => (
-                    <ListFriends
-                      {...routeProps}
-                      dataSources={dataSource}
-                      loading={loading}
-                    />
-                  )} 
+                  <Route
+                    path="/user"
+                    exact
+                    render={routeProps => (
+                      <ListBoards
+                        {...routeProps}
+                        dataSources={dataSource}
+                        loading={loading}
+                      />
+                    )}
                   />
                   <Route
-                    path="/user/request-friend"render={routeProps => (
+                    path="/user/activity"
+                    exact
+                    render={routeProps => (
+                      <ListActivity
+                        {...routeProps}
+                        dataSources={dataSource}
+                        loading={loading}
+                      />
+                    )}
+                  />
+                  <Route
+                    path="/user/friend"
+                    render={routeProps => (
+                      <ListFriends
+                        {...routeProps}
+                        dataSources={dataSource}
+                        loading={loading}
+                      />
+                    )}
+                  />
+                  <Route
+                    path="/user/request-friend"
+                    render={routeProps => (
                       <ListFriendsRequest
                         {...routeProps}
                         dataSources={dataSource}
                         loading={loading}
                       />
-                    )} 
+                    )}
                   />
                 </Switch>
               </div>

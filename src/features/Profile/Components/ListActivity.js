@@ -7,16 +7,16 @@ class ListActivity extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      page:10,
-      loadingState:false
+      page: 10,
+      loadingState: false
     };
   }
 
   handleLoadMore = () => {
-    this.setState(prevState =>({
-      loadingState:true,
-      page :prevState.page + 10
-    }
+    this.setState(prevState => ({
+      loadingState: true,
+      page: prevState.page + 10
+    }));
     // ,() => {
     //   const { user } = this.props;
     //   const { page } = this.state;
@@ -35,15 +35,15 @@ class ListActivity extends React.PureComponent {
     //       });
     //     }).catch(error => console.log(error));
     // }
-    ))
-  }
+  };
   render() {
-    const {loadingState,page} = this.state;
-    const {dataSources, loading} =this.props;
-    if(dataSources === page){
-      return undefined}
-    if(loading){
-      return <LoadingCard/>
+    const { loadingState, page } = this.state;
+    const { dataSources, loading } = this.props;
+    if (dataSources === page) {
+      return undefined;
+    }
+    if (loading) {
+      return <LoadingCard />;
     }
     return (
       <React.Fragment>
@@ -90,11 +90,11 @@ class ListActivity extends React.PureComponent {
                   </div>
                 </div>
               </div>
-              {loadingState && <LoadingCard/>}
-
+              {loadingState && <LoadingCard />}
             </div>
             <div className="card-footer ">
-              <button type="button"
+              <button
+                type="button"
                 className="btn btn-link text-dark"
                 onClick={() => this.handleLoadMore()}
               >

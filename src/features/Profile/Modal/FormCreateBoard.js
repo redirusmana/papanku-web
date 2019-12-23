@@ -2,7 +2,7 @@ import React from "react";
 import { Formik } from "formik";
 import { connect } from "react-redux";
 import cn from "classnames";
-import {apiCreateBoard} from '../action'; //apiAddFriend,
+import { apiCreateBoard } from "../action"; //apiAddFriend,
 import api from "../../../provider/Tools/api";
 import "../Style/style.css";
 import {
@@ -16,18 +16,22 @@ class FormCreateBoard extends React.PureComponent {
     super(props);
     this.state = {
       initialValues: {
-        title:''
+        title: ""
       }
     };
   }
 
   handleSubmit = async (values, actions) => {
-    const { user } = this.props; 
-    const ROUTE_API = `api/${user.email}/boasasard`
+    const { user } = this.props;
+    const ROUTE_API = `api/${user.email}/boasasard`;
     try {
       this._requestSource = api.generateCancelToken();
 
-      const response = await apiCreateBoard(ROUTE_API, values, this._requestSource.token);
+      const response = await apiCreateBoard(
+        ROUTE_API,
+        values,
+        this._requestSource.token
+      );
       const { data } = response;
 
       if (response.status === 200) {
@@ -49,7 +53,7 @@ class FormCreateBoard extends React.PureComponent {
     }
   };
   render() {
-    const {initialValues} = this.state;
+    const { initialValues } = this.state;
     return (
       <React.Fragment>
         {/* List Board */}
@@ -116,6 +120,4 @@ const mapStateToProps = store => ({
   user: store.auth.user
 });
 
-
 export default connect(mapStateToProps)(FormCreateBoard);
-

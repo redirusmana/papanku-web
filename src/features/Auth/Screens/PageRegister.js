@@ -17,13 +17,10 @@ import "../Style/style.css";
 const formRegisterValidation = yup.object().shape({
   first_name: yup.string().required("First Name is required"),
   last_name: yup.string().required("Last Name is required"),
-  username: yup
-    .string()
-    .required("Username is required")
-    // .matches(/^[a-zA-Z0-9]*$/, "Must alphanumeric value")
-    // .lowercase("Username should be lowercase")
-    // .trim()
-    ,
+  username: yup.string().required("Username is required"),
+  // .matches(/^[a-zA-Z0-9]*$/, "Must alphanumeric value")
+  // .lowercase("Username should be lowercase")
+  // .trim()
   email: yup
     .string()
     .email("Current value is not an email")
@@ -54,11 +51,14 @@ class PageRegister extends React.PureComponent {
   }
 
   handleSubmit = async (values, actions) => {
-    const  {password_confirmation, ...newValues } = values;
+    const { password_confirmation, ...newValues } = values;
     try {
       this._requestSource = api.generateCancelToken();
 
-      const response = await apiSignInAction(newValues, this._requestSource.token);
+      const response = await apiSignInAction(
+        newValues,
+        this._requestSource.token
+      );
       if (response.status === 200) {
         alertFloat({
           type: "success",

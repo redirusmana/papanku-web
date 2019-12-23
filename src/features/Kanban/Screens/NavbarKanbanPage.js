@@ -1,5 +1,5 @@
 import React from "react";
-import get from 'lodash/get';
+import get from "lodash/get";
 import Drawer from "antd/lib/drawer";
 import Popover from "antd/lib/popover";
 import "antd/lib/drawer/style/index.css";
@@ -40,27 +40,41 @@ class NavbarKanbanPage extends React.PureComponent {
     const { dataSourcesUser, handleLogout, dataSources } = this.props;
 
     const mappedMemberNav =
-    Array.isArray(get(dataSources, 'members')) && get(dataSources, 'members').length > 0
-        ? get(dataSources, 'members').slice(0, 5).map(result => (
-            <React.Fragment key={`list-mapped-member-nav-${result.id}-${result.user_id}`}>
-            <Popover
+      Array.isArray(get(dataSources, "members")) &&
+      get(dataSources, "members").length > 0
+        ? get(dataSources, "members")
+            .slice(0, 5)
+            .map(result => (
+              <React.Fragment
+                key={`list-mapped-member-nav-${result.id}-${result.user_id}`}
+              >
+                <Popover
                   trigger="click"
-                  content={<ProfileMember results={get(result, 'user')} />}
+                  content={<ProfileMember results={get(result, "user")} />}
                   placement="bottomLeft"
                   overlayClassName="xl popover-no-padding"
                 >
                   <div>
-                    <Avatar name={get(result, 'user.username')}
-                    image={get(result, 'user.avatar_path') ? assetsApiUrl(get(result, 'user.avatar_path')) : undefined}
-                    title={get(result, 'user.username')} size="sm" />
+                    <Avatar
+                      name={get(result, "user.username")}
+                      image={
+                        get(result, "user.avatar_path")
+                          ? assetsApiUrl(get(result, "user.avatar_path"))
+                          : undefined
+                      }
+                      title={get(result, "user.username")}
+                      size="sm"
+                    />
                   </div>
-                </Popover> 
-            </React.Fragment>
+                </Popover>
+              </React.Fragment>
             ))
-            : [];
+        : [];
     const listMemberLength =
-    Array.isArray(get(dataSources, 'members')) && get(dataSources, 'members').length > 0 
-    ? get(dataSources, 'members').length : 0
+      Array.isArray(get(dataSources, "members")) &&
+      get(dataSources, "members").length > 0
+        ? get(dataSources, "members").length
+        : 0;
 
     return (
       <React.Fragment>
@@ -116,7 +130,7 @@ class NavbarKanbanPage extends React.PureComponent {
                 <Popover
                   title={<b className="">Redi Rusmana</b>}
                   trigger="click"
-                  content={<ProfileMenu handleLogout={handleLogout}  />}
+                  content={<ProfileMenu handleLogout={handleLogout} />}
                   overlayClassName="xl popover-no-padding popover-noarrow"
                 >
                   {/* <button
@@ -127,7 +141,11 @@ class NavbarKanbanPage extends React.PureComponent {
                     <Avatar
                       name={dataSourcesUser.username}
                       title={dataSourcesUser.username}
-                      image={dataSourcesUser.avatar_path ? assetsApiUrl(dataSourcesUser.avatar_path) : undefined}
+                      image={
+                        dataSourcesUser.avatar_path
+                          ? assetsApiUrl(dataSourcesUser.avatar_path)
+                          : undefined
+                      }
                       style={{
                         width: "2.0rem",
                         height: "2.0rem",
@@ -148,9 +166,11 @@ class NavbarKanbanPage extends React.PureComponent {
         <nav className="navbar navbar-expand-sm navbar-light">
           <div className="collapse navbar-collapse">
             <ul className="navbar-nav mr-auto">
-              <li className="nav-item py-0 font-weight-bold">{dataSources.title}</li>
+              <li className="nav-item py-0 font-weight-bold">
+                {dataSources.title}
+              </li>
               <li className="nav-item py-0 font-weight-bold text-white">
-                {mappedMemberNav}               
+                {mappedMemberNav}
 
                 <Popover
                   title="Members"

@@ -9,7 +9,7 @@ class BoardMenu extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      isVisible: false,
+      isVisible: false
     };
   }
 
@@ -26,21 +26,22 @@ class BoardMenu extends React.PureComponent {
   };
 
   render() {
-    const {isVisible} = this.state;
-    const {boards} = this.props;
+    const { isVisible } = this.state;
+    const { boards } = this.props;
 
-    const listBoard = 
-    Array.isArray(boards) && boards.length > 0
-    ? boards.map(result => (
-        <React.Fragment key={`list-board-dropdown-${result.id}`}>
-          <Link
-            to={`/board/${result.id}`}
-            className="p-2 text-dark pointer hovered-button-popover pointer "
-          >
-            <b>{result.title}</b>
-          </Link>
-        </React.Fragment>
-    )) : []
+    const listBoard =
+      Array.isArray(boards) && boards.length > 0
+        ? boards.map(result => (
+            <React.Fragment key={`list-board-dropdown-${result.id}`}>
+              <Link
+                to={`/board/${result.id}`}
+                className="p-2 text-dark pointer hovered-button-popover pointer "
+              >
+                <b>{result.title}</b>
+              </Link>
+            </React.Fragment>
+          ))
+        : [];
 
     return (
       <React.Fragment>
@@ -53,9 +54,7 @@ class BoardMenu extends React.PureComponent {
             autoFocus={!!"title"}
           />
         </div>
-        <div className="d-flex flex-column my-2 px-0">
-          {listBoard}
-        </div>
+        <div className="d-flex flex-column my-2 px-0">{listBoard}</div>
         <div className="text-left">
           <button
             type="button"
@@ -73,7 +72,7 @@ class BoardMenu extends React.PureComponent {
           handleBack={this.handleClose}
         >
           <div className="container">
-            <FormCreateBoard/>
+            <FormCreateBoard />
           </div>
         </Modal>
       </React.Fragment>

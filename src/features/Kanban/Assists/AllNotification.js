@@ -7,16 +7,16 @@ class AllNotification extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      page:10,
-      loadingState:false
+      page: 10,
+      loadingState: false
     };
   }
 
   handleLoadMore = () => {
-    this.setState(prevState =>({
-      loadingState:true,
-      page :prevState.page + 10
-    }
+    this.setState(prevState => ({
+      loadingState: true,
+      page: prevState.page + 10
+    }));
     // ,() => {
     //   const { user } = this.props;
     //   const { page } = this.state;
@@ -35,11 +35,10 @@ class AllNotification extends React.PureComponent {
     //       });
     //     }).catch(error => console.log(error));
     // }
-    ))
-  }
-  
+  };
+
   render() {
-    const {loadingState} = this.state;
+    const { loadingState } = this.state;
     // if(loading){
     //   return <LoadingCard/>
     // }
@@ -81,14 +80,11 @@ class AllNotification extends React.PureComponent {
                   ></div> */}
             </div>
           </div>
-          
-          {loadingState && <LoadingCard/>}
+
+          {loadingState && <LoadingCard />}
 
           <div className="card-footer ">
-            <u
-              className="pointer"
-              onClick={() => this.handleLoadMore()}
-            >
+            <u className="pointer" onClick={() => this.handleLoadMore()}>
               Load More...
             </u>
           </div>

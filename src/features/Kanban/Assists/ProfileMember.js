@@ -9,14 +9,18 @@ class ProfileMember extends React.PureComponent {
     this.state = {};
   }
   render() {
-    const {results} = this.props;
+    const { results } = this.props;
     return (
       <React.Fragment>
         <div className="media">
           <Avatar
             size="lg" //name
             name={results.username}
-            image={results.avatar_path ? assetsApiUrl(results.avatar_path) : undefined}
+            image={
+              results.avatar_path
+                ? assetsApiUrl(results.avatar_path)
+                : undefined
+            }
             title={results.username}
             style={{ margin: ".7rem" }}
           />
@@ -27,12 +31,12 @@ class ProfileMember extends React.PureComponent {
             <div className="activity-item-header">
               <div>
                 <small>
-                  <b className="font-weight-bold">{results.username}</b> 
+                  <b className="font-weight-bold">{results.username}</b>
                 </small>
               </div>
               <div className="pl-1">
                 <small>
-                 <b className="font-weight-bold">{results.username}</b>
+                  <b className="font-weight-bold">{results.username}</b>
                 </small>
               </div>
             </div>
@@ -42,7 +46,10 @@ class ProfileMember extends React.PureComponent {
           <div className="p-2  pointer hovered-button-popover text-dark">
             Permission <b>(Admin)</b>
           </div>
-          <Link to="/user/activity" className="p-2 text-dark pointer hovered-button-popover">
+          <Link
+            to="/user/activity"
+            className="p-2 text-dark pointer hovered-button-popover"
+          >
             Views Activity
           </Link>
           <div className="p-2 pointer hovered-button-popover text-dark">

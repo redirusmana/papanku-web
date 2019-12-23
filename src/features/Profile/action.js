@@ -14,4 +14,3 @@ export const apiAddFriend = (data, cancelToken) => {
 export const apiCreateBoard = (url, data, cancelToken) => {
   return api.post(url, data, cancelToken);
 };
-
