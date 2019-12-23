@@ -1,5 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import get from 'lodash/get';
+import { dateFromNowString } from '../../../provider/Tools/converter';
+import LoadingCard from '../../../provider/Display/LoadingCard';
 import Modal from "../../../provider/Display/Modal";
 import popConfirm from "../../../provider/Display/popConfirm";
 import FormCreateBoard from "../Modal/FormCreateBoard";
@@ -9,7 +12,7 @@ class ListBoard extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      isVisible: false
+      isVisible: false,
     };
   }
   handleModal = () => {
@@ -37,64 +40,46 @@ class ListBoard extends React.PureComponent {
   onCancelAdd = () => {};
   render() {
     const { isVisible } = this.state;
-    return (
-      <React.Fragment>
-        {/* List Board */}
-        <div className="col-lg-24 ">
-          {/* Request Friend from Other */}
-          <div className="row mb-3">
+    const {dataSources,loading} = this.props;
+    const listBoards = 
+        Array.isArray(get(dataSources, 'boards')) && get(dataSources, 'boards').length > 0
+        ? get(dataSources, 'boards').map(result => (
+            <React.Fragment key={`list-board-${result.id}`}>
             <div className="col-lg-8 mb-3">
               <div className="card ">
                 <div className="card-body">
-                  <p className="card-title">Sigi Board</p>
+                  <p className="card-title">{result.title}</p>
                   <p className="card-text text-right">
                     <small className="text-muted">
-                      Last updated 3 mins ago
+                      last Updated {dateFromNowString(result.created_at)}
                     </small>
                   </p>
                 </div>
                 <div className="card-footer text-right py-2">
                   <Link
-                    to="/board"
+                    to={`/board/${result.id}`}
                     className="btn btn-sm btn-primary font-weight-bold "
                   >
                     Board
                   </Link>
-                  {/* <button
-                type="button"
-                className="btn btn-sm btn-primary font-weight-bold "
-              >
-                Board
-              </button> */}
                 </div>
               </div>
             </div>
-            <div className="col-lg-8 ">
-              <div className="card bg-light">
-                <div
-                  className="card-body text-center pointer"
-                  onClick={() => this.handleModal()}
-                >
-                  <h3 className="my-5 mx-auto py-4 font-weight-bold">
-                    {/* <button type="button" className="btn btn-link btn-primary"> */}
-                    Add New Board
-                    {/* </button> */}
-                  </h3>
-                </div>
-              </div>
-            </div>
-          </div>
-          {/* Request Friend from Other */}
-          <hr />
-          {/* Request Friend From Us */}
-          <div className="row mb-3">
+            </React.Fragment>
+            ))
+            : [];
+
+    const listBoardInvited = 
+        Array.isArray(get(dataSources, 'boards')) && get(dataSources, 'boards').length > 0
+        ? get(dataSources, 'boards').map(result => (
+            <React.Fragment key={`list-board-invited-${result.id}`}>
             <div className="col-lg-8 mb-3">
               <div className="card ">
                 <div className="card-body">
-                  <p className="card-title">Bsm Board</p>
+                  <p className="card-title">{result.title}</p>
                   <p className="card-text text-right">
                     <small className="text-muted">
-                      <b>redirsmn </b> Added you to <b>Board</b>
+                      <b>redirsmn </b> Added you to <b>{result.title}</b>
                     </small>
                   </p>
                 </div>
@@ -113,15 +98,51 @@ class ListBoard extends React.PureComponent {
                   >
                     Decline
                   </button>
-                  {/* <button
-                type="button"
-                className="btn btn-sm btn-primary font-weight-bold "
-              >
-                Board
-              </button> */}
+                </div>
+              </div>
+            </div>              
+            </React.Fragment>
+            ))
+            : undefined;
+
+    return (
+      <React.Fragment>
+        {/* List Board */}
+        <div className="col-lg-24 ">
+          {/* Request Friend from Other */}
+          <div className="row mb-3">
+          {loading ? <LoadingCard /> : 
+          (
+            <React.Fragment>
+            {listBoards}
+            <div className="col-lg-8 ">
+              <div className="card bg-light">
+                <div
+                  className="card-body text-center pointer"
+                  onClick={() => this.handleModal()}
+                >
+                  <h3 className="my-5 mx-auto py-4 font-weight-bold">
+                    {/* <button type="button" className="btn btn-link btn-primary"> */}
+                    Add New Board
+                    {/* </button> */}
+                  </h3>
                 </div>
               </div>
             </div>
+            </React.Fragment>
+          )}
+            
+          </div>
+          {/* Request Friend from Other */}
+          <hr />
+          {/* Request Friend From Us */}
+          <div className="row mb-3">
+          {loading ? <LoadingCard /> : 
+          (
+            <React.Fragment>
+            {listBoardInvited}
+            </React.Fragment>
+          )}
           </div>
         </div>
 

@@ -1,6 +1,7 @@
 import React from "react";
 import Avatar from "../../../provider/Display/Avatar";
 import TextareaAutosize from "../../../provider/Commons/TextareaAutosize";
+// import { assetsApiUrl } from "../../../provider/Tools/general";
 
 class CommentCard extends React.PureComponent {
   constructor(props) {
@@ -55,7 +56,9 @@ class CommentCard extends React.PureComponent {
     return (
       <div className="task-detail-aside-footer">
         <div className="media media-comment media-comment-input">
-          <Avatar size="md" name={"redi"} title={"redi"} />
+          <Avatar size="md" name={"redi"} 
+          // image={user.avatar_path ? assetsApiUrl(user.avatar_path) : undefined}
+          title={"redi"} />
           <form className="media-body" onSubmit={e => this.onSubmit(e)}>
             <TextareaAutosize
               name="body"

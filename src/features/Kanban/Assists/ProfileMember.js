@@ -1,5 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Avatar from "../../../provider/Display/Avatar";
+import { assetsApiUrl } from "../../../provider/Tools/general";
 
 class ProfileMember extends React.PureComponent {
   constructor(props) {
@@ -7,14 +9,15 @@ class ProfileMember extends React.PureComponent {
     this.state = {};
   }
   render() {
+    const {results} = this.props;
     return (
       <React.Fragment>
         <div className="media">
           <Avatar
-            size="lg"
-            name="Redi Rusmana"
-            // image={user.avatar_path ? assetsApiUrl(user.avatar_path) : undefined}
-            title="Redi Rusmana"
+            size="lg" //name
+            name={results.username}
+            image={results.avatar_path ? assetsApiUrl(results.avatar_path) : undefined}
+            title={results.username}
             style={{ margin: ".7rem" }}
           />
           <div
@@ -24,31 +27,25 @@ class ProfileMember extends React.PureComponent {
             <div className="activity-item-header">
               <div>
                 <small>
-                  {/* <b className="font-weight-bold">{user.name}</b> {action} */}
-                  <b className="font-weight-bold">Redi Rusmana </b>
+                  <b className="font-weight-bold">{results.username}</b> 
                 </small>
               </div>
               <div className="pl-1">
                 <small>
-                  {/* <b className="font-weight-bold">{user.name}</b> {action} */}
-                  <b className="font-weight-light text-dark">redirsmn </b>
+                 <b className="font-weight-bold">{results.username}</b>
                 </small>
               </div>
             </div>
-            {/* <div
-                    className="card"
-                    style={{ whiteSpace: "normal", padding: ".375rem .5rem" }}
-                  ></div> */}
           </div>
         </div>
         <div className="d-flex flex-column my-2">
-          <div className="p-2  pointer hovered-button-popover">
+          <div className="p-2  pointer hovered-button-popover text-dark">
             Permission <b>(Admin)</b>
           </div>
-          <div className="p-2  pointer hovered-button-popover">
+          <Link to="/user/activity" className="p-2 text-dark pointer hovered-button-popover">
             Views Activity
-          </div>
-          <div className="p-2 pointer hovered-button-popover">
+          </Link>
+          <div className="p-2 pointer hovered-button-popover text-dark">
             {/*  mb-1 */}
             Remove From Board..
           </div>

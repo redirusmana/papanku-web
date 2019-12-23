@@ -6,13 +6,18 @@ import {
   OptPriorityClass,
   OptDeadlineClass
 } from "../../../provider/Tools/config";
+// import { assetsApiUrl } from "../../../provider/Tools/general";
 
 class TaskList extends React.PureComponent {
   renderMembers() {
     return (
       <div className="avatar-list avatar-list-stacked">
-        <Avatar name="Redi Rusmana" size="sm" />
-        <Avatar name="Redi Rusmana" size="sm" />
+        <Avatar name="Redi Rusmana" title=""
+        // image={user.avatar_path ? assetsApiUrl(user.avatar_path) : undefined}
+        size="sm" />
+        <Avatar name="Redi Rusmana" title=""
+        // image={user.avatar_path ? assetsApiUrl(user.avatar_path) : undefined}
+        size="sm" />
       </div>
     );
   }

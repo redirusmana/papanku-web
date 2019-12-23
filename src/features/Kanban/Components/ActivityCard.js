@@ -1,5 +1,6 @@
 import React from "react";
 import Avatar from "../../../provider/Display/Avatar";
+// import { assetsApiUrl } from "../../../provider/Tools/general";
 
 class ActivityCard extends React.PureComponent {
   render() {
@@ -16,7 +17,9 @@ class ActivityCard extends React.PureComponent {
             className="media task-detail-activity"
             // key={`activity-${}`}
           >
-            <Avatar name={"Redi Rusmana"} title={"Redi Rusmana"} />
+            <Avatar name={"Redi Rusmana"}
+            // image={user.avatar_path ? assetsApiUrl(user.avatar_path) : undefined}
+            title={"Redi Rusmana"} />
             <div className="media-body pl-1 align-self-center">
               <div className="activity-item-header">
                 <div>

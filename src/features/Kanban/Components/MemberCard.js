@@ -4,6 +4,7 @@ import "antd/lib/popover/style/index.css";
 // import get from "lodash/get";
 // import uniqBy from "lodash/uniqBy";
 import Avatar from "../../../provider/Display/Avatar";
+// import { assetsApiUrl } from "../../../provider/Tools/general";
 
 class MembersCard extends React.PureComponent {
   constructor(props) {
@@ -24,8 +25,12 @@ class MembersCard extends React.PureComponent {
   renderMembers() {
     return (
       <div className="avatar-list">
-        <Avatar name="eaku" size="md" />
-        <Avatar name="aku" size="md" />
+        <Avatar name="eaku" 
+        // image={user.avatar_path ? assetsApiUrl(user.avatar_path) : undefined}
+        size="md" />
+        <Avatar name="aku" 
+        // image={user.avatar_path ? assetsApiUrl(user.avatar_path) : undefined}
+        size="md" />
       </div>
     );
   }

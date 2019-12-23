@@ -29,12 +29,12 @@ class ProfileMenu extends React.PureComponent {
             Friends
           </Link>
           <div className="line-h-r" />
-          <Link
-            to={"/login"}
+          <div
+            onClick={() => this.props.handleLogout()}
             className="p-2 text-dark pointer hovered-button-popover"
           >
             Log out
-          </Link>
+          </div>
         </div>
       </React.Fragment>
     );

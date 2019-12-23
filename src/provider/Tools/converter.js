@@ -1,9 +1,11 @@
 // eslint-disable-next-line import/prefer-default-export
 import axios from "axios";
-import "moment/locale/id";
 import moment from "moment";
+import "moment/locale/id";
 import bigint from "big-integer";
 import numeral from "numeral";
+
+moment.locale("id");
 
 export const getInitial = name => {
   if (!name) {
@@ -12,7 +14,8 @@ export const getInitial = name => {
 
   if (typeof name === "number") {
     // return `....`;
-    return `+${name}`;
+    // return `+${name}`;
+    return `${name}`;
   }
 
   let initials = name.match(/\b\w/g) || [];
@@ -52,7 +55,7 @@ export const numberToFileSize = (number = 0) => {
   return numeral(number).format("0.0 a");
 };
 
-export const dateFromNowString = date => moment(date).fromNow();
+export const dateFromNowString = date => moment(date).locale('en').fromNow();
 export const dateFullString = date => moment(date).format("DD MMMM YYYY");
 export const dateShortString = date => moment(date).format("DD MMM YYYY");
 export const dateNoYearString = date => moment(date).format("DD MMM");

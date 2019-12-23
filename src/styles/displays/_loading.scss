@@ -124,6 +124,7 @@
   .loader-text {
     display: block;
     height: 40px;
+    color: $primary
   }
 }
 
@@ -159,23 +160,28 @@
 
     // color
     &:nth-child(1) {
-      background-color: #dae9f4; 
+      // background-color: #dae9f4; 
+      background-color: $primary
     }
 
     &:nth-child(2) {
-      background-color: #8bcbc8; 
+      // background-color: #8bcbc8; 
+      background-color: $primary
     }
 
     &:nth-child(3) {
-      background-color: #ecc7c0; 
+      // background-color: #ecc7c0; 
+      background-color: $primary
     }
 
     &:nth-child(4) {
-      background-color: #fdae84; 
+      // background-color: #fdae84; 
+      background-color: $primary
     }
 
     &:nth-child(5) {
-      background-color: #3c2e3d; 
+      // background-color: #3c2e3d; 
+      background-color: $primary
     }
   }
 }

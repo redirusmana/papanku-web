@@ -25,9 +25,8 @@ export const OptPriorityClass = {
 };
 
 export const OptDeadlineClass = {
-  unSoon: "badge badge-success",
-  // "Soon": "badge badge-warning",
-  Soon: "badge badge-danger"
+  ontime: "badge badge-success",
+  delayed: "badge badge-danger"
 };
 
 export const OptActiveStatus = [

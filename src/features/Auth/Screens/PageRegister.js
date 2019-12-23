@@ -15,14 +15,15 @@ import logoTitle from "../../../assets/images/logo-title.png";
 import "../Style/style.css";
 
 const formRegisterValidation = yup.object().shape({
-  firstname: yup.string().required("Firstname is required"),
-  lastname: yup.string().required("Lastname is required"),
+  first_name: yup.string().required("First Name is required"),
+  last_name: yup.string().required("Last Name is required"),
   username: yup
     .string()
-    .matches(/^[a-zA-Z0-9]*$/, "Must alphanumeric value")
-    .lowercase("Username should be lowercase")
     .required("Username is required")
-    .trim(),
+    // .matches(/^[a-zA-Z0-9]*$/, "Must alphanumeric value")
+    // .lowercase("Username should be lowercase")
+    // .trim()
+    ,
   email: yup
     .string()
     .email("Current value is not an email")
@@ -42,8 +43,8 @@ class PageRegister extends React.PureComponent {
     super(props);
     this.state = {
       initialValues: {
-        firstname: undefined,
-        lastname: undefined,
+        first_name: undefined,
+        last_name: undefined,
         email: undefined,
         username: undefined,
         password: undefined,
@@ -53,10 +54,11 @@ class PageRegister extends React.PureComponent {
   }
 
   handleSubmit = async (values, actions) => {
+    const  {password_confirmation, ...newValues } = values;
     try {
       this._requestSource = api.generateCancelToken();
 
-      const response = await apiSignInAction(values, this._requestSource.token);
+      const response = await apiSignInAction(newValues, this._requestSource.token);
       if (response.status === 200) {
         alertFloat({
           type: "success",
@@ -144,12 +146,12 @@ class PageRegister extends React.PureComponent {
                                   placeholder="First Name"
                                   onChange={handleChange}
                                   onBlur={handleBlur}
-                                  name="firstname"
-                                  values={values.firstname}
+                                  name="first_name"
+                                  values={values.first_name}
                                 />
-                                {errors && errors.firstname && (
+                                {errors && errors.first_name && (
                                   <p className="text-danger">
-                                    {errors.firstname}
+                                    {errors.first_name}
                                   </p>
                                 )}
                               </div>
@@ -168,12 +170,12 @@ class PageRegister extends React.PureComponent {
                                   placeholder="Last Name"
                                   onChange={handleChange}
                                   onBlur={handleBlur}
-                                  name="lastname"
-                                  values={values.lastname}
+                                  name="last_name"
+                                  values={values.last_name}
                                 />
-                                {errors && errors.lastname && (
+                                {errors && errors.last_name && (
                                   <p className="text-danger">
-                                    {errors.lastname}
+                                    {errors.last_name}
                                   </p>
                                 )}
                               </div>

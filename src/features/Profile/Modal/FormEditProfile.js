@@ -3,7 +3,7 @@ import { Formik } from "formik";
 import InputDate from "../../../provider/Commons/InputDate";
 import InputSelectLong from "../../../provider/Commons/InputSelectLong";
 import InputImage from "../../../provider/Commons/InputImage";
-import { OptActiveStatus } from "../../../provider/Tools/config";
+// import { OptActiveStatus } from "../../../provider/Tools/config";
 import "../Style/style.css";
 
 class FormEditMail extends React.PureComponent {
@@ -89,19 +89,6 @@ class FormEditMail extends React.PureComponent {
                       }
                       // value={}
                       isBlockAfterToday={false}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label className="form-label" htmlFor="">
-                      Status
-                    </label>
-                    <InputSelectLong
-                      className="form-control"
-                      name="status_type"
-                      onChange={value => setFieldValue("status_type", value)}
-                      options={OptActiveStatus}
-                      placeholder="Status"
-                      // value={}
                     />
                   </div>
                   <div className="form-group mb-0">

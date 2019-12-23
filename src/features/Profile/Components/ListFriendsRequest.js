@@ -1,7 +1,11 @@
 import React from "react";
+// import get from 'lodash/get';
 import ListSearch from "./ListSearch";
+import get from 'lodash/get';
+import LoadingCard from '../../../provider/Display/LoadingCard';
 import popConfirm from "../../../provider/Display/popConfirm";
 import Avatar from "../../../provider/Display/Avatar";
+// import { assetsApiUrl } from "../../../provider/Tools/general";
 
 class ListFriends extends React.PureComponent {
   onAccept = () => {};
@@ -16,18 +20,19 @@ class ListFriends extends React.PureComponent {
   };
   onCancelAdd = () => {};
   render() {
-    return (
-      <React.Fragment>
-        <ListSearch />
-        <div className="col-lg-24 ">
-          {/* Request Friend from Other */}
-          <div className="row mb-3">
-            <div className="col-lg-8">
+    const {dataSources,loading} = this.props;
+
+    const listFriendsRequest = 
+    Array.isArray(get(dataSources, 'boards')) && get(dataSources, 'boards').length > 0
+        ? get(dataSources, 'boards').map(result => (
+            <React.Fragment key={`list-friend-request-${result.id}`}>
+              <div className="col-lg-8">
               <div className="card">
                 <div className="card-body">
                   <div className="text-center">
                     <Avatar
                       name="Skrean Joy"
+                      // image={user.avatar_path ? assetsApiUrl(user.avatar_path) : undefined}
                       size="xxxl"
                       avatarClass="avatar-link mb-1"
                     />
@@ -50,17 +55,20 @@ class ListFriends extends React.PureComponent {
                 </div>
               </div>
             </div>
-          </div>
-          {/* Request Friend from Other */}
-          <hr />
-          {/* Request Friend From Us */}
-          <div className="row mb-3">
-            <div className="col-lg-8">
+            </React.Fragment>))
+            : [];
+
+    const listRequestFriend =
+    Array.isArray(get(dataSources, 'boards')) && get(dataSources, 'boards').length > 0
+        ? get(dataSources, 'boards').map(result => (
+            <React.Fragment key={`list-request-friend-${result.id}`}>
+              <div className="col-lg-8">
               <div className="card">
                 <div className="card-body">
                   <div className="text-center">
                     <Avatar
                       name="Krepoy To"
+                      // image={user.avatar_path ? assetsApiUrl(user.avatar_path) : undefined}
                       size="xxxl"
                       avatarClass="avatar-link mb-1"
                     />
@@ -76,6 +84,23 @@ class ListFriends extends React.PureComponent {
                 </div>
               </div>
             </div>
+            </React.Fragment>
+        ))
+        : [];
+    
+    return (
+      <React.Fragment>
+        <ListSearch />
+        <div className="col-lg-24 ">
+          {/* Request Friend from Other */}
+          <div className="row mb-3">
+            {loading ? <LoadingCard/> :listFriendsRequest  }
+          </div>
+          {/* Request Friend from Other */}
+          <hr />
+          {/* Request Friend From Us */}
+          <div className="row mb-3">
+            {loading ?<LoadingCard/> : listRequestFriend  }
           </div>
           {/* Request Friend From Us */}
         </div>
