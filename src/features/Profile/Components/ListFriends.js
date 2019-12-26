@@ -6,6 +6,7 @@ import get from "lodash/get";
 import LoadingCard from "../../../provider/Display/LoadingCard";
 import popConfirm from "../../../provider/Display/popConfirm";
 import FormAddFriend from "../Modal/FormAddFriend";
+import api from "../../../provider/Tools/api";
 // import { assetsApiUrl } from "../../../provider/Tools/general";
 
 class ListFriends extends React.PureComponent {
@@ -15,6 +16,32 @@ class ListFriends extends React.PureComponent {
       isVisible: false
     };
   }
+
+  componentDidMount() {
+    this.getFriends();
+  }
+
+  getFriends = () => {
+    this.setState(
+      {
+        loading: true,
+      },
+      () => {
+        this._requestSource = api.generateCancelToken();
+        api
+          .get(`/api/profile`, this._requestSource.token)
+          .then(response => {
+            const { data } = response;
+            this.setState({
+              dataSources: data,
+              loading: false
+            });
+          })
+          .catch(error => console.log(error));
+      }
+    );
+  };
+
   handleModal = () => {
     this.setState({
       isVisible: true
@@ -35,9 +62,15 @@ class ListFriends extends React.PureComponent {
       cancelText: " No"
     });
   };
+
+  handleLoading = (isLoading) => {
+    this.setState({
+      loading : isLoading
+    })
+  }
+  
   render() {
-    const { isVisible } = this.state;
-    const { dataSources, loading } = this.props;
+    const { dataSources, loading,isVisible } = this.state;
 
     const listFriends =
       Array.isArray(get(dataSources, "friends")) &&
@@ -119,7 +152,7 @@ class ListFriends extends React.PureComponent {
           handleBack={this.handleClose}
         >
           <div className="container">
-            <FormAddFriend dataSources={dataSources} />
+            <FormAddFriend handleLoading={this.handleLoading} handleClose={this.handleClose} />
           </div>
         </Modal>
       </React.Fragment>

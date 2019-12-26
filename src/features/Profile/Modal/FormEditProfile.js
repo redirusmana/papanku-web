@@ -1,52 +1,132 @@
 import React from "react";
 import { Formik } from "formik";
+import { connect } from "react-redux";
+import moment from "moment";
+// import * as yup from "yup";
+import cn from "classnames";
 import InputDate from "../../../provider/Commons/InputDate";
 import InputSelectLong from "../../../provider/Commons/InputSelectLong";
 import InputImage from "../../../provider/Commons/InputImage";
-// import { OptActiveStatus } from "../../../provider/Tools/config";
+import alertFloat from "../../../provider/Display/alertFloat";
+import LoadingCard from '../../../provider/Display/LoadingCard';
+import api from "../../../provider/Tools/api";
+import {
+  axiosError,
+  AXIOS_CANCEL_MESSAGE
+} from "../../../provider/Tools/converter";
 import "../Style/style.css";
+import { apiEditProfile } from "../action";
 
-class FormEditMail extends React.PureComponent {
+// const formEditProfileValidation = yup.object().shape({
+//   profile_image: yup.string().nullable("profile_image is ???"),
+//   name: yup.string().nullable("Real Name is ???"),
+//   username: yup.string().nullable("Username is ???"),
+//   // .matches(/^[a-zA-Z0-9]*$/, "Must alphanumeric value")
+//   // .lowercase("Username should be lowercase")
+//   // .trim()
+//   gender: yup.string().nullable("Gender is ???"),
+//   birth: yup.string().nullable("Birth is ???"),
+// });
+
+
+class FormEditProfile extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+  
+  handleSubmit = async (values, actions) => {
+    const { avatar_path,birth, ...allValues } = values;
+    try {
+      this.props.handleLoading(true)
+      this._requestSource = api.generateCancelToken();
+
+      const newValues = {
+          ...allValues,
+          birth: birth && typeof birth.format === 'function' ? birth.format('YYYY-MM-DD') : undefined,
+        }
+
+      const response = await apiEditProfile(
+        newValues,
+        this._requestSource.token
+      );
+      if (response.status === 200) {
+        alertFloat({
+          type: "success",
+          content: response.data.message
+        });
+        this.props.handleReplace(response.data.data)
+      }
+    } catch (e) {
+      const error = axiosError(e);
+      if (error === AXIOS_CANCEL_MESSAGE) {
+        return;
+      }
+      alertFloat({
+        type: "error",
+        content: error
+      });
+    }
+    actions.setSubmitting(false);
+    this.props.handleLoading(false)
+    this.props.handleClose();
+  };
+
   render() {
+    const {loadingProfile} =this.state;
+    const {initialValues} = this.props;
+
+    if (loadingProfile) {
+      return <LoadingCard />
+    }
+
     return (
       <React.Fragment>
         {/* List Board */}
         <Formik
-          // validationSchema={}
+          initialValues={initialValues}
+          // validationSchema={formEditProfileValidation}
           onSubmit={this.handleSubmit}
           render={({
             setFieldValue,
             handleChange,
-            handleBlur
-            // setValues,
-            // handleSubmit,
-            // values
+            handleBlur,
+            handleSubmit,
+            isSubmitting,
+            values
             // errors,
-            // isSubmitting
+            // setValues,
           }) => (
             <div className="row">
               <div className="col-lg-24">
-                <form className="form-horizontal p-4">
+                <form className="form-horizontal p-4" onSubmit={handleSubmit}>
                   <div className="form-group">
                     <label className="form-label" htmlFor="">
                       Profile Photo
                     </label>
                     <InputImage
-                      name="profile_photo"
-                      placeholder="Choose a file image to upload"
-                    />
+                      name="avatar_path"
+                      onFileChange={(file, result) => {
+                        setFieldValue('previewAvatar', result);
+                        setFieldValue('avatar_path', file);
+                      }}
+                      placeholder="Choose your avatar"
+                      multiple={false}
+                      previewImage={values.previewAvatar}
+                    />          
                   </div>
                   <div className="form-group">
                     <label className="form-label" htmlFor="">
-                      Name
+                      Real Name
                     </label>
                     <input
                       type="text"
                       className={"form-control"}
-                      placeholder="Name"
-                      name={""}
+                      placeholder="Real Name"
+                      name="name"
                       onChange={handleChange}
                       onBlur={handleBlur}
+                      value={values.name}
                     />
                   </div>
                   <div className="form-group">
@@ -57,9 +137,10 @@ class FormEditMail extends React.PureComponent {
                       type="text"
                       className={"form-control"}
                       placeholder="Username"
-                      name={""}
+                      name="username"
                       onChange={handleChange}
                       onBlur={handleBlur}
+                      value={values.username}
                     />
                   </div>
                   <div className="form-group">
@@ -68,14 +149,14 @@ class FormEditMail extends React.PureComponent {
                     </label>
                     <InputSelectLong
                       className="form-control"
-                      name="status_type"
-                      onChange={value => setFieldValue("Status", value)}
+                      name="gender"
+                      onChange={value => setFieldValue("gender", value)}
                       options={[
-                        { label: "Laki Laki", value: "L" },
-                        { label: "Perempuan", value: "P" }
+                        { label: "Male", value: "male" },
+                        { label: "Female", value: "female" }
                       ]}
-                      placeholder="Status"
-                      // value={}
+                      placeholder="Gender"
+                      value={values.gender || undefined}
                     />
                   </div>
                   <div className="form-group">
@@ -83,22 +164,30 @@ class FormEditMail extends React.PureComponent {
                       Birth of Date
                     </label>
                     <InputDate
-                      name="target_date"
+                      name="birth"
                       handleChange={value =>
-                        setFieldValue("target_date", value)
+                        setFieldValue("birth", value)
                       }
-                      // value={}
+                      value={values.birth ? moment(values.birth) : undefined}
                       isBlockAfterToday={false}
                     />
                   </div>
-                  <div className="form-group mb-0">
-                    <button
-                      type="submit"
-                      className="btn btn-primary btn-block font-weight-bold"
-                    >
-                      Submit
-                    </button>
-                  </div>
+                  <div className="form-group ">
+                            <button
+                              type="submit"
+                              className="btn btn-block btn-primary"
+                              disabled={isSubmitting}
+                            >
+                              <i
+                                className={cn({
+                                  la: true,
+                                  "la-save": !isSubmitting,
+                                  "la-circle-o-notch animate-spin": isSubmitting
+                                })}
+                              />{" "}
+                              {isSubmitting ? "Submitting" : "Submit"}
+                            </button>
+                          </div>
                 </form>
               </div>
             </div>
@@ -108,5 +197,9 @@ class FormEditMail extends React.PureComponent {
     );
   }
 }
+const mapStateToProps = store => ({
+  user: store.auth.user
+});
 
-export default FormEditMail;
+export default connect(mapStateToProps)(FormEditProfile);
+

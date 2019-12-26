@@ -22,13 +22,11 @@ class FormCreateBoard extends React.PureComponent {
   }
 
   handleSubmit = async (values, actions) => {
-    const { user } = this.props;
-    const ROUTE_API = `api/${user.email}/boasasard`;
     try {
+      this.props.handleLoading(true)
       this._requestSource = api.generateCancelToken();
 
       const response = await apiCreateBoard(
-        ROUTE_API,
         values,
         this._requestSource.token
       );
@@ -37,8 +35,10 @@ class FormCreateBoard extends React.PureComponent {
       if (response.status === 200) {
         alertFloat({
           type: "success",
-          content: data.success
+          content: data.message
         });
+        // this.props.handleReplace(data.data)
+        
       }
     } catch (e) {
       const error = axiosError(e);
@@ -49,8 +49,10 @@ class FormCreateBoard extends React.PureComponent {
         type: "error",
         content: error
       });
-      actions.setSubmitting(false);
     }
+    actions.setSubmitting(false);
+    this.props.handleLoading(false)
+    this.props.handleClose()
   };
   render() {
     const { initialValues } = this.state;
@@ -68,10 +70,7 @@ class FormCreateBoard extends React.PureComponent {
             isSubmitting
             // setFieldValue,
             // setValues,
-            // handleSubmit,
-            // values
             // errors,
-            // isSubmitting
           }) => (
             <div className="row">
               <div className="col-lg-24">

@@ -4,7 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import LoadingPage from './provider/Display/LoadingPage';
 import PageLogin from "./features/Auth/Screens/PageLogin";
 import PageRegister from "./features/Auth/Screens/PageRegister";
-import PageProfile from "./features/Profile/Screens/PageProfile";
+import PageProfileIndex from "./features/Profile/Screens/PageProfileIndex";
 import LandingPage from "./features/Landing/Screens/LandingPage";
 import KanbanPageIndex from "./features/Kanban/Screens/KanbanPageIndex";
 import RoutePrivate from "./features/Auth/Components/RoutePrivate";
@@ -72,7 +72,7 @@ class App extends React.PureComponent {
           <RouteGuard path="/login" exact component={PageLogin} />
           <RouteGuard path="/register" exact component={PageRegister} />
 
-          <RoutePrivate path="/user" component={PageProfile} />
+          <RoutePrivate path="/user" component={PageProfileIndex} />
           <RoutePrivate path="/board/:id" component={KanbanPageIndex} />
         </Switch>
       </React.Fragment>

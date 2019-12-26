@@ -18,7 +18,7 @@ class FormAddFriend extends React.PureComponent {
     this.state = {
       found: false,
       initialValues: {
-        targetEmail: ""
+        email: ""
       }
     };
   }
@@ -32,13 +32,10 @@ class FormAddFriend extends React.PureComponent {
   };
 
   handleSubmit = async (values, actions) => {
-    const { dataSources } = this.props;
-    const ROUTE_API = `api/${dataSources.email}/add/friend`;
     try {
+      this.props.handleLoading(true)
       this._requestSource = api.generateCancelToken();
-
       const response = await apiFoundFriend(
-        ROUTE_API,
         values,
         this._requestSource.token
       );
@@ -52,6 +49,7 @@ class FormAddFriend extends React.PureComponent {
         this.setState({
           found: true
         });
+        // this.props.handleReplace(data.data)
       }
     } catch (e) {
       const error = axiosError(e);
@@ -63,6 +61,8 @@ class FormAddFriend extends React.PureComponent {
         content: error
       });
       actions.setSubmitting(false);
+      this.props.handleClose()
+      this.props.handleLoading(false)
     }
   };
 
@@ -125,10 +125,10 @@ class FormAddFriend extends React.PureComponent {
                         type="text"
                         className={"form-control"}
                         placeholder="Email"
-                        name="targetEmail"
+                        name="email"
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        values={values.targetEmail}
+                        values={values.email}
                       />
                     </div>
                     <div className="form-group ">

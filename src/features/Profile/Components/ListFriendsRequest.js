@@ -4,10 +4,43 @@ import ListSearch from "./ListSearch";
 import get from "lodash/get";
 import LoadingCard from "../../../provider/Display/LoadingCard";
 import popConfirm from "../../../provider/Display/popConfirm";
+import api from "../../../provider/Tools/api";
 import Avatar from "../../../provider/Display/Avatar";
 // import { assetsApiUrl } from "../../../provider/Tools/general";
 
 class ListFriends extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isVisible: false
+    };
+  }
+
+  componentDidMount() {
+    this.getFriendsRequest();
+  }
+
+  getFriendsRequest = () => {
+    this.setState(
+      {
+        loading: true,
+      },
+      () => {
+        this._requestSource = api.generateCancelToken();
+        api
+          .get(`/api/profile`, this._requestSource.token)
+          .then(response => {
+            const { data } = response;
+            this.setState({
+              dataSources: data,
+              loading: false
+            });
+          })
+          .catch(error => console.log(error));
+      }
+    );
+  };
+
   onAccept = () => {};
   onDecline = () => {
     popConfirm({
@@ -23,9 +56,9 @@ class ListFriends extends React.PureComponent {
     const { dataSources, loading } = this.props;
 
     const listFriendsRequest =
-      Array.isArray(get(dataSources, "boards")) &&
-      get(dataSources, "boards").length > 0
-        ? get(dataSources, "boards").map(result => (
+      Array.isArray(get(dataSources, "friend_requests")) &&
+      get(dataSources, "friend_requests").length > 0
+        ? get(dataSources, "friend_requests").map(result => (
             <React.Fragment key={`list-friend-request-${result.id}`}>
               <div className="col-lg-8">
                 <div className="card">
@@ -63,9 +96,9 @@ class ListFriends extends React.PureComponent {
         : [];
 
     const listRequestFriend =
-      Array.isArray(get(dataSources, "boards")) &&
-      get(dataSources, "boards").length > 0
-        ? get(dataSources, "boards").map(result => (
+      Array.isArray(get(dataSources, "friend_requests")) &&
+      get(dataSources, "friend_requests").length > 0
+        ? get(dataSources, "friend_requests").map(result => (
             <React.Fragment key={`list-request-friend-${result.id}`}>
               <div className="col-lg-8">
                 <div className="card">
@@ -99,17 +132,13 @@ class ListFriends extends React.PureComponent {
       <React.Fragment>
         <ListSearch />
         <div className="col-lg-24 ">
-          {/* Request Friend from Other */}
           <div className="row mb-3">
             {loading ? <LoadingCard /> : listFriendsRequest}
           </div>
-          {/* Request Friend from Other */}
           <hr />
-          {/* Request Friend From Us */}
           <div className="row mb-3">
             {loading ? <LoadingCard /> : listRequestFriend}
           </div>
-          {/* Request Friend From Us */}
         </div>
       </React.Fragment>
     );

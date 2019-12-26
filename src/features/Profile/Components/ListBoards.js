@@ -6,6 +6,7 @@ import LoadingCard from "../../../provider/Display/LoadingCard";
 import Modal from "../../../provider/Display/Modal";
 import popConfirm from "../../../provider/Display/popConfirm";
 import FormCreateBoard from "../Modal/FormCreateBoard";
+import api from "../../../provider/Tools/api";
 import "../Style/style.css";
 
 class ListBoard extends React.PureComponent {
@@ -15,6 +16,32 @@ class ListBoard extends React.PureComponent {
       isVisible: false
     };
   }
+
+  componentDidMount() {
+    this.getBoards();
+  }
+
+  getBoards = () => {
+    this.setState(
+      {
+        loading: true,
+      },
+      () => {
+        this._requestSource = api.generateCancelToken();
+        api
+          .get(`/api/profile`, this._requestSource.token)
+          .then(response => {
+            const { data } = response;
+            this.setState({
+              dataSources: data,
+              loading: false
+            });
+          })
+          .catch(error => console.log(error));
+      }
+    );
+  };
+  
   handleModal = () => {
     this.setState({
       isVisible: true
@@ -26,6 +53,12 @@ class ListBoard extends React.PureComponent {
       isVisible: false
     });
   };
+
+  handleLoading = (isLoading) => {
+    this.setState({
+      loading : isLoading
+    })
+  }
 
   onAccept = () => {};
   onDecline = () => {
@@ -39,8 +72,7 @@ class ListBoard extends React.PureComponent {
   };
   onCancelAdd = () => {};
   render() {
-    const { isVisible } = this.state;
-    const { dataSources, loading } = this.props;
+    const { isVisible, dataSources, loading } = this.state;
     const listBoards =
       Array.isArray(get(dataSources, "boards")) &&
       get(dataSources, "boards").length > 0
@@ -154,7 +186,7 @@ class ListBoard extends React.PureComponent {
           handleBack={this.handleClose}
         >
           <div className="container">
-            <FormCreateBoard />
+            <FormCreateBoard handleLoading={this.handleLoading} handleClose={this.handleClose} />
           </div>
         </Modal>
       </React.Fragment>
