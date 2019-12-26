@@ -5,14 +5,22 @@ import get from "lodash/get";
 import LoadingCard from "../../../provider/Display/LoadingCard";
 import popConfirm from "../../../provider/Display/popConfirm";
 import api from "../../../provider/Tools/api";
+import {
+  axiosError,
+  AXIOS_CANCEL_MESSAGE
+} from "../../../provider/Tools/converter";
+import alertFloat from "../../../provider/Display/alertFloat";
 import Avatar from "../../../provider/Display/Avatar";
-// import { assetsApiUrl } from "../../../provider/Tools/general";
+import { assetsApiUrl } from "../../../provider/Tools/general";
+import { apiAcceptFriend } from "../action";
 
 class ListFriends extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      isVisible: false
+      isVisible: false,
+      dataSources:{}, 
+      loading:false
     };
   }
 
@@ -41,7 +49,45 @@ class ListFriends extends React.PureComponent {
     );
   };
 
-  onAccept = () => {};
+  onLoadChange = (isLoading) =>{
+    this.setState({
+      loading:isLoading
+    })
+  }
+
+  onAccept = async (id) => {
+    try {
+      this.onLoadChange(true)
+      this._requestSource = api.generateCancelToken();
+      const response = await apiAcceptFriend(
+        `/api/friend/request/accept/${id}`,
+        this._requestSource.token
+      );
+      const { data } = response;
+
+      if (response.status === 200) {
+        alertFloat({
+          type: "success",
+          content: data.success
+        });
+        this.setState({
+          // dataSources: data,
+          loading: false
+        });
+      }
+    } catch (e) {
+      const error = axiosError(e);
+      if (error === AXIOS_CANCEL_MESSAGE) {
+        return;
+      }
+      alertFloat({
+        type: "error",
+        content: error
+      });
+    }
+    this.onLoadChange(false)
+  };
+
   onDecline = () => {
     popConfirm({
       title: `Are you sure to cancel Friend Request?`,
@@ -53,7 +99,7 @@ class ListFriends extends React.PureComponent {
   };
   onCancelAdd = () => {};
   render() {
-    const { dataSources, loading } = this.props;
+    const { dataSources, loading } = this.state;
 
     const listFriendsRequest =
       Array.isArray(get(dataSources, "friend_requests")) &&
@@ -65,16 +111,16 @@ class ListFriends extends React.PureComponent {
                   <div className="card-body">
                     <div className="text-center">
                       <Avatar
-                        name="Skrean Joy"
-                        // image={user.avatar_path ? assetsApiUrl(user.avatar_path) : undefined}
+                        name={get(result, "requester.name")}
+                        image={get(result, "requester.avatar_path") ? assetsApiUrl(get(result, "requester.avatar_path")) : undefined}
                         size="xxxl"
                         avatarClass="avatar-link mb-1"
                       />
                       <h4 className="card-title text-center pt-2">
-                        Skrean Joy
+                      {get(result, "requester.name")}
                       </h4>
                       <button
-                        onClick={() => this.onAccept()}
+                        onClick={() => this.onAccept(result.id)}
                         type="button"
                         className="btn rounded-pill btn-primary mr-1" //primary
                       >
@@ -93,7 +139,12 @@ class ListFriends extends React.PureComponent {
               </div>
             </React.Fragment>
           ))
-        : [];
+        : 
+        <React.Fragment >
+          <div className="col-lg-24 text-center">            
+          <h1 className="text-center font-weight-bold">Request Friend Not Found</h1>
+          </div>
+        </React.Fragment>;;
 
     const listRequestFriend =
       Array.isArray(get(dataSources, "friend_requests")) &&
@@ -105,13 +156,13 @@ class ListFriends extends React.PureComponent {
                   <div className="card-body">
                     <div className="text-center">
                       <Avatar
-                        name="Krepoy To"
-                        // image={user.avatar_path ? assetsApiUrl(user.avatar_path) : undefined}
+                        name={get(result, "requester.name")}
+                        image={get(result, "requester.avatar_path") ? assetsApiUrl(get(result, "requester.avatar_path")) : undefined}
                         size="xxxl"
                         avatarClass="avatar-link mb-1"
                       />
                       <h4 className="card-title text-center pt-2">
-                        Krepoy Toy
+                      {get(result, "requester.name")}
                       </h4>
                       <button
                         type="button"
@@ -126,7 +177,11 @@ class ListFriends extends React.PureComponent {
               </div>
             </React.Fragment>
           ))
-        : [];
+        : <React.Fragment>
+          <div className="col-lg-24 text-center">            
+          <h1 className="text-center font-weight-bold">Requested to Friend Not Found</h1>
+          </div>
+        </React.Fragment>;
 
     return (
       <React.Fragment>

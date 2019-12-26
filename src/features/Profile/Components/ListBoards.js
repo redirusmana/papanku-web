@@ -137,7 +137,11 @@ class ListBoard extends React.PureComponent {
               </div>
             </React.Fragment>
           ))
-        : undefined;
+        : <React.Fragment>
+          <div className="col-lg-24 text-center">            
+          <h1 className="text-center font-weight-bold">Board Not Found</h1>
+          </div>
+          </React.Fragment>;;
 
     return (
       <React.Fragment>
@@ -174,7 +178,9 @@ class ListBoard extends React.PureComponent {
             {loading ? (
               <LoadingCard />
             ) : (
-              <React.Fragment>{listBoardInvited}</React.Fragment>
+              <React.Fragment>
+                {/* {listBoardInvited} */}
+                </React.Fragment>
             )}
           </div>
         </div>

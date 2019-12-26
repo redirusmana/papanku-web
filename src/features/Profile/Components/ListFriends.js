@@ -5,9 +5,14 @@ import Avatar from "../../../provider/Display/Avatar";
 import get from "lodash/get";
 import LoadingCard from "../../../provider/Display/LoadingCard";
 import popConfirm from "../../../provider/Display/popConfirm";
-import FormAddFriend from "../Modal/FormAddFriend";
 import api from "../../../provider/Tools/api";
-// import { assetsApiUrl } from "../../../provider/Tools/general";
+import {
+  axiosError,
+  AXIOS_CANCEL_MESSAGE
+} from "../../../provider/Tools/converter";
+import alertFloat from "../../../provider/Display/alertFloat";
+import FormAddFriend from "../Modal/FormAddFriend";
+import { assetsApiUrl } from "../../../provider/Tools/general";
 
 class ListFriends extends React.PureComponent {
   constructor(props) {
@@ -42,6 +47,8 @@ class ListFriends extends React.PureComponent {
     );
   };
 
+  
+
   handleModal = () => {
     this.setState({
       isVisible: true
@@ -53,13 +60,50 @@ class ListFriends extends React.PureComponent {
       isVisible: false
     });
   };
-  onDeleteFriend = () => {
+
+  onLoadChange = (isLoading) =>{
+    this.setState({
+      loading:isLoading
+    })
+  }
+
+  onDeleteFriend = (id) => {
     popConfirm({
-      title: `Are you sure to remove this Frined?`,
+      title: `Are you sure to remove this Friend?`,
       message: "Friend will deleted on List Friend",
       okText: " Yes",
       okType: "danger",
-      cancelText: " No"
+      cancelText: " No",
+      onOkay: async () => {
+        try {
+          this.onLoadChange(true)
+            this._requestSource = api.generateCancelToken();
+            const url = `/api/friend/delete/${id}`;
+            const response = await api.delete(url, this._requestSource.token);
+            if (response.status === 200) {
+                alertFloat({
+                    type: 'success',
+                    content: response.message
+                });
+                this.setState({
+                  // dataSources: data,
+                  loading: false
+                });
+            }
+        } catch (err) {
+            const error = axiosError(err);
+            if (error === AXIOS_CANCEL_MESSAGE) {
+                return;
+            }
+            alertFloat({
+                type: 'error',
+                content: error
+            });
+        }
+        this.onLoadChange(false)
+    },
+    onCancel: () => { },
+    okType: 'danger'
     });
   };
 
@@ -82,13 +126,13 @@ class ListFriends extends React.PureComponent {
                   <div className="card-body">
                     <div className="text-center">
                       <Avatar
-                        name="Muhammad Seftikara Al"
-                        // image={user.avatar_path ? assetsApiUrl(user.avatar_path) : undefined}
+                        name={result.name}
+                        image={result.avatar_path ? assetsApiUrl(result.avatar_path) : undefined}
                         size="xxxl"
                         avatarClass="avatar-link mb-1"
                       />
                       <h4 className="card-title text-center pt-2">
-                        Muhammad Seftikara Al
+                        {result.name}
                       </h4>
                       <button
                         type="button"
@@ -100,7 +144,7 @@ class ListFriends extends React.PureComponent {
                       </button>
                       <button
                         type="button"
-                        onClick={() => this.onDeleteFriend()}
+                        onClick={() => this.onDeleteFriend(result.id)}
                         className="btn rounded-pill btn-danger ml-1"
                       >
                         <i className="font-weight-normal icofont-bin " />

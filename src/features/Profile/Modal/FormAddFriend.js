@@ -61,9 +61,9 @@ class FormAddFriend extends React.PureComponent {
         content: error
       });
       actions.setSubmitting(false);
-      this.props.handleClose()
-      this.props.handleLoading(false)
     }
+    this.props.handleClose()
+    this.props.handleLoading(false)
   };
 
   render() {

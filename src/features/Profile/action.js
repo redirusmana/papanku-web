@@ -16,6 +16,10 @@ export const apiFoundFriend = (data, cancelToken) => {
   return api.post(url, data, cancelToken);
 };
 
+export const apiAcceptFriend = (url, cancelToken) => {
+  return api.post(url, cancelToken);
+};
+
 export const apiCreateBoard = (data, cancelToken) => {
   const url = `${API_PREFIX_BOARD}`;
   return api.post(url,data, cancelToken);

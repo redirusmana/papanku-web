@@ -1,6 +1,7 @@
 import React from "react";
 import { Formik } from "formik";
 import { connect } from "react-redux";
+import * as yup from "yup";
 import cn from "classnames";
 import { apiCreateBoard } from "../action"; //apiAddFriend,
 import api from "../../../provider/Tools/api";
@@ -10,6 +11,11 @@ import {
   AXIOS_CANCEL_MESSAGE
 } from "../../../provider/Tools/converter";
 import alertFloat from "../../../provider/Display/alertFloat";
+
+const formCreateBoardValidation = yup.object().shape({
+  title: yup
+    .string().required("Title is required")
+});
 
 class FormCreateBoard extends React.PureComponent {
   constructor(props) {
@@ -61,6 +67,7 @@ class FormCreateBoard extends React.PureComponent {
         {/* List Board */}
         <Formik
           initialValues={initialValues}
+          validationSchema={formCreateBoardValidation}
           onSubmit={this.handleSubmit}
           render={({
             handleChange,
