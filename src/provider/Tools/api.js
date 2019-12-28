@@ -30,8 +30,8 @@ const api = {
     service({ ...requestOptions, method: "put", url, data, cancelToken }),
   patch: (url, data, cancelToken, requestOptions = {}) =>
     service({ ...requestOptions, method: "patch", url, data, cancelToken }),
-  delete: (url, cancelToken, requestOptions = {}) =>
-    service({ ...requestOptions, method: "delete", url, cancelToken }),
+  delete: (url, data, cancelToken, requestOptions = {}) =>
+    service({ ...requestOptions, method: "delete", url, data, cancelToken }),
   setToken: (type, token) => {
     if (type && token) {
       service.defaults.headers.common.Authorization = `${type} ${token}`;

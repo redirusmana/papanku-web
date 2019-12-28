@@ -67,6 +67,7 @@ class ListFriends extends React.PureComponent {
   };
 
   onDeleteFriend = (pivot, id) => {
+    const { memberable_type, ...newValues } = pivot;
     popConfirm({
       title: `Are you sure to remove this Friend?`,
       message: "Friend will deleted on List Friend",
@@ -76,22 +77,23 @@ class ListFriends extends React.PureComponent {
       onOkay: async () => {
         try {
           this.onLoadChange(true);
-          const url = `/api/friend/delete/${id}`;
           this._requestSource = api.generateCancelToken();
-          api
-            .delete(`${url}`, this._requestSource.token, {
-              params: {
-                user_id: pivot.user_id,
-                memberable_id: pivot.memberable_id
-              }
-            })
-            .then(response => {
-              const { data } = response;
-              this.setState({
-                loading: false,
-                dataSources: data.data
-              });
+          const response = await apiDeleteFriend(
+            `/api/friend/delete/${id}`,
+            newValues,
+            this._requestSource.token
+          );
+          const { data } = response;
+          if (response.status === 200) {
+            alertFloat({
+              type: "success",
+              content: response.message
             });
+            this.setState({
+              dataSources: data.data,
+              loading: false
+            });
+          }
         } catch (err) {
           const error = axiosError(err);
           if (error === AXIOS_CANCEL_MESSAGE) {
@@ -147,6 +149,7 @@ class ListFriends extends React.PureComponent {
                         {/* ui-message */}
                         {/* Invite */}
                       </button>
+                      {console.log(result.pivot)}
                       <button
                         type="button"
                         onClick={() =>

@@ -10,12 +10,18 @@ export const apiEditProfile = (data, cancelToken) => {
   return api.post(url, data, cancelToken);
 };
 
+export const apiCreateBoard = (data, cancelToken) => {
+  const url = `${API_PREFIX_BOARD}`;
+  return api.post(url, data, cancelToken);
+};
+
 export const apiFoundFriend = (data, cancelToken) => {
   const url = `${API_PREFIX_FRIEND}/add`;
   return api.post(url, data, cancelToken);
 };
-export const apiDeleteFriend = (url, cancelToken, params) => {
-  return api.post(url, cancelToken, params);
+
+export const apiDeleteFriend = (url, data, cancelToken) => {
+  return api.delete(url, data, cancelToken);
 };
 
 export const apiAcceptFriend = (url, cancelToken) => {
@@ -24,9 +30,4 @@ export const apiAcceptFriend = (url, cancelToken) => {
 
 export const apiDeclineFriend = (url, cancelToken) => {
   return api.delete(url, cancelToken);
-};
-
-export const apiCreateBoard = (data, cancelToken) => {
-  const url = `${API_PREFIX_BOARD}`;
-  return api.post(url, data, cancelToken);
 };
