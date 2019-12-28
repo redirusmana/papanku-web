@@ -12,6 +12,7 @@ import {
 } from "../../../provider/Tools/converter";
 import alertFloat from "../../../provider/Display/alertFloat";
 import FormAddFriend from "../Modal/FormAddFriend";
+import { apiDeleteFriend } from "../action";
 import { assetsApiUrl } from "../../../provider/Tools/general";
 
 class ListFriends extends React.PureComponent {
@@ -65,7 +66,7 @@ class ListFriends extends React.PureComponent {
     });
   };
 
-  onDeleteFriend = id => {
+  onDeleteFriend = (pivot, id) => {
     popConfirm({
       title: `Are you sure to remove this Friend?`,
       message: "Friend will deleted on List Friend",
@@ -75,19 +76,22 @@ class ListFriends extends React.PureComponent {
       onOkay: async () => {
         try {
           this.onLoadChange(true);
-          this._requestSource = api.generateCancelToken();
           const url = `/api/friend/delete/${id}`;
-          const response = await api.delete(url, this._requestSource.token);
-          if (response.status === 200) {
-            alertFloat({
-              type: "success",
-              content: response.message
+          this._requestSource = api.generateCancelToken();
+          api
+            .delete(`${url}`, this._requestSource.token, {
+              params: {
+                user_id: pivot.user_id,
+                memberable_id: pivot.memberable_id
+              }
+            })
+            .then(response => {
+              const { data } = response;
+              this.setState({
+                loading: false,
+                dataSources: data.data
+              });
             });
-            this.setState({
-              // dataSources: data,
-              loading: false
-            });
-          }
         } catch (err) {
           const error = axiosError(err);
           if (error === AXIOS_CANCEL_MESSAGE) {
@@ -145,7 +149,9 @@ class ListFriends extends React.PureComponent {
                       </button>
                       <button
                         type="button"
-                        onClick={() => this.onDeleteFriend(result.id)}
+                        onClick={() =>
+                          this.onDeleteFriend(result.pivot, result.id)
+                        }
                         className="btn rounded-pill btn-danger ml-1"
                       >
                         <i className="font-weight-normal icofont-bin " />

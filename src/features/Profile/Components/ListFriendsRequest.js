@@ -12,7 +12,7 @@ import {
 import alertFloat from "../../../provider/Display/alertFloat";
 import Avatar from "../../../provider/Display/Avatar";
 import { assetsApiUrl } from "../../../provider/Tools/general";
-import { apiAcceptFriend } from "../action";
+import { apiAcceptFriend, apiDeclineFriend } from "../action";
 
 class ListFriends extends React.PureComponent {
   constructor(props) {
@@ -99,7 +99,7 @@ class ListFriends extends React.PureComponent {
         try {
           this.onLoadChange(true);
           this._requestSource = api.generateCancelToken();
-          const response = await apiAcceptFriend(
+          const response = await apiDeclineFriend(
             `/api/friend/request/delete/${id}`,
             this._requestSource.token
           );
@@ -141,7 +141,7 @@ class ListFriends extends React.PureComponent {
         try {
           this.onLoadChange(true);
           this._requestSource = api.generateCancelToken();
-          const response = await apiAcceptFriend(
+          const response = await apiDeclineFriend(
             `/api/friend/request/delete/${id}`,
             this._requestSource.token
           );
