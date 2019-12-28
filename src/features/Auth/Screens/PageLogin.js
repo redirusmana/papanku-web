@@ -56,7 +56,7 @@ class PageLogin extends React.PureComponent {
       if (response.status === 200) {
         alertFloat({
           type: "success",
-          content: data.success
+          content: data.message
         });
       }
     } catch (e) {
@@ -66,10 +66,10 @@ class PageLogin extends React.PureComponent {
       }
       alertFloat({
         type: "error",
-        content: error
+        content: "User not Found"
       });
-      actions.setSubmitting(false);
     }
+    actions.setSubmitting(false);
   };
   render() {
     const { initialValues } = this.state;

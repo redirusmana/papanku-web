@@ -109,9 +109,9 @@ class ListBoard extends React.PureComponent {
         : [];
 
     // const listBoardInvited =
-    //   Array.isArray(get(dataSources, "boards")) &&
-    //   get(dataSources, "boards").length > 0
-    //     ? get(dataSources, "boards").map(result => (
+    //   Array.isArray(get(dataSources, "inivited_boards")) &&
+    //   get(dataSources, "inivited_boards").length > 0
+    //     ? get(dataSources, "inivited_boards").map(result => (
     //         <React.Fragment key={`list-board-invited-${result.id}`}>
     //           <div className="col-lg-8 mb-3">
     //             <div className="card ">
@@ -144,9 +144,11 @@ class ListBoard extends React.PureComponent {
     //         </React.Fragment>
     //       ))
     //     : <React.Fragment>
-    //       <div className="col-lg-24 text-center">
-    //       <h1 className="text-center font-weight-bold">Board Not Found</h1>
-    //       </div>
+    //          <div className="col-lg-24 text-center ">
+    //           {/*<h1 className="text-center font-weight-bold pt-5"> */}
+    //            <Empty description={"Board is Not Found"} />
+    //           {/* </h1> */}
+    //          </div>
     //       </React.Fragment>;
 
     return (
@@ -167,9 +169,7 @@ class ListBoard extends React.PureComponent {
                       onClick={() => this.handleModal()}
                     >
                       <h3 className="my-5 mx-auto py-4 font-weight-bold">
-                        {/* <button type="button" className="btn btn-link btn-primary"> */}
                         Add New Board
-                        {/* </button> */}
                       </h3>
                     </div>
                   </div>
@@ -184,7 +184,9 @@ class ListBoard extends React.PureComponent {
             {loading ? (
               <LoadingCard />
             ) : (
-              <React.Fragment>{/* {listBoardInvited} */}</React.Fragment>
+              <React.Fragment>
+                {/* {listBoardInvited} */}
+              </React.Fragment>
             )}
           </div>
         </div>

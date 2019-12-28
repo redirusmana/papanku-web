@@ -1,4 +1,5 @@
 import React from "react";
+import { Empty } from 'antd';
 import Avatar from "../../../provider/Display/Avatar";
 import get from "lodash/get";
 import LoadingCard from "../../../provider/Display/LoadingCard";
@@ -115,9 +116,9 @@ class ListActivity extends React.PureComponent {
       ) : (
         <React.Fragment>
           <div className="col-lg-24 text-center ">
-            <h1 className="text-center font-weight-bold pt-5">
-              No One Activity
-            </h1>
+            {/* <h1 className="text-center font-weight-bold pt-5"> */}
+            <Empty description={"Activity is Not Found"} />
+            {/* </h1> */}
           </div>
         </React.Fragment>
       );
