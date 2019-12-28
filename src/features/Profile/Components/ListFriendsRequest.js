@@ -68,7 +68,7 @@ class ListFriends extends React.PureComponent {
       if (response.status === 200) {
         alertFloat({
           type: "success",
-          content: data.success
+          content: data.message
         });
         this.setState({
           dataSources: data.data,
@@ -91,7 +91,7 @@ class ListFriends extends React.PureComponent {
   onDecline = id => {
     popConfirm({
       title: `Are you sure to cancel Friend Request?`,
-      message: "Friend will deleted on List Request Friend",
+      message: "Friend Request will deleted on List Request Friend",
       okText: " Yes",
       okType: "danger",
       cancelText: " No",
@@ -100,7 +100,7 @@ class ListFriends extends React.PureComponent {
           this.onLoadChange(true);
           this._requestSource = api.generateCancelToken();
           const response = await apiAcceptFriend(
-            `/api/friend/request/cancel/${id}`,
+            `/api/friend/request/delete/${id}`,
             this._requestSource.token
           );
           const { data } = response;
@@ -108,7 +108,7 @@ class ListFriends extends React.PureComponent {
           if (response.status === 200) {
             alertFloat({
               type: "success",
-              content: data.success
+              content: data.message
             });
             this.setState({
               dataSources: data.data,
@@ -129,7 +129,49 @@ class ListFriends extends React.PureComponent {
       }
     });
   };
-  onCancelAdd = () => {};
+
+  onCancelAdd = id => {
+    popConfirm({
+      title: `Are you sure to cancel Request Friend?`,
+      message: "Request Friend will deleted on List Request Friend",
+      okText: " Yes",
+      okType: "danger",
+      cancelText: " No",
+      onOkay: async () => {
+        try {
+          this.onLoadChange(true);
+          this._requestSource = api.generateCancelToken();
+          const response = await apiAcceptFriend(
+            `/api/friend/request/delete/${id}`,
+            this._requestSource.token
+          );
+          const { data } = response;
+
+          if (response.status === 200) {
+            alertFloat({
+              type: "success",
+              content: data.message
+            });
+            this.setState({
+              dataSources: data.data,
+              loading: false
+            });
+          }
+        } catch (e) {
+          const error = axiosError(e);
+          if (error === AXIOS_CANCEL_MESSAGE) {
+            return;
+          }
+          alertFloat({
+            type: "error",
+            content: error
+          });
+        }
+        this.onLoadChange(false);
+      }
+    });
+  };
+
   render() {
     const { dataSources, loading } = this.state;
 
@@ -178,7 +220,7 @@ class ListFriends extends React.PureComponent {
       ) : (
         <React.Fragment>
           <div className="col-lg-24 text-center">
-            <h1 className="text-center font-weight-bold">
+            <h1 className="text-center font-weight-bold pt-5">
               Request Friend Not Found
             </h1>
           </div>
@@ -209,7 +251,7 @@ class ListFriends extends React.PureComponent {
                     </h4>
                     <button
                       type="button"
-                      onClick={() => this.onCancelAdd()}
+                      onClick={() => this.onCancelAdd(result.id)}
                       className="btn rounded-pill btn-danger mr-1" //warning
                     >
                       Cancel Add Friend
@@ -223,7 +265,7 @@ class ListFriends extends React.PureComponent {
       ) : (
         <React.Fragment>
           <div className="col-lg-24 text-center">
-            <h1 className="text-center font-weight-bold">
+            <h1 className="text-center font-weight-bold pt-5">
               Requested to Friend Not Found
             </h1>
           </div>
