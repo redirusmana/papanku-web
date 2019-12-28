@@ -36,6 +36,10 @@ export const SOCKET_PATH = socketPath;
 
 export const isDevelopment = process.env.NODE_ENV === "development";
 
+// export const assetsApiUrl = url => {
+//   return `${url}`;
+// };
+
 export const assetsApiUrl = url => {
   if (!url) {
     return undefined;

@@ -29,7 +29,7 @@ class ListFriends extends React.PureComponent {
   getFriends = () => {
     this.setState(
       {
-        loading: true,
+        loading: true
       },
       () => {
         this._requestSource = api.generateCancelToken();
@@ -38,7 +38,7 @@ class ListFriends extends React.PureComponent {
           .then(response => {
             const { data } = response;
             this.setState({
-              dataSources: data,
+              dataSources: data.data,
               loading: false
             });
           })
@@ -46,8 +46,6 @@ class ListFriends extends React.PureComponent {
       }
     );
   };
-
-  
 
   handleModal = () => {
     this.setState({
@@ -61,13 +59,13 @@ class ListFriends extends React.PureComponent {
     });
   };
 
-  onLoadChange = (isLoading) =>{
+  onLoadChange = isLoading => {
     this.setState({
-      loading:isLoading
-    })
-  }
+      loading: isLoading
+    });
+  };
 
-  onDeleteFriend = (id) => {
+  onDeleteFriend = id => {
     popConfirm({
       title: `Are you sure to remove this Friend?`,
       message: "Friend will deleted on List Friend",
@@ -76,45 +74,44 @@ class ListFriends extends React.PureComponent {
       cancelText: " No",
       onOkay: async () => {
         try {
-          this.onLoadChange(true)
-            this._requestSource = api.generateCancelToken();
-            const url = `/api/friend/delete/${id}`;
-            const response = await api.delete(url, this._requestSource.token);
-            if (response.status === 200) {
-                alertFloat({
-                    type: 'success',
-                    content: response.message
-                });
-                this.setState({
-                  // dataSources: data,
-                  loading: false
-                });
-            }
-        } catch (err) {
-            const error = axiosError(err);
-            if (error === AXIOS_CANCEL_MESSAGE) {
-                return;
-            }
+          this.onLoadChange(true);
+          this._requestSource = api.generateCancelToken();
+          const url = `/api/friend/delete/${id}`;
+          const response = await api.delete(url, this._requestSource.token);
+          if (response.status === 200) {
             alertFloat({
-                type: 'error',
-                content: error
+              type: "success",
+              content: response.message
             });
+            this.setState({
+              // dataSources: data,
+              loading: false
+            });
+          }
+        } catch (err) {
+          const error = axiosError(err);
+          if (error === AXIOS_CANCEL_MESSAGE) {
+            return;
+          }
+          alertFloat({
+            type: "error",
+            content: error
+          });
         }
-        this.onLoadChange(false)
-    },
-    onCancel: () => { },
-    okType: 'danger'
+        this.onLoadChange(false);
+      },
+      onCancel: () => {}
     });
   };
 
-  handleLoading = (isLoading) => {
+  handleLoading = isLoading => {
     this.setState({
-      loading : isLoading
-    })
-  }
-  
+      loading: isLoading
+    });
+  };
+
   render() {
-    const { dataSources, loading,isVisible } = this.state;
+    const { dataSources, loading, isVisible } = this.state;
 
     const listFriends =
       Array.isArray(get(dataSources, "friends")) &&
@@ -127,7 +124,11 @@ class ListFriends extends React.PureComponent {
                     <div className="text-center">
                       <Avatar
                         name={result.name}
-                        image={result.avatar_path ? assetsApiUrl(result.avatar_path) : undefined}
+                        image={
+                          result.avatar_path
+                            ? assetsApiUrl(result.avatar_path)
+                            : undefined
+                        }
                         size="xxxl"
                         avatarClass="avatar-link mb-1"
                       />
@@ -196,7 +197,10 @@ class ListFriends extends React.PureComponent {
           handleBack={this.handleClose}
         >
           <div className="container">
-            <FormAddFriend handleLoading={this.handleLoading} handleClose={this.handleClose} />
+            <FormAddFriend
+              handleLoading={this.handleLoading}
+              handleClose={this.handleClose}
+            />
           </div>
         </Modal>
       </React.Fragment>

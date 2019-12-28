@@ -19,8 +19,8 @@ class ListFriends extends React.PureComponent {
     super(props);
     this.state = {
       isVisible: false,
-      dataSources:{}, 
-      loading:false
+      dataSources: {},
+      loading: false
     };
   }
 
@@ -31,7 +31,7 @@ class ListFriends extends React.PureComponent {
   getFriendsRequest = () => {
     this.setState(
       {
-        loading: true,
+        loading: true
       },
       () => {
         this._requestSource = api.generateCancelToken();
@@ -40,7 +40,7 @@ class ListFriends extends React.PureComponent {
           .then(response => {
             const { data } = response;
             this.setState({
-              dataSources: data,
+              dataSources: data.data,
               loading: false
             });
           })
@@ -49,15 +49,15 @@ class ListFriends extends React.PureComponent {
     );
   };
 
-  onLoadChange = (isLoading) =>{
+  onLoadChange = isLoading => {
     this.setState({
-      loading:isLoading
-    })
-  }
+      loading: isLoading
+    });
+  };
 
-  onAccept = async (id) => {
+  onAccept = async id => {
     try {
-      this.onLoadChange(true)
+      this.onLoadChange(true);
       this._requestSource = api.generateCancelToken();
       const response = await apiAcceptFriend(
         `/api/friend/request/accept/${id}`,
@@ -71,7 +71,7 @@ class ListFriends extends React.PureComponent {
           content: data.success
         });
         this.setState({
-          // dataSources: data,
+          dataSources: data.data,
           loading: false
         });
       }
@@ -85,16 +85,48 @@ class ListFriends extends React.PureComponent {
         content: error
       });
     }
-    this.onLoadChange(false)
+    this.onLoadChange(false);
   };
 
-  onDecline = () => {
+  onDecline = id => {
     popConfirm({
       title: `Are you sure to cancel Friend Request?`,
       message: "Friend will deleted on List Request Friend",
       okText: " Yes",
       okType: "danger",
-      cancelText: " No"
+      cancelText: " No",
+      onOkay: async () => {
+        try {
+          this.onLoadChange(true);
+          this._requestSource = api.generateCancelToken();
+          const response = await apiAcceptFriend(
+            `/api/friend/request/cancel/${id}`,
+            this._requestSource.token
+          );
+          const { data } = response;
+
+          if (response.status === 200) {
+            alertFloat({
+              type: "success",
+              content: data.success
+            });
+            this.setState({
+              dataSources: data.data,
+              loading: false
+            });
+          }
+        } catch (e) {
+          const error = axiosError(e);
+          if (error === AXIOS_CANCEL_MESSAGE) {
+            return;
+          }
+          alertFloat({
+            type: "error",
+            content: error
+          });
+        }
+        this.onLoadChange(false);
+      }
     });
   };
   onCancelAdd = () => {};
@@ -103,85 +135,100 @@ class ListFriends extends React.PureComponent {
 
     const listFriendsRequest =
       Array.isArray(get(dataSources, "friend_requests")) &&
-      get(dataSources, "friend_requests").length > 0
-        ? get(dataSources, "friend_requests").map(result => (
-            <React.Fragment key={`list-friend-request-${result.id}`}>
-              <div className="col-lg-8">
-                <div className="card">
-                  <div className="card-body">
-                    <div className="text-center">
-                      <Avatar
-                        name={get(result, "requester.name")}
-                        image={get(result, "requester.avatar_path") ? assetsApiUrl(get(result, "requester.avatar_path")) : undefined}
-                        size="xxxl"
-                        avatarClass="avatar-link mb-1"
-                      />
-                      <h4 className="card-title text-center pt-2">
+      get(dataSources, "friend_requests").length > 0 ? (
+        get(dataSources, "friend_requests").map(result => (
+          <React.Fragment key={`list-friend-request-${result.id}`}>
+            <div className="col-lg-8">
+              <div className="card">
+                <div className="card-body">
+                  <div className="text-center">
+                    <Avatar
+                      name={get(result, "requester.name")}
+                      image={
+                        get(result, "requester.avatar_path")
+                          ? assetsApiUrl(get(result, "requester.avatar_path"))
+                          : undefined
+                      }
+                      size="xxxl"
+                      avatarClass="avatar-link mb-1"
+                    />
+                    <h4 className="card-title text-center pt-2">
                       {get(result, "requester.name")}
-                      </h4>
-                      <button
-                        onClick={() => this.onAccept(result.id)}
-                        type="button"
-                        className="btn rounded-pill btn-primary mr-1" //primary
-                      >
-                        Accept
-                      </button>
-                      <button
-                        onClick={() => this.onDecline()}
-                        type="button"
-                        className="btn rounded-pill btn-danger ml-1" //primary
-                      >
-                        Decline
-                      </button>
-                    </div>
+                    </h4>
+                    <button
+                      onClick={() => this.onAccept(result.id)}
+                      type="button"
+                      className="btn rounded-pill btn-primary mr-1" //primary
+                    >
+                      Accept
+                    </button>
+                    <button
+                      onClick={() => this.onDecline(result.id)}
+                      type="button"
+                      className="btn rounded-pill btn-danger ml-1" //primary
+                    >
+                      Decline
+                    </button>
                   </div>
                 </div>
               </div>
-            </React.Fragment>
-          ))
-        : 
-        <React.Fragment >
-          <div className="col-lg-24 text-center">            
-          <h1 className="text-center font-weight-bold">Request Friend Not Found</h1>
+            </div>
+          </React.Fragment>
+        ))
+      ) : (
+        <React.Fragment>
+          <div className="col-lg-24 text-center">
+            <h1 className="text-center font-weight-bold">
+              Request Friend Not Found
+            </h1>
           </div>
-        </React.Fragment>;;
+        </React.Fragment>
+      );
 
     const listRequestFriend =
-      Array.isArray(get(dataSources, "friend_requests")) &&
-      get(dataSources, "friend_requests").length > 0
-        ? get(dataSources, "friend_requests").map(result => (
-            <React.Fragment key={`list-request-friend-${result.id}`}>
-              <div className="col-lg-8">
-                <div className="card">
-                  <div className="card-body">
-                    <div className="text-center">
-                      <Avatar
-                        name={get(result, "requester.name")}
-                        image={get(result, "requester.avatar_path") ? assetsApiUrl(get(result, "requester.avatar_path")) : undefined}
-                        size="xxxl"
-                        avatarClass="avatar-link mb-1"
-                      />
-                      <h4 className="card-title text-center pt-2">
-                      {get(result, "requester.name")}
-                      </h4>
-                      <button
-                        type="button"
-                        onClick={() => this.onCancelAdd()}
-                        className="btn rounded-pill btn-danger mr-1" //warning
-                      >
-                        Cancel Add Friend
-                      </button>
-                    </div>
+      Array.isArray(get(dataSources, "requested_friends")) &&
+      get(dataSources, "requested_friends").length > 0 ? (
+        get(dataSources, "requested_friends").map(result => (
+          <React.Fragment key={`list-request-friend-${result.id}`}>
+            <div className="col-lg-8">
+              <div className="card">
+                <div className="card-body">
+                  <div className="text-center">
+                    <Avatar
+                      name={get(result, "respondent.name")}
+                      image={
+                        get(result, "respondent.avatar_path")
+                          ? assetsApiUrl(get(result, "respondent.avatar_path"))
+                          : undefined
+                      }
+                      size="xxxl"
+                      avatarClass="avatar-link mb-1"
+                    />
+                    <h4 className="card-title text-center pt-2">
+                      {get(result, "respondent.name")}
+                    </h4>
+                    <button
+                      type="button"
+                      onClick={() => this.onCancelAdd()}
+                      className="btn rounded-pill btn-danger mr-1" //warning
+                    >
+                      Cancel Add Friend
+                    </button>
                   </div>
                 </div>
               </div>
-            </React.Fragment>
-          ))
-        : <React.Fragment>
-          <div className="col-lg-24 text-center">            
-          <h1 className="text-center font-weight-bold">Requested to Friend Not Found</h1>
+            </div>
+          </React.Fragment>
+        ))
+      ) : (
+        <React.Fragment>
+          <div className="col-lg-24 text-center">
+            <h1 className="text-center font-weight-bold">
+              Requested to Friend Not Found
+            </h1>
           </div>
-        </React.Fragment>;
+        </React.Fragment>
+      );
 
     return (
       <React.Fragment>

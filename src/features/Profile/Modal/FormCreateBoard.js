@@ -13,8 +13,7 @@ import {
 import alertFloat from "../../../provider/Display/alertFloat";
 
 const formCreateBoardValidation = yup.object().shape({
-  title: yup
-    .string().required("Title is required")
+  title: yup.string().required("Title is required")
 });
 
 class FormCreateBoard extends React.PureComponent {
@@ -29,13 +28,10 @@ class FormCreateBoard extends React.PureComponent {
 
   handleSubmit = async (values, actions) => {
     try {
-      this.props.handleLoading(true)
+      this.props.handleLoading(true);
       this._requestSource = api.generateCancelToken();
 
-      const response = await apiCreateBoard(
-        values,
-        this._requestSource.token
-      );
+      const response = await apiCreateBoard(values, this._requestSource.token);
       const { data } = response;
 
       if (response.status === 200) {
@@ -43,8 +39,7 @@ class FormCreateBoard extends React.PureComponent {
           type: "success",
           content: data.message
         });
-        // this.props.handleReplace(data.data)
-        
+        this.props.handleReplace(data.data);
       }
     } catch (e) {
       const error = axiosError(e);
@@ -57,8 +52,8 @@ class FormCreateBoard extends React.PureComponent {
       });
     }
     actions.setSubmitting(false);
-    this.props.handleLoading(false)
-    this.props.handleClose()
+    this.props.handleLoading(false);
+    this.props.handleClose();
   };
   render() {
     const { initialValues } = this.state;

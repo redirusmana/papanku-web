@@ -24,7 +24,7 @@ class ListBoard extends React.PureComponent {
   getBoards = () => {
     this.setState(
       {
-        loading: true,
+        loading: true
       },
       () => {
         this._requestSource = api.generateCancelToken();
@@ -33,7 +33,7 @@ class ListBoard extends React.PureComponent {
           .then(response => {
             const { data } = response;
             this.setState({
-              dataSources: data,
+              dataSources: data.data,
               loading: false
             });
           })
@@ -41,7 +41,7 @@ class ListBoard extends React.PureComponent {
       }
     );
   };
-  
+
   handleModal = () => {
     this.setState({
       isVisible: true
@@ -54,11 +54,17 @@ class ListBoard extends React.PureComponent {
     });
   };
 
-  handleLoading = (isLoading) => {
+  handleLoading = isLoading => {
     this.setState({
-      loading : isLoading
-    })
-  }
+      loading: isLoading
+    });
+  };
+
+  handleReplace = newDataSource => {
+    this.setState({
+      dataSources: newDataSource
+    });
+  };
 
   onAccept = () => {};
   onDecline = () => {
@@ -102,46 +108,46 @@ class ListBoard extends React.PureComponent {
           ))
         : [];
 
-    const listBoardInvited =
-      Array.isArray(get(dataSources, "boards")) &&
-      get(dataSources, "boards").length > 0
-        ? get(dataSources, "boards").map(result => (
-            <React.Fragment key={`list-board-invited-${result.id}`}>
-              <div className="col-lg-8 mb-3">
-                <div className="card ">
-                  <div className="card-body">
-                    <p className="card-title">{result.title}</p>
-                    <p className="card-text text-right">
-                      <small className="text-muted">
-                        <b>redirsmn </b> Added you to <b>{result.title}</b>
-                      </small>
-                    </p>
-                  </div>
-                  <div className="card-footer text-right py-2">
-                    <button
-                      onClick={() => this.onAccept()}
-                      type="button"
-                      className="btn btn-sm rounded-pill btn-primary mr-1" //primary
-                    >
-                      Accept
-                    </button>
-                    <button
-                      onClick={() => this.onDecline()}
-                      type="button"
-                      className="btn btn-sm rounded-pill btn-danger ml-1" //primary
-                    >
-                      Decline
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </React.Fragment>
-          ))
-        : <React.Fragment>
-          <div className="col-lg-24 text-center">            
-          <h1 className="text-center font-weight-bold">Board Not Found</h1>
-          </div>
-          </React.Fragment>;;
+    // const listBoardInvited =
+    //   Array.isArray(get(dataSources, "boards")) &&
+    //   get(dataSources, "boards").length > 0
+    //     ? get(dataSources, "boards").map(result => (
+    //         <React.Fragment key={`list-board-invited-${result.id}`}>
+    //           <div className="col-lg-8 mb-3">
+    //             <div className="card ">
+    //               <div className="card-body">
+    //                 <p className="card-title">{result.title}</p>
+    //                 <p className="card-text text-right">
+    //                   <small className="text-muted">
+    //                     <b>redirsmn </b> Added you to <b>{result.title}</b>
+    //                   </small>
+    //                 </p>
+    //               </div>
+    //               <div className="card-footer text-right py-2">
+    //                 <button
+    //                   onClick={() => this.onAccept()}
+    //                   type="button"
+    //                   className="btn btn-sm rounded-pill btn-primary mr-1" //primary
+    //                 >
+    //                   Accept
+    //                 </button>
+    //                 <button
+    //                   onClick={() => this.onDecline()}
+    //                   type="button"
+    //                   className="btn btn-sm rounded-pill btn-danger ml-1" //primary
+    //                 >
+    //                   Decline
+    //                 </button>
+    //               </div>
+    //             </div>
+    //           </div>
+    //         </React.Fragment>
+    //       ))
+    //     : <React.Fragment>
+    //       <div className="col-lg-24 text-center">
+    //       <h1 className="text-center font-weight-bold">Board Not Found</h1>
+    //       </div>
+    //       </React.Fragment>;
 
     return (
       <React.Fragment>
@@ -178,9 +184,7 @@ class ListBoard extends React.PureComponent {
             {loading ? (
               <LoadingCard />
             ) : (
-              <React.Fragment>
-                {/* {listBoardInvited} */}
-                </React.Fragment>
+              <React.Fragment>{/* {listBoardInvited} */}</React.Fragment>
             )}
           </div>
         </div>
@@ -192,7 +196,11 @@ class ListBoard extends React.PureComponent {
           handleBack={this.handleClose}
         >
           <div className="container">
-            <FormCreateBoard handleLoading={this.handleLoading} handleClose={this.handleClose} />
+            <FormCreateBoard
+              handleReplace={this.handleReplace}
+              handleLoading={this.handleLoading}
+              handleClose={this.handleClose}
+            />
           </div>
         </Modal>
       </React.Fragment>
