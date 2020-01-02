@@ -14,7 +14,7 @@ class FormEditTitleCard extends React.PureComponent {
     this.state = {
       editable: false,
       renamingTitle: undefined,
-      renamingTitleName: "Title Card"
+      renamingTitleName: ""
       // renamingTitleName: ""
     };
   }
@@ -42,13 +42,15 @@ class FormEditTitleCard extends React.PureComponent {
   };
 
   render() {
-    const { renamingTitle, renamingTitleName } = this.state;
+    const { renamingTitle } = this.state; //renamingTitleName
+    const { columnSource } = this.props;
     return (
       <div className="d-flex flex-row flex-nowrap justify-content-between align-items-center pt-1 pl-1">
         {renamingTitle ? (
           <TextareaAutosize
             inputClassName="form-control"
-            value={renamingTitleName}
+            // value={renamingTitleName}
+            value={columnSource.title}
             onTextChange={this.onTitleRenamingChange}
             onKeyPress={this.onTitleRenamingKeypress}
             onBlur={this.onTitleRenamingStop}
@@ -56,7 +58,8 @@ class FormEditTitleCard extends React.PureComponent {
           />
         ) : (
           <h5 className="mb-0">
-            {renamingTitleName}
+            {/* {renamingTitleName} */}
+            {columnSource.title}
             {/* {"(2)"} */}
           </h5>
         )}

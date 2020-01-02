@@ -1,10 +1,11 @@
 import React from "react";
+import { connect } from "react-redux";
 import * as yup from "yup";
 import { Link } from "react-router-dom";
 import { Formik } from "formik";
 import cn from "classnames";
 import api from "../../../provider/Tools/api";
-import { apiSignInAction } from "../action";
+import { apiSignInAction, AUTH_SET_LOGIN, saveToken } from "../action";
 import alertFloat from "../../../provider/Display/alertFloat";
 import {
   axiosError,
@@ -51,18 +52,38 @@ class PageRegister extends React.PureComponent {
   }
 
   handleSubmit = async (values, actions) => {
-    const { password_confirmation, ...newValues } = values;
+    const {
+      password_confirmation,
+      first_name,
+      last_name,
+      ...allValues
+    } = values;
+    const name = `${first_name} ${last_name}`;
+    const newValue = { name, ...allValues };
     try {
       this._requestSource = api.generateCancelToken();
 
       const response = await apiSignInAction(
-        newValues,
+        newValue,
         this._requestSource.token
       );
+      const { data } = response;
+
+      // TODO: register fail
+      api.setToken(data.type, data.token);
+
+      saveToken(data.token);
+
+      this.props.setLogin({
+        token: data.token,
+        user: data.data,
+        type: data.type
+      });
+
       if (response.status === 200) {
         alertFloat({
           type: "success",
-          content: response.message
+          content: data.message
         });
       }
     } catch (e) {
@@ -293,4 +314,17 @@ class PageRegister extends React.PureComponent {
   }
 }
 
-export default PageRegister;
+const mapStateToProps = store => ({
+  user: store.auth.user,
+  token: store.auth.token
+});
+
+const mapDispatchToProps = dispatch => ({
+  setLogin: payload =>
+    dispatch({
+      type: AUTH_SET_LOGIN,
+      payload
+    })
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PageRegister);

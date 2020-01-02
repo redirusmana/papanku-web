@@ -64,6 +64,9 @@ class PageLogin extends React.PureComponent {
       if (error === AXIOS_CANCEL_MESSAGE) {
         return;
       }
+      this.setState({
+        password: ""
+      });
       alertFloat({
         type: "error",
         content: "User not Found"

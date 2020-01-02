@@ -56,13 +56,13 @@ class NavbarKanbanPage extends React.PureComponent {
                 >
                   <div>
                     <Avatar
-                      name={get(result, "user.username")}
+                      name={get(result, "user.name")}
                       image={
                         get(result, "user.avatar_path")
                           ? assetsApiUrl(get(result, "user.avatar_path"))
                           : undefined
                       }
-                      title={get(result, "user.username")}
+                      title={get(result, "user.name")}
                       size="sm"
                     />
                   </div>
@@ -128,7 +128,9 @@ class NavbarKanbanPage extends React.PureComponent {
               </li>
               <li className="nav-item py-0">
                 <Popover
-                  title={<b className="">Redi Rusmana</b>}
+                  title={
+                    <b className="">{get(dataSourcesUser, "data.name")}</b>
+                  }
                   trigger="click"
                   content={<ProfileMenu handleLogout={handleLogout} />}
                   overlayClassName="xl popover-no-padding popover-noarrow"
@@ -139,11 +141,13 @@ class NavbarKanbanPage extends React.PureComponent {
                   > */}
                   <div>
                     <Avatar
-                      name={dataSourcesUser.username}
-                      title={dataSourcesUser.username}
+                      name={get(dataSourcesUser, "data.name")}
+                      title={get(dataSourcesUser, "data.name")}
                       image={
-                        dataSourcesUser.avatar_path
-                          ? assetsApiUrl(dataSourcesUser.avatar_path)
+                        get(dataSourcesUser, "data.avatar_path")
+                          ? assetsApiUrl(
+                              get(dataSourcesUser, "data.avatar_path")
+                            )
                           : undefined
                       }
                       style={{

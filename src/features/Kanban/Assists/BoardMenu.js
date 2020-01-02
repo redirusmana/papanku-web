@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import get from "lodash/get";
 import Modal from "../../../provider/Display/Modal";
 import InputSearch from "../../../provider/Commons/InputSearch";
 import "../Style/style.css";
@@ -27,11 +28,11 @@ class BoardMenu extends React.PureComponent {
 
   render() {
     const { isVisible } = this.state;
-    const { boards } = this.props;
+    const { data } = this.props;
 
     const listBoard =
-      Array.isArray(boards) && boards.length > 0
-        ? boards.map(result => (
+      Array.isArray(get(data, "boards")) && get(data, "boards").length > 0
+        ? get(data, "boards").map(result => (
             <React.Fragment key={`list-board-dropdown-${result.id}`}>
               <Link
                 to={`/board/${result.id}`}

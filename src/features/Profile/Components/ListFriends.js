@@ -66,7 +66,7 @@ class ListFriends extends React.PureComponent {
     });
   };
 
-  onDeleteFriend = (pivot, id) => {
+  onDeleteFriend = pivot => {
     const { memberable_type, ...newValues } = pivot;
     popConfirm({
       title: `Are you sure to remove this Friend?`,
@@ -79,7 +79,7 @@ class ListFriends extends React.PureComponent {
           this.onLoadChange(true);
           this._requestSource = api.generateCancelToken();
           const response = await apiDeleteFriend(
-            `/api/friend/delete/${id}`,
+            `/api/friend/delete`,
             newValues,
             this._requestSource.token
           );
@@ -87,7 +87,7 @@ class ListFriends extends React.PureComponent {
           if (response.status === 200) {
             alertFloat({
               type: "success",
-              content: response.message
+              content: data.message
             });
             this.setState({
               dataSources: data.data,

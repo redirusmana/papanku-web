@@ -29,10 +29,9 @@ class KanbanPageIndex extends React.PureComponent {
         loading: true
       },
       () => {
-        const { user } = this.props;
         this._requestSource = api.generateCancelToken();
         api
-          .get(`/api/${user.email}`, this._requestSource.token)
+          .get(`/api/profile`, this._requestSource.token)
           .then(response => {
             const { data } = response;
             this.setState({
@@ -50,8 +49,8 @@ class KanbanPageIndex extends React.PureComponent {
         loading: true
       },
       () => {
-        const { match, user } = this.props;
-        const ROUTE_API = `api/${user.email}/board/${match.params.id}`;
+        const { match } = this.props;
+        const ROUTE_API = `api/board/${match.params.id}`;
         this._requestSource = api.generateCancelToken();
         api
           .get(ROUTE_API, this._requestSource.token)

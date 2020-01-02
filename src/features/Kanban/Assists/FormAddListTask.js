@@ -1,4 +1,9 @@
 import React from "react";
+import api from "../../../provider/Tools/api";
+import {
+  axiosError,
+  AXIOS_CANCEL_MESSAGE
+} from "../../../provider/Tools/converter";
 import TextareaAutosize from "../../../provider/Commons/TextareaAutosize";
 
 const initialFormState = {
@@ -10,6 +15,7 @@ class FormAddListTask extends React.PureComponent {
     super(props);
 
     this.state = {
+      title: "Title",
       form: initialFormState,
       formVisible: false
     };
@@ -22,11 +28,6 @@ class FormAddListTask extends React.PureComponent {
   onToggleCreate = () => {
     const { formVisible } = this.state;
 
-    /**
-     * Add event listener if document outside form is clicked
-     * - visible -> remove clickoutside event listener
-     * - not visible -> add clickoutside event listener
-     */
     if (!formVisible) {
       document.addEventListener("click", this.handleClickOutside, false);
     } else {
@@ -69,7 +70,23 @@ class FormAddListTask extends React.PureComponent {
     this.onToggleCreate();
   };
 
-  submitTask = () => {};
+  async submitTask() {
+    const { listSource } = this.props;
+    const { title } = this.state;
+    try {
+      this._requestSource = api.generateCancelToken();
+      const url = `/api/list/${listSource.id}/card`;
+      const { data } = await api.post(url, { title });
+
+      if (data.success === "OK") {
+      }
+    } catch (e) {
+      const error = axiosError(e);
+      if (error === AXIOS_CANCEL_MESSAGE) {
+        return;
+      }
+    }
+  }
 
   resetForm = () => {
     const { form } = this.state;
@@ -92,6 +109,7 @@ class FormAddListTask extends React.PureComponent {
   };
 
   render() {
+    // console.log(this.props);
     const { form, formVisible } = this.state;
 
     if (!formVisible) {

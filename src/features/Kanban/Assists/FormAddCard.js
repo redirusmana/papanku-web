@@ -1,5 +1,10 @@
 import React from "react";
 import "moment/locale/id";
+import api from "../../../provider/Tools/api";
+import {
+  axiosError,
+  AXIOS_CANCEL_MESSAGE
+} from "../../../provider/Tools/converter";
 import TextareaAutosize from "../../../provider/Commons/TextareaAutosize";
 
 const initialTitle = "";
@@ -33,22 +38,41 @@ class FormAddCard extends React.PureComponent {
     });
   };
 
-  handleTitleKeypress = e => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      this.handleSubmit(e);
-    }
-  };
+  // handleTitleKeypress = e => {
+  //   if (e.key === "Enter") {
+  //     e.preventDefault();
+  //     this.handleSubmit(e);
+  //   }
+  // };
 
   handleSubmit = e => {
     e.preventDefault();
 
     if (this.state.title !== initialTitle) {
-      this.createCard(this.state.title);
+      this.createStep(this.state.title);
     }
 
     this.closeEditable();
   };
+
+  async createStep(title) {
+    const { idBoard } = this.props;
+    try {
+      this._requestSource = api.generateCancelToken();
+      const url = `/api/board/${idBoard}/list`;
+      const { data } = await api.post(url, {
+        title
+      });
+
+      if (data.success === "OK") {
+      }
+    } catch (e) {
+      const error = axiosError(e);
+      if (error === AXIOS_CANCEL_MESSAGE) {
+        return;
+      }
+    }
+  }
 
   render() {
     const { editable, title } = this.state;
@@ -62,7 +86,7 @@ class FormAddCard extends React.PureComponent {
               inputClassName="form-control"
               value={title}
               onTextChange={this.handleTitleChange}
-              onKeyPress={this.handleTitleKeypress}
+              // onKeyPress={this.handleTitleKeypress}
               onBlur={this.handleSubmit}
               autoFocus
             />
@@ -71,7 +95,11 @@ class FormAddCard extends React.PureComponent {
             <button type="submit" className="btn btn-primary">
               Create Card
             </button>
-            <button type="button" className="btn btn-link text-primary">
+            <button
+              type="button"
+              className="btn btn-link text-primary"
+              onClick={this.closeEditable}
+            >
               Cancel
             </button>
           </div>

@@ -27,6 +27,8 @@ class KanbanPage extends React.PureComponent {
   };
 
   render() {
+    const { dataSources } = this.props;
+
     return (
       <React.Fragment>
         <div className="kanban-board">
@@ -34,41 +36,50 @@ class KanbanPage extends React.PureComponent {
             orientation="horizontal"
             dragHandleSelector=".kanban-draggable-header"
           >
-            <Draggable>
-              <div className="kanban-column">
-                <div className="kanban-column-header">
-                  <FormEditTitleCard />
-                </div>
-                <div className="kanban-column-body">
-                  <Container
-                    groupName="col"
-                    onDragStart={this.onDragStart}
-                    onDragEnd={this.onDragEnd}
-                    dropClass="kanban-card-ghost-drop"
-                    dragClass="kanban-card-ghost"
-                  >
-                    <Draggable>
-                      <div
-                        role="presentation"
-                        className="kanban-cell"
-                        onClick={() => this.handleModal()}
-                      >
-                        <div className="kanban-cell-body">
-                          <TaskList />
-                        </div>
+            {Array.isArray(dataSources.lists) && dataSources.lists.length > 0
+              ? dataSources.lists.map(column => (
+                  <Draggable key={`column-id-${column.id}`}>
+                    <div className="kanban-column">
+                      <div className="kanban-column-header">
+                        <FormEditTitleCard columnSource={column} />
                       </div>
-                    </Draggable>
-                  </Container>
-                </div>
-                <div className="kanban-column-footer">
-                  <FormAddListTask />
-                </div>
-              </div>
-            </Draggable>
+                      <div className="kanban-column-body">
+                        <Container
+                          groupName="col"
+                          onDragStart={this.onDragStart}
+                          onDragEnd={this.onDragEnd}
+                          dropClass="kanban-card-ghost-drop"
+                          dragClass="kanban-card-ghost"
+                        >
+                          {column.cards.map(cell => {
+                            return (
+                              <Draggable key={`cards-id-${cell.id}`}>
+                                <div
+                                  role="presentation"
+                                  className={"kanban-cell"} //  disable-pointer
+                                  // onClick={e => this.onCellClick(e, cell)}
+                                  onClick={() => this.handleModal()}
+                                >
+                                  <div className="kanban-cell-body">
+                                    <TaskList task={cell} />
+                                  </div>
+                                </div>
+                              </Draggable>
+                            );
+                          })}
+                        </Container>
+                      </div>
+                      <div className="kanban-column-footer">
+                        <FormAddListTask listSource={column} />
+                      </div>
+                    </div>
+                  </Draggable>
+                ))
+              : []}
 
             <div className="kanban-column-creator">
               <div className="kanban-column">
-                <FormAddCard />
+                <FormAddCard idBoard={dataSources.id} />
               </div>
             </div>
           </Container>

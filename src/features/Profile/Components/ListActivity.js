@@ -1,6 +1,7 @@
 import React from "react";
-import { Empty } from 'antd';
+import { Empty } from "antd";
 import Avatar from "../../../provider/Display/Avatar";
+import { dateFromNowString } from "../../../provider/Tools/converter";
 import get from "lodash/get";
 import LoadingCard from "../../../provider/Display/LoadingCard";
 import api from "../../../provider/Tools/api";
@@ -76,7 +77,9 @@ class ListActivity extends React.PureComponent {
       Array.isArray(get(dataSources, "activities")) &&
       get(dataSources, "activities").length > 0 ? (
         get(dataSources, "activities").map(result => (
-          <React.Fragment key={`list-activitys-${result.id}`}>
+          <React.Fragment
+            key={`list-activitys-${result.id}-${result.historieabel_id}`}
+          >
             <div className="media">
               <Avatar
                 size="md"
@@ -94,17 +97,13 @@ class ListActivity extends React.PureComponent {
                     <small>
                       {/* <b className="font-weight-bold">{user.name}</b> {action} */}
                       <b className="font-weight-bold">Redi Rusmana </b>
-                      Telah melakukan Sesuatu Telah melakukan Sesuatu Telah
-                      melakukan Sesuatu Telah melakukan Sesuatu Telah melakukan
-                      Sesuatu Telah melakukan Sesuatu Telah melakukan Sesuatu
-                      Telah melakukan Sesuatu Telah melakukan Sesuatu Telah
-                      melakukan Sesuatu Telah melakukan Sesuatu.
+                      {result.after}
                     </small>
                   </div>
                   <div>
                     {/* <small>{dateFromNowString(created_at)}</small> */}
                     <small className="font-weight-light">
-                      13 minutes ago - On Board{" "}
+                      {dateFromNowString(result.created_at)} - On Board{" "}
                       <b className="font-weight-bold">'something'</b>
                     </small>
                   </div>
