@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import logo from "../../../assets/images/bootstrap.png";
 // import TaskList from "../Components/TaskList";
 import ProfileMember from "../Assists/ProfileMember";
+import Modal from "../../../provider/Display/Modal";
 import FormInviteFriend from "../Assists/FormInviteFriend";
 import ListMemberFriend from "../Assists/ListMemberFriend";
 import BoardMenu from "../Assists/BoardMenu";
@@ -22,8 +23,15 @@ import "../../style/style.css";
 class NavbarKanbanPage extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = { isVisible: false };
+    this.state = { isVisible: false, isDrawer: false };
   }
+
+  handleDrawer = () => {
+    this.setState({
+      isDrawer: true
+    });
+  };
+
   handleModal = () => {
     this.setState({
       isVisible: true
@@ -32,11 +40,12 @@ class NavbarKanbanPage extends React.PureComponent {
 
   handleClose = () => {
     this.setState({
-      isVisible: false
+      isVisible: false,
+      isDrawer: false
     });
   };
   render() {
-    const { isVisible } = this.state;
+    const { isVisible, isDrawer } = this.state;
     const { dataSourcesUser, handleLogout, dataSources } = this.props;
 
     const mappedMemberNav =
@@ -115,8 +124,8 @@ class NavbarKanbanPage extends React.PureComponent {
                 <Popover
                   title="Notification"
                   trigger="click"
-                  content={<AllNotification />}
-                  overlayClassName="xll popover-noarrow popover-no-padding-right"
+                  content={<AllNotification {...dataSourcesUser.data} />}
+                  overlayClassName="xxl popover-noarrow popover-no-padding-right"
                 >
                   <button
                     type="button"
@@ -187,20 +196,13 @@ class NavbarKanbanPage extends React.PureComponent {
                     <Avatar name={listMemberLength} size="sm" />
                   </div>
                 </Popover>
-                <Popover
-                  title="Invite Friends"
-                  trigger="click"
-                  content={<FormInviteFriend />}
-                  placement="bottomLeft"
-                  overlayClassName="xl"
+                <button
+                  type="button"
+                  onClick={() => this.handleModal()}
+                  className="btn btn-sm btn-outline-primary mx-1"
                 >
-                  <button
-                    type="button"
-                    className="btn btn-sm btn-outline-primary mx-1"
-                  >
-                    Invite
-                  </button>
-                </Popover>
+                  Invite
+                </button>
               </li>
             </ul>
             <ul className="navbar-nav ml-auto">
@@ -229,7 +231,7 @@ class NavbarKanbanPage extends React.PureComponent {
               <li className="nav-item py-0 font-weight-bold">
                 <button
                   type="button"
-                  onClick={() => this.handleModal()}
+                  onClick={() => this.handleDrawer()}
                   className="btn btn-sm btn-outline-primary"
                 >
                   All Activity
@@ -238,18 +240,28 @@ class NavbarKanbanPage extends React.PureComponent {
             </ul>
           </div>
         </nav>
+        <Modal
+          title="Invite Friend"
+          visible={isVisible}
+          size="medium"
+          handleBack={this.handleClose}
+        >
+          <div className="container">
+            <FormInviteFriend idBoard={dataSources.id} />
+          </div>
+        </Modal>
         <Drawer
           title={"All Activity"}
           placement={"right"}
           onClose={this.handleClose}
-          visible={isVisible}
+          visible={isDrawer}
           width={400}
           mask={false}
           className="drawer-sticky-header"
           // maskClosable={false}
           closable
         >
-          <AllActivity />
+          <AllActivity {...dataSources} />
         </Drawer>
       </React.Fragment>
     );

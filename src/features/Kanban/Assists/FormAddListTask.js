@@ -15,9 +15,10 @@ class FormAddListTask extends React.PureComponent {
     super(props);
 
     this.state = {
-      title: "Title",
+      // title: ,
       form: initialFormState,
-      formVisible: false
+      formVisible: false,
+      isSubmitting: false
     };
   }
 
@@ -70,22 +71,47 @@ class FormAddListTask extends React.PureComponent {
     this.onToggleCreate();
   };
 
-  async submitTask() {
-    const { listSource } = this.props;
-    const { title } = this.state;
+  submitRequest = async ({ form, id }) => {
     try {
       this._requestSource = api.generateCancelToken();
-      const url = `/api/list/${listSource.id}/card`;
-      const { data } = await api.post(url, { title });
+      const url = `/api/list/${id}/card`;
+      const { data } = await api.post(url, form);
 
       if (data.success === "OK") {
+        this.props.addTask({
+          newTask: data.card,
+          columnIndex: this.props.columnIndex
+        });
       }
+
+      this.setState({ isSubmitting: false });
     } catch (e) {
       const error = axiosError(e);
       if (error === AXIOS_CANCEL_MESSAGE) {
         return;
       }
+
+      this.setState({ isSubmitting: false });
     }
+  };
+
+  submitTask() {
+    const { listSource } = this.props;
+    const { form } = this.state;
+
+    // Check if title null, should not send request submit
+    if (!form.title) {
+      return;
+    }
+
+    this.setState(
+      {
+        isSubmitting: true
+      },
+      () => {
+        this.submitRequest({ form, id: listSource.id });
+      }
+    );
   }
 
   resetForm = () => {
@@ -110,7 +136,7 @@ class FormAddListTask extends React.PureComponent {
 
   render() {
     // console.log(this.props);
-    const { form, formVisible } = this.state;
+    const { form, formVisible, isSubmitting } = this.state;
 
     if (!formVisible) {
       return (
@@ -141,6 +167,7 @@ class FormAddListTask extends React.PureComponent {
             onTextChange={this.onTaskTitleChange}
             onKeyPress={this.onTaskTitleKeyPress}
             readOnly={false}
+            disabled={isSubmitting}
           />
         </div>
         <div className="d-flex flex-row flex-nowrap align-items-center">

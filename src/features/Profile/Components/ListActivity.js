@@ -1,5 +1,6 @@
 import React from "react";
 import { Empty } from "antd";
+import cn from "classnames";
 import Avatar from "../../../provider/Display/Avatar";
 import { dateFromNowString } from "../../../provider/Tools/converter";
 import get from "lodash/get";
@@ -9,7 +10,7 @@ import api from "../../../provider/Tools/api";
 //   axiosError,
 //   AXIOS_CANCEL_MESSAGE
 // } from "../../../provider/Tools/converter";
-// import { assetsApiUrl } from "../../../provider/Tools/general";
+import { assetsApiUrl } from "../../../provider/Tools/general";
 
 class ListActivity extends React.PureComponent {
   constructor(props) {
@@ -70,22 +71,32 @@ class ListActivity extends React.PureComponent {
     // }
   };
 
+  cnBgClass = index => {
+    return cn({
+      "bg-light": index % 2 === 1
+    });
+  };
+
   render() {
     const { loadingState, loading, page, dataSources } = this.state;
 
     const ListActivity =
       Array.isArray(get(dataSources, "activities")) &&
       get(dataSources, "activities").length > 0 ? (
-        get(dataSources, "activities").map(result => (
+        get(dataSources, "activities").map((result, index) => (
           <React.Fragment
             key={`list-activitys-${result.id}-${result.historieabel_id}`}
           >
-            <div className="media">
+            <div className={`media ${this.cnBgClass(index)}`}>
               <Avatar
                 size="md"
-                name="Redi Rusmana"
-                title="Redi Rusmana"
-                // image={user.avatar_path ? assetsApiUrl(user.avatar_path) : undefined}
+                name={get(result, "user.name")}
+                title={get(result, "user.name")}
+                image={
+                  get(result, "user.avatar_path")
+                    ? assetsApiUrl(get(result, "user.avatar_path"))
+                    : undefined
+                }
                 style={{ margin: ".3rem" }}
               />
               <div
@@ -96,15 +107,19 @@ class ListActivity extends React.PureComponent {
                   <div>
                     <small>
                       {/* <b className="font-weight-bold">{user.name}</b> {action} */}
-                      <b className="font-weight-bold">Redi Rusmana </b>
-                      {result.after}
+                      <b className="font-weight-bold">
+                        {get(result, "user.name")}
+                      </b>{" "}
+                      {result.event} {result.attribute}
                     </small>
                   </div>
                   <div>
                     {/* <small>{dateFromNowString(created_at)}</small> */}
                     <small className="font-weight-light">
                       {dateFromNowString(result.created_at)} - On Board{" "}
-                      <b className="font-weight-bold">'something'</b>
+                      <b className="font-weight-bold">
+                        {get(result, "after.title")}
+                      </b>
                     </small>
                   </div>
                 </div>
@@ -128,8 +143,6 @@ class ListActivity extends React.PureComponent {
     if (loading) {
       return <LoadingCard />;
     }
-
-    console.log(loading);
 
     return (
       <React.Fragment>

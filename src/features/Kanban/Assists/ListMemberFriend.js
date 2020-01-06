@@ -27,13 +27,13 @@ class ListMemberFriend extends React.PureComponent {
                 >
                   <div>
                     <Avatar
-                      name={get(result, "user.username")}
+                      name={get(result, "user.name")}
                       image={
                         get(result, "user.avatar_path")
                           ? assetsApiUrl(get(result, "user.avatar_path"))
                           : undefined
                       }
-                      title={get(result, "user.username")}
+                      title={get(result, "user.name")}
                       size="sm"
                     />
                   </div>

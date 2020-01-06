@@ -73,12 +73,24 @@ export const axiosError = e => {
     return AXIOS_CANCEL_MESSAGE;
   }
   const { message, response, request: eRequest } = e;
+  // let error = message;
+  // if (response) {
+  //   error =
+  //     typeof response.data.error !== "undefined"
+  //       ? response.data.error
+  //       : message;
+  // } else if (eRequest) {
+  //   error = typeof eRequest === "object" ? JSON.stringify(eRequest) : eRequest;
+  // }
+
   let error = message;
   if (response) {
-    error =
-      typeof response.data.error !== "undefined"
-        ? response.data.error
-        : message;
+    if (response.data.error) {
+      // eslint-disable-next-line prefer-destructuring
+      error = response.data.error;
+    } else if (response.data.message) {
+      error = response.data.message;
+    }
   } else if (eRequest) {
     error = typeof eRequest === "object" ? JSON.stringify(eRequest) : eRequest;
   }

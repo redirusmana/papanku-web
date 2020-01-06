@@ -14,7 +14,8 @@ class FormAddCard extends React.PureComponent {
     super(props);
     this.state = {
       editable: false,
-      title: initialTitle
+      title: initialTitle,
+      isSubmitting: false
     };
   }
 
@@ -38,21 +39,28 @@ class FormAddCard extends React.PureComponent {
     });
   };
 
-  // handleTitleKeypress = e => {
-  //   if (e.key === "Enter") {
-  //     e.preventDefault();
-  //     this.handleSubmit(e);
-  //   }
-  // };
+  handleTitleKeypress = e => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      this.handleSubmit(e);
+    }
+  };
 
   handleSubmit = e => {
     e.preventDefault();
 
-    if (this.state.title !== initialTitle) {
-      this.createStep(this.state.title);
+    if (this.state.title === initialTitle) {
+      return;
     }
 
-    this.closeEditable();
+    this.setState(
+      {
+        isSubmitting: true
+      },
+      () => {
+        this.createStep(this.state.title);
+      }
+    );
   };
 
   async createStep(title) {
@@ -65,6 +73,10 @@ class FormAddCard extends React.PureComponent {
       });
 
       if (data.success === "OK") {
+        // this.props.addTask({
+        //   newTask: data.card,
+        //   columnIndex: this.props.columnIndex
+        // });
       }
     } catch (e) {
       const error = axiosError(e);
@@ -72,10 +84,14 @@ class FormAddCard extends React.PureComponent {
         return;
       }
     }
+    this.closeEditable();
+    this.setState({
+      isSubmitting: false
+    });
   }
 
   render() {
-    const { editable, title } = this.state;
+    const { editable, title, isSubmitting } = this.state;
 
     if (editable) {
       return (
@@ -86,8 +102,9 @@ class FormAddCard extends React.PureComponent {
               inputClassName="form-control"
               value={title}
               onTextChange={this.handleTitleChange}
-              // onKeyPress={this.handleTitleKeypress}
-              onBlur={this.handleSubmit}
+              onKeyPress={this.handleTitleKeypress}
+              // onBlur={this.handleSubmit}
+              disabled={isSubmitting}
               autoFocus
             />
           </div>

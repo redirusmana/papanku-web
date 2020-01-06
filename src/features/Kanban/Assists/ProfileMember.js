@@ -15,13 +15,13 @@ class ProfileMember extends React.PureComponent {
         <div className="media">
           <Avatar
             size="lg" //name
-            name={results.username}
+            name={results.name}
             image={
               results.avatar_path
                 ? assetsApiUrl(results.avatar_path)
                 : undefined
             }
-            title={results.username}
+            title={results.name}
             style={{ margin: ".7rem" }}
           />
           <div
@@ -31,7 +31,7 @@ class ProfileMember extends React.PureComponent {
             <div className="activity-item-header">
               <div>
                 <small>
-                  <b className="font-weight-bold">{results.username}</b>
+                  <b className="font-weight-bold">{results.name}</b>
                 </small>
               </div>
               <div className="pl-1">

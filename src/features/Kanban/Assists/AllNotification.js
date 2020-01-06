@@ -1,6 +1,9 @@
 import React from "react";
-import Avatar from "../../../provider/Display/Avatar";
+import { Empty } from "antd";
+// import get from "lodash/get";
+// import Avatar from "../../../provider/Display/Avatar";
 import LoadingCard from "../../../provider/Display/LoadingCard";
+import { dateFromNowString } from "../../../provider/Tools/converter";
 // import { assetsApiUrl } from "../../../provider/Tools/general";
 
 class AllNotification extends React.PureComponent {
@@ -39,48 +42,66 @@ class AllNotification extends React.PureComponent {
 
   render() {
     const { loadingState } = this.state;
+    const { notifications } = this.props;
+    console.log(this.props.notifications);
     // if(loading){
     //   return <LoadingCard/>
     // }
-    return (
-      <React.Fragment>
-        <div style={{ maxHeight: 500, overflowY: "auto" }}>
-          <div className="media">
-            <Avatar
-              size="md"
-              name="Redi Rusmana"
-              // image={user.avatar_path ? assetsApiUrl(user.avatar_path) : undefined}
-              title="Redi Rusmana"
-              style={{ margin: ".3rem" }}
-            />
-            <div
-              className="media-body pl-1 align-self-center"
-              style={{ fontSize: "16px" }}
-            >
-              <div className="activity-item-header">
-                <div>
-                  <small>
-                    {/* <b className="font-weight-bold">{user.name}</b> {action} */}
-                    <b className="font-weight-bold">Redi Rusmana </b>
-                    Telah melakukan Sesuatu Telah melakukan Sesuatu Telah
-                    melakukan Sesuatu Telah melakukan Sesuatu Telah melakukan
-                    Sesuatu Telah melakukan Sesuatu Telah melakukan Sesuatu
-                    Telah melakukan Sesuatu Telah melakukan Sesuatu Telah
-                    melakukan Sesuatu Telah melakukan Sesuatu on <u>Card</u>
-                  </small>
-                </div>
-                <div>
-                  {/* <small>{dateFromNowString(created_at)}</small> */}
-                  <small className="font-weight-light">13 minutes ago</small>
+
+    const mappedNotification =
+      Array.isArray(notifications) && notifications.length > 0 ? (
+        notifications.map(result => (
+          <React.Fragment
+            key={`list-notification-on-board-${result.id}-${result.notifiable_id}`}
+          >
+            <div className="media">
+              {/* <Avatar
+                size="md"
+                name={get(result, "user.name")}
+                image={
+                  get(result, "user.avatar_path")
+                    ? assetsApiUrl(get(result, "user.avatar_path"))
+                    : undefined
+                }
+                title={get(result, "user.name")}
+                style={{ margin: ".3rem" }}
+              /> */}
+              <div
+                className="media-body pl-1 align-self-center"
+                style={{ fontSize: "16px" }}
+              >
+                <div className="activity-item-header">
+                  <div>
+                    <small>
+                      {/* <b className="font-weight-bold">
+                        {get(result, "user.name")}
+                      </b>{" "} */}
+                      {result.messages}
+                      {/* on <u>Card</u> */}
+                    </small>
+                  </div>
+                  <div>
+                    <small className="font-weight-light">
+                      {dateFromNowString(result.created_at)}
+                    </small>
+                  </div>
                 </div>
               </div>
-              {/* <div
-                    className="card"
-                    style={{ whiteSpace: "normal", padding: ".375rem .5rem" }}
-                  ></div> */}
             </div>
+          </React.Fragment>
+        ))
+      ) : (
+        <React.Fragment>
+          <div className="col-lg-24 text-center">
+            <Empty description={"Notification Not Found"} />
           </div>
+        </React.Fragment>
+      );
 
+    return (
+      <React.Fragment>
+        <div style={{ maxHeight: 500, overflowY: "auto", marginRight: 10 }}>
+          {mappedNotification}
           {loadingState && <LoadingCard />}
 
           <div className="card-footer ">

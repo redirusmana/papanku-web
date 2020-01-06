@@ -20,29 +20,8 @@ class KanbanPageIndex extends React.PureComponent {
 
   componentDidMount() {
     this.getBoardInfo();
-    this.getUserInfo();
   }
 
-  getUserInfo = () => {
-    this.setState(
-      {
-        loading: true
-      },
-      () => {
-        this._requestSource = api.generateCancelToken();
-        api
-          .get(`/api/profile`, this._requestSource.token)
-          .then(response => {
-            const { data } = response;
-            this.setState({
-              dataSourceUser: data,
-              loading: false
-            });
-          })
-          .catch(error => console.log(error));
-      }
-    );
-  };
   getBoardInfo = () => {
     this.setState(
       {
@@ -58,6 +37,18 @@ class KanbanPageIndex extends React.PureComponent {
             const { data } = response;
             this.setState({
               dataSource: data,
+              loading: false
+            });
+          })
+          .catch(error => console.log(error));
+
+        this._requestSource = api.generateCancelToken();
+        api
+          .get(`/api/profile`, this._requestSource.token)
+          .then(response => {
+            const { data } = response;
+            this.setState({
+              dataSourceUser: data,
               loading: false
             });
           })
@@ -89,7 +80,7 @@ class KanbanPageIndex extends React.PureComponent {
             />
           </div>
           <div className="projectable-body">
-            <KanbanPage dataSources={dataSource} />
+            <KanbanPage {...this.props} />
           </div>
         </div>
       </React.Fragment>

@@ -20,12 +20,6 @@ class FormAddFriend extends React.PureComponent {
     };
   }
 
-  onAddFriend = async () => {};
-
-  onCancelAdd = () => {
-    this.setState({});
-  };
-
   handleSubmit = async (values, actions) => {
     try {
       this.props.handleLoading(true);
@@ -47,7 +41,7 @@ class FormAddFriend extends React.PureComponent {
       }
       alertFloat({
         type: "error",
-        content: "User not Found"
+        content: error
         // content: error
       });
     }
@@ -60,7 +54,6 @@ class FormAddFriend extends React.PureComponent {
     const { initialValues } = this.state;
     return (
       <React.Fragment>
-        {/* List Board */}
         <Formik
           initialValues={initialValues}
           onSubmit={this.handleSubmit}

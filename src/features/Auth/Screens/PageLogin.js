@@ -69,7 +69,7 @@ class PageLogin extends React.PureComponent {
       });
       alertFloat({
         type: "error",
-        content: "User not Found"
+        content: error
       });
     }
     actions.setSubmitting(false);
