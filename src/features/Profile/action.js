@@ -15,6 +15,11 @@ export const apiCreateBoard = (data, cancelToken) => {
   return api.post(url, data, cancelToken);
 };
 
+export const apiUpdateBoard = (data, id, cancelToken) => {
+  const url = `${API_PREFIX_BOARD}/${id}`;
+  return api.put(url, data, cancelToken);
+};
+
 export const apiFoundFriend = (data, cancelToken) => {
   const url = `${API_PREFIX_FRIEND}/add`;
   return api.post(url, data, cancelToken);

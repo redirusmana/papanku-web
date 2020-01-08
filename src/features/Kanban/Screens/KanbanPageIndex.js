@@ -77,6 +77,7 @@ class KanbanPageIndex extends React.PureComponent {
               dataSources={dataSource}
               dataSourcesUser={dataSourceUser}
               handleLogout={this.handleLogout}
+              {...this.props}
             />
           </div>
           <div className="projectable-body">

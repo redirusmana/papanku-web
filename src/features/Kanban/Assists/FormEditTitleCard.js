@@ -22,7 +22,8 @@ class FormEditTitleCard extends React.PureComponent {
     this.state = {
       editable: false,
       renamingTitle: undefined,
-      renamingTitleName: ""
+      renamingTitleName: "",
+      isSubmitting: false
       // renamingTitleName: ""
     };
   }
@@ -54,26 +55,39 @@ class FormEditTitleCard extends React.PureComponent {
     const { renamingTitleName } = this.state;
     if (e.key === "Enter") {
       e.preventDefault();
-      if (renamingTitleName !== columnSource.title) {
-        this.updateRenameList(renamingTitleName);
-      }
-      this.onTitleRenamingStop(e);
+      this.setState(
+        {
+          isSubmitting: true
+        },
+        () => {
+          if (renamingTitleName !== columnSource.title) {
+            this.updateRenameList(renamingTitleName, e);
+          } else {
+            this.setState({
+              isSubmitting: false
+            });
+          }
+        }
+      );
     }
   };
 
-  updateRenameList = async renamingTitleName => {
+  updateRenameList = async (renamingTitleName, e) => {
     const { columnSource } = this.props;
+    const title = renamingTitleName;
     try {
       this._requestSource = api.generateCancelToken();
       const url = `/api/list/${columnSource.id}`;
       const { data } = await api.put(url, {
-        renamingTitleName
+        title
       });
 
       if (data.success === "OK") {
         this.props.renameList({
-          newTask: data.list,
-          columnIndex: this.props.columnIndex
+          newTask: data.lists
+        });
+        this.setState({
+          isSubmitting: false
         });
       }
     } catch (e) {
@@ -82,6 +96,8 @@ class FormEditTitleCard extends React.PureComponent {
         return;
       }
     }
+
+    this.onTitleRenamingStop(e);
   };
 
   onDeleteList = Source => {
@@ -99,8 +115,10 @@ class FormEditTitleCard extends React.PureComponent {
             this._requestSource.token
           );
           const { data } = response;
-
           if (response.status === 200) {
+            this.props.deleteList({
+              newTask: data.lists
+            });
             alertFloat({
               type: "success",
               content: data.message
@@ -121,7 +139,7 @@ class FormEditTitleCard extends React.PureComponent {
   };
 
   render() {
-    const { renamingTitle, renamingTitleName } = this.state; //renamingTitleName
+    const { renamingTitle, renamingTitleName, isSubmitting } = this.state; //renamingTitleName
     const { columnSource } = this.props;
     return (
       <div className="d-flex flex-row flex-nowrap justify-content-between align-items-center pt-1 pl-1">
@@ -132,6 +150,7 @@ class FormEditTitleCard extends React.PureComponent {
             onTextChange={this.onTitleRenamingChange}
             onKeyPress={this.onTitleRenamingKeypress}
             onBlur={this.onTitleRenamingStop}
+            disabled={isSubmitting}
             autoFocus
           />
         ) : (

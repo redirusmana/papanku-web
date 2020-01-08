@@ -16,7 +16,7 @@ class ListActivity extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      page: 15,
+      page: 10,
       loadingState: false
     };
   }

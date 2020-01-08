@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Route, Switch } from "react-router-dom";
-import LoadingPage from './provider/Display/LoadingPage';
+import LoadingPage from "./provider/Display/LoadingPage";
 import PageLogin from "./features/Auth/Screens/PageLogin";
 import PageRegister from "./features/Auth/Screens/PageRegister";
 import PageProfileIndex from "./features/Profile/Screens/PageProfileIndex";
@@ -47,12 +47,11 @@ class App extends React.PureComponent {
       this.setState({
         loading: false
       });
-      
     } catch (e) {
       const error = axiosError(e);
       if (error === AXIOS_CANCEL_MESSAGE) {
         return;
-      } 
+      }
       this.setState({
         loading: false
       });
@@ -63,7 +62,7 @@ class App extends React.PureComponent {
     const { loading } = this.state;
 
     if (loading) {
-      return <LoadingPage />
+      return <LoadingPage />;
     }
 
     return (
@@ -76,6 +75,10 @@ class App extends React.PureComponent {
 
           <RoutePrivate path="/user" component={PageProfileIndex} />
           <RoutePrivate path="/board/:id" component={KanbanPageIndex} />
+          {/* <RoutePrivate
+            path="/board/:id/card/:cardId"
+            component={KanbanPageIndex}
+          /> */}
         </Switch>
       </React.Fragment>
     );

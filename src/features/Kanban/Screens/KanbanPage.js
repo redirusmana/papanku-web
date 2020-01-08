@@ -90,38 +90,27 @@ class KanbanPage extends React.PureComponent {
     });
   };
 
-  renameList = ({ newTask, columnIndex }) => {
+  renameList = ({ newTask }) => {
     this.setState(prevState => {
-      const newList = prevState.dataSources.lists.map((list, li) => {
-        if (columnIndex === li) {
-          return {
-            ...list,
-            lists: [newTask]
-          };
-        }
-
-        return list;
-      });
-
       return {
         dataSources: {
           ...prevState.dataSources,
-          lists: newList
+          lists: newTask
         }
       };
     });
   };
 
-  deleteList = ({ columnIndex }) => {
+  deleteList = ({ newTask }) => {
     this.setState(prevState => {
-      const newList = prevState.dataSources.lists.filter(
-        (list, li) => columnIndex !== li
-      );
+      // const newList = prevState.dataSources.lists.filter(
+      //   (list, li) => columnIndex !== li
+      // );
 
       return {
         dataSources: {
           ...prevState.dataSources,
-          lists: newList
+          lists: newTask
         }
       };
     });
@@ -156,6 +145,7 @@ class KanbanPage extends React.PureComponent {
                           columnSource={column}
                           renameList={this.renameList}
                           columnIndex={columnIndex}
+                          deleteList={this.deleteList}
                         />
                       </div>
                       <div className="kanban-column-body">

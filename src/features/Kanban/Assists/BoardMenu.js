@@ -4,7 +4,7 @@ import get from "lodash/get";
 import Modal from "../../../provider/Display/Modal";
 import InputSearch from "../../../provider/Commons/InputSearch";
 import "../Style/style.css";
-import FormCreateBoard from "../../Profile/Modal/FormCreateBoard";
+import FormCreateBoardTwo from "../../Profile/Modal/FormCreateBoardTwo";
 
 class BoardMenu extends React.PureComponent {
   constructor(props) {
@@ -28,7 +28,7 @@ class BoardMenu extends React.PureComponent {
 
   render() {
     const { isVisible } = this.state;
-    const { data } = this.props;
+    const { data, ...restProps } = this.props;
 
     const listBoard =
       Array.isArray(get(data, "boards")) && get(data, "boards").length > 0
@@ -73,7 +73,7 @@ class BoardMenu extends React.PureComponent {
           handleBack={this.handleClose}
         >
           <div className="container">
-            <FormCreateBoard />
+            <FormCreateBoardTwo {...restProps} />
           </div>
         </Modal>
       </React.Fragment>
