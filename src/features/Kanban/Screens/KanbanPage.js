@@ -78,11 +78,60 @@ class KanbanPage extends React.PureComponent {
     });
   };
 
-  // handleReplace = (newDataSources) =>{
+  addTaskCard = ({ newTask }) => {
+    this.setState(prevState => {
+      const result = {
+        dataSources: {
+          ...prevState.dataSources,
+          lists: [...prevState.dataSources.lists, newTask]
+        }
+      };
+      return result;
+    });
+  };
+
+  renameList = ({ newTask, columnIndex }) => {
+    this.setState(prevState => {
+      const newList = prevState.dataSources.lists.map((list, li) => {
+        if (columnIndex === li) {
+          return {
+            ...list,
+            lists: [newTask]
+          };
+        }
+
+        return list;
+      });
+
+      return {
+        dataSources: {
+          ...prevState.dataSources,
+          lists: newList
+        }
+      };
+    });
+  };
+
+  deleteList = ({ columnIndex }) => {
+    this.setState(prevState => {
+      const newList = prevState.dataSources.lists.filter(
+        (list, li) => columnIndex !== li
+      );
+
+      return {
+        dataSources: {
+          ...prevState.dataSources,
+          lists: newList
+        }
+      };
+    });
+  };
+
+  // handleReplace = newDataSources => {
   //   this.setState({
-  //     dataSources:newDataSources
-  //   })
-  // }
+  //     dataSources: newDataSources
+  //   });
+  // };
 
   render() {
     const { dataSources, loading } = this.state;
@@ -103,7 +152,11 @@ class KanbanPage extends React.PureComponent {
                   <Draggable key={`column-id-${column.id}`}>
                     <div className="kanban-column">
                       <div className="kanban-column-header">
-                        <FormEditTitleCard columnSource={column} />
+                        <FormEditTitleCard
+                          columnSource={column}
+                          renameList={this.renameList}
+                          columnIndex={columnIndex}
+                        />
                       </div>
                       <div className="kanban-column-body">
                         <Container
@@ -145,7 +198,10 @@ class KanbanPage extends React.PureComponent {
 
             <div className="kanban-column-creator">
               <div className="kanban-column">
-                <FormAddCard idBoard={dataSources.id} />
+                <FormAddCard
+                  idBoard={dataSources.id}
+                  addTaskCard={this.addTaskCard}
+                />
               </div>
             </div>
           </Container>

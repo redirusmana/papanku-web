@@ -73,10 +73,9 @@ class FormAddCard extends React.PureComponent {
       });
 
       if (data.success === "OK") {
-        // this.props.addTask({
-        //   newTask: data.card,
-        //   columnIndex: this.props.columnIndex
-        // });
+        this.props.addTaskCard({
+          newTask: data.list
+        });
       }
     } catch (e) {
       const error = axiosError(e);

@@ -261,7 +261,7 @@ class NavbarKanbanPage extends React.PureComponent {
           // maskClosable={false}
           closable
         >
-          <AllActivity {...dataSources} />
+          <AllActivity idBoard={dataSources.id} />
         </Drawer>
       </React.Fragment>
     );

@@ -1,4 +1,6 @@
 import React from "react";
+import get from "lodash/get";
+import { Empty } from "antd";
 import { Formik } from "formik";
 import cn from "classnames";
 import api from "../../../provider/Tools/api";
@@ -12,7 +14,7 @@ import InputSelectLong from "../../../provider/Commons/InputSelectLong";
 import alertFloat from "../../../provider/Display/alertFloat";
 import LoadingCard from "../../../provider/Display/LoadingCard";
 import { apiInvitetoBoard } from "../action";
-// import { assetsApiUrl } from "../../../provider/Tools/general";
+import { assetsApiUrl } from "../../../provider/Tools/general";
 
 class FormInviteFriend extends React.PureComponent {
   constructor(props) {
@@ -22,6 +24,8 @@ class FormInviteFriend extends React.PureComponent {
         members: undefined
       },
       inviteOption: undefined,
+      boardMember: undefined,
+      pendingMember: undefined,
       loading: false
     };
   }
@@ -31,19 +35,22 @@ class FormInviteFriend extends React.PureComponent {
   }
 
   getListFriend = () => {
+    const { idBoard } = this.props;
     this.setState(
       {
         loading: true
       },
       () => {
-        const ROUTE_API = `api/friend`;
+        const ROUTE_API = `api/friend/board/${idBoard}`;
         this._requestSource = api.generateCancelToken();
         api
           .get(ROUTE_API, this._requestSource.token)
           .then(response => {
             const { data } = response;
             this.setState({
-              inviteOption: data,
+              inviteOption: data.friends,
+              boardMember: data.members,
+              pendingMember: data.pending_member,
               loading: false
             });
           })
@@ -89,10 +96,122 @@ class FormInviteFriend extends React.PureComponent {
   };
 
   render() {
-    const { inviteOption, initialValues, loading } = this.state;
+    const {
+      inviteOption,
+      boardMember,
+      pendingMember,
+      initialValues,
+      loading
+    } = this.state;
     if (loading) {
       return <LoadingCard />;
     }
+
+    const mappedMember =
+      Array.isArray(boardMember) && boardMember.length > 0 ? (
+        boardMember.map(result => (
+          <React.Fragment
+            key={`list-board-member-already-${result.id}-${result.memberable_id}`}
+          >
+            <div className="my-2">
+              <div className="media">
+                <Avatar
+                  size="md"
+                  image={
+                    get(result, "user.avatar_path")
+                      ? assetsApiUrl(get(result, "user.avatar_path"))
+                      : undefined
+                  }
+                  name={get(result, "user.name")}
+                  title={get(result, "user.name")}
+                  style={{ margin: ".3rem" }}
+                />
+                <div
+                  className="media-body pl-1 align-self-center"
+                  style={{ fontSize: "16px" }}
+                >
+                  <div className="activity-item-header">
+                    <div>
+                      <small>
+                        <b className="font-weight-bold">
+                          {get(result, "user.name")}
+                        </b>
+                      </small>
+                    </div>
+                    <div className="pl-1">
+                      <small>
+                        <b className="font-weight-bold">
+                          {/* <i> */}
+                          {get(result, "user.username")}
+                          {/* </i> */}
+                        </b>
+                      </small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </React.Fragment>
+        ))
+      ) : (
+        <React.Fragment>
+          <div className="col-lg-24 text-center">
+            <Empty description={"Member Board not Found"} />
+          </div>
+        </React.Fragment>
+      );
+
+    const mappedPending =
+      Array.isArray(pendingMember) && pendingMember.length > 0 ? (
+        pendingMember.map(result => (
+          <React.Fragment key={`list-board-member-pending-${result.id}-`}>
+            <div className="my-2">
+              <div className="media">
+                <Avatar
+                  size="md"
+                  image={
+                    get(result, "user.avatar_path")
+                      ? assetsApiUrl(get(result, "user.avatar_path"))
+                      : undefined
+                  }
+                  name={get(result, "user.name")}
+                  title={get(result, "user.name")}
+                  style={{ margin: ".3rem" }}
+                />
+                <div
+                  className="media-body pl-1 align-self-center"
+                  style={{ fontSize: "16px" }}
+                >
+                  <div className="activity-item-header">
+                    <div>
+                      <small>
+                        <b className="font-weight-bold">
+                          {get(result, "user.name")}
+                        </b>
+                      </small>
+                    </div>
+                    <div className="pl-1">
+                      <small>
+                        <b className="font-weight-bold">
+                          {/* <i> */}
+                          {get(result, "user.username")}
+                          {/* </i> */}
+                        </b>
+                      </small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </React.Fragment>
+        ))
+      ) : (
+        <React.Fragment>
+          <div className="col-lg-24 text-center">
+            <Empty description={"Pending invited Board is Not Found"} />
+          </div>
+        </React.Fragment>
+      );
 
     return (
       <React.Fragment>
@@ -153,65 +272,13 @@ class FormInviteFriend extends React.PureComponent {
           <div className="row">
             <div className="col-md-12">
               <div className="d-flex flex-column flex-nowrap">
-                <div className="my-2">
-                  <div className="media">
-                    <Avatar
-                      size="md"
-                      name="redi r"
-                      title="redi r"
-                      style={{ margin: ".3rem" }}
-                    />
-                    <div
-                      className="media-body pl-1 align-self-center"
-                      style={{ fontSize: "16px" }}
-                    >
-                      <div className="activity-item-header">
-                        <div>
-                          <small>
-                            <b className="font-weight-bold">Redi</b>
-                          </small>
-                        </div>
-                        <div className="1">
-                          <small>
-                            <b className="font-weight-bold">Rusmana</b>
-                          </small>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                {mappedPending}
               </div>
             </div>
 
             <div className="col-md-12">
               <div className="d-flex flex-column flex-nowrap">
-                <div className="my-2">
-                  <div className="media">
-                    <Avatar
-                      size="md"
-                      name="redi r"
-                      title="redi r"
-                      style={{ margin: ".3rem" }}
-                    />
-                    <div
-                      className="media-body pl-1 align-self-center"
-                      style={{ fontSize: "16px" }}
-                    >
-                      <div className="activity-item-header">
-                        <div>
-                          <small>
-                            <b className="font-weight-bold">Redi</b>
-                          </small>
-                        </div>
-                        <div className="1">
-                          <small>
-                            <b className="font-weight-bold">Rusmana</b>
-                          </small>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                {mappedMember}
               </div>
             </div>
           </div>

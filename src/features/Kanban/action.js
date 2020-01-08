@@ -14,3 +14,7 @@ export const apiInvitetoBoard = (data, id, cancelToken) => {
   const url = `${API_PREFIX_BOARD}/${id}/invite`;
   return api.post(url, data, cancelToken);
 };
+
+export const apiDeleteList = (url, data, cancelToken) => {
+  return api.delete(url, data, cancelToken);
+};

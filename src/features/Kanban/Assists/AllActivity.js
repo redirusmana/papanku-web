@@ -3,6 +3,7 @@ import { Empty } from "antd";
 import get from "lodash/get";
 import Avatar from "../../../provider/Display/Avatar";
 import LoadingCard from "../../../provider/Display/LoadingCard";
+import api from "../../../provider/Tools/api";
 import { dateFromNowString } from "../../../provider/Tools/converter";
 import { assetsApiUrl } from "../../../provider/Tools/general";
 
@@ -11,41 +12,79 @@ class AllActivity extends React.PureComponent {
     super(props);
     this.state = {
       page: 10,
-      loadingState: false
+      loadingState: false,
+      loading: false
     };
   }
 
-  handleLoadMore = () => {
-    this.setState(prevState => ({
-      loadingState: true,
-      page: prevState.page + 10
-    }));
-    // ,() => {
-    //   const { user } = this.props;
-    //   const { page } = this.state;
-    //   this._requestSource = api.generateCancelToken();
-    //   api.get(`/api/${user.email}/activity/${page}`, this._requestSource.token
-    //   // ,{
-    //   //   params: {
-    //   //       page: this.state.page,
-    //   //   }
-    //   // }
-    //   )
-    //     .then(response => {
-    //       const { data } = response;
-    //       this.setState({
-    //         loadingState:false
-    //       });
-    //     }).catch(error => console.log(error));
-    // }
+  componentDidMount() {
+    this.getActivities();
+  }
+
+  getActivities = () => {
+    const { idBoard } = this.props;
+    this.setState(
+      {
+        loading: true
+      },
+      () => {
+        this._requestSource = api.generateCancelToken();
+        api
+          .get(`/api/board/${idBoard}/activities`, this._requestSource.token, {
+            params: {
+              limit: this.state.page
+            }
+          })
+          .then(response => {
+            const { data } = response;
+            this.setState({
+              dataSources: data.data,
+              page: data.limit,
+              loading: false
+            });
+          })
+          .catch(error => console.log(error));
+      }
+    );
+  };
+
+  handleLoadMore = idBoard => {
+    this.setState(
+      prevState => ({
+        loadingState: true,
+        page: prevState.page + 10
+      }),
+      () => {
+        this._requestSource = api.generateCancelToken();
+        api
+          .get(`/api/board/${idBoard}/activities`, this._requestSource.token, {
+            params: {
+              limit: this.state.page
+            }
+          })
+          .then(response => {
+            const { data } = response;
+            this.setState({
+              loadingState: false,
+              dataSources: data.data,
+              page: data.limit
+            });
+          })
+          .catch(error => console.log(error));
+      }
+    );
   };
 
   render() {
-    const { loadingState } = this.state;
-    const { activities } = this.props;
+    const { loadingState, dataSources, loading } = this.state;
+    const { idBoard } = this.props;
+
+    if (loading) {
+      return <LoadingCard />;
+    }
     const mappedActivity =
-      Array.isArray(activities) && activities.length > 0 ? (
-        activities.map(result => (
+      Array.isArray(dataSources) && dataSources.length > 0 ? (
+        dataSources.map(result => (
           <React.Fragment
             key={`list-activity-on-board-${result.id}-${result.historiable_id}`}
           >
@@ -97,7 +136,7 @@ class AllActivity extends React.PureComponent {
         {loadingState && <LoadingCard />}
 
         <div className="card-footer ">
-          <u className="pointer" onClick={() => this.handleLoadMore()}>
+          <u className="pointer" onClick={() => this.handleLoadMore(idBoard)}>
             Load More...
           </u>
         </div>

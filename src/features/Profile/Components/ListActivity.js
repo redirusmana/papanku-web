@@ -16,7 +16,7 @@ class ListActivity extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      page: 10,
+      page: 15,
       loadingState: false
     };
   }
@@ -33,11 +33,16 @@ class ListActivity extends React.PureComponent {
       () => {
         this._requestSource = api.generateCancelToken();
         api
-          .get(`/api/profile`, this._requestSource.token)
+          .get(`/api/profile/activities`, this._requestSource.token, {
+            params: {
+              limit: this.state.page
+            }
+          })
           .then(response => {
             const { data } = response;
             this.setState({
               dataSources: data.data,
+              page: data.limit,
               loading: false
             });
           })
@@ -47,28 +52,30 @@ class ListActivity extends React.PureComponent {
   };
 
   handleLoadMore = () => {
-    this.setState(prevState => ({
-      loadingState: true,
-      page: prevState.page + 10
-    }));
-    // ,() => {
-    //   const { user } = this.props;
-    //   const { page } = this.state;
-    //   this._requestSource = api.generateCancelToken();
-    //   api.get(`/api/${user.email}/activity/${page}`, this._requestSource.token
-    //   // ,{
-    //   //   params: {
-    //   //       page: this.state.page,
-    //   //   }
-    //   // }
-    //   )
-    //     .then(response => {
-    //       const { data } = response;
-    //       this.setState({
-    //         loadingState:false
-    //       });
-    //     }).catch(error => console.log(error));
-    // }
+    this.setState(
+      prevState => ({
+        loadingState: true,
+        page: prevState.page + 10
+      }),
+      () => {
+        this._requestSource = api.generateCancelToken();
+        api
+          .get(`/api/profile/activities`, this._requestSource.token, {
+            params: {
+              limit: this.state.page
+            }
+          })
+          .then(response => {
+            const { data } = response;
+            this.setState({
+              loadingState: false,
+              dataSources: data.data,
+              page: data.limit
+            });
+          })
+          .catch(error => console.log(error));
+      }
+    );
   };
 
   cnBgClass = index => {
@@ -78,12 +85,11 @@ class ListActivity extends React.PureComponent {
   };
 
   render() {
-    const { loadingState, loading, page, dataSources } = this.state;
+    const { loadingState, loading, dataSources } = this.state;
 
     const ListActivity =
-      Array.isArray(get(dataSources, "activities")) &&
-      get(dataSources, "activities").length > 0 ? (
-        get(dataSources, "activities").map((result, index) => (
+      Array.isArray(dataSources) && dataSources.length > 0 ? (
+        dataSources.map((result, index) => (
           <React.Fragment
             key={`list-activitys-${result.id}-${result.historieabel_id}`}
           >
@@ -106,7 +112,6 @@ class ListActivity extends React.PureComponent {
                 <div className="activity-item-header">
                   <div>
                     <small>
-                      {/* <b className="font-weight-bold">{user.name}</b> {action} */}
                       <b className="font-weight-bold">
                         {get(result, "user.name")}
                       </b>{" "}
@@ -114,7 +119,6 @@ class ListActivity extends React.PureComponent {
                     </small>
                   </div>
                   <div>
-                    {/* <small>{dateFromNowString(created_at)}</small> */}
                     <small className="font-weight-light">
                       {dateFromNowString(result.created_at)} - On Board{" "}
                       <b className="font-weight-bold">
@@ -130,16 +134,11 @@ class ListActivity extends React.PureComponent {
       ) : (
         <React.Fragment>
           <div className="col-lg-24 text-center ">
-            {/* <h1 className="text-center font-weight-bold pt-5"> */}
             <Empty description={"Activity is Not Found"} />
-            {/* </h1> */}
           </div>
         </React.Fragment>
       );
 
-    if (dataSources === page) {
-      return undefined;
-    }
     if (loading) {
       return <LoadingCard />;
     }
