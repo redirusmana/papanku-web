@@ -1,7 +1,7 @@
 import React from "react";
 import Popover from "antd/lib/popover";
 import "antd/lib/popover/style/index.css";
-// import get from "lodash/get";
+import get from "lodash/get";
 // import uniqBy from "lodash/uniqBy";
 import Avatar from "../../../provider/Display/Avatar";
 // import { assetsApiUrl } from "../../../provider/Tools/general";
@@ -23,14 +23,24 @@ class MembersCard extends React.PureComponent {
   }
 
   renderMembers() {
+    const { dataSource } = this.props;
     return (
       <div className="avatar-list">
-        <Avatar name="eaku" 
-        // image={user.avatar_path ? assetsApiUrl(user.avatar_path) : undefined}
-        size="md" />
-        <Avatar name="aku" 
-        // image={user.avatar_path ? assetsApiUrl(user.avatar_path) : undefined}
-        size="md" />
+        {Array.isArray(get(dataSource, "members")) &&
+        get(dataSource, "members").length > 0 ? (
+          get(dataSource, "members").map(result => (
+            <React.Fragment>
+              <Avatar
+                name={result.name}
+                title={result.name}
+                // image={result.avatar_path ? assetsApiUrl(result.avatar_path) : undefined}
+                size="md"
+              />
+            </React.Fragment>
+          ))
+        ) : (
+          <React.Fragment></React.Fragment>
+        )}
       </div>
     );
   }

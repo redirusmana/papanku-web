@@ -1,19 +1,19 @@
 import React from "react";
+import { Route } from "react-router-dom";
 import { Container, Draggable } from "react-smooth-dnd";
+import { Link } from "react-router-dom";
 import TaskList from "../Components/TaskList";
 import FormAddCard from "../Assists/FormAddCard";
 import FormAddListTask from "../Assists/FormAddListTask";
 import FormEditTitleCard from "../Assists/FormEditTitleCard";
-import api from "../../../provider/Tools/api";
-import Modal from "../../../provider/Display/Modal";
 import CardPage from "../Components/CardPage";
+import api from "../../../provider/Tools/api";
 import LoadingCard from "../../../provider/Display/LoadingCard";
 
 class KanbanPage extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      isVisible: false,
       dataSources: {},
       loading: false
     };
@@ -44,18 +44,6 @@ class KanbanPage extends React.PureComponent {
           .catch(error => console.log(error));
       }
     );
-  };
-
-  handleModal = () => {
-    this.setState({
-      isVisible: true
-    });
-  };
-
-  handleClose = () => {
-    this.setState({
-      isVisible: false
-    });
   };
 
   addTask = ({ newTask, columnIndex }) => {
@@ -90,27 +78,38 @@ class KanbanPage extends React.PureComponent {
     });
   };
 
-  renameList = ({ newTask }) => {
+  renameList = ({ newTask, columnIndex }) => {
     this.setState(prevState => {
+      // const beforeUpdate = prevState.dataSources.lists[columnIndex];
+      // const afterUpdate = newTask.find(item => item.id === beforeUpdate.id);
+      const newList = prevState.dataSources.lists.map((list, li) => {
+        if (columnIndex === li) {
+          return {
+            // ...afterUpdate
+            ...list,
+            ...newTask
+          };
+        }
+        return list;
+      });
+
       return {
         dataSources: {
           ...prevState.dataSources,
-          lists: newTask
+          lists: newList
         }
       };
     });
   };
 
-  deleteList = ({ newTask }) => {
+  deleteList = ({ newTask, columnIndex }) => {
     this.setState(prevState => {
-      // const newList = prevState.dataSources.lists.filter(
-      //   (list, li) => columnIndex !== li
-      // );
+      const newList = newTask.filter((list, li) => columnIndex !== li);
 
       return {
         dataSources: {
           ...prevState.dataSources,
-          lists: newTask
+          lists: newList
         }
       };
     });
@@ -159,16 +158,15 @@ class KanbanPage extends React.PureComponent {
                           {column.cards.map(cell => {
                             return (
                               <Draggable key={`cards-id-${cell.id}`}>
-                                <div
+                                <Link
+                                  to={`/board/${dataSources.id}/card/${cell.id}`}
                                   role="presentation"
                                   className={"kanban-cell"} //  disable-pointer
-                                  // onClick={e => this.onCellClick(e, cell)}
-                                  onClick={() => this.handleModal()}
                                 >
                                   <div className="kanban-cell-body">
                                     <TaskList task={cell} />
                                   </div>
-                                </div>
+                                </Link>
                               </Draggable>
                             );
                           })}
@@ -195,17 +193,18 @@ class KanbanPage extends React.PureComponent {
               </div>
             </div>
           </Container>
+          <Route
+            path="/board/:id/card/:cardId"
+            exact
+            render={routeProps => (
+              <CardPage
+                {...routeProps}
+                loadingProps={loading}
+                getBoardInfo={this.getBoardInfo}
+              />
+            )}
+          />
         </div>
-        <Modal
-          showTitle={false}
-          visible={this.state.isVisible}
-          size="large"
-          handleBack={this.handleClose}
-          // afterClose={this.afterTaskClosed}
-          wrapClassName="task-modal-wrapper"
-        >
-          <CardPage />
-        </Modal>
       </React.Fragment>
     );
   }

@@ -2,6 +2,7 @@ import React from "react";
 import { Empty } from "antd";
 // import get from "lodash/get";
 // import Avatar from "../../../provider/Display/Avatar";
+// import api from "../../../provider/Tools/api";
 import LoadingCard from "../../../provider/Display/LoadingCard";
 import { dateFromNowString } from "../../../provider/Tools/converter";
 // import { assetsApiUrl } from "../../../provider/Tools/general";
@@ -11,9 +12,41 @@ class AllNotification extends React.PureComponent {
     super(props);
     this.state = {
       page: 10,
-      loadingState: false
+      loadingState: false,
+      loading: false
     };
   }
+
+  // componentDidMount() {
+  //   this.getNotifications();
+  // }
+
+  // getNotifications = () => {
+  //   const { idBoard } = this.props;
+  //   this.setState(
+  //     {
+  //       loading: true
+  //     },
+  // () => {
+  //   this._requestSource = api.generateCancelToken();
+  //   api
+  //     .get(`/api/board/${idBoard}/notifications`, this._requestSource.token, {
+  //       params: {
+  //         limit: this.state.page
+  //       }
+  //     })
+  //     .then(response => {
+  //       const { data } = response;
+  //       this.setState({
+  //         loadingState: false,
+  //         dataSources: data.data,
+  //         page: data.limit
+  //       });
+  //     })
+  //     .catch(error => console.log(error));
+  // }
+  //   );
+  // };
 
   handleLoadMore = () => {
     this.setState(prevState => ({
@@ -24,7 +57,7 @@ class AllNotification extends React.PureComponent {
     //   const { user } = this.props;
     //   const { page } = this.state;
     //   this._requestSource = api.generateCancelToken();
-    //   api.get(`/api/${user.email}/activity/${page}`, this._requestSource.token
+    //   api.get(`/api/board/${idBoard}/notifications`, this._requestSource.token
     //   // ,{
     //   //   params: {
     //   //       page: this.state.page,
@@ -43,7 +76,6 @@ class AllNotification extends React.PureComponent {
   render() {
     const { loadingState } = this.state;
     const { notifications } = this.props;
-    console.log(this.props.notifications);
     // if(loading){
     //   return <LoadingCard/>
     // }
@@ -64,7 +96,7 @@ class AllNotification extends React.PureComponent {
                     : undefined
                 }
                 title={get(result, "user.name")}
-                style={{ margin: ".3rem" }}
+            avatarClass="avatar-link m-3"
               /> */}
               <div
                 className="media-body pl-1 align-self-center"

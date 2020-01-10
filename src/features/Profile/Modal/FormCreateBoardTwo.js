@@ -60,7 +60,6 @@ class FormCreateBoard extends React.PureComponent {
     const { initialValues } = this.state;
     return (
       <React.Fragment>
-        {/* List Board */}
         <Formik
           initialValues={initialValues}
           validationSchema={formCreateBoardValidation}
@@ -71,9 +70,6 @@ class FormCreateBoard extends React.PureComponent {
             values,
             handleSubmit,
             isSubmitting
-            // setFieldValue,
-            // setValues,
-            // errors,
           }) => (
             <div className="row">
               <div className="col-lg-24">

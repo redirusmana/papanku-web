@@ -9,7 +9,7 @@ class MercusuarPage extends React.PureComponent {
       <React.Fragment>
         <div className="container-fluid">
           <div className="row p-5">
-          <div className="col-lg-9 m-auto">
+            <div className="col-lg-9 m-auto">
               <div className="text-center">
                 <Link
                   to="/user"
@@ -19,7 +19,6 @@ class MercusuarPage extends React.PureComponent {
                 </Link>
               </div>
             </div>
-            {/* image  */}
             <div className="col-lg-11">
               <div>
                 <img
@@ -31,7 +30,6 @@ class MercusuarPage extends React.PureComponent {
                 />
               </div>
             </div>
-            {/* image  */}
           </div>
         </div>
       </React.Fragment>

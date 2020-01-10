@@ -18,3 +18,12 @@ export const apiInvitetoBoard = (data, id, cancelToken) => {
 export const apiDeleteList = (url, data, cancelToken) => {
   return api.delete(url, data, cancelToken);
 };
+
+export const apiDeleteCard = (url, cancelToken) => {
+  return api.delete(url, cancelToken);
+};
+
+export const storeComment = (data, idCard, cancelToken) => {
+  const url = `/api/comment/card/${idCard}`;
+  return api.post(url, data, cancelToken);
+};

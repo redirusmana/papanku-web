@@ -51,7 +51,12 @@ Avatar.defaultProps = {
   image: "",
   name: "avatar",
   size: "",
-  style: {},
+  style: {
+    margin: "auto",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
+    backgroundSize: "cover"
+  },
   avatarClass: "avatar-link"
 };
 

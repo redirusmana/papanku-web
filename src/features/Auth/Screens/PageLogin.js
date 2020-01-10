@@ -80,7 +80,6 @@ class PageLogin extends React.PureComponent {
       <React.Fragment>
         <div className="container-fluid">
           <div className="row p-5">
-            {/* image  */}
             <div className="col-lg-11">
               <div>
                 <img
@@ -92,9 +91,7 @@ class PageLogin extends React.PureComponent {
                 />
               </div>
             </div>
-            {/* image  */}
 
-            {/* Form  */}
             <div className="col-lg-9 m-auto">
               <div className="">
                 <div className="text-center">
@@ -117,8 +114,6 @@ class PageLogin extends React.PureComponent {
                     handleSubmit,
                     values,
                     errors
-                    // setFieldValue,
-                    // setValues,
                   }) => (
                     <form
                       className="form-horizontal p-4"

@@ -92,7 +92,6 @@ class FormInviteFriend extends React.PureComponent {
       });
     }
     actions.setSubmitting(false);
-    // this.props.handleClose();
   };
 
   render() {
@@ -215,20 +214,10 @@ class FormInviteFriend extends React.PureComponent {
 
     return (
       <React.Fragment>
-        {/* List Board */}
         <Formik
           initialValues={initialValues}
           onSubmit={this.handleSubmit}
-          render={({
-            values,
-            handleSubmit,
-            isSubmitting,
-            setFieldValue
-            // handleChange,
-            // handleBlur,
-            // setValues,
-            // errors,
-          }) => (
+          render={({ values, handleSubmit, isSubmitting, setFieldValue }) => (
             <div className="row">
               <div className="col-lg-24">
                 <form className="form-horizontal p-2" onSubmit={handleSubmit}>

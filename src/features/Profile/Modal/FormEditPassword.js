@@ -25,11 +25,11 @@ class FormEditPassWord extends React.PureComponent {
     super(props);
     this.state = {};
   }
-  
+
   handleSubmit = async (values, actions) => {
-    const { avatar_path,...newValues } = values;
+    const { avatar_path, ...newValues } = values;
     try {
-      this.props.handleLoading(true)
+      this.props.handleLoading(true);
       this._requestSource = api.generateCancelToken();
 
       const response = await apiEditProfile(
@@ -41,7 +41,7 @@ class FormEditPassWord extends React.PureComponent {
           type: "success",
           content: response.data.message
         });
-        this.props.handleReplace(response.data.data)
+        this.props.handleReplace(response.data.data);
       }
     } catch (e) {
       const error = axiosError(e);
@@ -54,15 +54,14 @@ class FormEditPassWord extends React.PureComponent {
       });
     }
     actions.setSubmitting(false);
-    this.props.handleLoading(false)
+    this.props.handleLoading(false);
     this.props.handleClose();
   };
 
   render() {
-    const {user} = this.props;
+    const { user } = this.props;
     return (
       <React.Fragment>
-        {/* List Board */}
         <Formik
           initialValues={user}
           // validationSchema={}
@@ -72,10 +71,7 @@ class FormEditPassWord extends React.PureComponent {
             handleSubmit,
             isSubmitting,
             handleChange,
-            handleBlur,
-            // setFieldValue,
-            // errors,
-            // setValues,
+            handleBlur
           }) => (
             <div className="row">
               <div className="col-lg-24">

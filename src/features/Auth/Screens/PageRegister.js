@@ -69,7 +69,6 @@ class PageRegister extends React.PureComponent {
       );
       const { data } = response;
 
-      // TODO: register fail
       api.setToken(data.type, data.token);
 
       saveToken(data.token);
@@ -105,7 +104,6 @@ class PageRegister extends React.PureComponent {
       <React.Fragment>
         <div className="container-fluid">
           <div className="row p-5">
-            {/* Image  */}
             <div className="col-lg-11">
               <div>
                 <img
@@ -117,9 +115,7 @@ class PageRegister extends React.PureComponent {
                 />
               </div>
             </div>
-            {/* Image  */}
 
-            {/* Form  */}
             <div className="col-lg-9 m-auto">
               <div className="">
                 {" "}
@@ -143,8 +139,6 @@ class PageRegister extends React.PureComponent {
                     handleSubmit,
                     values,
                     errors
-                    // setFieldValue,
-                    // setValues,
                   }) => (
                     <form
                       className="form-horizontal p-4"
@@ -306,7 +300,6 @@ class PageRegister extends React.PureComponent {
                 />
               </div>
             </div>
-            {/* Form  */}
           </div>
         </div>
       </React.Fragment>

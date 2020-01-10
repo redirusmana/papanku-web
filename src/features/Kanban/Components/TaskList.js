@@ -1,5 +1,7 @@
 import React from "react";
 import { Popover } from "antd";
+import moment from "moment";
+import "moment/locale/id";
 import get from "lodash/get";
 import Avatar from "../../../provider/Display/Avatar";
 import {
@@ -40,36 +42,48 @@ class TaskList extends React.PureComponent {
   }
 
   renderChecklist() {
-    const checklist = (
-      <div className="mx-1">
-        <i className="icofont-checked " />
-        <small>6/10</small>
-      </div>
-    );
-
-    return checklist;
+    const { task } = this.props;
+    if (get(task, "checklists") === []) {
+      return (
+        <div className="mx-1">
+          <i className="icofont-checked" />
+          <small>6/10</small>
+        </div>
+      );
+    }
   }
 
   renderDeadline() {
     const { task } = this.props;
+    const date = moment(get(task, "due_date"));
+    const now = moment();
+    let DueDateClass = null;
+    if (now > date) {
+      DueDateClass = "onTime";
+    } else {
+      DueDateClass = "late";
+    }
+
     if (get(task, "due_date")) {
       return (
-        <div className={`ml-auto task-badge ${OptDeadlineClass["unSoon"]}`}>
-          <i className="icofont-clock-time" />
-          <span>{task.due_date}</span>
+        <div className={`ml-auto task-badge ${OptDeadlineClass[DueDateClass]}`}>
+          <i className="icofont-clock-time" /> <span>{task.due_date}</span>
         </div>
       );
     }
   }
 
   renderAttachment() {
-    return (
-      <div title="This task has attachment" className="mx-1">
-        <i className="icofont-clip " />
-        {/* papers */}
-        <small>{2}</small>
-      </div>
-    );
+    const { task } = this.props;
+    const attachments = get(task, "attachments");
+    if (attachments === []) {
+      return (
+        <div title="This task has attachment" className="mx-1">
+          <i className="icofont-clip " />
+          <small>{2}</small>
+        </div>
+      );
+    }
   }
 
   renderStatus() {
@@ -78,7 +92,9 @@ class TaskList extends React.PureComponent {
       return (
         <div className="task-status ">
           <span
-            className={`task-badge ${OptStatusClass["In Progress"]} hide-badge mr-1`}
+            className={`task-badge ${
+              OptStatusClass[get(task, "status")]
+            } hide-badge mr-1`}
           >
             &nbsp;
           </span>
@@ -92,7 +108,9 @@ class TaskList extends React.PureComponent {
       return (
         <div className="task-status">
           <span
-            className={`task-badge ${OptPriorityClass["Medium Priority"]} hide-badge `}
+            className={`task-badge ${
+              OptPriorityClass[get(task, "priority")]
+            } hide-badge `}
           >
             &nbsp;
           </span>
@@ -108,7 +126,7 @@ class TaskList extends React.PureComponent {
       return (
         <div className="mx-1">
           <Popover
-            content={description}
+            content={<div className="text-center">{description}</div>}
             trigger="hover"
             placement="bottom"
             overlayClassName="xl"

@@ -1,5 +1,5 @@
 import React from "react";
-import { Empty } from 'antd';
+import { Empty } from "antd";
 // import get from 'lodash/get';
 import ListSearch from "./ListSearch";
 import get from "lodash/get";
@@ -221,9 +221,6 @@ class ListFriends extends React.PureComponent {
       ) : (
         <React.Fragment>
           <div className="col-lg-24 text-center">
-            {/* <h1 className="text-center font-weight-bold pt-5">
-              Request Friend Not Found
-            </h1> */}
             <Empty description={"Request Friend Not Found"} />
           </div>
         </React.Fragment>
@@ -267,9 +264,6 @@ class ListFriends extends React.PureComponent {
       ) : (
         <React.Fragment>
           <div className="col-lg-24 text-center">
-            {/* <h1 className="text-center font-weight-bold pt-5">
-              Requested to Friend Not Found
-            </h1> */}
             <Empty description={"Requested to Friend Not Found"} />
           </div>
         </React.Fragment>

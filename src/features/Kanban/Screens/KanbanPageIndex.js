@@ -2,10 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import KanbanPage from "./KanbanPage";
 import NavbarKanbanPage from "./NavbarKanbanPage";
-import LoadingPage from "../../..//provider/Display/LoadingPage";
+import LoadingPage from "../../../provider/Display/LoadingPage";
 import api from "../../../provider/Tools/api";
 import { AUTH_SET_LOGOUT, removeToken } from "../../Auth/action";
-// import {API_GET_BOARD_INDEX} from "../action";
 import "../Style/style.css";
 import "../../style/style.css";
 

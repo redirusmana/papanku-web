@@ -102,7 +102,6 @@ class FormAddCard extends React.PureComponent {
               value={title}
               onTextChange={this.handleTitleChange}
               onKeyPress={this.handleTitleKeypress}
-              // onBlur={this.handleSubmit}
               disabled={isSubmitting}
               autoFocus
             />

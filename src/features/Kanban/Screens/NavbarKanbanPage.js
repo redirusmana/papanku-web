@@ -151,10 +151,6 @@ class NavbarKanbanPage extends React.PureComponent {
                   content={<ProfileMenu handleLogout={handleLogout} />}
                   overlayClassName="xl popover-no-padding popover-noarrow"
                 >
-                  {/* <button
-                    type="button"
-                    className="btn btn-sm btn-light rounded-pill"
-                  > */}
                   <div>
                     <Avatar
                       name={get(dataSourcesUser, "data.name")}
@@ -166,23 +162,20 @@ class NavbarKanbanPage extends React.PureComponent {
                             )
                           : undefined
                       }
-                      style={{
-                        width: "2.0rem",
-                        height: "2.0rem",
-                        lineHeight: "2.0rem",
-                        fontSize: "1rem"
-                      }}
+                      // style={{
+                      //   width: "2.0rem",
+                      //   height: "2.0rem",
+                      //   lineHeight: "2.0rem",
+                      //   fontSize: "1rem"
+                      // }}
                     />
                   </div>
-                  {/* </button> */}
                 </Popover>
               </li>
             </ul>
           </div>
         </nav>
-        {/* Navbar 1 */}
 
-        {/* Navbar 2 */}
         <nav className="navbar navbar-expand-sm navbar-light">
           <div className="collapse navbar-collapse">
             <ul className="navbar-nav mr-auto">
@@ -275,6 +268,7 @@ class NavbarKanbanPage extends React.PureComponent {
           className="drawer-sticky-header"
           // maskClosable={false}
           closable
+          // afterVisibleChange={}
         >
           <AllActivity idBoard={dataSources.id} />
         </Drawer>

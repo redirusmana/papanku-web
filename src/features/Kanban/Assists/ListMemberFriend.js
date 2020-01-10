@@ -44,7 +44,6 @@ class ListMemberFriend extends React.PureComponent {
         : [];
     return (
       <React.Fragment>
-        {/* List Board */}
         <div className="d-flex flex-wrap">{mappedMemberBoard}</div>
       </React.Fragment>
     );

@@ -55,7 +55,7 @@ class ListActivity extends React.PureComponent {
     this.setState(
       prevState => ({
         loadingState: true,
-        page: prevState.page + 10
+        page: prevState.page + 5
       }),
       () => {
         this._requestSource = api.generateCancelToken();
@@ -87,11 +87,11 @@ class ListActivity extends React.PureComponent {
   render() {
     const { loadingState, loading, dataSources } = this.state;
 
-    const ListActivity =
+    const ListActivities =
       Array.isArray(dataSources) && dataSources.length > 0 ? (
         dataSources.map((result, index) => (
           <React.Fragment
-            key={`list-activitys-${result.id}-${result.historieabel_id}`}
+            key={`list-activitys-${result.id}-${result.historiable_id}`}
           >
             <div className={`media ${this.cnBgClass(index)}`}>
               <Avatar
@@ -100,10 +100,11 @@ class ListActivity extends React.PureComponent {
                 title={get(result, "user.name")}
                 image={
                   get(result, "user.avatar_path")
-                    ? assetsApiUrl(get(result, "user.avatar_path"))
+                    ? // ? assetsApiUrl(get(result, "user.avatar_path"))
+                      assetsApiUrl(get(result, "user.avatar_path"))
                     : undefined
                 }
-                style={{ margin: ".3rem" }}
+                avatarClass="avatar-link m-1"
               />
               <div
                 className="media-body pl-1 align-self-center"
@@ -122,7 +123,7 @@ class ListActivity extends React.PureComponent {
                     <small className="font-weight-light">
                       {dateFromNowString(result.created_at)} - On Board{" "}
                       <b className="font-weight-bold">
-                        {get(result, "after.title")}
+                        {/* {get(result, "after.title", "")} */}
                       </b>
                     </small>
                   </div>
@@ -153,17 +154,19 @@ class ListActivity extends React.PureComponent {
               </h5>
               <hr />
 
-              {ListActivity}
+              {ListActivities}
               {loadingState && <LoadingCard />}
             </div>
             <div className="card-footer ">
-              <button
-                type="button"
-                className="btn btn-link text-dark"
-                onClick={() => this.handleLoadMore()}
-              >
-                <u>Load More...</u>
-              </button>
+              {ListActivities.length > 10 && (
+                <button
+                  type="button"
+                  className="btn btn-link text-dark"
+                  onClick={() => this.handleLoadMore()}
+                >
+                  <u>Load More...</u>
+                </button>
+              )}
             </div>
           </div>
         </div>

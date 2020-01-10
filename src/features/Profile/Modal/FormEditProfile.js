@@ -8,7 +8,7 @@ import InputDate from "../../../provider/Commons/InputDate";
 import InputSelectLong from "../../../provider/Commons/InputSelectLong";
 import InputImage from "../../../provider/Commons/InputImage";
 import alertFloat from "../../../provider/Display/alertFloat";
-import LoadingCard from '../../../provider/Display/LoadingCard';
+import LoadingCard from "../../../provider/Display/LoadingCard";
 import api from "../../../provider/Tools/api";
 import {
   axiosError,
@@ -28,23 +28,25 @@ import { apiEditProfile } from "../action";
 //   birth: yup.string().nullable("Birth is ???"),
 // });
 
-
 class FormEditProfile extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {};
   }
-  
+
   handleSubmit = async (values, actions) => {
-    const { avatar_path,birth, ...allValues } = values;
+    const { avatar_path, birth, ...allValues } = values;
     try {
-      this.props.handleLoading(true)
+      this.props.handleLoading(true);
       this._requestSource = api.generateCancelToken();
 
       const newValues = {
-          ...allValues,
-          birth: birth && typeof birth.format === 'function' ? birth.format('YYYY-MM-DD') : undefined,
-        }
+        ...allValues,
+        birth:
+          birth && typeof birth.format === "function"
+            ? birth.format("YYYY-MM-DD")
+            : undefined
+      };
 
       const response = await apiEditProfile(
         newValues,
@@ -55,7 +57,7 @@ class FormEditProfile extends React.PureComponent {
           type: "success",
           content: response.data.message
         });
-        this.props.handleReplace(response.data.data)
+        this.props.handleReplace(response.data.data);
       }
     } catch (e) {
       const error = axiosError(e);
@@ -68,21 +70,20 @@ class FormEditProfile extends React.PureComponent {
       });
     }
     actions.setSubmitting(false);
-    this.props.handleLoading(false)
+    this.props.handleLoading(false);
     this.props.handleClose();
   };
 
   render() {
-    const {loadingProfile} =this.state;
-    const {initialValues} = this.props;
+    const { loadingProfile } = this.state;
+    const { initialValues } = this.props;
 
     if (loadingProfile) {
-      return <LoadingCard />
+      return <LoadingCard />;
     }
 
     return (
       <React.Fragment>
-        {/* List Board */}
         <Formik
           initialValues={initialValues}
           // validationSchema={formEditProfileValidation}
@@ -94,8 +95,6 @@ class FormEditProfile extends React.PureComponent {
             handleSubmit,
             isSubmitting,
             values
-            // errors,
-            // setValues,
           }) => (
             <div className="row">
               <div className="col-lg-24">
@@ -107,13 +106,13 @@ class FormEditProfile extends React.PureComponent {
                     <InputImage
                       name="avatar_path"
                       onFileChange={(file, result) => {
-                        setFieldValue('previewAvatar', result);
-                        setFieldValue('avatar_path', file);
+                        setFieldValue("previewAvatar", result);
+                        setFieldValue("avatar_path", file);
                       }}
                       placeholder="Choose your avatar"
                       multiple={false}
                       previewImage={values.previewAvatar}
-                    />          
+                    />
                   </div>
                   <div className="form-group">
                     <label className="form-label" htmlFor="">
@@ -165,29 +164,27 @@ class FormEditProfile extends React.PureComponent {
                     </label>
                     <InputDate
                       name="birth"
-                      handleChange={value =>
-                        setFieldValue("birth", value)
-                      }
+                      handleChange={value => setFieldValue("birth", value)}
                       value={values.birth ? moment(values.birth) : undefined}
                       isBlockAfterToday={false}
                     />
                   </div>
                   <div className="form-group ">
-                            <button
-                              type="submit"
-                              className="btn btn-block btn-primary"
-                              disabled={isSubmitting}
-                            >
-                              <i
-                                className={cn({
-                                  la: true,
-                                  "la-save": !isSubmitting,
-                                  "la-circle-o-notch animate-spin": isSubmitting
-                                })}
-                              />{" "}
-                              {isSubmitting ? "Submitting" : "Submit"}
-                            </button>
-                          </div>
+                    <button
+                      type="submit"
+                      className="btn btn-block btn-primary"
+                      disabled={isSubmitting}
+                    >
+                      <i
+                        className={cn({
+                          la: true,
+                          "la-save": !isSubmitting,
+                          "la-circle-o-notch animate-spin": isSubmitting
+                        })}
+                      />{" "}
+                      {isSubmitting ? "Submitting" : "Submit"}
+                    </button>
+                  </div>
                 </form>
               </div>
             </div>
@@ -202,4 +199,3 @@ const mapStateToProps = store => ({
 });
 
 export default connect(mapStateToProps)(FormEditProfile);
-

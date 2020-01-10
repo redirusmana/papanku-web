@@ -79,13 +79,12 @@ class ListBoard extends React.PureComponent {
     });
   };
 
-  onAccept = async id => {
-    const { dataSources } = this.state;
+  onAccept = async (id, idBoard) => {
     try {
       this.onLoadChange(true);
       this._requestSource = api.generateCancelToken();
       const response = await apiAcceptFriend(
-        `/api/board/${dataSources.id}/accept/${id}`,
+        `/api/board/${idBoard}/accept/${id}`,
         this._requestSource.token
       );
       const { data } = response;
@@ -206,7 +205,9 @@ class ListBoard extends React.PureComponent {
                 </div>
                 <div className="card-footer text-right py-2">
                   <button
-                    onClick={() => this.onAccept(result.id)}
+                    onClick={() =>
+                      this.onAccept(result.id, get(result, "board.id"))
+                    }
                     type="button"
                     className="btn btn-sm rounded-pill btn-primary mr-1" //primary
                   >

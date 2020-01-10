@@ -15,7 +15,6 @@ class FormAddListTask extends React.PureComponent {
     super(props);
 
     this.state = {
-      // title: ,
       form: initialFormState,
       formVisible: false,
       isSubmitting: false
@@ -99,7 +98,6 @@ class FormAddListTask extends React.PureComponent {
     const { listSource } = this.props;
     const { form } = this.state;
 
-    // Check if title null, should not send request submit
     if (!form.title) {
       return;
     }
@@ -135,7 +133,6 @@ class FormAddListTask extends React.PureComponent {
   };
 
   render() {
-    // console.log(this.props);
     const { form, formVisible, isSubmitting } = this.state;
 
     if (!formVisible) {
@@ -166,7 +163,7 @@ class FormAddListTask extends React.PureComponent {
             autoFocus={formVisible}
             onTextChange={this.onTaskTitleChange}
             onKeyPress={this.onTaskTitleKeyPress}
-            readOnly={false}
+            readOnly={isSubmitting}
             disabled={isSubmitting}
           />
         </div>
@@ -175,11 +172,10 @@ class FormAddListTask extends React.PureComponent {
             <button
               type="submit"
               className="btn btn-primary btn-block"
-              disabled={false}
+              disabled={isSubmitting}
             >
-              {false ? (
+              {isSubmitting ? (
                 <React.Fragment>
-                  {/* plus */}
                   <i className="icofont-clock-time animate-spin" /> Saving
                 </React.Fragment>
               ) : (

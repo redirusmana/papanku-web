@@ -98,7 +98,7 @@ class AllActivity extends React.PureComponent {
                     : undefined
                 }
                 title={get(result, "user.name")}
-                style={{ margin: ".3rem" }}
+                avatarClass="avatar-link m-1"
               />
               <div
                 className="media-body pl-1 align-self-center"
@@ -136,9 +136,11 @@ class AllActivity extends React.PureComponent {
         {loadingState && <LoadingCard />}
 
         <div className="card-footer ">
-          <u className="pointer" onClick={() => this.handleLoadMore(idBoard)}>
-            Load More...
-          </u>
+          {mappedActivity.length > 10 && (
+            <u className="pointer" onClick={() => this.handleLoadMore(idBoard)}>
+              Load More...
+            </u>
+          )}
         </div>
       </React.Fragment>
     );

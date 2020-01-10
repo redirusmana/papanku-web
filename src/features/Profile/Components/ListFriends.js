@@ -146,10 +146,7 @@ class ListFriends extends React.PureComponent {
                         className="btn rounded-pill btn-primary mr-1"
                       >
                         <i className="font-weight-normal icofont-info-circle" />
-                        {/* ui-message */}
-                        {/* Invite */}
                       </button>
-                      {console.log(result.pivot)}
                       <button
                         type="button"
                         onClick={() =>
@@ -158,7 +155,6 @@ class ListFriends extends React.PureComponent {
                         className="btn rounded-pill btn-danger ml-1"
                       >
                         <i className="font-weight-normal icofont-bin " />
-                        {/* Remove / danger*/}
                       </button>
                     </div>
                   </div>
@@ -174,9 +170,7 @@ class ListFriends extends React.PureComponent {
     return (
       <React.Fragment>
         <ListSearch />
-        {/* List Friend */}
         {listFriends}
-        {/* Add new Friend */}
         <div className="col-lg-8 mb-3">
           <div className="card p-5">
             <div className="card-body ">
@@ -193,7 +187,7 @@ class ListFriends extends React.PureComponent {
                   className="btn rounded-pill btn-primary "
                 >
                   <i className="font-weight-normal icofont-plus" />
-                  {/* Add new Friend */} Friend
+                  Friend
                 </button>
               </div>
             </div>

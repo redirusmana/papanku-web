@@ -18,7 +18,6 @@ class ChecklistCardGroup extends React.PureComponent {
   onFormSubmit = e => {
     e.preventDefault();
 
-    // this.props.submitChanges(this.state.value);
     this.toggleForm();
   };
 

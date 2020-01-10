@@ -26,11 +26,11 @@ class FormEditPhone extends React.PureComponent {
     super(props);
     this.state = {};
   }
-  
+
   handleSubmit = async (values, actions) => {
     const { avatar_path, ...newValues } = values;
     try {
-      this.props.handleLoading(true)
+      this.props.handleLoading(true);
       this._requestSource = api.generateCancelToken();
 
       const response = await apiEditProfile(
@@ -42,7 +42,7 @@ class FormEditPhone extends React.PureComponent {
           type: "success",
           content: response.data.message
         });
-        this.props.handleReplace(response.data.data)
+        this.props.handleReplace(response.data.data);
       }
     } catch (e) {
       const error = axiosError(e);
@@ -55,15 +55,14 @@ class FormEditPhone extends React.PureComponent {
       });
     }
     actions.setSubmitting(false);
-    this.props.handleLoading(false)
+    this.props.handleLoading(false);
     this.props.handleClose();
   };
 
   render() {
-    const {initialValues} = this.props;
+    const { initialValues } = this.props;
     return (
       <React.Fragment>
-        {/* List Board */}
         <Formik
           initialValues={initialValues}
           validationSchema={formphoneValidation}
@@ -74,7 +73,6 @@ class FormEditPhone extends React.PureComponent {
             isSubmitting,
             values,
             errors
-            // setValues,
           }) => (
             <div className="row">
               <div className="col-lg-24">
@@ -88,7 +86,8 @@ class FormEditPhone extends React.PureComponent {
                       name="phone_number"
                       onChange={value => setFieldValue("phone_number", value)}
                       value={values.phone_number}
-                    />{errors && errors.phone_number && (
+                    />
+                    {errors && errors.phone_number && (
                       <p className="text-danger">{errors.phone_number}</p>
                     )}
                   </div>

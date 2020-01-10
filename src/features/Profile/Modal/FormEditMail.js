@@ -24,11 +24,11 @@ class FormEditMail extends React.PureComponent {
     super(props);
     this.state = {};
   }
-  
+
   handleSubmit = async (values, actions) => {
     const { avatar_path, ...newValues } = values;
     try {
-      this.props.handleLoading(true)
+      this.props.handleLoading(true);
       this._requestSource = api.generateCancelToken();
 
       const response = await apiEditProfile(
@@ -40,7 +40,7 @@ class FormEditMail extends React.PureComponent {
           type: "success",
           content: response.data.message
         });
-        this.props.handleReplace(response.data.data)
+        this.props.handleReplace(response.data.data);
       }
     } catch (e) {
       const error = axiosError(e);
@@ -53,15 +53,14 @@ class FormEditMail extends React.PureComponent {
       });
     }
     actions.setSubmitting(false);
-    this.props.handleLoading(false)
+    this.props.handleLoading(false);
     this.props.handleClose();
   };
 
   render() {
-    const {initialValues} = this.props;
+    const { initialValues } = this.props;
     return (
       <React.Fragment>
-        {/* List Board */}
         <Formik
           initialValues={initialValues}
           validationSchema={formMailValidation}
@@ -70,11 +69,10 @@ class FormEditMail extends React.PureComponent {
             handleChange,
             handleBlur,
             values,
-            handleSubmit,isSubmitting,
-            // setFieldValue,
-            // setValues,
-            errors,
-            // 
+            handleSubmit,
+            isSubmitting,
+            errors
+            //
           }) => (
             <div className="row">
               <div className="col-lg-24">
@@ -91,7 +89,8 @@ class FormEditMail extends React.PureComponent {
                       onChange={handleChange}
                       onBlur={handleBlur}
                       value={values.email}
-                    />{errors && errors.email && (
+                    />
+                    {errors && errors.email && (
                       <p className="text-danger">{errors.email}</p>
                     )}
                   </div>

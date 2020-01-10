@@ -1,9 +1,13 @@
 import React from "react";
-// import PropTypes from "prop-types";
+import api from "../../../provider/Tools/api";
+import {
+  axiosError,
+  AXIOS_CANCEL_MESSAGE
+} from "../../../provider/Tools/converter";
 import TextareaAutosize from "../../../provider/Commons/TextareaAutosize";
 
 const initialFormState = {
-  description: "This is Description"
+  description: ""
 };
 
 class DescriptionCard extends React.PureComponent {
@@ -12,13 +16,33 @@ class DescriptionCard extends React.PureComponent {
 
     this.state = {
       editable: false,
-      form: initialFormState
+      form: initialFormState,
+      isSubmitting: false
     };
   }
 
   componentWillUnmount() {
     document.removeEventListener("click", this.handleClickOutside, false);
   }
+
+  toggleEdit = () => {
+    const { editable, form } = this.state;
+    const { dataSource } = this.props;
+
+    if (!editable) {
+      document.addEventListener("click", this.handleClickOutside, false);
+    } else {
+      document.removeEventListener("click", this.handleClickOutside, false);
+    }
+
+    this.setState({
+      editable: !editable,
+      form: {
+        ...form,
+        description: !editable ? dataSource.description : ""
+      }
+    });
+  };
 
   onTaskDescriptionChange = e => {
     const { value } = e.target;
@@ -33,28 +57,14 @@ class DescriptionCard extends React.PureComponent {
 
   onFormSubmit = e => {
     e.preventDefault();
-
-    this.submitDescription();
-    this.resetForm();
-    this.toggleEdit();
-  };
-
-  toggleEdit = () => {
-    const { editable, form } = this.state;
-
-    if (!editable) {
-      document.addEventListener("click", this.handleClickOutside, false);
-    } else {
-      document.removeEventListener("click", this.handleClickOutside, false);
-    }
-
-    this.setState({
-      editable: !editable,
-      form: {
-        ...form,
-        description: !editable ? form : ""
+    this.setState(
+      {
+        isSubmitting: true
+      },
+      () => {
+        this.submitDescription();
       }
-    });
+    );
   };
 
   handleClickOutside = e => {
@@ -66,12 +76,27 @@ class DescriptionCard extends React.PureComponent {
       return;
     }
 
-    this.submitDescription();
     this.toggleEdit();
   };
 
-  submitDescription = () => {
-    // const { form } = this.state;
+  submitDescription = async () => {
+    const { form } = this.state;
+    const { dataSource } = this.props;
+    try {
+      this._requestSource = api.generateCancelToken();
+      const url = `/api/card/${dataSource.id}`;
+      const response = await api.post(url, form);
+      const { data } = response;
+      if (response.status === 200) {
+        this.props.handleReplaceDesc(data.data.description);
+      }
+    } catch (e) {
+      const error = axiosError(e);
+      if (error === AXIOS_CANCEL_MESSAGE) {
+        return;
+      }
+    }
+    this.setState({ isSubmitting: false });
   };
 
   resetForm = () => {
@@ -85,7 +110,8 @@ class DescriptionCard extends React.PureComponent {
   };
 
   renderDescription = () => {
-    const { editable, form } = this.state;
+    const { editable, form, isSubmitting } = this.state;
+    const { dataSource } = this.props;
 
     const placeholder = "Add description to this task...";
 
@@ -93,31 +119,38 @@ class DescriptionCard extends React.PureComponent {
       return (
         <React.Fragment>
           <TextareaAutosize
-            value={form.initialFormState}
+            value={form.description}
             inputClassName="border-0"
             autoFocus={editable}
             onTextChange={this.onTaskDescriptionChange}
             placeholder={placeholder}
+            disabled={isSubmitting}
             style={{
               minHeight: 75
             }}
           />
           <div className="my-2">
-            <button type="submit" className="btn btn-primary btn-sm">
-              <i className="icofont-save" /> Save
-            </button>
-            {/* <button
+            <button
               type="submit"
-              className="btn btn-link text-primary btn-sm mx-2"
+              className="btn btn-primary btn-sm"
+              disabled={isSubmitting}
             >
-              
-            </button> */}
+              {isSubmitting ? (
+                <React.Fragment>
+                  <i className="icofont-clock-time animate-spin" /> Saving
+                </React.Fragment>
+              ) : (
+                <React.Fragment>
+                  <i className="icofont-save" /> Save
+                </React.Fragment>
+              )}
+            </button>
           </div>
         </React.Fragment>
       );
     }
 
-    if (!form.initialFormState) {
+    if (!dataSource.description) {
       return (
         <div
           role="button"
@@ -137,7 +170,7 @@ class DescriptionCard extends React.PureComponent {
         className="d-block text-body mb-0"
         onFocus={this.toggleEdit}
       >
-        {form.initialFormState.split("\n").map((item, key) => (
+        {dataSource.description.split("\n").map((item, key) => (
           <React.Fragment key={key}>
             {item}
             <br />
@@ -148,6 +181,7 @@ class DescriptionCard extends React.PureComponent {
   };
 
   render() {
+    const { editable } = this.state;
     const { form } = this.state;
 
     return (
@@ -156,11 +190,11 @@ class DescriptionCard extends React.PureComponent {
         <div>
           <div className="task-detail-subtitle">
             <span>Description</span>
-            {form.initialFormState && (
+            {!editable && (
               <div className="task-detail-options">
                 <button
                   type="button"
-                  className="btn btn-link"
+                  className="btn text-primary btn-link "
                   onClick={this.toggleEdit}
                 >
                   <i className="icofont-pencil icon-left" />

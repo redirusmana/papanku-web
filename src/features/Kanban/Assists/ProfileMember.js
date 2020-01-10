@@ -14,7 +14,7 @@ class ProfileMember extends React.PureComponent {
       <React.Fragment>
         <div className="media">
           <Avatar
-            size="lg" //name
+            size="lg"
             name={results.name}
             image={
               results.avatar_path
@@ -22,7 +22,7 @@ class ProfileMember extends React.PureComponent {
                 : undefined
             }
             title={results.name}
-            style={{ margin: ".7rem" }}
+            avatarClass="avatar-link m-3"
           />
           <div
             className="media-body pl-1 align-self-center"
@@ -53,7 +53,6 @@ class ProfileMember extends React.PureComponent {
             Views Activity
           </Link>
           <div className="p-2 pointer hovered-button-popover text-dark">
-            {/*  mb-1 */}
             Remove From Board..
           </div>
         </div>

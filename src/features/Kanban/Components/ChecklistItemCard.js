@@ -25,7 +25,6 @@ class ChecklistItemCard extends React.PureComponent {
   };
 
   onTextKeyPress = e => {
-    // const { enterWillSubmit } = this.props;
     const enterWillSubmit = true;
     if (e.key === "Enter" && enterWillSubmit) {
       e.preventDefault();
@@ -71,7 +70,6 @@ class ChecklistItemCard extends React.PureComponent {
     const { value } = this.state;
 
     if (value) {
-      // this.props.submitChanges(value);
       this.resetValue();
     }
   };

@@ -26,7 +26,7 @@ class FormAddFriend extends React.PureComponent {
       this._requestSource = api.generateCancelToken();
       const response = await apiFoundFriend(values, this._requestSource.token);
       const { data } = response;
-      console.log(response);
+      // console.log(response);
 
       if (response.status === 200) {
         alertFloat({

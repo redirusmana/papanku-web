@@ -5,6 +5,11 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
+import api from "../../../provider/Tools/api";
+import {
+  axiosError,
+  AXIOS_CANCEL_MESSAGE
+} from "../../../provider/Tools/converter";
 import { OptPriority, OptPriorityClass } from "../../../provider/Tools/config";
 
 const TaskPriorityChanger = ({
@@ -59,26 +64,60 @@ class PriorityCard extends React.PureComponent {
 
   changePriority = e => {
     const { dataset } = e.currentTarget;
-    this.setState({
-      priority: dataset.priority
-    });
+    this.setState(
+      {
+        priority: dataset.priority
+      },
+      () => {
+        this.handleChangePriority(dataset.priority);
+      }
+    );
+  };
+
+  handleChangePriority = async value => {
+    const { dataSource } = this.props;
+    try {
+      this._requestSource = api.generateCancelToken();
+      const url = `/api/card/${dataSource.id}`;
+      const response = await api.post(url, {
+        priority: value
+      });
+
+      const { data } = response;
+
+      if (response.status === "OK") {
+        this.setState({
+          priority: data.priority
+        });
+      }
+    } catch (e) {
+      const error = axiosError(e);
+      if (error === AXIOS_CANCEL_MESSAGE) {
+        return;
+      }
+    }
   };
 
   render() {
     const { priority } = this.state;
+    const { dataSource } = this.props;
 
-    const mappedPriority = priority ? (
-      <React.Fragment>
-        {/* <i className="la la-tag icon-left" /> */}
-        <span className={`${OptPriorityClass[priority]}`}>{priority}</span>
-        <i className="icofont-rounded-down ml-2" />
-      </React.Fragment>
-    ) : (
-      <React.Fragment>
-        <span className="badge badge-light">Available Priority</span>
-        <i className="icofont-rounded-down ml-2" />
-      </React.Fragment>
-    );
+    const mappedPriority =
+      priority || dataSource.priority ? (
+        <React.Fragment>
+          <span
+            className={`${OptPriorityClass[priority || dataSource.priority]}`}
+          >
+            {priority || dataSource.priority}
+          </span>
+          <i className="icofont-rounded-down ml-2" />
+        </React.Fragment>
+      ) : (
+        <React.Fragment>
+          <span className="badge badge-light">Available Priority</span>
+          <i className="icofont-rounded-down ml-2" />
+        </React.Fragment>
+      );
 
     return (
       <div className="task-detail-tag">

@@ -24,7 +24,6 @@ class FormEditTitleCard extends React.PureComponent {
       renamingTitle: undefined,
       renamingTitleName: "",
       isSubmitting: false
-      // renamingTitleName: ""
     };
   }
 
@@ -84,7 +83,8 @@ class FormEditTitleCard extends React.PureComponent {
 
       if (data.success === "OK") {
         this.props.renameList({
-          newTask: data.lists
+          newTask: data.lists,
+          columnIndex: this.props.columnIndex
         });
         this.setState({
           isSubmitting: false
@@ -139,7 +139,7 @@ class FormEditTitleCard extends React.PureComponent {
   };
 
   render() {
-    const { renamingTitle, renamingTitleName, isSubmitting } = this.state; //renamingTitleName
+    const { renamingTitle, renamingTitleName, isSubmitting } = this.state;
     const { columnSource } = this.props;
     return (
       <div className="d-flex flex-row flex-nowrap justify-content-between align-items-center pt-1 pl-1">

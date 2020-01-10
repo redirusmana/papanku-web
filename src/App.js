@@ -14,7 +14,6 @@ import { axiosError } from "./provider/Tools/converter";
 import api, { AXIOS_CANCEL_MESSAGE } from "./provider/Tools/api";
 import { doVerify } from "./AppAction";
 import RouteGuard from "./features/Auth/Components/RouteGuard";
-// import CardPage from "./features/Kanban/Components/CardPage";
 
 class App extends React.PureComponent {
   state = {
@@ -75,10 +74,6 @@ class App extends React.PureComponent {
 
           <RoutePrivate path="/user" component={PageProfileIndex} />
           <RoutePrivate path="/board/:id" component={KanbanPageIndex} />
-          {/* <RoutePrivate
-            path="/board/:id/card/:cardId"
-            component={KanbanPageIndex}
-          /> */}
         </Switch>
       </React.Fragment>
     );

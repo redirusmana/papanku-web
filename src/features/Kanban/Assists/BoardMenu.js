@@ -46,7 +46,6 @@ class BoardMenu extends React.PureComponent {
 
     return (
       <React.Fragment>
-        {/* List Board */}
         <div className="mb-2 m-3">
           <InputSearch
             initialSearch={""}
