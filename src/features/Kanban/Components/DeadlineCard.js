@@ -14,7 +14,7 @@ moment.locale("id");
 class DeadlineCard extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = { due_date: "" };
+    this.state = { due_date: undefined };
   }
 
   onTaskDeadlineChange = value => {
@@ -60,7 +60,12 @@ class DeadlineCard extends React.PureComponent {
               wrapClassName="task-input-date cursor-pointer"
               placeholder="Deadline for this task"
               isBlockAfterToday={false}
-              defaultValue={due_date || moment(dataSource.due_date)}
+              defaultValue={
+                dataSource.due_date
+                  ? moment(due_date) || moment(dataSource.due_date)
+                  : undefined
+              }
+              // defaultValue={moment(due_date) || moment(dataSource.due_date)}
             />
           </span>
         </div>
@@ -68,5 +73,9 @@ class DeadlineCard extends React.PureComponent {
     );
   }
 }
+
+DeadlineCard.defaultProps = {
+  dataSource: {}
+};
 
 export default DeadlineCard;

@@ -67,7 +67,8 @@ class TaskList extends React.PureComponent {
     if (get(task, "due_date")) {
       return (
         <div className={`ml-auto task-badge ${OptDeadlineClass[DueDateClass]}`}>
-          <i className="icofont-clock-time" /> <span>{task.due_date}</span>
+          <i className="icofont-clock-time" />{" "}
+          <span>{moment(task.due_date).format("YYYY-MM-DD")}</span>
         </div>
       );
     }
@@ -126,7 +127,9 @@ class TaskList extends React.PureComponent {
       return (
         <div className="mx-1">
           <Popover
-            content={<div className="text-center">{description}</div>}
+            content={
+              <div className="text-center font-weight-bold">{description}</div>
+            }
             trigger="hover"
             placement="bottom"
             overlayClassName="xl"

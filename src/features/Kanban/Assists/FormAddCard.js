@@ -108,7 +108,7 @@ class FormAddCard extends React.PureComponent {
           </div>
           <div className="d-flex flex-row">
             <button type="submit" className="btn btn-primary">
-              Create Card
+              Create List
             </button>
             <button
               type="button"
@@ -129,7 +129,7 @@ class FormAddCard extends React.PureComponent {
           className="btn btn-primary btn-block"
           onClick={this.openEditable}
         >
-          <i className="icofont-plus" /> <span>Add a new Card</span>
+          <i className="icofont-plus" /> <span>Add a new List</span>
         </button>
       </div>
     );

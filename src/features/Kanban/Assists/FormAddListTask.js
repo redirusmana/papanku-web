@@ -143,7 +143,7 @@ class FormAddListTask extends React.PureComponent {
           onClick={this.onToggleCreate}
         >
           <i className="la la-plus icon-left" />
-          Add New Task
+          Add New Card
         </button>
       );
     }

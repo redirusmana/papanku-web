@@ -5,7 +5,7 @@ import DescriptionCard from "./DescriptionCard";
 import FileCard from "./FileCard";
 import CommentCard from "./CommentCard";
 import ActivityCard from "./ActivityCard";
-import MemberCard from "./MemberCard";
+// import MemberCard from "./MemberCard";
 import StatusCard from "./StatusCard";
 import PriorityCard from "./PriorityCard";
 import DeadlineCard from "./DeadlineCard";
@@ -115,9 +115,19 @@ class CardPage extends React.PureComponent {
     });
   };
 
+  // handleReplaceActivities = newaAtivities => {
+  //   const { dataSources } = this.state;
+  //   this.setState({
+  //     dataSources: {
+  //       ...dataSources,
+  //       activities: newaAtivities
+  //     }
+  //   });
+  // };
+
   renderCard() {
     const { loading, dataSources } = this.state;
-    const { loadingProps } = this.props;
+    const { loadingProps, match } = this.props;
     if (loadingProps || loading) {
       return (
         <div className="task-detail">
@@ -175,7 +185,7 @@ class CardPage extends React.PureComponent {
             <FileCard dataSource={dataSources} />
           </div>
           <div className="task-detail-footer">
-            <MemberCard dataSource={dataSources} />
+            {/* <MemberCard dataSource={dataSources} idBoard={match.params.id} /> */}
           </div>
         </div>
         <div className="task-detail-aside">
