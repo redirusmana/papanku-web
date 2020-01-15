@@ -92,7 +92,14 @@ class ActivityCard extends React.PureComponent {
                         {result.event === "has created new" && (
                           <small>
                             {result.event} <b>{get(result, "after.title")}</b>{" "}
-                            Card
+                            {/* Card */}
+                          </small>
+                        )}
+
+                        {result.event === "added new checklist" && (
+                          <small>
+                            {result.event} <b>{get(result, "after.title")}</b>{" "}
+                            {/* Checklist */}
                           </small>
                         )}
 

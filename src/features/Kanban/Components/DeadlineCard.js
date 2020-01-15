@@ -31,11 +31,12 @@ class DeadlineCard extends React.PureComponent {
       const response = await api.post(url, {
         due_date: value
       });
-      const { data } = this.data;
-      if (response.status === "OK") {
+      const { data } = response;
+      if (response.status === 200) {
         this.setState({
           due_date: data.due_date
         });
+        this.props.handleReplace({ newActivities: data.data.activity });
       }
     } catch (e) {
       const error = axiosError(e);

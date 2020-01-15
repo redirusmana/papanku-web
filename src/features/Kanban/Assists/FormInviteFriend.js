@@ -80,6 +80,7 @@ class FormInviteFriend extends React.PureComponent {
             members: undefined
           }
         });
+        this.props.handleClose();
       }
     } catch (e) {
       const error = axiosError(e);
@@ -123,7 +124,7 @@ class FormInviteFriend extends React.PureComponent {
                   }
                   name={get(result, "user.name")}
                   title={get(result, "user.name")}
-                  style={{ margin: ".3rem" }}
+                  avatarClass="avatar-link m-1"
                 />
                 <div
                   className="media-body pl-1 align-self-center"
@@ -163,19 +164,21 @@ class FormInviteFriend extends React.PureComponent {
     const mappedPending =
       Array.isArray(pendingMember) && pendingMember.length > 0 ? (
         pendingMember.map(result => (
-          <React.Fragment key={`list-board-member-pending-${result.id}-`}>
+          <React.Fragment
+            key={`list-board-member-pending-${result.id}-${result.invitation_id}`}
+          >
             <div className="my-2">
               <div className="media">
                 <Avatar
                   size="md"
                   image={
-                    get(result, "user.avatar_path")
-                      ? assetsApiUrl(get(result, "user.avatar_path"))
+                    get(result, "respondent.avatar_path")
+                      ? assetsApiUrl(get(result, "respondent.avatar_path"))
                       : undefined
                   }
-                  name={get(result, "user.name")}
-                  title={get(result, "user.name")}
-                  style={{ margin: ".3rem" }}
+                  name={get(result, "respondent.name")}
+                  title={get(result, "respondent.name")}
+                  avatarClass="avatar-link m-1"
                 />
                 <div
                   className="media-body pl-1 align-self-center"
@@ -185,7 +188,7 @@ class FormInviteFriend extends React.PureComponent {
                     <div>
                       <small>
                         <b className="font-weight-bold">
-                          {get(result, "user.name")}
+                          {get(result, "respondent.name")}
                         </b>
                       </small>
                     </div>
@@ -193,7 +196,7 @@ class FormInviteFriend extends React.PureComponent {
                       <small>
                         <b className="font-weight-bold">
                           {/* <i> */}
-                          {get(result, "user.username")}
+                          {get(result, "respondent.username")}
                           {/* </i> */}
                         </b>
                       </small>

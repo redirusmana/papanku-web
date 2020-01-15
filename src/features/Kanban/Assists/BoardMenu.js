@@ -1,8 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import get from "lodash/get";
+// import InputSearch from "../../../provider/Commons/InputSearch";
 import Modal from "../../../provider/Display/Modal";
-import InputSearch from "../../../provider/Commons/InputSearch";
 import "../Style/style.css";
 import FormCreateBoardTwo from "../../Profile/Modal/FormCreateBoardTwo";
 
@@ -34,12 +34,12 @@ class BoardMenu extends React.PureComponent {
       Array.isArray(get(data, "boards")) && get(data, "boards").length > 0
         ? get(data, "boards").map(result => (
             <React.Fragment key={`list-board-dropdown-${result.id}`}>
-              <Link
-                to={`/board/${result.id}`}
+              <div
+                // to={`/board/${result.id}`}
                 className="p-2 text-dark pointer hovered-button-popover pointer "
               >
                 <b>{result.title}</b>
-              </Link>
+              </div>
             </React.Fragment>
           ))
         : [];
@@ -47,12 +47,12 @@ class BoardMenu extends React.PureComponent {
     return (
       <React.Fragment>
         <div className="mb-2 m-3">
-          <InputSearch
+          {/* <InputSearch
             initialSearch={""}
             placeholder="Search Board"
-            // onSearchChange={value => this.beginSearch(value)}
+            onSearchChange={value => this.beginSearch(value)}
             autoFocus={!!"title"}
-          />
+          /> */}
         </div>
         <div className="d-flex flex-column my-2 px-0">{listBoard}</div>
         <div className="text-left">

@@ -18,7 +18,8 @@ class CommentCard extends React.PureComponent {
 
     this.state = {
       content: "",
-      enterSend: true
+      enterSend: true,
+      loading: false
     };
   }
 
@@ -32,7 +33,14 @@ class CommentCard extends React.PureComponent {
     const { enterSend } = this.state;
     if (enterSend && e.key === "Enter") {
       e.preventDefault();
-      this.submitComment();
+      this.setState(
+        {
+          loading: true
+        },
+        () => {
+          this.submitComment();
+        }
+      );
     }
   };
 
@@ -44,8 +52,14 @@ class CommentCard extends React.PureComponent {
 
   onSubmit = e => {
     e.preventDefault();
-
-    this.submitComment();
+    this.setState(
+      {
+        loading: true
+      },
+      () => {
+        this.submitComment();
+      }
+    );
   };
 
   submitComment = async () => {
@@ -61,12 +75,14 @@ class CommentCard extends React.PureComponent {
         dataSource.id,
         this._requestSource.token
       );
+      const { data } = response;
+      console.log(data);
       if (response.status === 200) {
+        // this.props.handleReplace({ newActivities: data.data.activities });
         this.setState({
-          content: ""
-          // loading: false
+          content: "",
+          loading: false
         });
-        // this.props.afterSubmitComment(response.data.result);
       }
     } catch (e) {
       const error = axiosError(e);
@@ -78,14 +94,14 @@ class CommentCard extends React.PureComponent {
         content: error
       });
       this.setState({
-        content: ""
-        // loading: false
+        content: "",
+        loading: false
       });
     }
   };
 
   render() {
-    const { content, enterSend } = this.state;
+    const { content, enterSend, loading } = this.state;
     const { user } = this.props;
     return (
       <div className="task-detail-aside-footer">
@@ -97,6 +113,7 @@ class CommentCard extends React.PureComponent {
               user.avatar_path ? assetsApiUrl(user.avatar_path) : undefined
             }
             title={user.name}
+            avatarClass="avatar-link mx-2 my-1"
           />
           <form className="media-body" onSubmit={e => this.onSubmit(e)}>
             <TextareaAutosize
@@ -106,6 +123,7 @@ class CommentCard extends React.PureComponent {
               value={content}
               onTextChange={e => this.onContentChange(e.target.value)}
               onKeyPress={this.onContentPress}
+              disabled={loading}
             />
             <div className="form-inline justify-content-between pt-1 pb-1 px-1 bg-white">
               <div className="custom-control custom-checkbox">
@@ -115,6 +133,7 @@ class CommentCard extends React.PureComponent {
                   id="comment-send-enter"
                   checked={enterSend}
                   onChange={({ target }) => this.onCheckSend(target.checked)}
+                  disabled={loading}
                 />
                 <label
                   htmlFor="comment-send-enter"
@@ -123,7 +142,11 @@ class CommentCard extends React.PureComponent {
                   <small>Send when enter</small>
                 </label>
               </div>
-              <button type="submit" className="btn btn-primary btn-sm">
+              <button
+                type="submit"
+                className="btn btn-primary btn-sm"
+                disabled={loading}
+              >
                 Send
               </button>
             </div>

@@ -115,19 +115,46 @@ class CardPage extends React.PureComponent {
     });
   };
 
-  // handleReplaceActivities = newaAtivities => {
-  //   const { dataSources } = this.state;
-  //   this.setState({
-  //     dataSources: {
-  //       ...dataSources,
-  //       activities: newaAtivities
-  //     }
-  //   });
-  // };
+  handleReplaceActivities = ({ newActivities }) => {
+    this.setState(prevState => {
+      const result = {
+        dataSources: {
+          ...prevState.dataSources,
+          activities: [newActivities, ...prevState.dataSources.activities]
+          // activities: [...prevState.dataSources.activities, newActivities]
+        }
+      };
+      return result;
+    });
+  };
+
+  handleAddChecklist = newChecklists => {
+    const { dataSources } = this.state;
+    this.setState({
+      dataSources: {
+        ...dataSources,
+        checklists: newChecklists
+        // {
+        // ...dataSources.checklists,
+        // checklists:newChecklists
+        // }
+      }
+    });
+  };
+
+  handleAddChildChecklist = newChild => {
+    const { dataSources } = this.state;
+    this.setState({
+      dataSources: {
+        ...dataSources,
+        checklists: newChild
+      }
+    });
+  };
 
   renderCard() {
     const { loading, dataSources } = this.state;
-    const { loadingProps, match } = this.props;
+    const { loadingProps } = this.props;
     if (loadingProps || loading) {
       return (
         <div className="task-detail">
@@ -145,7 +172,10 @@ class CardPage extends React.PureComponent {
                 style={{ fontSize: "1.2rem" }}
               />
               <div className="flex-fill">
-                <TitleCard dataSource={dataSources} />
+                <TitleCard
+                  dataSource={dataSources}
+                  handleReplace={this.handleReplaceActivities}
+                />
                 <div className="task-detail-meta">
                   <span>
                     In{" "}
@@ -160,9 +190,18 @@ class CardPage extends React.PureComponent {
                   {dataSources.created_at || ""}
                 </div>
                 <div className="task-detail-tags">
-                  <StatusCard dataSource={dataSources} />
-                  <PriorityCard dataSource={dataSources} />
-                  <DeadlineCard dataSource={dataSources} />
+                  <StatusCard
+                    dataSource={dataSources}
+                    handleReplace={this.handleReplaceActivities}
+                  />
+                  <PriorityCard
+                    dataSource={dataSources}
+                    handleReplace={this.handleReplaceActivities}
+                  />
+                  <DeadlineCard
+                    dataSource={dataSources}
+                    handleReplace={this.handleReplaceActivities}
+                  />
                 </div>
               </div>
               <div style={{ flex: 0 }}>
@@ -180,8 +219,13 @@ class CardPage extends React.PureComponent {
             <DescriptionCard
               dataSource={dataSources}
               handleReplaceDesc={this.handleReplaceDesc}
+              handleReplace={this.handleReplaceActivities}
             />
-            <ChecklistCard dataSource={dataSources} />
+            <ChecklistCard
+              dataSource={dataSources}
+              handleAddChecklist={this.handleAddChecklist}
+              handleAddChildChecklist={this.handleAddChildChecklist}
+            />
             <FileCard dataSource={dataSources} />
           </div>
           <div className="task-detail-footer">
@@ -190,7 +234,10 @@ class CardPage extends React.PureComponent {
         </div>
         <div className="task-detail-aside">
           <ActivityCard dataSource={dataSources} />
-          <CommentCard dataSource={dataSources} />
+          <CommentCard
+            dataSource={dataSources}
+            handleReplace={this.handleReplaceActivities}
+          />
         </div>
       </div>
     );

@@ -115,12 +115,6 @@ class KanbanPage extends React.PureComponent {
     });
   };
 
-  // handleReplace = newDataSources => {
-  //   this.setState({
-  //     dataSources: newDataSources
-  //   });
-  // };
-
   render() {
     const { dataSources, loading } = this.state;
 

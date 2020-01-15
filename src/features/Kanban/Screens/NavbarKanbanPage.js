@@ -251,7 +251,10 @@ class NavbarKanbanPage extends React.PureComponent {
         >
           <div className="container">
             {actModal === "invite" && (
-              <FormInviteFriend idBoard={dataSources.id} />
+              <FormInviteFriend
+                idBoard={dataSources.id}
+                handleClose={this.handleClose}
+              />
             )}
             {actModal === "rename" && (
               <FormCreateBoardTwo {...restProps} idBoard={dataSources.id} />
@@ -266,8 +269,8 @@ class NavbarKanbanPage extends React.PureComponent {
           width={400}
           mask={false}
           className="drawer-sticky-header"
-          // maskClosable={false}
           closable
+          // maskClosable={false}
           // afterVisibleChange={}
         >
           <AllActivity idBoard={dataSources.id} />

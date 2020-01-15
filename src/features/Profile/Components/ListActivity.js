@@ -1,6 +1,7 @@
 import React from "react";
 import { Empty } from "antd";
-import cn from "classnames";
+import moment from "moment";
+// import cn from "classnames";
 import Avatar from "../../../provider/Display/Avatar";
 import { dateFromNowString } from "../../../provider/Tools/converter";
 import get from "lodash/get";
@@ -85,12 +86,33 @@ class ListActivity extends React.PureComponent {
 
     const ListActivities =
       Array.isArray(dataSources) && dataSources.length > 0 ? (
-        dataSources.map((result, index) => {
+        dataSources.map(result => {
           let badge1 = null;
           let badge2 = null;
           let badge3 = null;
           let badge4 = null;
 
+          const inList = get(result, "after.depends.title") ? (
+            <React.Fragment>
+              - In List{" "}
+              <b className="font-weight-bold">
+                {get(result, "after.depends.title")}
+              </b>
+            </React.Fragment>
+          ) : (
+            ""
+          );
+
+          const onBoard = get(result, "after.depends.depends.title") ? (
+            <React.Fragment>
+              - on Board{" "}
+              <b className="font-weight-bold">
+                {get(result, "after.depends.depends.title")}
+              </b>
+            </React.Fragment>
+          ) : (
+            ""
+          );
           if (get(result, "before.status") === "Not Started") {
             badge1 = "info";
           } else if (get(result, "before.status") === "In Progress") {
@@ -130,6 +152,7 @@ class ListActivity extends React.PureComponent {
           } else if (get(result, "after.priority") === "High Priority") {
             badge4 = "danger";
           }
+
           return (
             <React.Fragment
               key={`list-activitys-${result.id}-${result.historiable_id}`}
@@ -156,23 +179,90 @@ class ListActivity extends React.PureComponent {
                         <b className="font-weight-bold">
                           {get(result, "user.name")}
                         </b>{" "}
-                        {result.event}
+                        {result.event}{" "}
+                        {result.attribute === "card" ? "" : result.attribute}
                       </small>
                     </div>
                     <div>
                       <small className="font-weight-light">
-                        {dateFromNowString(result.created_at)} - On Board{" "}
-                        <b className="font-weight-bold">???</b>
+                        {dateFromNowString(result.created_at)} {inList}{" "}
+                        {onBoard}
                       </small>
                     </div>
                   </div>
                   <div className="card activity-card">
                     <div className="card-body">
                       {result.event === "has created new" && (
-                        <small>
-                          {result.event} <b>{get(result, "after.title")}</b>{" "}
-                          {result.attribute}
-                        </small>
+                        <React.Fragment>
+                          {result.attribute === "board" && (
+                            <div>
+                              <small>
+                                <b>{get(result, "after.title")}</b>{" "}
+                                {result.attribute}
+                              </small>
+                            </div>
+                          )}
+                          {result.attribute === "list" && (
+                            <div>
+                              <small>
+                                <b>{get(result, "after.title")}</b>{" "}
+                                {result.attribute}
+                              </small>
+                            </div>
+                          )}
+                          {result.attribute === "card" && (
+                            <div>
+                              <small>
+                                <b>{get(result, "after.title")}</b>{" "}
+                                {result.attribute}
+                              </small>
+                            </div>
+                          )}
+                        </React.Fragment>
+                      )}
+
+                      {result.attribute === "user" && (
+                        <React.Fragment>
+                          <div>
+                            <Avatar
+                              size="sm"
+                              name={get(result, "after.name")}
+                              title={get(result, "after.name")}
+                              image={
+                                get(result, "after.avatar_path")
+                                  ? assetsApiUrl(
+                                      get(result, "after.avatar_path")
+                                    )
+                                  : undefined
+                              }
+                              avatarClass="avatar-link "
+                            />
+                            <small>
+                              {/* From :{" "} */}
+                              <b className="pl-2">
+                                {get(result, "after.name")}
+                              </b>
+                            </small>
+                          </div>
+                        </React.Fragment>
+                      )}
+
+                      {result.event === "has updated" && (
+                        <React.Fragment>
+                          {result.attribute === "list" && (
+                            <div>
+                              <small>
+                                <b>Updated</b> Title List
+                                <br />
+                                From : <del>{get(result, "before")}</del>
+                                <br />
+                                To :{" "}
+                                <b className="pt-2">{get(result, "after")}</b>
+                                <br />
+                              </small>
+                            </div>
+                          )}
+                        </React.Fragment>
                       )}
 
                       {result.event === "has updated card" && (
@@ -231,7 +321,13 @@ class ListActivity extends React.PureComponent {
                                 <div>
                                   <small>
                                     <b>Added</b> Due Date <br />
-                                    <b>"{get(result, "after.due_date")}"</b>
+                                    <b>
+                                      "
+                                      {moment(
+                                        get(result, "after.due_date")
+                                      ).format("YYYY-MM-DD")}
+                                      "
+                                    </b>
                                     <br />
                                   </small>
                                 </div>
@@ -243,11 +339,18 @@ class ListActivity extends React.PureComponent {
                                   <small>
                                     <b>Updated</b> Due Date <br />
                                     From :{" "}
-                                    <del>{get(result, "before.due_date")}</del>
+                                    <del>
+                                      m
+                                      {moment(
+                                        get(result, "before.due_date")
+                                      ).format("YYYY-MM-DD")}
+                                    </del>
                                     <br />
                                     To :{" "}
                                     <b className="pt-2">
-                                      {get(result, "after.due_date")}
+                                      {moment(
+                                        get(result, "after.due_date")
+                                      ).format("YYYY-MM-DD")}
                                     </b>
                                     <br />
                                   </small>

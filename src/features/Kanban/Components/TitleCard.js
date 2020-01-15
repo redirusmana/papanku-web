@@ -31,11 +31,13 @@ class TitleCard extends React.PureComponent {
     try {
       this._requestSource = api.generateCancelToken();
       const url = `/api/card/${dataSource.id}`;
-      const { data } = await api.post(url, {
+      const response = await api.post(url, {
         title: value
       });
+      const { data } = response;
 
-      if (data.success === "OK") {
+      if (response.status === 200) {
+        this.props.handleReplace({ newActivities: data.data.activity });
       }
     } catch (e) {
       const error = axiosError(e);

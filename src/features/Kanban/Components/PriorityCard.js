@@ -85,10 +85,11 @@ class PriorityCard extends React.PureComponent {
 
       const { data } = response;
 
-      if (response.status === "OK") {
+      if (response.status === 200) {
         this.setState({
           priority: data.priority
         });
+        this.props.handleReplace({ newActivities: data.data.activity });
       }
     } catch (e) {
       const error = axiosError(e);

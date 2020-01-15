@@ -1,5 +1,10 @@
 import React from "react";
 import TextareaAutosize from "../../../provider/Commons/TextareaAutosize";
+import api from "../../../provider/Tools/api";
+import {
+  axiosError,
+  AXIOS_CANCEL_MESSAGE
+} from "../../../provider/Tools/converter";
 
 const DEFAULT_PLACEHOLDER = "Add checklist item...";
 
@@ -66,12 +71,29 @@ class ChecklistItemCard extends React.PureComponent {
     });
   };
 
-  handleSubmit = () => {
+  handleSubmit = async () => {
     const { value } = this.state;
+    const { listId, parentId } = this.props;
+    const title = { title: value, parent_id: parentId };
 
-    if (value) {
-      this.resetValue();
+    try {
+      this._requestSource = api.generateCancelToken();
+      const url = `/api/card/${listId}/checklist`;
+      const { data } = await api.post(url, title);
+      // console.log(data.checklists);
+
+      this.props.handleAddChildChecklist(data.checklists);
+    } catch (e) {
+      const error = axiosError(e);
+      if (error === AXIOS_CANCEL_MESSAGE) {
+        return;
+      }
+      // this.setState({ isSubmitting: false });
     }
+
+    // if (value) {
+    //   this.resetValue();
+    // }
   };
 
   resetValue = () => {
@@ -107,7 +129,7 @@ class ChecklistItemCard extends React.PureComponent {
     ) : (
       <button
         type="button"
-        className="btn btn-link pl-0 text-left btn-block"
+        className="btn btn-link text-primary pl-0 text-left btn-block"
         onClick={this.toggleEditable}
       >
         {DEFAULT_PLACEHOLDER}

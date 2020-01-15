@@ -2,6 +2,12 @@ import React from "react";
 import Popover from "antd/lib/popover";
 import "antd/lib/popover/style/index.css";
 
+import api from "../../../provider/Tools/api";
+import {
+  axiosError,
+  AXIOS_CANCEL_MESSAGE
+} from "../../../provider/Tools/converter";
+
 const initialValue = "";
 const containerId = "task-checklist-form";
 
@@ -15,8 +21,28 @@ class ChecklistCardGroup extends React.PureComponent {
     };
   }
 
-  onFormSubmit = e => {
+  onFormSubmit = async e => {
     e.preventDefault();
+    const { listId } = this.props;
+    const { value } = this.state;
+    const title = { title: value };
+
+    try {
+      this._requestSource = api.generateCancelToken();
+      const url = `/api/card/${listId}/checklist`;
+      const { data } = await api.post(url, title);
+
+      this.props.handleAddChecklist(data.checklists);
+
+      // this.setState({ isSubmitting: false });
+    } catch (e) {
+      const error = axiosError(e);
+      if (error === AXIOS_CANCEL_MESSAGE) {
+        return;
+      }
+
+      // this.setState({ isSubmitting: false });
+    }
 
     this.toggleForm();
   };
