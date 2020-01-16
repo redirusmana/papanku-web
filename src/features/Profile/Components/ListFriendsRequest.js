@@ -175,7 +175,13 @@ class ListFriends extends React.PureComponent {
 
   render() {
     const { dataSources, loading } = this.state;
-
+    const TitlelistFriendsRequest = (
+      <React.Fragment>
+        <h4 className="pl-3">
+          <i className="icofont-users"></i> List Friends Request
+        </h4>
+      </React.Fragment>
+    );
     const listFriendsRequest =
       Array.isArray(get(dataSources, "friend_requests")) &&
       get(dataSources, "friend_requests").length > 0 ? (
@@ -225,6 +231,13 @@ class ListFriends extends React.PureComponent {
           </div>
         </React.Fragment>
       );
+    const TitlelistRequestFriend = (
+      <React.Fragment>
+        <h4 className="pl-3">
+          <i className="icofont-users"></i> List Requested Friend
+        </h4>
+      </React.Fragment>
+    );
 
     const listRequestFriend =
       Array.isArray(get(dataSources, "requested_friends")) &&
@@ -273,10 +286,12 @@ class ListFriends extends React.PureComponent {
       <React.Fragment>
         <ListSearch />
         <div className="col-lg-24 ">
+          {loading || !!listFriendsRequest ? "" : TitlelistFriendsRequest}
           <div className="row mb-3">
             {loading ? <LoadingCard /> : listFriendsRequest}
           </div>
           <hr />
+          {loading || !!listRequestFriend ? "" : TitlelistRequestFriend}
           <div className="row mb-3">
             {loading ? <LoadingCard /> : listRequestFriend}
           </div>

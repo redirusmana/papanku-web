@@ -121,7 +121,6 @@ class CardPage extends React.PureComponent {
         dataSources: {
           ...prevState.dataSources,
           activities: [newActivities, ...prevState.dataSources.activities]
-          // activities: [...prevState.dataSources.activities, newActivities]
         }
       };
       return result;
@@ -129,26 +128,68 @@ class CardPage extends React.PureComponent {
   };
 
   handleAddChecklist = newChecklists => {
-    const { dataSources } = this.state;
-    this.setState({
-      dataSources: {
-        ...dataSources,
-        checklists: newChecklists
-        // {
-        // ...dataSources.checklists,
-        // checklists:newChecklists
-        // }
-      }
+    this.setState(prevState => {
+      const result = {
+        dataSources: {
+          ...prevState.dataSources,
+          checklists: [newChecklists, ...prevState.dataSources.checklists]
+        }
+      };
+      return result;
+    });
+  };
+
+  deleteChecklists = newChecklists => {
+    this.setState(prevState => {
+      const newList = prevState.dataSources.checklists.filter(
+        list => list.id !== newChecklists.id
+      );
+      return {
+        dataSources: {
+          ...prevState.dataSources,
+          checklists: newList
+        }
+      };
+    });
+  };
+
+  deleteChildChecklists = newChildChecklists => {
+    this.setState(prevState => {
+      const newList = prevState.dataSources.checklists.map(list => {
+        if (list.id !== newChildChecklists.parent_id) return list;
+
+        return {
+          ...list,
+          childs: [
+            ...list.childs.filter(child => child.id !== newChildChecklists.id)
+          ]
+        };
+      });
+      return {
+        dataSources: {
+          ...prevState.dataSources,
+          checklists: newList
+        }
+      };
     });
   };
 
   handleAddChildChecklist = newChild => {
-    const { dataSources } = this.state;
-    this.setState({
-      dataSources: {
-        ...dataSources,
-        checklists: newChild
-      }
+    this.setState(prevState => {
+      const newList = prevState.dataSources.checklists.map(list => {
+        if (list.id !== newChild.parent_id) return list;
+
+        return {
+          ...list,
+          childs: [...list.childs, newChild]
+        };
+      });
+      return {
+        dataSources: {
+          ...prevState.dataSources,
+          checklists: newList
+        }
+      };
     });
   };
 
@@ -225,8 +266,13 @@ class CardPage extends React.PureComponent {
               dataSource={dataSources}
               handleAddChecklist={this.handleAddChecklist}
               handleAddChildChecklist={this.handleAddChildChecklist}
+              deleteChecklists={this.deleteChecklists}
+              deleteChildChecklists={this.deleteChildChecklists}
             />
-            <FileCard dataSource={dataSources} />
+            <FileCard
+              attachments={dataSources.attachments}
+              cardId={dataSources.id}
+            />
           </div>
           <div className="task-detail-footer">
             {/* <MemberCard dataSource={dataSources} idBoard={match.params.id} /> */}

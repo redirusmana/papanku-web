@@ -7,6 +7,22 @@ import numeral from "numeral";
 
 moment.locale("id");
 
+numeral.register("locale", "idFiles", {
+  delimiters: {
+    thousands: ",",
+    decimal: "."
+  },
+  abbreviations: {
+    thousand: " KB",
+    million: " MB",
+    billion: " GB",
+    trillion: " TB"
+  },
+  currency: {
+    symbol: ""
+  }
+});
+
 export const getInitial = name => {
   if (!name) {
     return "";

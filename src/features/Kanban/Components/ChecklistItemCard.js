@@ -80,9 +80,8 @@ class ChecklistItemCard extends React.PureComponent {
       this._requestSource = api.generateCancelToken();
       const url = `/api/card/${listId}/checklist`;
       const { data } = await api.post(url, title);
-      // console.log(data.checklists);
 
-      this.props.handleAddChildChecklist(data.checklists);
+      this.props.handleAddChildChecklist(data.data);
     } catch (e) {
       const error = axiosError(e);
       if (error === AXIOS_CANCEL_MESSAGE) {

@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import LoadingCard from '../../../provider/Display/LoadingCard';
+import LoadingCard from "../../../provider/Display/LoadingCard";
 import Avatar from "../../../provider/Display/Avatar";
 import FormEditMail from "../Modal/FormEditMail";
 import FormEditPassword from "../Modal/FormEditPassword";
@@ -50,17 +50,17 @@ class PageProfileInfo extends React.PureComponent {
     );
   };
 
-  handleReplace = (newInitialValues) => {
+  handleReplace = newInitialValues => {
     this.setState({
-      initialValues:newInitialValues
-    })
-  }
+      initialValues: newInitialValues
+    });
+  };
 
-  handleLoading = (isLoading) => {
+  handleLoading = isLoading => {
     this.setState({
-        loading:isLoading
-    })
-  }
+      loading: isLoading
+    });
+  };
 
   handleModal = editAble => {
     this.setState({
@@ -86,137 +86,167 @@ class PageProfileInfo extends React.PureComponent {
 
     return (
       <React.Fragment>
-            <div className="card mb-3">
-                {loading ? <LoadingCard /> :(
-                    <React.Fragment>
-                    <div className="card-header mx-auto my-2">
-                    <Avatar
-                      avatarClass="avatar-link avatar-huge "
-                      image={
-                        initialValues.avatar_path
-                          ? assetsApiUrl(initialValues.avatar_path)
-                          : undefined
-                      }
-                      size="md"
-                      name={initialValues.name || ""}
-                      title={initialValues.name || ""}
-                    />
+        <div className="card mb-3">
+          {loading ? (
+            <LoadingCard />
+          ) : (
+            <React.Fragment>
+              <div className="card-header mx-auto my-2">
+                <Avatar
+                  avatarClass="avatar-link avatar-huge "
+                  image={
+                    initialValues.avatar_path
+                      ? assetsApiUrl(initialValues.avatar_path)
+                      : undefined
+                  }
+                  size="md"
+                  name={initialValues.name || ""}
+                  title={initialValues.name || ""}
+                />
+              </div>
+              <div className="card-body">
+                <h3 className="text-center">
+                  {`${initialValues.name}` || " - "}
+                </h3>
+                <hr />
+                <div className="d-flex my-2 flex-row font-weight-normal">
+                  <div className="mr-auto" style={{ wordBreak: "break-all" }}>
+                    Username
                   </div>
-                  <div className="card-body">
-                    <h3 className="text-center">
-                      {`${initialValues.name}` || " - "}
-                    </h3>
-                    <hr />
-                    <div className="d-flex my-2 flex-row font-weight-normal">
-                      <div className="mr-auto" style={{ wordBreak: "break-all" }}>
-                        Username
-                      </div>
-                      <div className="ml-2">{initialValues.username || " - "}</div>
-                    </div>
-                    <div className="d-flex my-2 flex-row font-weight-normal">
-                      <div className="mr-auto" style={{ wordBreak: "break-all" }}>
-                        Gender
-                      </div>
-                      <div className="ml-2">{initialValues.gender || " - "}</div>
-                    </div>
-                    <div className="d-flex my-2 flex-row font-weight-normal">
-                      <div className="mr-auto" style={{ wordBreak: "break-all" }}>
-                        Date of Birth
-                      </div>
-                      <div className="ml-2">{initialValues.birth || " - "}</div>
-                    </div>
-                    </div>
-                    <p className="font-weight-normal mx-4">
-                      <button
-                        type="button"
-                        className="btn btn-block btn-primary btn-sm"
-                        onClick={() => this.handleModal("edit-profile")}
-                      >
-                        <i className="font-weight-normal icofont-gear" /> Edit
-                      </button>
-                    </p>    
-                    </React.Fragment>
-                )}    
+                  <div className="ml-2">{initialValues.username || " - "}</div>
+                </div>
+                <div className="d-flex my-2 flex-row font-weight-normal">
+                  <div className="mr-auto" style={{ wordBreak: "break-all" }}>
+                    Gender
+                  </div>
+                  <div className="ml-2">{initialValues.gender || " - "}</div>
+                </div>
+                <div className="d-flex my-2 flex-row font-weight-normal">
+                  <div className="mr-auto" style={{ wordBreak: "break-all" }}>
+                    Date of Birth
+                  </div>
+                  <div className="ml-2">{initialValues.birth || " - "}</div>
+                </div>
+              </div>
+              <p className="font-weight-normal mx-4">
+                <button
+                  type="button"
+                  className="btn btn-block btn-primary btn-sm"
+                  onClick={() => this.handleModal("edit-profile")}
+                >
+                  <i className="font-weight-normal icofont-gear" /> Edit
+                </button>
+              </p>
+            </React.Fragment>
+          )}
+        </div>
+
+        <div className="card mb-3">
+          {loading ? (
+            <LoadingCard />
+          ) : (
+            <div className="card-body">
+              <div className="d-flex my-2 flex-row font-weight-normal">
+                <div className="mr-auto" style={{ wordBreak: "break-all" }}>
+                  {initialValues.email || " - "}
+                </div>
+                <div className="ml-2">
+                  <button
+                    onClick={() => this.handleModal("edit-mail")}
+                    type="button"
+                    className="btn btn-block btn-primary btn-sm "
+                    disabled
+                  >
+                    <i className="icofont-lock" />
+                  </button>
+                </div>
+              </div>
+
+              <div className="d-flex my-2 flex-row font-weight-normal">
+                <div className="mr-auto" style={{ wordBreak: "break-all" }}>
+                  {initialValues.phone_number
+                    ? `+62 ${initialValues.phone_number}`
+                    : " - "}
+                </div>
+                <div className="ml-2">
+                  <button
+                    onClick={() => this.handleModal("edit-phone")}
+                    type="button"
+                    className="btn btn-block btn-primary btn-sm"
+                  >
+                    <i className="icofont-gear" />
+                  </button>
+                </div>
+              </div>
+
+              <div className="d-flex my-2 flex-row font-weight-normal">
+                <div className="mr-auto" style={{ wordBreak: "break-all" }}>
+                  ****************
+                </div>
+                <div className="ml-2">
+                  <button
+                    onClick={() => this.handleModal("edit-password")}
+                    type="button"
+                    className="btn btn-block btn-primary btn-sm"
+                  >
+                    <i className="icofont-gear" />
+                  </button>
+                </div>
+              </div>
+              <p className="font-weight-normal">
+                <button
+                  type="button"
+                  onClick={() => this.handleLogout()}
+                  className="btn btn-block btn-primary btn-sm" //danger
+                >
+                  <i className="font-weight-normal icofont-exit" /> Logout
+                </button>
+              </p>
             </div>
+          )}
+        </div>
 
-              <div className="card mb-3">
-                {loading ? <LoadingCard /> : (
-                    <div className="card-body">
-                    <div className="d-flex my-2 flex-row font-weight-normal">
-                      <div className="mr-auto" style={{ wordBreak: "break-all" }}>
-                        {initialValues.email || " - "}
-                      </div>
-                      <div className="ml-2">
-                        <button
-                          onClick={() => this.handleModal("edit-mail")}
-                          type="button"
-                          className="btn btn-block btn-primary btn-sm "
-                        >
-                          <i className="icofont-gear" />
-                        </button>
-                      </div>
-                    </div>
-  
-                    <div className="d-flex my-2 flex-row font-weight-normal">
-                      <div className="mr-auto" style={{ wordBreak: "break-all" }}>
-                        {initialValues.phone_number ? `+62 ${initialValues.phone_number}` : " - "}
-                      </div>
-                      <div className="ml-2">
-                        <button
-                          onClick={() => this.handleModal("edit-phone")}
-                          type="button"
-                          className="btn btn-block btn-primary btn-sm"
-                        >
-                          <i className="icofont-gear" />
-                        </button>
-                      </div>
-                    </div>
-  
-                    <div className="d-flex my-2 flex-row font-weight-normal">
-                      <div className="mr-auto" style={{ wordBreak: "break-all" }}>
-                        ****************
-                      </div>
-                      <div className="ml-2">
-                        <button
-                          onClick={() => this.handleModal("edit-password")}
-                          type="button"
-                          className="btn btn-block btn-primary btn-sm"
-                        >
-                          <i className="icofont-gear" />
-                        </button>
-                      </div>
-                    </div>
-                    <p className="font-weight-normal">
-                      <button
-                        type="button"
-                        onClick={() => this.handleLogout()}
-                        className="btn btn-block btn-primary btn-sm" //danger
-                      >
-                        <i className="font-weight-normal icofont-exit" /> Logout
-                      </button>
-                    </p>
-                  </div>
-                )}
-              </div>
-
-            <Modal
-              title="Edit Profile"
-              visible={isVisible}
-              size="medium"
-              handleBack={this.handleClose}
-            >
-              <div className="container">
-                {editAble === "edit-profile" && <FormEditProfile handleReplace={this.handleReplace}
-                 handleClose={this.handleClose} handleLoading={this.handleLoading} initialValues={initialValues} />}
-                {editAble === "edit-mail" && <FormEditMail handleReplace={this.handleReplace}
-                 handleClose={this.handleClose} handleLoading={this.handleLoading} initialValues={initialValues} />}
-                {editAble === "edit-phone" && <FormEditPhone handleReplace={this.handleReplace}
-                 handleClose={this.handleClose} handleLoading={this.handleLoading} initialValues={initialValues} />}
-                {editAble === "edit-password" && <FormEditPassword handleReplace={this.handleReplace}
-                 handleClose={this.handleClose} handleLoading={this.handleLoading} initialValues={initialValues} />}
-              </div>
-            </Modal>
-            
+        <Modal
+          title="Edit Profile"
+          visible={isVisible}
+          size="medium"
+          handleBack={this.handleClose}
+        >
+          <div className="container">
+            {editAble === "edit-profile" && (
+              <FormEditProfile
+                handleReplace={this.handleReplace}
+                handleClose={this.handleClose}
+                handleLoading={this.handleLoading}
+                initialValues={initialValues}
+              />
+            )}
+            {editAble === "edit-mail" && (
+              <FormEditMail
+                handleReplace={this.handleReplace}
+                handleClose={this.handleClose}
+                handleLoading={this.handleLoading}
+                initialValues={initialValues}
+              />
+            )}
+            {editAble === "edit-phone" && (
+              <FormEditPhone
+                handleReplace={this.handleReplace}
+                handleClose={this.handleClose}
+                handleLoading={this.handleLoading}
+                initialValues={initialValues}
+              />
+            )}
+            {editAble === "edit-password" && (
+              <FormEditPassword
+                handleReplace={this.handleReplace}
+                handleClose={this.handleClose}
+                handleLoading={this.handleLoading}
+                initialValues={initialValues}
+              />
+            )}
+          </div>
+        </Modal>
       </React.Fragment>
     );
   }
@@ -230,7 +260,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = store => ({
-    user: store.auth.user
+  user: store.auth.user
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PageProfileInfo);

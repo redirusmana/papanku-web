@@ -3,10 +3,16 @@ import React from "react";
 // import uuid from 'uuid/v4';
 import get from "lodash/get";
 import { numberToPercentage } from "../../../provider/Tools/converter";
+import popConfirm from "../../../provider/Display/popConfirm";
 import EditingChecklist from "../Assists/EditingChecklist";
 import EditingTask from "../Assists/EditingTask";
 import ChecklistGroupCard from "./ChecklistGroupCard";
 import ChecklistItemCard from "./ChecklistItemCard";
+import api from "../../../provider/Tools/api";
+import {
+  axiosError,
+  AXIOS_CANCEL_MESSAGE
+} from "../../../provider/Tools/converter";
 import "../Style/style.css";
 
 class ChecklistCard extends React.PureComponent {
@@ -15,7 +21,45 @@ class ChecklistCard extends React.PureComponent {
     this.state = {};
   }
 
-  renderCheckListGroup({ title, percentage }) {
+  async removeChecklistItem(item) {
+    try {
+      this._requestSource = api.generateCancelToken();
+      const url = `/api/card/${item.card_id}/checklist/${item.id}`;
+      const { data } = await api.delete(url);
+      this.props.deleteChildChecklists(data.data);
+    } catch (e) {
+      const error = axiosError(e);
+      if (error === AXIOS_CANCEL_MESSAGE) {
+        return;
+      }
+    }
+  }
+
+  removeChecklistGroup(group) {
+    popConfirm({
+      title: `Are you sure to remove checklist ${group.title}?`,
+      message: "The action is permanent, there is no way to get it back",
+      okText: "Yes",
+      cancelText: " No",
+      onOkay: async () => {
+        try {
+          this._requestSource = api.generateCancelToken();
+          const url = `/api/card/${group.card_id}/checklist/${group.id}`;
+          const { data } = await api.delete(url);
+          this.props.deleteChecklists(data.data);
+        } catch (e) {
+          const error = axiosError(e);
+          if (error === AXIOS_CANCEL_MESSAGE) {
+            return;
+          }
+        }
+      },
+      onCancel: () => {},
+      okType: "danger"
+    });
+  }
+
+  renderCheckListGroup({ title, percentage, group }) {
     return (
       <React.Fragment>
         <div className="subtask-header">
@@ -28,7 +72,7 @@ class ChecklistCard extends React.PureComponent {
             <button
               type="button"
               className="btn btn-sm btn-danger ml-2"
-              // onClick={() => this.removeChecklistGroup(group)}
+              onClick={() => this.removeChecklistGroup(group)}
             >
               <i className="icofont-trash" />
             </button>
@@ -74,7 +118,7 @@ class ChecklistCard extends React.PureComponent {
         <button
           type="button"
           className="btn btn-danger btn-sm"
-          // onClick={() => this.removeChecklistItem(item)}
+          onClick={() => this.removeChecklistItem(item)}
         >
           <i className="icofont-trash" />
         </button>
@@ -101,7 +145,8 @@ class ChecklistCard extends React.PureComponent {
             <div className="subtask" key={`check-group${checklistGroup.id}`}>
               {this.renderCheckListGroup({
                 title: checklistGroup.title,
-                percentage
+                percentage,
+                group: checklistGroup
               })}
               {checklistGroup.childs.map(item =>
                 this.renderCheckListItem(item)

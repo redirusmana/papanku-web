@@ -19,7 +19,7 @@ class ListMemberFriend extends React.PureComponent {
             >
               <div className="slice">
                 <Popover
-                  title="Invite Friends"
+                  title="Profile Member"
                   trigger="click"
                   content={<ProfileMember results={get(result, "user")} />}
                   placement="bottomLeft"

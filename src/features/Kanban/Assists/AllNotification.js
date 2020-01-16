@@ -89,13 +89,15 @@ class AllNotification extends React.PureComponent {
             <div className="media">
               <Avatar
                 size="md"
-                name={get(result, "user.name")}
+                name={get(result, "contents.requester.name")}
                 image={
-                  get(result, "user.avatar_path")
-                    ? assetsApiUrl(get(result, "user.avatar_path"))
+                  get(result, "contents.requester.avatar_path")
+                    ? assetsApiUrl(
+                        get(result, "contents.requester.avatar_path")
+                      )
                     : undefined
                 }
-                title={get(result, "user.name")}
+                title={get(result, "contents.requester.name")}
                 avatarClass="avatar-link m-3"
               />
               <div
@@ -104,7 +106,15 @@ class AllNotification extends React.PureComponent {
               >
                 <div className="activity-item-header">
                   <div>
-                    <small>{result.messages}</small>
+                    <small>
+                      <b className="font-weight-bold">
+                        {get(result, "contents.requester.name")}
+                      </b>{" "}
+                      {get(result, "contents.message")}{" "}
+                      {/* <b className="font-weight-bold">
+                        {get(result, "contents.notifiable.title")}
+                      </b> */}
+                    </small>
                   </div>
                   <div>
                     <small className="font-weight-light">

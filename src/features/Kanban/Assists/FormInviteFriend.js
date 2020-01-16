@@ -107,6 +107,14 @@ class FormInviteFriend extends React.PureComponent {
       return <LoadingCard />;
     }
 
+    const TitleMember = (
+      <React.Fragment>
+        <h5 className="pl-3">
+          <i className="icofont-group"></i> List Member Board
+        </h5>
+      </React.Fragment>
+    );
+
     const mappedMember =
       Array.isArray(boardMember) && boardMember.length > 0 ? (
         boardMember.map(result => (
@@ -160,6 +168,14 @@ class FormInviteFriend extends React.PureComponent {
           </div>
         </React.Fragment>
       );
+
+    const TitlePending = (
+      <React.Fragment>
+        <h5 className="pl-3">
+          <i className="icofont-group"></i> List Pending Member
+        </h5>
+      </React.Fragment>
+    );
 
     const mappedPending =
       Array.isArray(pendingMember) && pendingMember.length > 0 ? (
@@ -263,12 +279,14 @@ class FormInviteFriend extends React.PureComponent {
         <div className="container">
           <div className="row">
             <div className="col-md-12">
+              {mappedPending.length > 0 ? TitlePending : ""}
               <div className="d-flex flex-column flex-nowrap">
                 {mappedPending}
               </div>
             </div>
 
             <div className="col-md-12">
+              {mappedMember.length > 0 ? TitleMember : ""}
               <div className="d-flex flex-column flex-nowrap">
                 {mappedMember}
               </div>

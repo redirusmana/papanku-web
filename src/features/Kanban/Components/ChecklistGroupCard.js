@@ -32,7 +32,8 @@ class ChecklistCardGroup extends React.PureComponent {
       const url = `/api/card/${listId}/checklist`;
       const { data } = await api.post(url, title);
 
-      this.props.handleAddChecklist(data.checklists);
+      // console.log(data.data);
+      this.props.handleAddChecklist(data.data);
 
       // this.setState({ isSubmitting: false });
     } catch (e) {

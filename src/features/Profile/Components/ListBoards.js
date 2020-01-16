@@ -156,6 +156,14 @@ class ListBoard extends React.PureComponent {
 
   render() {
     const { isVisible, dataSources, loading } = this.state;
+
+    const TitleListBoard = (
+      <React.Fragment>
+        <h4 className="pl-3">
+          <i className="icofont-page"></i> List Board
+        </h4>
+      </React.Fragment>
+    );
     const listBoards =
       Array.isArray(get(dataSources, "boards")) &&
       get(dataSources, "boards").length > 0
@@ -184,6 +192,14 @@ class ListBoard extends React.PureComponent {
             </React.Fragment>
           ))
         : [];
+
+    const TitleInviteBoard = (
+      <React.Fragment>
+        <h4 className="pl-3">
+          <i className="icofont-page"></i> List Invited Board
+        </h4>
+      </React.Fragment>
+    );
 
     const board_invitation_request =
       Array.isArray(get(dataSources, "board_invitation_request")) &&
@@ -238,6 +254,7 @@ class ListBoard extends React.PureComponent {
     return (
       <React.Fragment>
         <div className="col-lg-24 ">
+          {loading ? "" : TitleListBoard}
           <div className="row mb-3">
             {loading ? (
               <LoadingCard />
@@ -260,6 +277,7 @@ class ListBoard extends React.PureComponent {
             )}
           </div>
           <hr />
+          {loading || !!board_invitation_request ? "" : TitleInviteBoard}
           <div className="row mb-3">
             {loading ? (
               <LoadingCard />
