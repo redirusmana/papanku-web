@@ -76,7 +76,7 @@ class CommentCard extends React.PureComponent {
         this._requestSource.token
       );
       const { data } = response;
-      console.log(data);
+      // console.log(data);
       if (response.status === 200) {
         // this.props.handleReplace({ newActivities: data.data.activities });
         this.setState({

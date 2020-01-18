@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import get from "lodash/get";
 import Avatar from "../../../provider/Display/Avatar";
 import { assetsApiUrl } from "../../../provider/Tools/general";
 
@@ -10,18 +11,19 @@ class ProfileMember extends React.PureComponent {
   }
   render() {
     const { results } = this.props;
+    const disable = get(results, "role.name") === "admin";
     return (
       <React.Fragment>
         <div className="media">
           <Avatar
             size="lg"
-            name={results.name}
+            name={get(results, "user.name")}
             image={
-              results.avatar_path
-                ? assetsApiUrl(results.avatar_path)
+              get(results, "user.avatar_path")
+                ? assetsApiUrl(get(results, "user.avatar_path"))
                 : undefined
             }
-            title={results.name}
+            title={get(results, "user.name")}
             avatarClass="avatar-link m-3"
           />
           <div
@@ -31,12 +33,16 @@ class ProfileMember extends React.PureComponent {
             <div className="activity-item-header">
               <div>
                 <small>
-                  <b className="font-weight-bold">{results.name}</b>
+                  <b className="font-weight-bold">
+                    {get(results, "user.name")}
+                  </b>
                 </small>
               </div>
               <div className="pl-1">
                 <small>
-                  <b className="font-weight-bold">{results.username}</b>
+                  <b className="font-weight-bold">
+                    {get(results, "user.name")}
+                  </b>
                 </small>
               </div>
             </div>
@@ -52,7 +58,11 @@ class ProfileMember extends React.PureComponent {
           >
             Views Activity
           </Link>
-          <div className="p-2 pointer hovered-button-popover text-dark">
+          <div
+            // onClick={()=> this.handleRemove()}
+            className="p-2 pointer hovered-button-popover text-dark"
+            disabled={disable}
+          >
             Remove From Board..
           </div>
         </div>

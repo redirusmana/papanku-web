@@ -1,4 +1,5 @@
 import React from "react";
+import get from "lodash/get";
 import api from "../../../provider/Tools/api";
 import {
   axiosError,
@@ -7,7 +8,8 @@ import {
 import TextareaAutosize from "../../../provider/Commons/TextareaAutosize";
 
 const initialFormState = {
-  title: ""
+  title: "",
+  previous_card_id: ""
 };
 
 class FormAddListTask extends React.PureComponent {
@@ -70,11 +72,12 @@ class FormAddListTask extends React.PureComponent {
     this.onToggleCreate();
   };
 
-  submitRequest = async ({ form, id }) => {
+  submitRequest = async ({ forms, idList }) => {
+    const { form, ...newValues } = forms;
     try {
       this._requestSource = api.generateCancelToken();
-      const url = `/api/list/${id}/card`;
-      const { data } = await api.post(url, form);
+      const url = `/api/list/${idList}/card`;
+      const { data } = await api.post(url, newValues);
 
       if (data.success === "OK") {
         this.props.addTask({
@@ -96,6 +99,8 @@ class FormAddListTask extends React.PureComponent {
 
   submitTask() {
     const { listSource } = this.props;
+    const previous_card_id = listSource.cards[listSource.cards.length - 1];
+    const newId = get(previous_card_id, "id");
     const { form } = this.state;
 
     if (!form.title) {
@@ -107,7 +112,14 @@ class FormAddListTask extends React.PureComponent {
         isSubmitting: true
       },
       () => {
-        this.submitRequest({ form, id: listSource.id });
+        this.submitRequest({
+          forms: {
+            ...form,
+            form: form.title,
+            previous_card_id: newId ? newId : null
+          },
+          idList: listSource.id
+        });
       }
     );
   }

@@ -46,6 +46,10 @@ class KanbanPage extends React.PureComponent {
     );
   };
 
+  // onCellClick = (e, cell) => {
+  //   console.log(e, cell);
+  // };
+
   addTask = ({ newTask, columnIndex }) => {
     this.setState(prevState => {
       const newList = prevState.dataSources.lists.map((list, li) => {
@@ -80,12 +84,9 @@ class KanbanPage extends React.PureComponent {
 
   renameList = ({ newTask, columnIndex }) => {
     this.setState(prevState => {
-      // const beforeUpdate = prevState.dataSources.lists[columnIndex];
-      // const afterUpdate = newTask.find(item => item.id === beforeUpdate.id);
       const newList = prevState.dataSources.lists.map((list, li) => {
         if (columnIndex === li) {
           return {
-            // ...afterUpdate
             ...list,
             ...newTask
           };
@@ -153,6 +154,7 @@ class KanbanPage extends React.PureComponent {
                             return (
                               <Draggable key={`cards-id-${cell.id}`}>
                                 <Link
+                                  // onClick={e => this.onCellClick(e, cell)}
                                   to={`/board/${dataSources.id}/card/${cell.id}`}
                                   role="presentation"
                                   className={"kanban-cell"} //  disable-pointer

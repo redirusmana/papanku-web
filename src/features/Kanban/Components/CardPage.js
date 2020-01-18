@@ -193,6 +193,32 @@ class CardPage extends React.PureComponent {
     });
   };
 
+  handleChangeAttachments = newAttachments => {
+    this.setState(prevState => {
+      const result = {
+        dataSources: {
+          ...prevState.dataSources,
+          attachments: [...newAttachments, ...prevState.dataSources.attachments]
+        }
+      };
+      return result;
+    });
+  };
+
+  deleteAttachments = newAttachments => {
+    this.setState(prevState => {
+      const newList = prevState.dataSources.attachments.filter(
+        list => list.id !== newAttachments.id
+      );
+      return {
+        dataSources: {
+          ...prevState.dataSources,
+          attachments: newList
+        }
+      };
+    });
+  };
+
   renderCard() {
     const { loading, dataSources } = this.state;
     const { loadingProps } = this.props;
@@ -271,6 +297,8 @@ class CardPage extends React.PureComponent {
             />
             <FileCard
               attachments={dataSources.attachments}
+              handleChangeAttachments={this.handleChangeAttachments}
+              deleteAttachments={this.deleteAttachments}
               cardId={dataSources.id}
             />
           </div>

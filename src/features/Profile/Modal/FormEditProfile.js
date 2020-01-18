@@ -35,7 +35,26 @@ class FormEditProfile extends React.PureComponent {
   }
 
   handleSubmit = async (values, actions) => {
-    const { avatar_path, birth, ...allValues } = values;
+    const {
+      profile_picture,
+      birth,
+      id,
+      email,
+      email_verified_at,
+      role,
+      phone_number,
+      created_at,
+      updated_at,
+      boards,
+      friends,
+      friend_requests,
+      requested_friends,
+      board_invitation_request,
+      requested_board_invitation,
+      notifications,
+      // profile_picture,
+      ...allValues
+    } = values;
     try {
       this.props.handleLoading(true);
       this._requestSource = api.generateCancelToken();
@@ -104,10 +123,10 @@ class FormEditProfile extends React.PureComponent {
                       Profile Photo
                     </label>
                     <InputImage
-                      name="avatar_path"
+                      name="profile_picture"
                       onFileChange={(file, result) => {
                         setFieldValue("previewAvatar", result);
-                        setFieldValue("avatar_path", file);
+                        setFieldValue("profile_picture", file);
                       }}
                       placeholder="Choose your avatar"
                       multiple={false}

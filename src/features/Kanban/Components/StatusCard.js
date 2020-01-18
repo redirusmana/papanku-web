@@ -84,7 +84,7 @@ class StatusCard extends React.PureComponent {
       });
 
       const { data } = response;
-      console.log(data);
+      // console.log(data);
 
       if (response.status === 200) {
         this.setState({

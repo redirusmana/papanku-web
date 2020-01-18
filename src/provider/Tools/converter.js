@@ -13,6 +13,7 @@ numeral.register("locale", "idFiles", {
     decimal: "."
   },
   abbreviations: {
+    hundred: " B",
     thousand: " KB",
     million: " MB",
     billion: " GB",
@@ -68,7 +69,7 @@ export const numberToPercentage = (number = 0, showDecimal = true) => {
 };
 export const numberToFileSize = (number = 0) => {
   numeral.locale("idFiles");
-  return numeral(number).format("0.0 a");
+  return numeral(number).format("0.0 b");
 };
 
 export const dateFromNowString = date =>

@@ -12,7 +12,7 @@ import {
   axiosError,
   AXIOS_CANCEL_MESSAGE
 } from "../../../provider/Tools/converter";
-// import popConfirm from '../../../provider/Display/popConfirm;
+import popConfirm from "../../../provider/Display/popConfirm";
 // import { downloadDSFile } from '../../DecisionSupport/action';
 
 const { Dragger } = Upload;
@@ -23,6 +23,8 @@ class FileCard extends React.PureComponent {
 
     this.state = { temporaryAttachments: [] };
   }
+
+  _fileCounter = 0;
 
   // downloadFile = async file => {
   //   try {
@@ -38,71 +40,108 @@ class FileCard extends React.PureComponent {
   //   }
   // };
 
-  // removeFile = attachment => {
-  //   const fileName = get(attachment, 'attachment.name') || get(attachment, 'name');
-  //   popConfirm({
-  //     title: `Are you sure to remove attachment ${fileName}?`,
-  //     message: 'The action is permanent, there is no way to get it back',
-  //     okText: 'Yes',
-  //     cancelText: ' No',
-  //     onOkay: () => {
-  //       const { detail, attachmentAttr } = this.props;
-  //       const attachments = get(detail, attachmentAttr);
-  //       this.props.updateTask(attachments.filter(attach => attach.id !== attachment.id), {
-  //         type: 'remove',
-  //         files: [attachment]
-  //       });
-  //     },
-  //     onCancel: () => {},
-  //     okType: 'danger'
-  //   });
-  // };
+  removeFile = attachment => {
+    const fileName = get(attachment, "filename");
+    popConfirm({
+      title: `Are you sure to remove attachment ${fileName}?`,
+      message: "The action is permanent, there is no way to get it back",
+      okText: "Yes",
+      cancelText: " No",
+      onOkay: async () => {
+        try {
+          this._requestSource = api.generateCancelToken();
+          const url = `/api/file/${attachment.id}`;
+          const response = await api.delete(url, {
+            contentType: "multipart/form-data"
+          });
+          const { data } = response;
+          this.props.deleteAttachments(data.attachment);
+          if (response.status === 200) {
+          }
+        } catch (e) {
+          const error = axiosError(e);
+          if (error === AXIOS_CANCEL_MESSAGE) {
+            return;
+          }
+        }
+      },
+      onCancel: () => {},
+      okType: "danger"
+    });
+  };
 
-  handleFileChange = ({ fileList }) => {
-    const { temporaryAttachments } = this.state;
-    // console.log(fileList);
-    const mappedFileList = fileList.map(file => ({
+  handleFileChange = ({ file, fileList }) => {
+    const mappedFile = {
       id: get(file, "id") || get(file, "uid"),
       name: file.name,
       size: file.size,
       actualFile: file
-    }));
+    };
+
+    this._fileCounter += 1;
+
+    console.log("File has been added", this._fileCounter, mappedFile);
 
     this.setState(
-      {
-        temporaryAttachments: [...temporaryAttachments, ...mappedFileList]
-      },
+      prevState => ({
+        temporaryAttachments: [...prevState.temporaryAttachments, mappedFile]
+      }),
       () => {
-        this.uploadFile();
+        console.log(
+          "Temporary attachments has been set",
+          this._fileCounter,
+          this.state.temporaryAttachments
+        );
+        if (this.state.temporaryAttachments.length === this._fileCounter) {
+          console.log(
+            "Total temporary attachments same as this_fileCounter",
+            this._fileCounter
+          );
+          this._fileCounter = 0;
+          this.uploadFile();
+        }
       }
     );
+
+    // const mappedFileList = fileList.map(file => ({
+    //   id: get(file, "id") || get(file, "uid"),
+    //   name: file.name,
+    //   size: file.size,
+    //   actualFile: file
+    // }));
+
+    // this.setState(
+    //   {
+    //     temporaryAttachments: mappedFileList
+    //   },
+    //   () => {
+    //     this.uploadFile();
+    //   }
+    // );
   };
 
   uploadFile = async () => {
     const { temporaryAttachments } = this.state;
-    const { cardId } = this.props;
-    // this.props.updateTask([...attachments, ...temporaryAttachments], {
-    //   type: 'add',
-    //   files: temporaryAttachments.map(item => item.actualFile.originFileObj)
-    // });
 
+    const { cardId } = this.props;
     const formData = new FormData();
 
+    console.log("will upload", temporaryAttachments);
+
     temporaryAttachments.forEach((attachment, i) => {
-      formData.append(`attachments[${i}]`, attachment.actualFile.originFileObj);
+      formData.append(`attachments[${i}]`, attachment.actualFile);
     });
 
     try {
       this._requestSource = api.generateCancelToken();
-      const url = `/api/card/${cardId}`;
+      const url = `/api/card/${cardId}/attach/file`;
       const response = await api.post(url, formData, null, {
         contentType: "multipart/form-data"
       });
-
       const { data } = response;
+      // console.log(data.attachment);
+      this.props.handleChangeAttachments(data.attachment);
 
-      // this.props.handleChangeAttachments(data.data.attachments)
-      // this.props.handleChangeDatasource(data.data)
       this.setState({
         temporaryAttachments: []
       });
@@ -114,10 +153,6 @@ class FileCard extends React.PureComponent {
         return;
       }
     }
-
-    // this.setState({
-    //   temporaryAttachments: []
-    // });
   };
 
   renderAttachments() {
@@ -126,10 +161,8 @@ class FileCard extends React.PureComponent {
     if (Array.isArray(attachments) && attachments.length > 0) {
       return attachments.map(attach => {
         const fileSize = get(attach, "size");
-        // const fileName = get(attach, "name") || get(attach, "name");
-        const fileName = "Name File";
+        const fileName = get(attach, "filename");
         const fileId = get(attach, "id");
-        console.log(attach);
         return (
           <div
             className="task-detail-attachment"
@@ -149,7 +182,7 @@ class FileCard extends React.PureComponent {
                 title="Download File"
                 onClick={() => this.downloadFile(attach)}
               >
-                <i className="la la-download" />
+                <i className="icofont-download" />
               </button>
               <button
                 type="button"
@@ -157,7 +190,7 @@ class FileCard extends React.PureComponent {
                 title="Remove File"
                 onClick={() => this.removeFile(attach)}
               >
-                <i className="la la-trash" />
+                <i className="icofont-trash" />
               </button>
             </div>
           </div>

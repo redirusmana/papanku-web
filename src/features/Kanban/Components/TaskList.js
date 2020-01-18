@@ -3,6 +3,7 @@ import { Popover } from "antd";
 import moment from "moment";
 import "moment/locale/id";
 import get from "lodash/get";
+import uniqBy from "lodash/uniqBy";
 import Avatar from "../../../provider/Display/Avatar";
 import {
   OptStatusClass,
@@ -16,20 +17,22 @@ class TaskList extends React.PureComponent {
     const { task } = this.props;
     const mappedListMember =
       Array.isArray(get(task, "members")) && get(task, "members").length > 0
-        ? get(task, "members").map(member => {
-            return (
-              <Avatar
-                name={member.name}
-                title={member.title}
-                size="sm"
-                image={
-                  member.avatar_path
-                    ? assetsApiUrl(member.avatar_path)
-                    : undefined
-                }
-              />
-            );
-          })
+        ? uniqBy(get(task, "members.id"))
+            .slice(0, 3)
+            .map(member => {
+              return (
+                <Avatar
+                  name={member.name}
+                  title={member.title}
+                  size="sm"
+                  image={
+                    member.avatar_path
+                      ? assetsApiUrl(member.avatar_path)
+                      : undefined
+                  }
+                />
+              );
+            })
         : [];
 
     if (get(task, "members")) {
@@ -43,14 +46,27 @@ class TaskList extends React.PureComponent {
 
   renderChecklist() {
     const { task } = this.props;
-    if (get(task, "checklists") === []) {
-      return (
-        <div className="mx-1">
-          <i className="icofont-checked" />
-          <small>6/10</small>
-        </div>
-      );
-    }
+    // const desc = "terdapat 5 tugas yang belum selesai dan 3 tugas yang sudah selesai";
+    // const checklists = get(task, "checklists");
+    // const checklist =
+    //   Array.isArray(checklists) && checklists.length > 0 ? (
+    //     <div
+    //       className="mx-1"
+    //       title={`Remaining Task: ${checklists.length -
+    //         checklists.filter(check => get(check, checked))
+    //           .length}`}
+    //     >
+    //       <i className="la la-check-square icon-left" />
+    //       <small>
+    //         {
+    //           checklists.filter(check => get(check, checked))
+    //             .length
+    //         }
+    //         /{checklists.length}
+    //       </small>
+    //     </div>
+    //   ) : null;
+    // return checklist;
   }
 
   renderDeadline() {
@@ -77,11 +93,25 @@ class TaskList extends React.PureComponent {
   renderAttachment() {
     const { task } = this.props;
     const attachments = get(task, "attachments");
-    if (attachments === []) {
+    // console.log(attachments);
+    if (Array.isArray(attachments) && attachments.length > 0) {
       return (
         <div title="This task has attachment" className="mx-1">
-          <i className="icofont-clip " />
-          <small>{2}</small>
+          <Popover
+            content={
+              <div className="text-center font-weight-bold">
+                {`
+                  There are ${attachments.length} attachments on this card`}
+              </div>
+            }
+            trigger="hover"
+            placement="bottom"
+            overlayClassName="xl"
+            title="Attachments"
+          >
+            <i className="icofont-clip " />
+            <small>{attachments.length}</small>
+          </Popover>
         </div>
       );
     }
@@ -133,7 +163,7 @@ class TaskList extends React.PureComponent {
             trigger="hover"
             placement="bottom"
             overlayClassName="xl"
-            // title="Description"
+            title="Description"
           >
             <i className="icofont-info-circle icon-only" />
           </Popover>

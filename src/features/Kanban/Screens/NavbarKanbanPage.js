@@ -66,7 +66,7 @@ class NavbarKanbanPage extends React.PureComponent {
               >
                 <Popover
                   trigger="click"
-                  content={<ProfileMember results={get(result, "user")} />}
+                  content={<ProfileMember results={result} />}
                   placement="bottomLeft"
                   overlayClassName="xl popover-no-padding"
                 >
