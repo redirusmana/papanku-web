@@ -73,6 +73,7 @@ class App extends React.PureComponent {
           <RouteGuard path="/register" exact component={PageRegister} />
 
           <RoutePrivate path="/user" component={PageProfileIndex} />
+          <RoutePrivate path="/user/:email" component={PageProfileIndex} />
           <RoutePrivate path="/board/:id" component={KanbanPageIndex} />
         </Switch>
       </React.Fragment>

@@ -14,7 +14,7 @@ import {
 import InputSelectLong from "../../../provider/Commons/InputSelectLong";
 import alertFloat from "../../../provider/Display/alertFloat";
 // import LoadingCard from "../../../provider/Display/LoadingCard";
-import { apiInvitetoBoard } from "../action";
+import { apiInvitetoCard } from "../action";
 import { assetsApiUrl } from "../../../provider/Tools/general";
 
 class MembersCard extends React.PureComponent {
@@ -25,8 +25,6 @@ class MembersCard extends React.PureComponent {
         members: undefined
       },
       inviteOption: undefined,
-      boardMember: undefined,
-      pendingMember: undefined,
       loading: false
     };
   }
@@ -41,8 +39,8 @@ class MembersCard extends React.PureComponent {
         loading: true
       },
       () => {
-        const { idBoard } = this.props;
-        const ROUTE_API = `api/friend/board/${idBoard}`;
+        const { idCard } = this.props;
+        const ROUTE_API = `api/card/${idCard}/member`;
         this._requestSource = api.generateCancelToken();
         api
           .get(ROUTE_API, this._requestSource.token)
@@ -50,8 +48,6 @@ class MembersCard extends React.PureComponent {
             const { data } = response;
             this.setState({
               inviteOption: data.friends,
-              boardMember: data.members,
-              pendingMember: data.pending_member,
               loading: false
             });
           })
@@ -88,12 +84,12 @@ class MembersCard extends React.PureComponent {
   }
 
   handleSubmit = async (values, actions) => {
-    const { idBoard } = this.props;
+    const { idCard } = this.props;
     try {
       this._requestSource = api.generateCancelToken();
-      const response = await apiInvitetoBoard(
+      const response = await apiInvitetoCard(
         values,
-        idBoard,
+        idCard,
         this._requestSource.token
       );
       const { data } = response;
@@ -125,10 +121,7 @@ class MembersCard extends React.PureComponent {
   render() {
     const {
       inviteOption,
-      boardMember,
-      pendingMember,
       initialValues,
-      loading
     } = this.state;
     const popoverContent = (
       <div>

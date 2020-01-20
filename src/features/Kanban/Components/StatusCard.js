@@ -75,20 +75,19 @@ class StatusCard extends React.PureComponent {
   };
 
   handleChangeStatus = async value => {
-    const { dataSource } = this.props;
+    const { cardId } = this.props;
     try {
       this._requestSource = api.generateCancelToken();
-      const url = `/api/card/${dataSource.id}`;
-      const response = await api.post(url, {
+      const url = `/api/card/${cardId}`;
+      const response = await api.put(url, {
         status: value
       });
 
       const { data } = response;
-      // console.log(data);
 
       if (response.status === 200) {
         this.setState({
-          status: data.status
+          status: data.data.status
         });
         this.props.handleReplace({ newActivities: data.data.activity });
       }
@@ -102,13 +101,13 @@ class StatusCard extends React.PureComponent {
 
   render() {
     const { status } = this.state;
-    const { dataSource } = this.props;
+    const { stats } = this.props;
 
     const mappedStatus =
-      status || dataSource.status ? (
+      status || stats ? (
         <React.Fragment>
-          <span className={`${OptStatusClass[status || dataSource.status]}`}>
-            {status || dataSource.status}
+          <span className={`${OptStatusClass[status || stats]}`}>
+            {status || stats}
           </span>
           <i className="icofont-rounded-down ml-2" />
         </React.Fragment>

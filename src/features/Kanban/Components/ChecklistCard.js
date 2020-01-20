@@ -4,8 +4,8 @@ import React from "react";
 import get from "lodash/get";
 import { numberToPercentage } from "../../../provider/Tools/converter";
 import popConfirm from "../../../provider/Display/popConfirm";
-import EditingChecklist from "../Assists/EditingChecklist";
-import EditingTask from "../Assists/EditingTask";
+import EditingCheckGroup from "../Assists/EditingCheckGroup";
+import EditingCheckItem from "../Assists/EditingCheckItem";
 import ChecklistGroupCard from "./ChecklistGroupCard";
 import ChecklistItemCard from "./ChecklistItemCard";
 import api from "../../../provider/Tools/api";
@@ -60,14 +60,17 @@ class ChecklistCard extends React.PureComponent {
   }
 
   renderCheckListGroup({ title, percentage, group }) {
+    const { renameChecklist } = this.props;
     return (
       <React.Fragment>
         <div className="subtask-header">
-          <EditingChecklist
-            initialValue={title}
-            className="subtask-name"
-            // submitChanges={value => this.changeCheckListGroup(group, value)}
-          />
+          <EditingCheckGroup
+           initialValue={title}
+           className="w-100"
+           cardId={group.card_id}
+           checkId={group.id}
+           renameChecklist={renameChecklist}
+         />
           <div className="d-inline-block">
             <button
               type="button"
@@ -96,6 +99,7 @@ class ChecklistCard extends React.PureComponent {
   }
 
   renderCheckListItem(item) {
+    const { renameChildChecklist } = this.props;
     return (
       <div
         className="subtask-item task-hoverable pl-1"
@@ -110,10 +114,13 @@ class ChecklistCard extends React.PureComponent {
           />
           <span className="custom-control-label">&nbsp;</span>
         </label>
-        <EditingTask
+        <EditingCheckItem
           initialValue={item.title}
           className="w-100"
-          // submitChanges={value => this.changeCheckListItem(item, 'name', value)}
+          cardId={item.card_id}
+          checkId={item.id}
+          parentId={item.parent_id}
+          renameChildChecklist={renameChildChecklist}
         />
         <button
           type="button"
@@ -127,12 +134,12 @@ class ChecklistCard extends React.PureComponent {
   }
 
   renderChecklist() {
-    const { dataSource, handleAddChildChecklist } = this.props;
+    const { checks,cardId, handleAddChildChecklist } = this.props;
 
     const renderChecklist =
-      Array.isArray(dataSource.checklists) &&
-      dataSource.checklists.length > 0 ? (
-        dataSource.checklists.map(checklistGroup => {
+      Array.isArray(checks) &&
+      checks.length > 0 ? (
+        checks.map(checklistGroup => {
           const parent_id = checklistGroup.id;
           const completedCheckLists = checklistGroup.childs.filter(item =>
             get(item, "is_checked")
@@ -154,7 +161,7 @@ class ChecklistCard extends React.PureComponent {
               {
                 <ChecklistItemCard
                   parentId={parent_id}
-                  listId={dataSource.id}
+                  listId={cardId}
                   handleAddChildChecklist={handleAddChildChecklist}
                 />
               }
@@ -173,7 +180,7 @@ class ChecklistCard extends React.PureComponent {
   }
 
   render() {
-    const { dataSource, handleAddChecklist } = this.props;
+    const { cardId, handleAddChecklist } = this.props;
     return (
       <React.Fragment>
         <section className="task-detail-group">
@@ -183,7 +190,7 @@ class ChecklistCard extends React.PureComponent {
               <span>Checklist</span>
               <div className="task-detail-options">
                 <ChecklistGroupCard
-                  listId={dataSource.id}
+                  listId={cardId}
                   handleAddChecklist={handleAddChecklist}
                 />
               </div>

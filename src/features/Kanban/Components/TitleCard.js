@@ -27,11 +27,11 @@ class TitleCard extends React.PureComponent {
   };
 
   handleFetchTyping = async value => {
-    const { dataSource } = this.props;
+    const { cardId } = this.props;
     try {
       this._requestSource = api.generateCancelToken();
-      const url = `/api/card/${dataSource.id}`;
-      const response = await api.post(url, {
+      const url = `/api/card/${cardId}`;
+      const response = await api.put(url, {
         title: value
       });
       const { data } = response;
@@ -49,11 +49,11 @@ class TitleCard extends React.PureComponent {
 
   render() {
     const { title } = this.state;
-    const { dataSource } = this.props;
+    const { titles } = this.props;
     return (
       <div className="task-detail-title">
         <EditingTask
-          initialValue={title || dataSource.title}
+          initialValue={title || titles}
           submitChanges={this.onTaskTitleChange}
         />
       </div>

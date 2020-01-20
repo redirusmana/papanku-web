@@ -15,6 +15,11 @@ export const apiInvitetoBoard = (data, id, cancelToken) => {
   return api.post(url, data, cancelToken);
 };
 
+export const apiInvitetoCard = (data, idCard, cancelToken) => {
+  const url = `api/card/${idCard}/member`;
+  return api.post(url, data, cancelToken);
+};
+
 export const apiDeleteList = (url, data, cancelToken) => {
   return api.delete(url, data, cancelToken);
 };

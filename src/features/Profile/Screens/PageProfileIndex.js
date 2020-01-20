@@ -10,6 +10,7 @@ class PageProfileIndex extends React.PureComponent {
     this.state = {};
   }
   render() {
+    console.log(this.props)
     return (
       <React.Fragment>
         <div className="container-fluid">

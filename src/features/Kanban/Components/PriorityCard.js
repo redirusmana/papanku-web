@@ -75,11 +75,11 @@ class PriorityCard extends React.PureComponent {
   };
 
   handleChangePriority = async value => {
-    const { dataSource } = this.props;
+    const { cardId } = this.props;
     try {
       this._requestSource = api.generateCancelToken();
-      const url = `/api/card/${dataSource.id}`;
-      const response = await api.post(url, {
+      const url = `/api/card/${cardId}`;
+      const response = await api.put(url, {
         priority: value
       });
 
@@ -87,7 +87,7 @@ class PriorityCard extends React.PureComponent {
 
       if (response.status === 200) {
         this.setState({
-          priority: data.priority
+          priority: data.data.priority
         });
         this.props.handleReplace({ newActivities: data.data.activity });
       }
@@ -101,15 +101,15 @@ class PriorityCard extends React.PureComponent {
 
   render() {
     const { priority } = this.state;
-    const { dataSource } = this.props;
+    const { prioritys } = this.props;
 
     const mappedPriority =
-      priority || dataSource.priority ? (
+      priority || prioritys ? (
         <React.Fragment>
           <span
-            className={`${OptPriorityClass[priority || dataSource.priority]}`}
+            className={`${OptPriorityClass[priority || prioritys]}`}
           >
-            {priority || dataSource.priority}
+            {priority || prioritys}
           </span>
           <i className="icofont-rounded-down ml-2" />
         </React.Fragment>

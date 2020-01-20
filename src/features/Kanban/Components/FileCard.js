@@ -80,23 +80,15 @@ class FileCard extends React.PureComponent {
 
     this._fileCounter += 1;
 
-    console.log("File has been added", this._fileCounter, mappedFile);
 
     this.setState(
       prevState => ({
         temporaryAttachments: [...prevState.temporaryAttachments, mappedFile]
       }),
       () => {
-        console.log(
-          "Temporary attachments has been set",
-          this._fileCounter,
-          this.state.temporaryAttachments
-        );
+        
         if (this.state.temporaryAttachments.length === this._fileCounter) {
-          console.log(
-            "Total temporary attachments same as this_fileCounter",
-            this._fileCounter
-          );
+          
           this._fileCounter = 0;
           this.uploadFile();
         }
@@ -126,8 +118,6 @@ class FileCard extends React.PureComponent {
     const { cardId } = this.props;
     const formData = new FormData();
 
-    console.log("will upload", temporaryAttachments);
-
     temporaryAttachments.forEach((attachment, i) => {
       formData.append(`attachments[${i}]`, attachment.actualFile);
     });
@@ -139,7 +129,6 @@ class FileCard extends React.PureComponent {
         contentType: "multipart/form-data"
       });
       const { data } = response;
-      // console.log(data.attachment);
       this.props.handleChangeAttachments(data.attachment);
 
       this.setState({

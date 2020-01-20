@@ -1,8 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import TextareaAutosize from "../../../provider/Commons/TextareaAutosize";
+import api from "../../../provider/Tools/api";
+import {
+  axiosError,
+  AXIOS_CANCEL_MESSAGE
+} from "../../../provider/Tools/converter";
 
-class EditingChecklist extends React.PureComponent {
+class EditingChecklistItem extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -58,9 +63,25 @@ class EditingChecklist extends React.PureComponent {
     this.handleSubmit();
   };
 
-  handleSubmit = () => {
+  handleSubmit = async () => {
     const { value } = this.state;
-    this.props.submitChanges(value);
+    const { cardId, checkId, parentId } = this.props;
+    const title = { title: value, parent_id: parentId };
+
+    try {
+      this._requestSource = api.generateCancelToken();
+      const url = `/api/card/${cardId}/checklist/${checkId}`;
+      const { data } = await api.put(url, title);
+      console.log(data)
+      // this.props.renameChildChecklist(data);
+    } catch (e) {
+      const error = axiosError(e);
+      if (error === AXIOS_CANCEL_MESSAGE) {
+        return;
+      }
+      // this.setState({ isSubmitting: false });
+    }
+
     this.toggleEditable();
   };
 
@@ -100,18 +121,25 @@ class EditingChecklist extends React.PureComponent {
   }
 }
 
-EditingChecklist.propTypes = {
+EditingChecklistItem.propTypes = {
+  renameChildChecklist:PropTypes.func,
   submitChanges: PropTypes.func,
   initialValue: PropTypes.string,
   className: PropTypes.string,
-  enterWillSubmit: PropTypes.bool
+  enterWillSubmit: PropTypes.bool,
+  cardId:PropTypes.number,
+  checkId:PropTypes.number,
+  parentId:PropTypes.number
 };
 
-EditingChecklist.defaultProps = {
+EditingChecklistItem.defaultProps = {
   submitChanges: () => {},
   initialValue: "",
   className: "",
-  enterWillSubmit: true
+  enterWillSubmit: true,
+  cardId:0,
+  checkId:0,
+  parentId:0
 };
 
-export default EditingChecklist;
+export default EditingChecklistItem;

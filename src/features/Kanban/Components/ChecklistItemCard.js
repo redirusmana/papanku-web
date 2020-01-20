@@ -90,15 +90,14 @@ class ChecklistItemCard extends React.PureComponent {
       // this.setState({ isSubmitting: false });
     }
 
-    // if (value) {
-    //   this.resetValue();
-    // }
+    if (value) {
+      this.resetValue();
+    }
   };
 
   resetValue = () => {
-    const { initialValue } = this.props;
     this.setState({
-      value: initialValue
+      value: ''
     });
   };
 

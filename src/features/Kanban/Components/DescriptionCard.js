@@ -27,7 +27,7 @@ class DescriptionCard extends React.PureComponent {
 
   toggleEdit = () => {
     const { editable, form } = this.state;
-    const { dataSource } = this.props;
+    const { descriptions } = this.props;
 
     if (!editable) {
       document.addEventListener("click", this.handleClickOutside, false);
@@ -39,7 +39,7 @@ class DescriptionCard extends React.PureComponent {
       editable: !editable,
       form: {
         ...form,
-        description: !editable ? dataSource.description : ""
+        description: !editable ? descriptions: ""
       }
     });
   };
@@ -81,11 +81,11 @@ class DescriptionCard extends React.PureComponent {
 
   submitDescription = async () => {
     const { form } = this.state;
-    const { dataSource } = this.props;
+    const { cardId } = this.props;
     try {
       this._requestSource = api.generateCancelToken();
-      const url = `/api/card/${dataSource.id}`;
-      const response = await api.post(url, form);
+      const url = `/api/card/${cardId}`;
+      const response = await api.put(url, form);
       const { data } = response;
       if (response.status === 200) {
         this.props.handleReplaceDesc(data.data.description);
@@ -112,7 +112,7 @@ class DescriptionCard extends React.PureComponent {
 
   renderDescription = () => {
     const { editable, form, isSubmitting } = this.state;
-    const { dataSource } = this.props;
+    const { descriptions } = this.props;
 
     const placeholder = "Add description to this task...";
 
@@ -151,7 +151,7 @@ class DescriptionCard extends React.PureComponent {
       );
     }
 
-    if (!dataSource.description) {
+    if (!descriptions) {
       return (
         <div
           role="button"
@@ -171,7 +171,7 @@ class DescriptionCard extends React.PureComponent {
         className="d-block text-body mb-0"
         onFocus={this.toggleEdit}
       >
-        {dataSource.description.split("\n").map((item, key) => (
+        {descriptions.split("\n").map((item, key) => (
           <React.Fragment key={key}>
             {item}
             <br />

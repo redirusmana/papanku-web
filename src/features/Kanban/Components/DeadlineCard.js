@@ -24,17 +24,18 @@ class DeadlineCard extends React.PureComponent {
   };
 
   handleChangeDueDate = async value => {
-    const { dataSource } = this.props;
+    const { cardId } = this.props;
     try {
       this._requestSource = api.generateCancelToken();
-      const url = `/api/card/${dataSource.id}`;
-      const response = await api.post(url, {
+      const url = `/api/card/${cardId}`;
+      const response = await api.put(url, {
         due_date: value
       });
       const { data } = response;
+      console.log(data)
       if (response.status === 200) {
         this.setState({
-          due_date: data.due_date
+          due_date: data.data.due_date
         });
         this.props.handleReplace({ newActivities: data.data.activity });
       }
@@ -48,7 +49,7 @@ class DeadlineCard extends React.PureComponent {
 
   render() {
     const { due_date } = this.state;
-    const { dataSource } = this.props;
+    const { due_dates } = this.props;
     return (
       <div className="task-detail-tag">
         <p className="mb-0">Due Date</p>
@@ -62,8 +63,8 @@ class DeadlineCard extends React.PureComponent {
               placeholder="Deadline for this task"
               isBlockAfterToday={false}
               defaultValue={
-                dataSource.due_date
-                  ? moment(due_date) || moment(dataSource.due_date)
+                due_dates
+                  ? moment(due_dates) || moment(due_date)  
                   : undefined
               }
               // defaultValue={moment(due_date) || moment(dataSource.due_date)}
@@ -76,7 +77,7 @@ class DeadlineCard extends React.PureComponent {
 }
 
 DeadlineCard.defaultProps = {
-  dataSource: {}
+  due_dates: undefined
 };
 
 export default DeadlineCard;
