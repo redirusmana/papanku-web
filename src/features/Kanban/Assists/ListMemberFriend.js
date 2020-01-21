@@ -21,7 +21,8 @@ class ListMemberFriend extends React.PureComponent {
                 <Popover
                   title="Profile Member"
                   trigger="click"
-                  content={<ProfileMember results={get(result, "user")} />}
+                  content={<ProfileMember results={result} />}
+                  // content={<ProfileMember results={get(result, "user")} />}
                   placement="bottomLeft"
                   overlayClassName="xl popover-no-padding"
                 >

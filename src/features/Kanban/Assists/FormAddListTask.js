@@ -171,7 +171,7 @@ class FormAddListTask extends React.PureComponent {
           <TextareaAutosize
             value={form.title}
             inputClassName="border-0 outline-none"
-            placeholder="Enter a title for this task"
+            placeholder="Enter a title for this Card"
             autoFocus={formVisible}
             onTextChange={this.onTaskTitleChange}
             onKeyPress={this.onTaskTitleKeyPress}
@@ -192,7 +192,7 @@ class FormAddListTask extends React.PureComponent {
                 </React.Fragment>
               ) : (
                 <React.Fragment>
-                  <i className="icofont-save" /> Submit Task
+                  <i className="icofont-save" /> Submit Card
                 </React.Fragment>
               )}
             </button>

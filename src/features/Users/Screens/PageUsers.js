@@ -1,40 +1,37 @@
 import React from "react";
-import { connect } from "react-redux";
 import { Route, Switch, NavLink } from "react-router-dom";
 import ListFriends from "../Components/ListFriends";
-import ListFriendsRequest from "../Components/ListFriendsRequest";
-import ListBoards from "../Components/ListBoards";
+import ListBoard from "../Components/ListBoard";
 import ListActivity from "../Components/ListActivity";
 import "../Style/style.css";
 
-class PageProfile extends React.PureComponent {
+class PageUsers extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {};
   }
 
   render() {
+    const { dataSource, match } = this.props;
     return (
       <React.Fragment>
         <div className="fb-profile-block-menu mb-3">
           <div className="row block-menu">
-            {1 === 2 && (
-              <div className="col-lg-6 px-0 navs">
-                <NavLink
-                  className="text-primary h-100 d-block"
-                  activeClassName="text-primary active"
-                  to="/user"
-                  exact
-                >
-                  <i className="icofont-home text-primary" />
-                </NavLink>
-              </div>
-            )}
             <div className="col-lg-6 px-0 navs">
               <NavLink
                 className="text-primary h-100 d-block"
                 activeClassName="text-primary active"
-                to="/user"
+                to="/user/friend"
+                exact
+              >
+                <i className="icofont-home text-primary" />
+              </NavLink>
+            </div>
+            <div className="col-lg-6 px-0 navs">
+              <NavLink
+                className="text-primary h-100 d-block"
+                activeClassName="text-primary active"
+                to={`/users/${match.params.email}`}
                 exact
               >
                 Board
@@ -44,7 +41,7 @@ class PageProfile extends React.PureComponent {
               <NavLink
                 className="text-primary h-100 d-block"
                 activeClassName="text-primary active"
-                to="/user/activity"
+                to={`/users/${match.params.email}/activity`}
                 exact
               >
                 Activity
@@ -54,18 +51,9 @@ class PageProfile extends React.PureComponent {
               <NavLink
                 className="text-primary h-100 d-block"
                 activeClassName="text-primary active"
-                to="/user/friend"
+                to={`/users/${match.params.email}/friend`}
               >
                 Friend
-              </NavLink>
-            </div>
-            <div className="col-lg-6 px-0 navs ">
-              <NavLink
-                className="text-primary h-100 d-block"
-                activeClassName="text-primary active"
-                to="/user/request-friend"
-              >
-                Friend Request
               </NavLink>
             </div>
           </div>
@@ -73,22 +61,25 @@ class PageProfile extends React.PureComponent {
         <div className="row">
           <Switch>
             <Route
-              path="/user"
+              path={`/users/${match.params.email}`}
               exact
-              render={routeProps => <ListBoards {...routeProps} />}
+              render={routeProps => (
+                <ListBoard {...routeProps} dataSource={dataSource} />
+              )}
             />
             <Route
-              path="/user/activity"
+              path={`/users/${match.params.email}/activity`}
               exact
-              render={routeProps => <ListActivity {...routeProps} />}
+              render={routeProps => (
+                <ListActivity {...routeProps} email={match.params.email} />
+              )}
             />
             <Route
-              path="/user/friend"
-              render={routeProps => <ListFriends {...routeProps} />}
-            />
-            <Route
-              path="/user/request-friend"
-              render={routeProps => <ListFriendsRequest {...routeProps} />}
+              path={`/users/${match.params.email}/friend`}
+              exact
+              render={routeProps => (
+                <ListFriends {...routeProps} dataSource={dataSource} />
+              )}
             />
           </Switch>
         </div>
@@ -97,7 +88,4 @@ class PageProfile extends React.PureComponent {
   }
 }
 
-const mapStateToProps = store => ({
-  user: store.auth.user
-});
-export default connect(mapStateToProps)(PageProfile);
+export default PageUsers;

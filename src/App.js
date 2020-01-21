@@ -5,6 +5,7 @@ import LoadingPage from "./provider/Display/LoadingPage";
 import PageLogin from "./features/Auth/Screens/PageLogin";
 import PageRegister from "./features/Auth/Screens/PageRegister";
 import PageProfileIndex from "./features/Profile/Screens/PageProfileIndex";
+import PageUsersIndex from "./features/Users/Screens/PageUsersIndex";
 import LandingPage from "./features/Landing/Screens/LandingPage";
 // import MercusuarPage from "./features/Landing/Screens/MercusuarPage";
 import KanbanPageIndex from "./features/Kanban/Screens/KanbanPageIndex";
@@ -73,7 +74,7 @@ class App extends React.PureComponent {
           <RouteGuard path="/register" exact component={PageRegister} />
 
           <RoutePrivate path="/user" component={PageProfileIndex} />
-          <RoutePrivate path="/user/:email" component={PageProfileIndex} />
+          <RoutePrivate path="/users/:email" component={PageUsersIndex} />
           <RoutePrivate path="/board/:id" component={KanbanPageIndex} />
         </Switch>
       </React.Fragment>

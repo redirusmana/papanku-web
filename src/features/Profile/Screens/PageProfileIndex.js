@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import PageProfileInfo from './PageProfileInfo';
-import PageProfile from './PageProfile';
+import PageProfileInfo from "./PageProfileInfo";
+import PageProfile from "./PageProfile";
 import "../Style/style.css";
 
 class PageProfileIndex extends React.PureComponent {
@@ -10,7 +10,6 @@ class PageProfileIndex extends React.PureComponent {
     this.state = {};
   }
   render() {
-    console.log(this.props)
     return (
       <React.Fragment>
         <div className="container-fluid">
@@ -21,7 +20,7 @@ class PageProfileIndex extends React.PureComponent {
             <div className="col-lg-18">
               <PageProfile />
             </div>
-           </div>              
+          </div>
         </div>
       </React.Fragment>
     );
@@ -31,6 +30,5 @@ class PageProfileIndex extends React.PureComponent {
 const mapStateToProps = store => ({
   user: store.auth.user
 });
-
 
 export default connect(mapStateToProps)(PageProfileIndex);

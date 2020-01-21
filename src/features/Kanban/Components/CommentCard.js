@@ -64,21 +64,20 @@ class CommentCard extends React.PureComponent {
 
   submitComment = async () => {
     const { content } = this.state;
-    const { dataSource } = this.props;
-    const body = content;
-    const newBody = { body };
+    const { cardId } = this.props;
+    console.log(this.props);
+    const newBody = { body: content };
 
     try {
       this._requestSource = api.generateCancelToken();
       const response = await storeComment(
         newBody,
-        dataSource.id,
+        cardId,
         this._requestSource.token
       );
       const { data } = response;
-      // console.log(data);
       if (response.status === 200) {
-        // this.props.handleReplace({ newActivities: data.data.activities });
+        this.props.handleReplace({ newActivities: data.activities });
         this.setState({
           content: "",
           loading: false

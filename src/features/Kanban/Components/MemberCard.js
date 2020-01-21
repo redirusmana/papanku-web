@@ -39,8 +39,8 @@ class MembersCard extends React.PureComponent {
         loading: true
       },
       () => {
-        const { idCard } = this.props;
-        const ROUTE_API = `api/card/${idCard}/member`;
+        const { cardId } = this.props;
+        const ROUTE_API = `api/card/${cardId}/member`;
         this._requestSource = api.generateCancelToken();
         api
           .get(ROUTE_API, this._requestSource.token)
@@ -57,19 +57,18 @@ class MembersCard extends React.PureComponent {
   };
 
   renderMembers() {
-    const { dataSource } = this.props;
+    const { members } = this.props;
     return (
       <div className="avatar-list">
-        {Array.isArray(get(dataSource, "members")) &&
-        get(dataSource, "members").length > 0 ? (
-          get(dataSource, "members").map(result => (
-            <React.Fragment>
+        {Array.isArray(members) && members.length > 0 ? (
+          members.map(result => (
+            <React.Fragment key="list-member-on/in-card-${result.id}-${result.user_id">
               <Avatar
-                name={result.name}
-                title={result.name}
+                name={get(result, "user.name")}
+                title={get(result, "user.name")}
                 image={
-                  result.avatar_path
-                    ? assetsApiUrl(result.avatar_path)
+                  get(result, "user.avatar_path")
+                    ? assetsApiUrl(get(result, "user.avatar_path"))
                     : undefined
                 }
                 size="md"
@@ -77,7 +76,9 @@ class MembersCard extends React.PureComponent {
             </React.Fragment>
           ))
         ) : (
-          <React.Fragment></React.Fragment>
+          <React.Fragment>
+            <em>No Member found</em>;
+          </React.Fragment>
         )}
       </div>
     );
@@ -119,10 +120,7 @@ class MembersCard extends React.PureComponent {
   };
 
   render() {
-    const {
-      inviteOption,
-      initialValues,
-    } = this.state;
+    const { inviteOption, initialValues } = this.state;
     const popoverContent = (
       <div>
         <div style={{ minWidth: 250 }}>

@@ -66,7 +66,7 @@ class EditingCheckGroup extends React.PureComponent {
   handleSubmit = async () => {
     const { value } = this.state;
     const { cardId, checkId } = this.props;
-    const title = { title: value};
+    const title = { title: value };
 
     try {
       this._requestSource = api.generateCancelToken();
@@ -122,24 +122,24 @@ class EditingCheckGroup extends React.PureComponent {
 }
 
 EditingCheckGroup.propTypes = {
-  renameChildChecklist:PropTypes.func,
+  // renameChildChecklist:PropTypes.func,
   submitChanges: PropTypes.func,
   initialValue: PropTypes.string,
   className: PropTypes.string,
-  enterWillSubmit: PropTypes.bool,
-  cardId:PropTypes.number,
-  checkId:PropTypes.number,
-  parentId:PropTypes.number
+  enterWillSubmit: PropTypes.bool
+  // cardId:PropTypes.number,
+  // checkId:PropTypes.number,
+  // parentId:PropTypes.number
 };
 
 EditingCheckGroup.defaultProps = {
   submitChanges: () => {},
   initialValue: "",
   className: "",
-  enterWillSubmit: true,
-  cardId:0,
-  checkId:0,
-  parentId:0
+  enterWillSubmit: true
+  // cardId:0,
+  // checkId:0,
+  // parentId:0
 };
 
 export default EditingCheckGroup;

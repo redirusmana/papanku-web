@@ -181,21 +181,32 @@ class CardPage extends React.PureComponent {
 
   renameChildChecklist = newCheck => {
     this.setState(prevState => {
-      const newList = prevState.dataSources.checklists.map(list => {
-        if (list.id === newCheck.parent_id) {
+      const newList = prevState.dataSources.checklists.find(
+        list => list.id === newCheck.parent_id
+      );
+      const newChecks = newList.childs.map(li => {
+        if (newCheck.id === li.id) {
           return {
-            ...list,
-              childs: [
-                newCheck
-              ]
+            ...li,
+            ...newCheck
           };
         }
-        return list;
+        return li;
       });
+
+      const newChecklists = prevState.dataSources.checklists.map(checklist => {
+        if (checklist.id !== newCheck.parent_id) return checklist;
+
+        return {
+          ...checklist,
+          childs: [...newChecks]
+        };
+      });
+
       return {
         dataSources: {
           ...prevState.dataSources,
-          checklists: newList
+          checklists: newChecklists
         }
       };
     });
@@ -236,7 +247,6 @@ class CardPage extends React.PureComponent {
     });
   };
 
-
   handleChangeAttachments = newAttachments => {
     this.setState(prevState => {
       const result = {
@@ -265,7 +275,7 @@ class CardPage extends React.PureComponent {
 
   renderCard() {
     const { loading, dataSources } = this.state;
-    const { loadingProps,match } = this.props;
+    const { loadingProps, match } = this.props;
     if (loadingProps || loading) {
       return (
         <div className="task-detail">
@@ -303,18 +313,18 @@ class CardPage extends React.PureComponent {
                 </div>
                 <div className="task-detail-tags">
                   <StatusCard
-                  cardId={dataSources.id}
-                  stats={dataSources.status}
+                    cardId={dataSources.id}
+                    stats={dataSources.status}
                     handleReplace={this.handleReplaceActivities}
                   />
                   <PriorityCard
-                  cardId={dataSources.id}
-                  prioritys={dataSources.priority}
+                    cardId={dataSources.id}
+                    prioritys={dataSources.priority}
                     handleReplace={this.handleReplaceActivities}
                   />
                   <DeadlineCard
-                  cardId={dataSources.id}
-                  due_dates={dataSources.due_date}
+                    cardId={dataSources.id}
+                    due_dates={dataSources.due_date}
                     handleReplace={this.handleReplaceActivities}
                   />
                 </div>
@@ -355,13 +365,14 @@ class CardPage extends React.PureComponent {
             />
           </div>
           <div className="task-detail-footer">
-            <MemberCard dataSource={dataSources} idCard={match.params.id} />
+            <MemberCard members={dataSources.members} cardId={dataSources.id} />
           </div>
         </div>
         <div className="task-detail-aside">
           <ActivityCard dataSource={dataSources} />
           <CommentCard
-            dataSource={dataSources}
+            cardId={dataSources.id}
+            comments={dataSources.comments}
             handleReplace={this.handleReplaceActivities}
           />
         </div>

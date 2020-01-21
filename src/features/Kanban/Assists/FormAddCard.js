@@ -97,7 +97,7 @@ class FormAddCard extends React.PureComponent {
         <form onSubmit={this.handleSubmit} className="kanban-column-header">
           <div className="form-group">
             <TextareaAutosize
-              placeholder="Enter Card title"
+              placeholder="Enter List title"
               inputClassName="form-control"
               value={title}
               onTextChange={this.handleTitleChange}

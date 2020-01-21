@@ -202,7 +202,11 @@ class ListFriends extends React.PureComponent {
                       avatarClass="avatar-link mb-1"
                     />
                     <h4 className="card-title text-center pt-2">
-                      {get(result, "requester.name")}
+                      <b className="text-dark">
+                        {get(result, "requester.name")}
+                      </b>
+                      <br />
+                      {get(result, "requester.username")}
                     </h4>
                     <button
                       onClick={() => this.onAccept(result.id)}

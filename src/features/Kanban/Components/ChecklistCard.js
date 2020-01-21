@@ -65,12 +65,12 @@ class ChecklistCard extends React.PureComponent {
       <React.Fragment>
         <div className="subtask-header">
           <EditingCheckGroup
-           initialValue={title}
-           className="w-100"
-           cardId={group.card_id}
-           checkId={group.id}
-           renameChecklist={renameChecklist}
-         />
+            initialValue={title}
+            className="w-100"
+            cardId={group.card_id}
+            checkId={group.id}
+            renameChecklist={renameChecklist}
+          />
           <div className="d-inline-block">
             <button
               type="button"
@@ -98,6 +98,22 @@ class ChecklistCard extends React.PureComponent {
     );
   }
 
+  changeCheckListItem = async (item, e) => {
+    const { cardId } = this.props;
+    const title = { is_checked: e, parent_id: item.parent_id };
+    try {
+      this._requestSource = api.generateCancelToken();
+      const url = `/api/card/${cardId}/checklist/${item.id}`;
+      const { data } = await api.put(url, title);
+      this.props.renameChildChecklist(data);
+    } catch (e) {
+      const error = axiosError(e);
+      if (error === AXIOS_CANCEL_MESSAGE) {
+        return;
+      }
+    }
+  };
+
   renderCheckListItem(item) {
     const { renameChildChecklist } = this.props;
     return (
@@ -110,7 +126,9 @@ class ChecklistCard extends React.PureComponent {
             type="checkbox"
             className="custom-control-input"
             defaultChecked={item.is_checked}
-            // onChange={e => this.changeCheckListItem(item, 'isComplete', e.currentTarget.checked)}
+            onChange={e =>
+              this.changeCheckListItem(item, e.currentTarget.checked)
+            }
           />
           <span className="custom-control-label">&nbsp;</span>
         </label>
@@ -134,11 +152,10 @@ class ChecklistCard extends React.PureComponent {
   }
 
   renderChecklist() {
-    const { checks,cardId, handleAddChildChecklist } = this.props;
+    const { checks, cardId, handleAddChildChecklist } = this.props;
 
     const renderChecklist =
-      Array.isArray(checks) &&
-      checks.length > 0 ? (
+      Array.isArray(checks) && checks.length > 0 ? (
         checks.map(checklistGroup => {
           const parent_id = checklistGroup.id;
           const completedCheckLists = checklistGroup.childs.filter(item =>

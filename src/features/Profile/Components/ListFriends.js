@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import ListSearch from "./ListSearch";
 import Modal from "../../../provider/Display/Modal";
 import Avatar from "../../../provider/Display/Avatar";
@@ -139,14 +140,17 @@ class ListFriends extends React.PureComponent {
                         avatarClass="avatar-link mb-1"
                       />
                       <h4 className="card-title text-center pt-2">
-                        {result.name}
+                        <b className="text-dark">{result.name}</b>
+                        <br />
+                        {result.username}
                       </h4>
-                      <button
+                      <Link
+                        to={`/users/${result.email}`}
                         type="button"
                         className="btn rounded-pill btn-primary mr-1"
                       >
                         <i className="font-weight-normal icofont-info-circle" />
-                      </button>
+                      </Link>
                       <button
                         type="button"
                         onClick={() =>
@@ -180,7 +184,7 @@ class ListFriends extends React.PureComponent {
                   <br /> Add Friend
                 </h4>
               </div>
-              <div className="text-center">
+              <div className="text-center pt-4">
                 <button
                   type="button"
                   onClick={() => this.handleModal()}

@@ -59,9 +59,7 @@ class ActivityCard extends React.PureComponent {
             }
 
             return (
-              <React.Fragment
-                key={`list-activity-on-card-${result.historiable_id}-${result.id}`}
-              >
+              <React.Fragment key={`list-activity-on-card-${result.id}`}>
                 <div className="media task-detail-activity">
                   <Avatar
                     name={get(result, "user.name")}

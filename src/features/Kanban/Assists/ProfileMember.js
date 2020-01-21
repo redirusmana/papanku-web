@@ -11,7 +11,7 @@ class ProfileMember extends React.PureComponent {
   }
   render() {
     const { results } = this.props;
-    const disable = get(results, "role.name") === "admin";
+    const hasAdmin = get(results, "role.name") === "admin";
     return (
       <React.Fragment>
         <div className="media">
@@ -41,7 +41,7 @@ class ProfileMember extends React.PureComponent {
               <div className="pl-1">
                 <small>
                   <b className="font-weight-bold">
-                    {get(results, "user.name")}
+                    {get(results, "user.username")}
                   </b>
                 </small>
               </div>
@@ -58,13 +58,14 @@ class ProfileMember extends React.PureComponent {
           >
             Views Activity
           </Link>
-          <div
-            // onClick={()=> this.handleRemove()}
-            className="p-2 pointer hovered-button-popover text-dark"
-            disabled={disable}
-          >
-            Remove From Board..
-          </div>
+          {hasAdmin && (
+            <div
+              // onClick={()=> this.handleRemove()}
+              className="p-2 pointer hovered-button-popover text-dark"
+            >
+              Remove From Board..
+            </div>
+          )}
         </div>
       </React.Fragment>
     );

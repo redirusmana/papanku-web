@@ -72,8 +72,8 @@ class EditingChecklistItem extends React.PureComponent {
       this._requestSource = api.generateCancelToken();
       const url = `/api/card/${cardId}/checklist/${checkId}`;
       const { data } = await api.put(url, title);
-      console.log(data)
-      // this.props.renameChildChecklist(data);
+      // console.log(data)
+      this.props.renameChildChecklist(data);
     } catch (e) {
       const error = axiosError(e);
       if (error === AXIOS_CANCEL_MESSAGE) {
@@ -122,24 +122,24 @@ class EditingChecklistItem extends React.PureComponent {
 }
 
 EditingChecklistItem.propTypes = {
-  renameChildChecklist:PropTypes.func,
+  // renameChildChecklist: PropTypes.func,
   submitChanges: PropTypes.func,
   initialValue: PropTypes.string,
   className: PropTypes.string,
-  enterWillSubmit: PropTypes.bool,
-  cardId:PropTypes.number,
-  checkId:PropTypes.number,
-  parentId:PropTypes.number
+  enterWillSubmit: PropTypes.bool
+  // cardId: PropTypes.number,
+  // checkId: PropTypes.number,
+  // parentId: PropTypes.number
 };
 
 EditingChecklistItem.defaultProps = {
   submitChanges: () => {},
   initialValue: "",
   className: "",
-  enterWillSubmit: true,
-  cardId:0,
-  checkId:0,
-  parentId:0
+  enterWillSubmit: true
+  // cardId: 0,
+  // checkId: 0,
+  // parentId: 0
 };
 
 export default EditingChecklistItem;
