@@ -32,8 +32,9 @@ class ChecklistCardGroup extends React.PureComponent {
       const url = `/api/card/${listId}/checklist`;
       const { data } = await api.post(url, title);
 
-      console.log(data);
-      this.props.handleAddChecklist(data.data);
+      const {activity,...allValues} = data.data;
+      this.props.handleReplace({newActivities:activity});
+      this.props.handleAddChecklist(allValues);
 
       // this.setState({ isSubmitting: false });
     } catch (e) {
@@ -90,7 +91,7 @@ class ChecklistCardGroup extends React.PureComponent {
       <form onSubmit={this.onFormSubmit} style={{ minWidth: 300 }}>
         <div className="form-group">
           <label htmlFor="task-new-checklist-group" className="form-label">
-            Name
+             Checklist Group
           </label>
           <input
             id="task-new-checklist-group"
@@ -103,7 +104,7 @@ class ChecklistCardGroup extends React.PureComponent {
           />
         </div>
         <div className="text-left">
-          <button type="submit" className="btn btn-primary btn-sm">
+          <button type="submit" className="btn btn-primary btn-sm" disabled={!value}>
             <i className="icofont-plus" /> Create
           </button>
         </div>

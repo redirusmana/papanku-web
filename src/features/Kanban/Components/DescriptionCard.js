@@ -62,7 +62,14 @@ class DescriptionCard extends React.PureComponent {
         isSubmitting: true
       },
       () => {
-        this.submitDescription();
+        const { form } = this.state;
+        if(!!form.description){
+          this.submitDescription()
+        }else{
+        this.setState({
+          isSubmitting:false
+        })
+        }
       }
     );
   };

@@ -114,7 +114,7 @@ class ListBoard extends React.PureComponent {
 
   onDecline = id => {
     popConfirm({
-      title: `Are you sure to cancel Friend Request?`,
+      title: `Are you sure to cancel Request invited Board?`,
       message: "Board will deleted on List Board",
       okText: " Yes",
       okType: "danger",
@@ -125,6 +125,48 @@ class ListBoard extends React.PureComponent {
           this._requestSource = api.generateCancelToken();
           const response = await apiDeclineFriend(
             `/api/board/delete/${id}`,
+            this._requestSource.token
+          );
+          const { data } = response;
+
+          if (response.status === 200) {
+            alertFloat({
+              type: "success",
+              content: data.message
+            });
+            this.setState({
+              dataSources: data.data,
+              loading: false
+            });
+          }
+        } catch (e) {
+          const error = axiosError(e);
+          if (error === AXIOS_CANCEL_MESSAGE) {
+            return;
+          }
+          alertFloat({
+            type: "error",
+            content: error
+          });
+        }
+        this.onLoadChange(false);
+      }
+    });
+  };
+
+  onDelete = id => {
+    popConfirm({
+      title: `Are you sure to cancel delete this Board?`,
+      message: "Board will deleted on List Board",
+      okText: " Yes",
+      okType: "danger",
+      cancelText: " No",
+      onOkay: async () => {
+        try {
+          this.onLoadChange(true);
+          this._requestSource = api.generateCancelToken();
+          const response = await apiDeclineFriend(
+            `/api/board/${id}/delete`,
             this._requestSource.token
           );
           const { data } = response;
@@ -186,6 +228,13 @@ class ListBoard extends React.PureComponent {
                     >
                       Board
                     </Link>
+                    <button
+                    onClick={() => this.onDelete(result.id)}
+                    type="button"
+                    className="btn btn-sm rounded-pill btn-danger ml-1" //primary
+                  >
+                    Delete
+                  </button>
                   </div>
                 </div>
               </div>

@@ -33,14 +33,17 @@ class ChecklistItemCard extends React.PureComponent {
     const enterWillSubmit = true;
     if (e.key === "Enter" && enterWillSubmit) {
       e.preventDefault();
-      this.handleSubmit();
+      if(!!this.state.value){
+        this.handleSubmit();
+      }
     }
   };
 
   onFormSubmit = e => {
     e.preventDefault();
-
-    this.handleSubmit();
+    if(!!this.state.value){
+      this.handleSubmit();
+    }
   };
 
   handleClickOutside = e => {
@@ -81,7 +84,9 @@ class ChecklistItemCard extends React.PureComponent {
       const url = `/api/card/${listId}/checklist`;
       const { data } = await api.post(url, title);
 
-      this.props.handleAddChildChecklist(data.data);
+      const {activity,...allValues} = data.data;
+      this.props.handleReplace({newActivities:activity});
+      this.props.handleAddChildChecklist(allValues);
     } catch (e) {
       const error = axiosError(e);
       if (error === AXIOS_CANCEL_MESSAGE) {
@@ -120,7 +125,7 @@ class ChecklistItemCard extends React.PureComponent {
           autoFocus={editable}
           placeholder={DEFAULT_PLACEHOLDER}
         />
-        <button type="submit" className="btn btn-sm btn-primary mt-2">
+        <button type="submit" className="btn btn-sm btn-primary mt-2" disabled={!value}>
           Add
         </button>
       </form>

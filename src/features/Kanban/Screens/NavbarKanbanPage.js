@@ -89,8 +89,8 @@ class NavbarKanbanPage extends React.PureComponent {
     const listMemberLength =
       Array.isArray(get(dataSources, "members")) &&
       get(dataSources, "members").length > 0
-        ? get(dataSources, "members").length
-        : 0;
+        ? get(dataSources, "members").length > 5 && <Avatar size="sm" name={get(dataSources, "members").length - 5} />
+        : null;
 
     return (
       <React.Fragment>
@@ -196,7 +196,7 @@ class NavbarKanbanPage extends React.PureComponent {
                   overlayClassName="lg"
                 >
                   <div>
-                    <Avatar name={listMemberLength} size="sm" />
+                    {listMemberLength}
                   </div>
                 </Popover>
                 <button

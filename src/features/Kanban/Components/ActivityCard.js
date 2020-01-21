@@ -1,6 +1,7 @@
 import React from "react";
 import get from "lodash/get";
 import Avatar from "../../../provider/Display/Avatar";
+import FileIcon from "../../../provider/Display/FileIcon";
 import { dateFromNowString } from "../../../provider/Tools/converter";
 import { assetsApiUrl } from "../../../provider/Tools/general";
 import moment from "moment";
@@ -99,6 +100,42 @@ class ActivityCard extends React.PureComponent {
                             {result.event} <b>{get(result, "after.title")}</b>{" "}
                             {/* Checklist */}
                           </small>
+                        )}
+
+                        {result.event === 'has added' && (
+                          <React.Fragment>
+                            {result.attribute === "attachment" && (
+                              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                              <small>New Attachments :</small>
+                              {get(result,'after.attachment').map(attach => {
+                                return (
+                                  <div
+                                    style={{ display: 'flex', margin: 5 }}
+                                    key={`list-attach-card-${attach.owner_id}-${attach.id}`}
+                                  >
+                                    <FileIcon fileName={attach.filename} title={attach.filename} size="sm" />
+                                    <b style={{ textAlgin: 'left', margin: 'auto 0',fontSize:12 }}>{attach.filename}</b>
+                                  </div>
+                                )
+                              })}
+                            </div>
+                            )}
+
+                            {result.attribute === "member" && (
+                              <div style={{ display: 'flex' }}>
+                              {get(result,'after').map(member => (
+                                <Avatar
+                                  size="sm"
+                                  name={member.name}
+                                  title={member.name}
+                                  image={member.avatar_path ? assetsApiUrl(member.avatar_path) : undefined} 
+                                  avatarClass="avatar-link m-1"
+                                  key={`list-member-card-${member.id}-${member.role}`}
+                                />
+                              ))}
+                            </div>
+                            )}
+                          </React.Fragment>
                         )}
 
                         {result.event === "has updated card" && (
@@ -269,6 +306,47 @@ class ActivityCard extends React.PureComponent {
                                 )}
                             </div>
                           </React.Fragment>
+                        )}
+
+                        {result.event === "updated checklist" && (
+                          <React.Fragment>
+                            <div>
+                              {get(result, "after.is_checked") === true && (
+                                  <div>
+                                    <small>
+                                      Checked Checklist {" "}
+                                      <b className="pt-2">
+                                        {get(result, "after.attribute.title")}
+                                      </b>
+                                      <br />
+                                    </small>
+                                  </div>
+                                )}
+                                {get(result, "before.is_checked")  === true && (
+                                  <div>
+                                    <small>
+                                      unChecked Checklist {" "}
+                                      <b className="pt-2">
+                                        {get(result, "after.attribute.title")}
+                                      </b>
+                                      <br />
+                                    </small>
+                                  </div>
+                                )}
+                                </div>
+                          </React.Fragment>
+                        )}
+
+                        {result.event === "has deleted" && (
+                          <small>
+                            {result.event} {result.attribute} <b>{get(result, "before.title")}</b>{" "}
+                            {result.attribute === 'attachment' && <div
+                                  style={{ display: 'flex', margin: 5 }}
+                                >
+                                  <FileIcon fileName={get(result,'before.filename')} title={get(result,'before.filename')} size="sm" />
+                                  <b style={{ textAlgin: 'left', margin: 'auto 0',fontSize:12 }}>{get(result,'before.filename')}</b>
+                                </div>}
+                          </small>
                         )}
 
                         {result.event === "has commented" && (

@@ -26,7 +26,8 @@ class ListBoard extends React.PureComponent {
       get(dataSource, "boards").length > 0 ? (
         get(dataSource, "boards").map(result => (
           <React.Fragment key={`list-board-${result.id}`}>
-            <div className="col-lg-8 mb-3">
+            {result.visibility === 'public' && (
+              <div className="col-lg-8 mb-3">
               <div className="card ">
                 <div className="card-body">
                   <p className="card-title">{result.title}</p>
@@ -36,7 +37,8 @@ class ListBoard extends React.PureComponent {
                     </small>
                   </p>
                 </div>
-                <div className="card-footer text-right py-2">
+                <div className="card-footer text-left py-2">
+                {result.created_by}
                   {/* <Link
                     to={`/board/${result.id}`}
                     className="btn btn-sm btn-primary font-weight-bold "
@@ -46,6 +48,7 @@ class ListBoard extends React.PureComponent {
                 </div>
               </div>
             </div>
+            )}
           </React.Fragment>
         ))
       ) : (

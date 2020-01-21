@@ -56,8 +56,7 @@ class FileCard extends React.PureComponent {
           });
           const { data } = response;
           this.props.deleteAttachments(data.attachment);
-          if (response.status === 200) {
-          }
+          this.props.handleReplace({newActivities:data.activity});
         } catch (e) {
           const error = axiosError(e);
           if (error === AXIOS_CANCEL_MESSAGE) {
@@ -94,22 +93,6 @@ class FileCard extends React.PureComponent {
         }
       }
     );
-
-    // const mappedFileList = fileList.map(file => ({
-    //   id: get(file, "id") || get(file, "uid"),
-    //   name: file.name,
-    //   size: file.size,
-    //   actualFile: file
-    // }));
-
-    // this.setState(
-    //   {
-    //     temporaryAttachments: mappedFileList
-    //   },
-    //   () => {
-    //     this.uploadFile();
-    //   }
-    // );
   };
 
   uploadFile = async () => {
@@ -130,6 +113,7 @@ class FileCard extends React.PureComponent {
       });
       const { data } = response;
       this.props.handleChangeAttachments(data.attachment);
+      this.props.handleReplace({newActivities:data.activity});
 
       this.setState({
         temporaryAttachments: []

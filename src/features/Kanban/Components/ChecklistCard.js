@@ -26,7 +26,9 @@ class ChecklistCard extends React.PureComponent {
       this._requestSource = api.generateCancelToken();
       const url = `/api/card/${item.card_id}/checklist/${item.id}`;
       const { data } = await api.delete(url);
-      this.props.deleteChildChecklists(data.data);
+      const {activity,depends,...allValues} = data.data;
+      this.props.handleReplace({newActivities:activity});
+      this.props.deleteChildChecklists(allValues);
     } catch (e) {
       const error = axiosError(e);
       if (error === AXIOS_CANCEL_MESSAGE) {
@@ -46,7 +48,11 @@ class ChecklistCard extends React.PureComponent {
           this._requestSource = api.generateCancelToken();
           const url = `/api/card/${group.card_id}/checklist/${group.id}`;
           const { data } = await api.delete(url);
-          this.props.deleteChecklists(data.data);
+          
+          const {activity,depends,...allValues} = data.data;
+          this.props.handleReplace({newActivities:activity});
+          this.props.deleteChecklists(allValues);
+
         } catch (e) {
           const error = axiosError(e);
           if (error === AXIOS_CANCEL_MESSAGE) {
@@ -105,7 +111,10 @@ class ChecklistCard extends React.PureComponent {
       this._requestSource = api.generateCancelToken();
       const url = `/api/card/${cardId}/checklist/${item.id}`;
       const { data } = await api.put(url, title);
-      this.props.renameChildChecklist(data);
+      
+      const {activity,depends,...allValues} = data;
+      this.props.handleReplace({newActivities:activity});
+      this.props.renameChildChecklist(allValues);
     } catch (e) {
       const error = axiosError(e);
       if (error === AXIOS_CANCEL_MESSAGE) {
@@ -152,7 +161,7 @@ class ChecklistCard extends React.PureComponent {
   }
 
   renderChecklist() {
-    const { checks, cardId, handleAddChildChecklist } = this.props;
+    const { checks, cardId, handleAddChildChecklist,handleReplace} = this.props;
 
     const renderChecklist =
       Array.isArray(checks) && checks.length > 0 ? (
@@ -180,6 +189,7 @@ class ChecklistCard extends React.PureComponent {
                   parentId={parent_id}
                   listId={cardId}
                   handleAddChildChecklist={handleAddChildChecklist}
+                  handleReplace={handleReplace}
                 />
               }
             </div>
@@ -197,7 +207,7 @@ class ChecklistCard extends React.PureComponent {
   }
 
   render() {
-    const { cardId, handleAddChecklist } = this.props;
+    const { cardId, handleAddChecklist,handleReplace } = this.props;
     return (
       <React.Fragment>
         <section className="task-detail-group">
@@ -209,6 +219,7 @@ class ChecklistCard extends React.PureComponent {
                 <ChecklistGroupCard
                   listId={cardId}
                   handleAddChecklist={handleAddChecklist}
+                  handleReplace={handleReplace}
                 />
               </div>
             </div>

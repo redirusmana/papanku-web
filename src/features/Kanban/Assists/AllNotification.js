@@ -111,9 +111,9 @@ class AllNotification extends React.PureComponent {
                         {get(result, "contents.requester.name")}
                       </b>{" "}
                       {get(result, "contents.message")}{" "}
-                      {/* <b className="font-weight-bold">
-                        {get(result, "contents.notifiable.title")}
-                      </b> */}
+                      <b className="font-weight-bold">
+                        {get(result, "contents.notifiable.title") && get(result, "contents.notifiable.title")}
+                      </b>
                     </small>
                   </div>
                   <div>

@@ -60,7 +60,9 @@ class EditingTask extends React.PureComponent {
 
   handleSubmit = () => {
     const { value } = this.state;
+    if(!!value){
     this.props.submitChanges(value);
+    }
     this.toggleEditable();
   };
 

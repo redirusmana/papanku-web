@@ -62,7 +62,7 @@ class MembersCard extends React.PureComponent {
       <div className="avatar-list">
         {Array.isArray(members) && members.length > 0 ? (
           members.map(result => (
-            <React.Fragment key="list-member-on/in-card-${result.id}-${result.user_id">
+            <React.Fragment key={`list-member-on/in-card-${result.id}-${result.user_id}`}>
               <Avatar
                 name={get(result, "user.name")}
                 title={get(result, "user.name")}
@@ -77,7 +77,9 @@ class MembersCard extends React.PureComponent {
           ))
         ) : (
           <React.Fragment>
-            <em>No Member found</em>;
+            <em>
+              No Member found
+              </em>;
           </React.Fragment>
         )}
       </div>
@@ -85,15 +87,17 @@ class MembersCard extends React.PureComponent {
   }
 
   handleSubmit = async (values, actions) => {
-    const { idCard } = this.props;
+    const { cardId } = this.props;
     try {
       this._requestSource = api.generateCancelToken();
       const response = await apiInvitetoCard(
         values,
-        idCard,
+        cardId,
         this._requestSource.token
       );
       const { data } = response;
+      this.props.handleAddMemberCard(data.results)
+      // this.props.handleReplace(data.activity)
 
       if (response.status === 200) {
         alertFloat({
@@ -141,7 +145,10 @@ class MembersCard extends React.PureComponent {
                         name="members"
                         mode="multiple"
                         onChange={value => setFieldValue("members", value)}
-                        options={inviteOption || undefined}
+                        // options={inviteOption || undefined}
+                        options={[
+                          { label: "name", value: "1" },
+                        ]}
                         placeholder="Friend"
                         value={values.members}
                       />

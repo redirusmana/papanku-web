@@ -77,7 +77,7 @@ class CommentCard extends React.PureComponent {
       );
       const { data } = response;
       if (response.status === 200) {
-        this.props.handleReplace({ newActivities: data.activities });
+        this.props.handleReplace({ newActivities: data.data });
         this.setState({
           content: "",
           loading: false

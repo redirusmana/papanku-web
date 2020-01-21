@@ -15,57 +15,56 @@ import { assetsApiUrl } from "../../../provider/Tools/general";
 class TaskList extends React.PureComponent {
   renderMembers() {
     const { task } = this.props;
-    const mappedListMember =
-      Array.isArray(get(task, "members")) && get(task, "members").length > 0
-        ? uniqBy(get(task, "members.id"))
+    const mappedMembers = Array.isArray(get(task, "members")) ? (
+      <div className="avatar-list avatar-list-stacked">
+        {uniqBy(get(task, "members"))
             .slice(0, 3)
             .map(member => {
               return (
                 <Avatar
-                  name={member.name}
-                  title={member.title}
+                  key={`list-member-onTaskList-${member.id}`}
+                  name={get(member, "user.name")}
+                  title={get(member, "user.name")}
                   size="sm"
                   image={
-                    member.avatar_path
-                      ? assetsApiUrl(member.avatar_path)
+                    get(member, "user.avatar_path")
+                      ? assetsApiUrl(get(member, "user.avatar_path"))
                       : undefined
                   }
+                  avatarClass="avatar-link my-1"
                 />
               );
-            })
-        : [];
-
-    if (get(task, "members")) {
-      return (
-        <div className="avatar-list avatar-list-stacked">
-          {mappedListMember}
-        </div>
-      );
-    }
+            })}
+        {get(task, "members").length > 3 && <Avatar size="sm" name={get(task, "members").length - 3} />}
+      </div>
+    ) : null;
+    return mappedMembers;
   }
 
   renderChecklist() {
     const { task } = this.props;
-    // const desc = "terdapat 5 tugas yang belum selesai dan 3 tugas yang sudah selesai";
-    // const checklists = get(task, "checklists");
+    // console.log(task)
+    // const taskCheckLists = get(task, 'checklists');
+    // const newFinds = taskCheckLists.map(taskCheckList => {
+    //   return taskCheckList.childs.filter(child => child.is_checked === null).length
+    // })
+
+    // // console.log(newFinds)
+
     // const checklist =
-    //   Array.isArray(checklists) && checklists.length > 0 ? (
+    //   Array.isArray(taskCheckLists) && taskCheckLists.length > 0 ? (
     //     <div
     //       className="mx-1"
-    //       title={`Remaining Task: ${checklists.length -
-    //         checklists.filter(check => get(check, checked))
-    //           .length}`}
+    //       title={`Remaining Task: ${taskCheckLists.length -
+    //         taskCheckLists.filter(check => get(check, checkListCompleteAttr)).length}`}
     //     >
     //       <i className="la la-check-square icon-left" />
     //       <small>
-    //         {
-    //           checklists.filter(check => get(check, checked))
-    //             .length
-    //         }
-    //         /{checklists.length}
+    //         {taskCheckLists.filter(check => get(check, checkListCompleteAttr)).length}/{taskCheckLists.length}
     //       </small>
     //     </div>
     //   ) : null;
+
     // return checklist;
   }
 
