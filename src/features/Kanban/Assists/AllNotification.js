@@ -112,7 +112,8 @@ class AllNotification extends React.PureComponent {
                       </b>{" "}
                       {get(result, "contents.message")}{" "}
                       <b className="font-weight-bold">
-                        {get(result, "contents.notifiable.title") && get(result, "contents.notifiable.title")}
+                        {get(result, "contents.notifiable.title") &&
+                          get(result, "contents.notifiable.title")}
                       </b>
                     </small>
                   </div>
@@ -141,9 +142,12 @@ class AllNotification extends React.PureComponent {
           {loadingState && <LoadingCard />}
 
           <div className="card-footer ">
-            <u className="pointer" onClick={() => this.handleLoadMore()}>
-              Load More...
-            </u>
+            {mappedNotification.length > 9 &&
+              mappedNotification.length < this.state.page && (
+                <u className="pointer" onClick={() => this.handleLoadMore()}>
+                  Load More...
+                </u>
+              )}
           </div>
         </div>
       </React.Fragment>

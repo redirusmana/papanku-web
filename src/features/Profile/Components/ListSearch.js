@@ -1,6 +1,5 @@
 import React from "react";
 import InputSearch from "../../../provider/Commons/InputSearch";
-import InputSelectLong from "../../../provider/Commons/InputSelectLong";
 import "../Style/style.css";
 
 class ListSearch extends React.PureComponent {
@@ -12,15 +11,15 @@ class ListSearch extends React.PureComponent {
   render() {
     return (
       <React.Fragment>
-        <div className="col-lg-18 mb-3 ">
+        <div className="col-lg-24 mb-3 ">
           <InputSearch
-            initialSearch={""}
+            initialSearch=""
             placeholder="Search Friend"
-            // onSearchChange={value => this.beginSearch(value)}
-            autoFocus={!!"title"}
+            onSearchChange={value => this.props.beginSearch(value)}
+            // autoFocus={!!"title"}
           />
         </div>
-        <div className="col-lg-6 mb-3">
+        {/* <div className="col-lg-6 mb-3">
           <InputSelectLong
             className="form-control"
             name="sort"
@@ -34,7 +33,7 @@ class ListSearch extends React.PureComponent {
             placeholder="Sort"
             // value={}
           />
-        </div>
+        </div> */}
       </React.Fragment>
     );
   }

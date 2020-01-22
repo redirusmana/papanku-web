@@ -19,12 +19,11 @@ import Avatar from "../../../provider/Display/Avatar";
 import { assetsApiUrl } from "../../../provider/Tools/general";
 import "../Style/style.css";
 import "../../style/style.css";
-import FormCreateBoardTwo from "../../Profile/Modal/FormCreateBoardTwo";
 
 class NavbarKanbanPage extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = { isVisible: false, isDrawer: false, actModal: undefined };
+    this.state = { isVisible: false, isDrawer: false };
   }
 
   handleDrawer = () => {
@@ -33,10 +32,9 @@ class NavbarKanbanPage extends React.PureComponent {
     });
   };
 
-  handleModal = actModal => {
+  handleModal = () => {
     this.setState({
-      isVisible: true,
-      actModal
+      isVisible: true
     });
   };
 
@@ -47,7 +45,7 @@ class NavbarKanbanPage extends React.PureComponent {
     });
   };
   render() {
-    const { isVisible, isDrawer, actModal } = this.state;
+    const { isVisible, isDrawer } = this.state;
     const {
       dataSourcesUser,
       handleLogout,
@@ -66,7 +64,9 @@ class NavbarKanbanPage extends React.PureComponent {
               >
                 <Popover
                   trigger="click"
-                  content={<ProfileMember results={result} />}
+                  content={
+                    <ProfileMember results={result} idBoard={dataSources.id} />
+                  }
                   placement="bottomLeft"
                   overlayClassName="xl popover-no-padding"
                 >
@@ -89,7 +89,9 @@ class NavbarKanbanPage extends React.PureComponent {
     const listMemberLength =
       Array.isArray(get(dataSources, "members")) &&
       get(dataSources, "members").length > 0
-        ? get(dataSources, "members").length > 5 && <Avatar size="sm" name={get(dataSources, "members").length - 5} />
+        ? get(dataSources, "members").length > 5 && (
+            <Avatar size="sm" name={get(dataSources, "members").length - 5} />
+          )
         : null;
 
     return (
@@ -179,10 +181,7 @@ class NavbarKanbanPage extends React.PureComponent {
         <nav className="navbar navbar-expand-sm navbar-light">
           <div className="collapse navbar-collapse">
             <ul className="navbar-nav mr-auto">
-              <li
-                className="nav-item py-0 font-weight-bold"
-                onClick={() => this.handleModal("rename")}
-              >
+              <li className="nav-item py-0 font-weight-bold">
                 {dataSources.title}
               </li>
               <li className="nav-item py-0 font-weight-bold text-white">
@@ -195,9 +194,7 @@ class NavbarKanbanPage extends React.PureComponent {
                   placement="bottomLeft"
                   overlayClassName="lg"
                 >
-                  <div>
-                    {listMemberLength}
-                  </div>
+                  <div>{listMemberLength}</div>
                 </Popover>
                 <button
                   type="button"
@@ -244,21 +241,16 @@ class NavbarKanbanPage extends React.PureComponent {
           </div>
         </nav>
         <Modal
-          title={actModal === "invite" ? "Invite Friend" : "Rename Board"}
+          title="Rename Board"
           visible={isVisible}
-          size={actModal === "invite" ? "medium" : "small"}
+          size="medium"
           handleBack={this.handleClose}
         >
           <div className="container">
-            {actModal === "invite" && (
-              <FormInviteFriend
-                idBoard={dataSources.id}
-                handleClose={this.handleClose}
-              />
-            )}
-            {actModal === "rename" && (
-              <FormCreateBoardTwo {...restProps} idBoard={dataSources.id} />
-            )}
+            <FormInviteFriend
+              idBoard={dataSources.id}
+              handleClose={this.handleClose}
+            />
           </div>
         </Modal>
         <Drawer

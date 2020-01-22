@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import * as yup from "yup";
 import cn from "classnames";
 import { apiCreateBoard } from "../action"; //apiAddFriend,
+import InputSelectLong from "../../../provider/Commons/InputSelectLong";
 import api from "../../../provider/Tools/api";
 import "../Style/style.css";
 import {
@@ -21,7 +22,8 @@ class FormCreateBoard extends React.PureComponent {
     super(props);
     this.state = {
       initialValues: {
-        title: ""
+        title: "",
+        visibility: ""
       }
     };
   }
@@ -68,6 +70,7 @@ class FormCreateBoard extends React.PureComponent {
             handleBlur,
             values,
             handleSubmit,
+            setFieldValue,
             isSubmitting
           }) => (
             <div className="row">
@@ -85,6 +88,22 @@ class FormCreateBoard extends React.PureComponent {
                       onChange={handleChange}
                       onBlur={handleBlur}
                       values={values.title}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label className="form-label" htmlFor="">
+                      Visibility
+                    </label>
+                    <InputSelectLong
+                      className="form-control"
+                      name="visibility"
+                      onChange={value => setFieldValue("visibility", value)}
+                      options={[
+                        { label: "Public", value: "public" },
+                        { label: "Private", value: "private" }
+                      ]}
+                      placeholder="Visibility"
+                      value={values.visibility || undefined}
                     />
                   </div>
                   <div className="form-group ">

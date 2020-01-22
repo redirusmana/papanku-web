@@ -102,38 +102,59 @@ class ActivityCard extends React.PureComponent {
                           </small>
                         )}
 
-                        {result.event === 'has added' && (
+                        {result.event === "has added" && (
                           <React.Fragment>
                             {result.attribute === "attachment" && (
-                              <div style={{ display: 'flex', flexDirection: 'column' }}>
-                              <small>New Attachments :</small>
-                              {get(result,'after.attachment').map(attach => {
-                                return (
-                                  <div
-                                    style={{ display: 'flex', margin: 5 }}
-                                    key={`list-attach-card-${attach.owner_id}-${attach.id}`}
-                                  >
-                                    <FileIcon fileName={attach.filename} title={attach.filename} size="sm" />
-                                    <b style={{ textAlgin: 'left', margin: 'auto 0',fontSize:12 }}>{attach.filename}</b>
-                                  </div>
-                                )
-                              })}
-                            </div>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "column"
+                                }}
+                              >
+                                <small>New Attachments :</small>
+                                {get(result, "after.attachment").map(attach => {
+                                  return (
+                                    <div
+                                      style={{ display: "flex", margin: 5 }}
+                                      key={`list-attach-card-${attach.owner_id}-${attach.id}`}
+                                    >
+                                      <FileIcon
+                                        fileName={attach.filename}
+                                        title={attach.filename}
+                                        size="sm"
+                                      />
+                                      <b
+                                        style={{
+                                          textAlgin: "left",
+                                          margin: "auto 0",
+                                          fontSize: 12
+                                        }}
+                                      >
+                                        {attach.filename}
+                                      </b>
+                                    </div>
+                                  );
+                                })}
+                              </div>
                             )}
 
                             {result.attribute === "member" && (
-                              <div style={{ display: 'flex' }}>
-                              {get(result,'after').map(member => (
-                                <Avatar
-                                  size="sm"
-                                  name={member.name}
-                                  title={member.name}
-                                  image={member.avatar_path ? assetsApiUrl(member.avatar_path) : undefined} 
-                                  avatarClass="avatar-link m-1"
-                                  key={`list-member-card-${member.id}-${member.role}`}
-                                />
-                              ))}
-                            </div>
+                              <div style={{ display: "flex" }}>
+                                {get(result, "after").map(member => (
+                                  <Avatar
+                                    size="sm"
+                                    name={member.name}
+                                    title={member.name}
+                                    image={
+                                      member.avatar_path
+                                        ? assetsApiUrl(member.avatar_path)
+                                        : undefined
+                                    }
+                                    avatarClass="avatar-link m-1"
+                                    key={`list-member-card-${member.id}-${member.role}`}
+                                  />
+                                ))}
+                              </div>
                             )}
                           </React.Fragment>
                         )}
@@ -312,40 +333,69 @@ class ActivityCard extends React.PureComponent {
                           <React.Fragment>
                             <div>
                               {get(result, "after.is_checked") === true && (
-                                  <div>
-                                    <small>
-                                      Checked Checklist {" "}
-                                      <b className="pt-2">
-                                        {get(result, "after.attribute.title")}
-                                      </b>
-                                      <br />
-                                    </small>
-                                  </div>
-                                )}
-                                {get(result, "before.is_checked")  === true && (
-                                  <div>
-                                    <small>
-                                      unChecked Checklist {" "}
-                                      <b className="pt-2">
-                                        {get(result, "after.attribute.title")}
-                                      </b>
-                                      <br />
-                                    </small>
-                                  </div>
-                                )}
+                                <div>
+                                  <small>
+                                    Checked Checklist{" "}
+                                    <b className="pt-2">
+                                      {get(result, "after.attribute.title")}
+                                    </b>
+                                    <br />
+                                  </small>
                                 </div>
+                              )}
+                              {get(result, "before.is_checked") === true && (
+                                <div>
+                                  <small>
+                                    unChecked Checklist{" "}
+                                    <b className="pt-2">
+                                      {get(result, "after.attribute.title")}
+                                    </b>
+                                    <br />
+                                  </small>
+                                </div>
+                              )}
+                              {get(result, "before.title") !== null &&
+                                get(result, "after.title") && (
+                                  <div>
+                                    <small>
+                                      <b>Renamed</b> Checklist <br />
+                                      From :{" "}
+                                      <del>{get(result, "before.title")}</del>
+                                      <br />
+                                      To :{" "}
+                                      <b className="pt-2">
+                                        {get(result, "after.title")}
+                                      </b>
+                                      <br />
+                                    </small>
+                                  </div>
+                                )}
+                            </div>
                           </React.Fragment>
                         )}
 
                         {result.event === "has deleted" && (
                           <small>
-                            {result.event} {result.attribute} <b>{get(result, "before.title")}</b>{" "}
-                            {result.attribute === 'attachment' && <div
-                                  style={{ display: 'flex', margin: 5 }}
+                            {result.event} {result.attribute}{" "}
+                            <b>{get(result, "before.title")}</b>{" "}
+                            {result.attribute === "attachment" && (
+                              <div style={{ display: "flex", margin: 5 }}>
+                                <FileIcon
+                                  fileName={get(result, "before.filename")}
+                                  title={get(result, "before.filename")}
+                                  size="sm"
+                                />
+                                <b
+                                  style={{
+                                    textAlgin: "left",
+                                    margin: "auto 0",
+                                    fontSize: 12
+                                  }}
                                 >
-                                  <FileIcon fileName={get(result,'before.filename')} title={get(result,'before.filename')} size="sm" />
-                                  <b style={{ textAlgin: 'left', margin: 'auto 0',fontSize:12 }}>{get(result,'before.filename')}</b>
-                                </div>}
+                                  {get(result, "before.filename")}
+                                </b>
+                              </div>
+                            )}
                           </small>
                         )}
 

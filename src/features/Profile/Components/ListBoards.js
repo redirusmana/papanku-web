@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Empty } from "antd";
 import { Link } from "react-router-dom";
 import get from "lodash/get";
@@ -198,6 +199,7 @@ class ListBoard extends React.PureComponent {
 
   render() {
     const { isVisible, dataSources, loading } = this.state;
+    const { user } = this.props;
 
     const TitleListBoard = (
       <React.Fragment>
@@ -214,7 +216,28 @@ class ListBoard extends React.PureComponent {
               <div className="col-lg-8 mb-3">
                 <div className="card ">
                   <div className="card-body">
-                    <p className="card-title">{result.title}</p>
+                    <div className="card-title">
+                      {/* {result.title} */}
+                      <div className="d-flex flex-row font-weight-normal">
+                        <div
+                          className="mr-auto"
+                          style={{ wordBreak: "break-all" }}
+                        >
+                          {result.title}
+                        </div>
+                        <div className="ml-2">
+                          {result.created_by === user.username && (
+                            <button
+                              onClick={() => this.handleModal("")}
+                              type="button"
+                              className="btn btn-primary btn-sm ml-1"
+                            >
+                              <i className="icofont-gear" />
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    </div>
                     <p className="card-text text-right">
                       <small className="text-muted">
                         last Updated {dateFromNowString(result.created_at)}
@@ -228,13 +251,17 @@ class ListBoard extends React.PureComponent {
                     >
                       Board
                     </Link>
-                    <button
-                    onClick={() => this.onDelete(result.id)}
-                    type="button"
-                    className="btn btn-sm rounded-pill btn-danger ml-1" //primary
-                  >
-                    Delete
-                  </button>
+                    {/* user.name */}
+
+                    {result.created_by === user.username && (
+                      <button
+                        onClick={() => this.onDelete(result.id)}
+                        type="button"
+                        className="btn btn-sm rounded-pill btn-danger ml-1"
+                      >
+                        <i className="icofont-trash" />
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
@@ -355,4 +382,8 @@ class ListBoard extends React.PureComponent {
   }
 }
 
-export default ListBoard;
+const mapStateToProps = store => ({
+  user: store.auth.user
+});
+
+export default connect(mapStateToProps)(ListBoard);

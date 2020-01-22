@@ -78,6 +78,8 @@ class FormAddListTask extends React.PureComponent {
       this._requestSource = api.generateCancelToken();
       const url = `/api/list/${idList}/card`;
       const { data } = await api.post(url, newValues);
+      // console.log(data);
+      // console.log(data.card);
 
       if (data.success === "OK") {
         this.props.addTask({

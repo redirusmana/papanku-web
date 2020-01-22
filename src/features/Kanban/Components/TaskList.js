@@ -18,24 +18,26 @@ class TaskList extends React.PureComponent {
     const mappedMembers = Array.isArray(get(task, "members")) ? (
       <div className="avatar-list avatar-list-stacked">
         {uniqBy(get(task, "members"))
-            .slice(0, 3)
-            .map(member => {
-              return (
-                <Avatar
-                  key={`list-member-onTaskList-${member.id}`}
-                  name={get(member, "user.name")}
-                  title={get(member, "user.name")}
-                  size="sm"
-                  image={
-                    get(member, "user.avatar_path")
-                      ? assetsApiUrl(get(member, "user.avatar_path"))
-                      : undefined
-                  }
-                  avatarClass="avatar-link my-1"
-                />
-              );
-            })}
-        {get(task, "members").length > 3 && <Avatar size="sm" name={get(task, "members").length - 3} />}
+          .slice(0, 3)
+          .map(member => {
+            return (
+              <Avatar
+                key={`list-member-onTaskList-${member.id}`}
+                name={get(member, "user.name")}
+                title={get(member, "user.name")}
+                size="sm"
+                image={
+                  get(member, "user.avatar_path")
+                    ? assetsApiUrl(get(member, "user.avatar_path"))
+                    : undefined
+                }
+                avatarClass="avatar-link my-1"
+              />
+            );
+          })}
+        {get(task, "members").length > 3 && (
+          <Avatar size="sm" name={get(task, "members").length - 3} />
+        )}
       </div>
     ) : null;
     return mappedMembers;
@@ -43,29 +45,43 @@ class TaskList extends React.PureComponent {
 
   renderChecklist() {
     const { task } = this.props;
-    // console.log(task)
-    // const taskCheckLists = get(task, 'checklists');
-    // const newFinds = taskCheckLists.map(taskCheckList => {
-    //   return taskCheckList.childs.filter(child => child.is_checked === null).length
-    // })
+    const taskCheckLists = get(task, "checklists");
+    if (Array.isArray(taskCheckLists) && taskCheckLists.length > 0) {
+      const unChecked = taskCheckLists.map(taskCheckList => {
+        return taskCheckList.childs.filter(child => child.is_checked === null)
+          .length;
+      });
+      const newUnChecked = unChecked.reduce((prev, curr) => prev + curr);
 
-    // // console.log(newFinds)
+      const Checked = taskCheckLists.map(taskCheckList => {
+        return taskCheckList.childs.filter(child => child.is_checked === true)
+          .length;
+      });
+      const newChecked = Checked.reduce((prev, curr) => prev + curr);
 
-    // const checklist =
-    //   Array.isArray(taskCheckLists) && taskCheckLists.length > 0 ? (
-    //     <div
-    //       className="mx-1"
-    //       title={`Remaining Task: ${taskCheckLists.length -
-    //         taskCheckLists.filter(check => get(check, checkListCompleteAttr)).length}`}
-    //     >
-    //       <i className="la la-check-square icon-left" />
-    //       <small>
-    //         {taskCheckLists.filter(check => get(check, checkListCompleteAttr)).length}/{taskCheckLists.length}
-    //       </small>
-    //     </div>
-    //   ) : null;
+      const checklist = (
+        <Popover
+          content={
+            <div className="text-center font-weight-bold">{`Remaining Task : ${newChecked -
+              newUnChecked}`}</div>
+          }
+          trigger="hover"
+          placement="bottom"
+          overlayClassName="l"
+          title="Checklist"
+        >
+          <div className="mx-1">
+            <i className="icofont-checked icon-left" />{" "}
+            <small>
+              {newUnChecked}/{newChecked}
+            </small>
+          </div>
+        </Popover>
+      );
 
-    // return checklist;
+      return checklist;
+    }
+    return;
   }
 
   renderDeadline() {
@@ -81,10 +97,23 @@ class TaskList extends React.PureComponent {
 
     if (get(task, "due_date")) {
       return (
-        <div className={`ml-auto task-badge ${OptDeadlineClass[DueDateClass]}`}>
-          <i className="icofont-clock-time" />{" "}
-          <span>{moment(task.due_date).format("YYYY-MM-DD")}</span>
-        </div>
+        <Popover
+          content={
+            <div className="text-center font-weight-bold">
+              {get(task, "due_date")}
+            </div>
+          }
+          trigger="hover"
+          placement="bottom"
+          overlayClassName="l"
+        >
+          <div
+            className={`ml-auto task-badge ${OptDeadlineClass[DueDateClass]}`}
+          >
+            <i className="icofont-clock-time" />{" "}
+            <span>{moment(task.due_date).format("YYYY-MM-DD")}</span>
+          </div>
+        </Popover>
       );
     }
   }
@@ -120,15 +149,29 @@ class TaskList extends React.PureComponent {
     const { task } = this.props;
     if (get(task, "status")) {
       return (
-        <div className="task-status ">
-          <span
-            className={`task-badge ${
-              OptStatusClass[get(task, "status")]
-            } hide-badge mr-1`}
-          >
-            &nbsp;
-          </span>
-        </div>
+        <Popover
+          content={
+            <span
+              className={`task-badge ${OptStatusClass[get(task, "status")]}`}
+            >
+              {get(task, "status")}
+            </span>
+          }
+          trigger="hover"
+          placement="bottom"
+          overlayClassName="l"
+          title={<div className="text-center">Status</div>}
+        >
+          <div className="task-status ">
+            <span
+              className={`task-badge ${
+                OptStatusClass[get(task, "status")]
+              } hide-badge mr-1`}
+            >
+              &nbsp;
+            </span>
+          </div>
+        </Popover>
       );
     }
   }
@@ -136,15 +179,31 @@ class TaskList extends React.PureComponent {
     const { task } = this.props;
     if (get(task, "priority")) {
       return (
-        <div className="task-status">
-          <span
-            className={`task-badge ${
-              OptPriorityClass[get(task, "priority")]
-            } hide-badge `}
-          >
-            &nbsp;
-          </span>
-        </div>
+        <Popover
+          content={
+            <span
+              className={`task-badge ${
+                OptPriorityClass[get(task, "priority")]
+              }`}
+            >
+              {get(task, "priority")}
+            </span>
+          }
+          trigger="hover"
+          placement="bottom"
+          overlayClassName="l"
+          title={<div className="text-center">Priority</div>}
+        >
+          <div className="task-status">
+            <span
+              className={`task-badge ${
+                OptPriorityClass[get(task, "priority")]
+              } hide-badge `}
+            >
+              &nbsp;
+            </span>
+          </div>
+        </Popover>
       );
     }
   }

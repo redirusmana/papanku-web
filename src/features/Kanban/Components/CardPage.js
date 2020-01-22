@@ -287,7 +287,7 @@ class CardPage extends React.PureComponent {
 
   renderCard() {
     const { loading, dataSources } = this.state;
-    const { loadingProps, match } = this.props;
+    const { loadingProps } = this.props;
     if (loadingProps || loading) {
       return (
         <div className="task-detail">
@@ -379,11 +379,12 @@ class CardPage extends React.PureComponent {
             />
           </div>
           <div className="task-detail-footer">
-            <MemberCard 
-              members={dataSources.members} 
-              cardId={dataSources.id} 
+            <MemberCard
+              members={dataSources.members}
+              cardId={dataSources.id}
               handleAddMemberCard={this.handleAddMemberCard}
-              handleReplace={this.handleReplaceActivities} />
+              handleReplace={this.handleReplaceActivities}
+            />
           </div>
         </div>
         <div className="task-detail-aside">

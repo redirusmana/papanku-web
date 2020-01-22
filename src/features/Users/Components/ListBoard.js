@@ -1,6 +1,6 @@
 import React from "react";
 import { Empty } from "antd";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import get from "lodash/get";
 import { dateFromNowString } from "../../../provider/Tools/converter";
 import "../Style/style.css";
@@ -26,28 +26,22 @@ class ListBoard extends React.PureComponent {
       get(dataSource, "boards").length > 0 ? (
         get(dataSource, "boards").map(result => (
           <React.Fragment key={`list-board-${result.id}`}>
-            {result.visibility === 'public' && (
+            {result.visibility === "public" && (
               <div className="col-lg-8 mb-3">
-              <div className="card ">
-                <div className="card-body">
-                  <p className="card-title">{result.title}</p>
-                  <p className="card-text text-right">
-                    <small className="text-muted">
-                      last Updated {dateFromNowString(result.created_at)}
-                    </small>
-                  </p>
-                </div>
-                <div className="card-footer text-left py-2">
-                {result.created_by}
-                  {/* <Link
-                    to={`/board/${result.id}`}
-                    className="btn btn-sm btn-primary font-weight-bold "
-                  >
-                    Board
-                  </Link> */}
+                <div className="card ">
+                  <div className="card-body">
+                    <p className="card-title">{result.title}</p>
+                    <p className="card-text text-right">
+                      <small className="text-muted">
+                        last Updated {dateFromNowString(result.created_at)}
+                      </small>
+                    </p>
+                  </div>
+                  <div className="card-footer text-left py-2">
+                    {result.created_by}
+                  </div>
                 </div>
               </div>
-            </div>
             )}
           </React.Fragment>
         ))

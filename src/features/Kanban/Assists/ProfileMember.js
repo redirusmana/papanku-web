@@ -2,6 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import get from "lodash/get";
 import Avatar from "../../../provider/Display/Avatar";
+import popConfirm from "../../../provider/Display/popConfirm";
+import api from "../../../provider/Tools/api";
+import {
+  axiosError,
+  AXIOS_CANCEL_MESSAGE
+} from "../../../provider/Tools/converter";
+import { apiDeleteList } from "../action";
 import { assetsApiUrl } from "../../../provider/Tools/general";
 
 class ProfileMember extends React.PureComponent {
@@ -9,6 +16,37 @@ class ProfileMember extends React.PureComponent {
     super(props);
     this.state = {};
   }
+
+  handleRemove = user => {
+    const { idBoard } = this.props;
+    popConfirm({
+      title: `Are you sure to remove?`,
+      message: "Board will deleted on List Board",
+      okText: " Yes",
+      okType: "danger",
+      cancelText: " No",
+      onOkay: async () => {
+        try {
+          this._requestSource = api.generateCancelToken();
+          const response = await apiDeleteList(
+            `/api/board/${idBoard}/delete`,
+            { member_id: user.id },
+            this._requestSource.token
+          );
+          // const { data } = response;
+
+          if (response.status === 200) {
+          }
+        } catch (e) {
+          const error = axiosError(e);
+          if (error === AXIOS_CANCEL_MESSAGE) {
+            return;
+          }
+        }
+      }
+    });
+  };
+
   render() {
     const { results } = this.props;
     const hasAdmin = get(results, "role.name") === "admin";
@@ -60,7 +98,7 @@ class ProfileMember extends React.PureComponent {
           </Link>
           {hasAdmin && (
             <div
-              // onClick={()=> this.handleRemove()}
+              onClick={() => this.handleRemove(results.user)}
               className="p-2 pointer hovered-button-popover text-dark"
             >
               Remove From Board..

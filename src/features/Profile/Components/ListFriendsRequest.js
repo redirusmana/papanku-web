@@ -1,7 +1,7 @@
 import React from "react";
 import { Empty } from "antd";
 // import get from 'lodash/get';
-import ListSearch from "./ListSearch";
+// import ListSearch from "./ListSearch";
 import get from "lodash/get";
 import LoadingCard from "../../../provider/Display/LoadingCard";
 import popConfirm from "../../../provider/Display/popConfirm";
@@ -288,7 +288,7 @@ class ListFriends extends React.PureComponent {
 
     return (
       <React.Fragment>
-        <ListSearch />
+        {/* <ListSearch /> */}
         <div className="col-lg-24 ">
           {loading || !!listFriendsRequest ? "" : TitlelistFriendsRequest}
           <div className="row mb-3">

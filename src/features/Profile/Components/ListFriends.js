@@ -20,7 +20,8 @@ class ListFriends extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      isVisible: false
+      isVisible: false,
+      search: ""
     };
   }
 
@@ -117,63 +118,74 @@ class ListFriends extends React.PureComponent {
     });
   };
 
-  render() {
-    const { dataSources, loading, isVisible } = this.state;
+  handleSearch = isSearch => {
+    this.setState({
+      search: isSearch
+    });
+  };
 
-    const listFriends =
+  render() {
+    const { dataSources, loading, isVisible, search } = this.state;
+
+    const filteredFriend =
       Array.isArray(get(dataSources, "friends")) &&
       get(dataSources, "friends").length > 0
-        ? get(dataSources, "friends").map(result => (
-            <React.Fragment key={`list-friend-${result.id}`}>
-              <div className="col-lg-8 mb-3">
-                <div className="card">
-                  <div className="card-body">
-                    <div className="text-center">
-                      <Avatar
-                        name={result.name}
-                        image={
-                          result.avatar_path
-                            ? assetsApiUrl(result.avatar_path)
-                            : undefined
-                        }
-                        size="xxxl"
-                        avatarClass="avatar-link mb-1"
-                      />
-                      <h4 className="card-title text-center pt-2">
-                        <b className="text-dark">{result.name}</b>
-                        <br />
-                        {result.username}
-                      </h4>
-                      <Link
-                        to={`/users/${result.email}`}
-                        type="button"
-                        className="btn rounded-pill btn-primary mr-1"
-                      >
-                        <i className="font-weight-normal icofont-info-circle" />
-                      </Link>
-                      <button
-                        type="button"
-                        onClick={() =>
-                          this.onDeleteFriend(result.pivot, result.id)
-                        }
-                        className="btn rounded-pill btn-danger ml-1"
-                      >
-                        <i className="font-weight-normal icofont-bin " />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </React.Fragment>
-          ))
+        ? get(dataSources, "friends").filter(friend => {
+            return (
+              friend.name.toLowerCase().indexOf(search.toLowerCase()) !== -1
+            );
+          })
         : [];
+
+    const listFriends = filteredFriend.map(result => (
+      <React.Fragment key={`list-friend-${result.id}`}>
+        <div className="col-lg-8 mb-3">
+          <div className="card">
+            <div className="card-body">
+              <div className="text-center">
+                <Avatar
+                  name={result.name}
+                  image={
+                    result.avatar_path
+                      ? assetsApiUrl(result.avatar_path)
+                      : undefined
+                  }
+                  size="xxxl"
+                  avatarClass="avatar-link mb-1"
+                />
+                <h4 className="card-title text-center pt-2">
+                  <b className="text-dark">{result.name}</b>
+                  <br />
+                  {result.username}
+                </h4>
+                <Link
+                  to={`/users/${result.email}`}
+                  type="button"
+                  className="btn rounded-pill btn-primary mr-1"
+                >
+                  <i className="font-weight-normal icofont-info-circle" />
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => this.onDeleteFriend(result.pivot, result.id)}
+                  className="btn rounded-pill btn-danger ml-1"
+                >
+                  <i className="font-weight-normal icofont-bin " />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </React.Fragment>
+    ));
+    // : [];
     if (loading) {
       return <LoadingCard />;
     }
 
     return (
       <React.Fragment>
-        <ListSearch />
+        <ListSearch beginSearch={this.handleSearch} />
         {listFriends}
         <div className="col-lg-8 mb-3">
           <div className="card p-5">

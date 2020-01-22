@@ -14,7 +14,7 @@ class ListActivity extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      page: 100,
+      page: 10,
       loadingState: false
     };
   }
@@ -53,7 +53,7 @@ class ListActivity extends React.PureComponent {
     this.setState(
       prevState => ({
         loadingState: true,
-        page: prevState.page + 5
+        page: prevState.page + 10
       }),
       () => {
         this._requestSource = api.generateCancelToken();
@@ -93,38 +93,47 @@ class ListActivity extends React.PureComponent {
           let badge3 = null;
           let badge4 = null;
 
-          const inCard = get(result, "after.depends.title") || get(result, "before.depends.title") ? (
-            <React.Fragment>
-              - In Card{" "}
-              <b className="font-weight-bold">
-                {get(result, "after.depends.title") || get(result, "before.depends.title")}
-              </b>
-            </React.Fragment>
-          ) : (
-            ""
-          );
+          const inCard =
+            get(result, "after.depends.title") ||
+            get(result, "before.depends.title") ? (
+              <React.Fragment>
+                - In Card{" "}
+                <b className="font-weight-bold">
+                  {get(result, "after.depends.title") ||
+                    get(result, "before.depends.title")}
+                </b>
+              </React.Fragment>
+            ) : (
+              ""
+            );
 
-          const inList = get(result, "after.depends.depends.title") || get(result, "before.depends.depends.title") ? (
-            <React.Fragment>
-              - In List{" "}
-              <b className="font-weight-bold">
-                {get(result, "after.depends.depends.title") || get(result, "before.depends.depends.title")}
-              </b>
-            </React.Fragment>
-          ) : (
-            ""
-          );
+          const inList =
+            get(result, "after.depends.depends.title") ||
+            get(result, "before.depends.depends.title") ? (
+              <React.Fragment>
+                - In List{" "}
+                <b className="font-weight-bold">
+                  {get(result, "after.depends.depends.title") ||
+                    get(result, "before.depends.depends.title")}
+                </b>
+              </React.Fragment>
+            ) : (
+              ""
+            );
 
-          const onBoard = get(result, "after.depends.depends.depends.title") || get(result, "before.depends.depends.depends.title")  ? (
-            <React.Fragment>
-              - on Board{" "}
-              <b className="font-weight-bold">
-                {get(result, "after.depends.depends.depends.title")  || get(result, "before.depends.depends.depends.title") }
-              </b>
-            </React.Fragment>
-          ) : (
-            ""
-          );
+          const onBoard =
+            get(result, "after.depends.depends.depends.title") ||
+            get(result, "before.depends.depends.depends.title") ? (
+              <React.Fragment>
+                - on Board{" "}
+                <b className="font-weight-bold">
+                  {get(result, "after.depends.depends.depends.title") ||
+                    get(result, "before.depends.depends.depends.title")}
+                </b>
+              </React.Fragment>
+            ) : (
+              ""
+            );
           if (get(result, "before.status") === "Not Started") {
             badge1 = "info";
           } else if (get(result, "before.status") === "In Progress") {
@@ -203,273 +212,326 @@ class ListActivity extends React.PureComponent {
                     </div>
                   </div>
                   <div className="card activity-card">
-                      <div className="card-body">
-                        {result.event === "has created new" && (
-                          <small>
-                            {result.event} <b>{get(result, "after.title")}</b>{" "}
-                            {/* Card */}
-                          </small>
-                        )}
+                    <div className="card-body">
+                      {result.event === "has created new" && (
+                        <small>
+                          {result.event} <b>{get(result, "after.title")}</b>{" "}
+                          {/* Card */}
+                        </small>
+                      )}
 
-                        {result.event === "added new checklist" && (
-                          <small>
-                            {result.event} <b>{get(result, "after.title")}</b>{" "}
-                            {/* Checklist */}
-                          </small>
-                        )}
+                      {result.event === "added new checklist" && (
+                        <small>
+                          {result.event} <b>{get(result, "after.title")}</b>{" "}
+                          {/* Checklist */}
+                        </small>
+                      )}
 
-                        {result.event === 'has added' && (
-                          <React.Fragment>
-                            {result.attribute === "attachment" && (
-                              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                      {result.event === "has added" && (
+                        <React.Fragment>
+                          {result.attribute === "attachment" && (
+                            <div
+                              style={{
+                                display: "flex",
+                                flexDirection: "column"
+                              }}
+                            >
                               <small>New Attachments :</small>
-                              {get(result,'after.attachment').map(attach => {
+                              {get(result, "after.attachment").map(attach => {
                                 return (
                                   <div
-                                    style={{ display: 'flex', margin: 5 }}
+                                    style={{ display: "flex", margin: 5 }}
                                     key={`list-attach-card-${attach.owner_id}-${attach.id}`}
                                   >
-                                    <FileIcon fileName={attach.filename} title={attach.filename} size="sm" />
-                                    <b style={{ textAlgin: 'left', margin: 'auto 0',fontSize:12 }}>{attach.filename}</b>
+                                    <FileIcon
+                                      fileName={attach.filename}
+                                      title={attach.filename}
+                                      size="sm"
+                                    />
+                                    <b
+                                      style={{
+                                        textAlgin: "left",
+                                        margin: "auto 0",
+                                        fontSize: 12
+                                      }}
+                                    >
+                                      {attach.filename}
+                                    </b>
                                   </div>
-                                )
+                                );
                               })}
                             </div>
-                            )}
+                          )}
 
-                            {result.attribute === "member" && (
-                              <div style={{ display: 'flex' }}>
-                              {get(result,'after').map(member => (
+                          {result.attribute === "member" && (
+                            <div style={{ display: "flex" }}>
+                              {get(result, "after").map(member => (
                                 <Avatar
                                   size="sm"
                                   name={member.name}
                                   title={member.name}
-                                  image={member.avatar_path ? assetsApiUrl(member.avatar_path) : undefined} 
+                                  image={
+                                    member.avatar_path
+                                      ? assetsApiUrl(member.avatar_path)
+                                      : undefined
+                                  }
                                   avatarClass="avatar-link m-1"
                                   key={`list-member-card-${member.id}-${member.role}`}
                                 />
                               ))}
                             </div>
-                            )}
-                          </React.Fragment>
-                        )}
+                          )}
+                        </React.Fragment>
+                      )}
 
-                        {result.event === "has updated card" && (
-                          <React.Fragment>
-                            <div>
-                              {get(result, "before.title") &&
-                                get(result, "after.title") && (
-                                  <div>
-                                    <small>
-                                      <b>Updated</b> Title Card
-                                      <br />
-                                      From :{" "}
-                                      <del>{get(result, "before.title")}</del>
-                                      <br />
-                                      To :{" "}
-                                      <b className="pt-2">
-                                        {get(result, "after.title")}
-                                      </b>
-                                      <br />
-                                    </small>
-                                  </div>
-                                )}
-
-                              {get(result, "before.description") === null &&
-                                get(result, "after.description") && (
-                                  <div>
-                                    <small>
-                                      <b>Added</b> description{" "}
-                                      <b>
-                                        "{get(result, "after.description")}"
-                                      </b>
-                                      <br />
-                                    </small>
-                                  </div>
-                                )}
-
-                              {get(result, "before.description") &&
-                                get(result, "after.description") && (
-                                  <div>
-                                    <small>
-                                      <b>Updated</b> Description <br />
-                                      From :{" "}
-                                      <del>
-                                        {get(result, "before.description")}
-                                      </del>
-                                      <br />
-                                      To :{" "}
-                                      <b className="pt-2">
-                                        {get(result, "after.description")}
-                                      </b>
-                                      <br />
-                                    </small>
-                                  </div>
-                                )}
-
-                              {get(result, "before.due_date") === null &&
-                                get(result, "after.due_date") && (
-                                  <div>
-                                    <small>
-                                      <b>Added</b> Due Date <br />
-                                      <b>
-                                        "
-                                        {moment(
-                                          get(result, "after.due_date")
-                                        ).format("YYYY-MM-DD")}
-                                        "
-                                      </b>
-                                      <br />
-                                    </small>
-                                  </div>
-                                )}
-
-                              {get(result, "before.due_date") &&
-                                get(result, "after.due_date") && (
-                                  <div>
-                                    <small>
-                                      <b>Updated</b> Due Date <br />
-                                      From :{" "}
-                                      <del>
-                                        {moment(
-                                          get(result, "before.due_date")
-                                        ).format("YYYY-MM-DD")}
-                                      </del>
-                                      <br />
-                                      To :{" "}
-                                      <b className="pt-2">
-                                        {moment(
-                                          get(result, "after.due_date")
-                                        ).format("YYYY-MM-DD")}
-                                      </b>
-                                      <br />
-                                    </small>
-                                  </div>
-                                )}
-
-                              {get(result, "before.status") === null &&
-                                get(result, "after.status") && (
-                                  <div>
-                                    <small>
-                                      <b>Added</b> Status{" "}
-                                      <span
-                                        className={`w-100 badge badge-${badge2} mt-1`}
-                                      >
-                                        {get(result, "after.status")}
-                                      </span>
-                                      <br />
-                                    </small>
-                                  </div>
-                                )}
-
-                              {get(result, "before.status") &&
-                                get(result, "after.status") && (
-                                  <div>
-                                    <small>
-                                      <b>Updated</b> Status{" "}
-                                      <span
-                                        className={`w-100 badge badge-${badge1} mb-1`}
-                                      >
-                                        <del>
-                                          {get(result, "before.status")}
-                                        </del>
-                                      </span>
-                                      <span
-                                        className={`w-100 badge badge-${badge2} mt-1`}
-                                      >
-                                        {get(result, "after.status")}
-                                      </span>
-                                      <br />
-                                    </small>
-                                  </div>
-                                )}
-
-                              {get(result, "before.priority") === null &&
-                                get(result, "after.priority") && (
-                                  <div>
-                                    <small>
-                                      <b>Added</b> Priority{" "}
-                                      <span
-                                        className={`w-100 badge badge-${badge4} mt-1`}
-                                      >
-                                        {get(result, "after.priority")}
-                                      </span>
-                                      <br />
-                                    </small>
-                                  </div>
-                                )}
-
-                              {get(result, "before.priority") &&
-                                get(result, "after.priority") && (
-                                  <div>
-                                    <small>
-                                      <b>Updated</b> Priority{" "}
-                                      <span
-                                        className={`w-100 badge badge-${badge3} mb-1`}
-                                      >
-                                        <del>
-                                          {get(result, "before.priority")}
-                                        </del>
-                                      </span>
-                                      <span
-                                        className={`w-100 badge badge-${badge4} mt-1`}
-                                      >
-                                        {get(result, "after.priority")}
-                                      </span>
-                                      <br />
-                                    </small>
-                                  </div>
-                                )}
-                            </div>
-                          </React.Fragment>
-                        )}
-
-                        {result.event === "updated checklist" && (
-                          <React.Fragment>
-                            <div>
-                              {get(result, "after.is_checked") === true && (
-                                  <div>
-                                    <small>
-                                      Checked Checklist {" "}
-                                      <b className="pt-2">
-                                        {get(result, "after.attribute.title")}
-                                      </b>
-                                      <br />
-                                    </small>
-                                  </div>
-                                )}
-                                {get(result, "before.is_checked")  === true && (
-                                  <div>
-                                    <small>
-                                      unChecked Checklist {" "}
-                                      <b className="pt-2">
-                                        {get(result, "after.attribute.title")}
-                                      </b>
-                                      <br />
-                                    </small>
-                                  </div>
-                                )}
+                      {result.event === "has updated card" && (
+                        <React.Fragment>
+                          <div>
+                            {get(result, "before.title") &&
+                              get(result, "after.title") && (
+                                <div>
+                                  <small>
+                                    <b>Updated</b> Title Card
+                                    <br />
+                                    From :{" "}
+                                    <del>{get(result, "before.title")}</del>
+                                    <br />
+                                    To :{" "}
+                                    <b className="pt-2">
+                                      {get(result, "after.title")}
+                                    </b>
+                                    <br />
+                                  </small>
                                 </div>
-                          </React.Fragment>
-                        )}
+                              )}
 
-                        {result.event === "has deleted" && (
-                          <small>
-                            {result.event} {result.attribute} <b>{get(result, "before.title")}</b>{" "}
-                            {result.attribute === 'attachment' && <div
-                                  style={{ display: 'flex', margin: 5 }}
-                                >
-                                  <FileIcon fileName={get(result,'before.filename')} title={get(result,'before.filename')} size="sm" />
-                                  <b style={{ textAlgin: 'left', margin: 'auto 0',fontSize:12 }}>{get(result,'before.filename')}</b>
-                                </div>}
-                          </small>
-                        )}
+                            {get(result, "before.description") === null &&
+                              get(result, "after.description") && (
+                                <div>
+                                  <small>
+                                    <b>Added</b> description{" "}
+                                    <b>"{get(result, "after.description")}"</b>
+                                    <br />
+                                  </small>
+                                </div>
+                              )}
 
-                        {result.event === "has commented" && (
-                          <small>{get(result, "after.comment")}</small>
-                        )}
-                      </div>
+                            {get(result, "before.description") &&
+                              get(result, "after.description") && (
+                                <div>
+                                  <small>
+                                    <b>Updated</b> Description <br />
+                                    From :{" "}
+                                    <del>
+                                      {get(result, "before.description")}
+                                    </del>
+                                    <br />
+                                    To :{" "}
+                                    <b className="pt-2">
+                                      {get(result, "after.description")}
+                                    </b>
+                                    <br />
+                                  </small>
+                                </div>
+                              )}
+
+                            {get(result, "before.due_date") === null &&
+                              get(result, "after.due_date") && (
+                                <div>
+                                  <small>
+                                    <b>Added</b> Due Date <br />
+                                    <b>
+                                      "
+                                      {moment(
+                                        get(result, "after.due_date")
+                                      ).format("YYYY-MM-DD")}
+                                      "
+                                    </b>
+                                    <br />
+                                  </small>
+                                </div>
+                              )}
+
+                            {get(result, "before.due_date") &&
+                              get(result, "after.due_date") && (
+                                <div>
+                                  <small>
+                                    <b>Updated</b> Due Date <br />
+                                    From :{" "}
+                                    <del>
+                                      {moment(
+                                        get(result, "before.due_date")
+                                      ).format("YYYY-MM-DD")}
+                                    </del>
+                                    <br />
+                                    To :{" "}
+                                    <b className="pt-2">
+                                      {moment(
+                                        get(result, "after.due_date")
+                                      ).format("YYYY-MM-DD")}
+                                    </b>
+                                    <br />
+                                  </small>
+                                </div>
+                              )}
+
+                            {get(result, "before.status") === null &&
+                              get(result, "after.status") && (
+                                <div>
+                                  <small>
+                                    <b>Added</b> Status{" "}
+                                    <span
+                                      className={` badge badge-${badge2} mt-1`}
+                                    >
+                                      {/* w-100 */}
+                                      {get(result, "after.status")}
+                                    </span>
+                                    <br />
+                                  </small>
+                                </div>
+                              )}
+
+                            {get(result, "before.status") &&
+                              get(result, "after.status") && (
+                                <div>
+                                  <small>
+                                    <b>Updated</b> Status <br />
+                                    <span
+                                      className={` badge badge-${badge1} mb-1`}
+                                    >
+                                      {/* w-100 */}
+                                      <del>{get(result, "before.status")}</del>
+                                    </span>
+                                    <br />
+                                    <span
+                                      className={` badge badge-${badge2} mt-1`}
+                                    >
+                                      {/* w-100 */}
+                                      {get(result, "after.status")}
+                                    </span>
+                                    <br />
+                                  </small>
+                                </div>
+                              )}
+
+                            {get(result, "before.priority") === null &&
+                              get(result, "after.priority") && (
+                                <div>
+                                  <small>
+                                    <b>Added</b> Priority{" "}
+                                    <span
+                                      className={` badge badge-${badge4} mt-1`}
+                                    >
+                                      {/* w-100 */}
+                                      {get(result, "after.priority")}
+                                    </span>
+                                    <br />
+                                  </small>
+                                </div>
+                              )}
+
+                            {get(result, "before.priority") &&
+                              get(result, "after.priority") && (
+                                <div>
+                                  <small>
+                                    <b>Updated</b> Priority{" "}
+                                    <span
+                                      className={` badge badge-${badge3} mb-1`}
+                                    >
+                                      {/* w-100 */}
+                                      <del>
+                                        {get(result, "before.priority")}
+                                      </del>
+                                    </span>
+                                    <span
+                                      className={` badge badge-${badge4} mt-1`}
+                                    >
+                                      {/* w-100 */}
+                                      {get(result, "after.priority")}
+                                    </span>
+                                    <br />
+                                  </small>
+                                </div>
+                              )}
+                          </div>
+                        </React.Fragment>
+                      )}
+
+                      {result.event === "updated checklist" && (
+                        <React.Fragment>
+                          <div>
+                            {get(result, "after.is_checked") === true && (
+                              <div>
+                                <small>
+                                  Checked Checklist{" "}
+                                  <b className="pt-2">
+                                    {get(result, "after.attribute.title")}
+                                  </b>
+                                  <br />
+                                </small>
+                              </div>
+                            )}
+                            {get(result, "before.is_checked") === true && (
+                              <div>
+                                <small>
+                                  unChecked Checklist{" "}
+                                  <b className="pt-2">
+                                    {get(result, "after.attribute.title")}
+                                  </b>
+                                  <br />
+                                </small>
+                              </div>
+                            )}
+                            {get(result, "before.title") !== null &&
+                              get(result, "after.title") && (
+                                <div>
+                                  <small>
+                                    <b>Renamed</b> Checklist <br />
+                                    From :{" "}
+                                    <del>{get(result, "before.title")}</del>
+                                    <br />
+                                    To :{" "}
+                                    <b className="pt-2">
+                                      {get(result, "after.title")}
+                                    </b>
+                                    <br />
+                                  </small>
+                                </div>
+                              )}
+                          </div>
+                        </React.Fragment>
+                      )}
+
+                      {result.event === "has deleted" && (
+                        <small>
+                          {result.event} {result.attribute}{" "}
+                          <b>{get(result, "before.title")}</b>{" "}
+                          {result.attribute === "attachment" && (
+                            <div style={{ display: "flex", margin: 5 }}>
+                              <FileIcon
+                                fileName={get(result, "before.filename")}
+                                title={get(result, "before.filename")}
+                                size="sm"
+                              />
+                              <b
+                                style={{
+                                  textAlgin: "left",
+                                  margin: "auto 0",
+                                  fontSize: 12
+                                }}
+                              >
+                                {get(result, "before.filename")}
+                              </b>
+                            </div>
+                          )}
+                        </small>
+                      )}
+
+                      {result.event === "has commented" && (
+                        <small>{get(result, "after.comment")}</small>
+                      )}
                     </div>
+                  </div>
                 </div>
               </div>
             </React.Fragment>
@@ -501,15 +563,16 @@ class ListActivity extends React.PureComponent {
               {loadingState && <LoadingCard />}
             </div>
             <div className="card-footer ">
-              {ListActivities.length > 9 && (
-                <button
-                  type="button"
-                  className="btn btn-link text-dark"
-                  onClick={() => this.handleLoadMore()}
-                >
-                  <u>Load More...</u>
-                </button>
-              )}
+              {ListActivities.length >= 9 &&
+                this.state.page <= ListActivities.length && (
+                  <button
+                    type="button"
+                    className="btn btn-link text-dark"
+                    onClick={() => this.handleLoadMore()}
+                  >
+                    <u>Load More...</u>
+                  </button>
+                )}
             </div>
           </div>
         </div>

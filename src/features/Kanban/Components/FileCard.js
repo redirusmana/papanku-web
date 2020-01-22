@@ -1,7 +1,7 @@
 import React from "react";
 // import PropTypes from 'prop-types';
 // import debounce from 'lodash/debounce';
-// import FileSaver from 'file-saver';
+// import FileSaver from "file-saver";
 import get from "lodash/get";
 import Upload from "antd/lib/upload";
 import "antd/lib/upload/style/index.css";
@@ -13,7 +13,7 @@ import {
   AXIOS_CANCEL_MESSAGE
 } from "../../../provider/Tools/converter";
 import popConfirm from "../../../provider/Display/popConfirm";
-// import { downloadDSFile } from '../../DecisionSupport/action';
+import { downloadDSFile } from "../action";
 
 const { Dragger } = Upload;
 
@@ -26,19 +26,22 @@ class FileCard extends React.PureComponent {
 
   _fileCounter = 0;
 
-  // downloadFile = async file => {
-  //   try {
-  //     if (file.file_id && file.attachment.name) {
-  //       this._requestSource = api.generateCancelToken();
-  //       const response = await downloadDSFile(file.file_id, this._requestSource.token);
-  //       FileSaver.saveAs(response.data, file.attachment.name);
-  //     } else if (get(file, 'actualFile.name') && get(file, 'actualFile.originFileObj')) {
-  //       FileSaver.saveAs(get(file, 'actualFile.originFileObj'), get(file, 'actualFile.name'));
-  //     }
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
+  downloadFile = async file => {
+    try {
+      console.log(file);
+      if (file.id && file.filename) {
+        this._requestSource = api.generateCancelToken();
+        const response = await downloadDSFile(
+          file.id,
+          this._requestSource.token
+        );
+        console.log(response);
+        // FileSaver.saveAs(response.data, file.attachment.name);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   removeFile = attachment => {
     const fileName = get(attachment, "filename");
@@ -56,7 +59,7 @@ class FileCard extends React.PureComponent {
           });
           const { data } = response;
           this.props.deleteAttachments(data.attachment);
-          this.props.handleReplace({newActivities:data.activity});
+          this.props.handleReplace({ newActivities: data.activity });
         } catch (e) {
           const error = axiosError(e);
           if (error === AXIOS_CANCEL_MESSAGE) {
@@ -79,15 +82,12 @@ class FileCard extends React.PureComponent {
 
     this._fileCounter += 1;
 
-
     this.setState(
       prevState => ({
         temporaryAttachments: [...prevState.temporaryAttachments, mappedFile]
       }),
       () => {
-        
         if (this.state.temporaryAttachments.length === this._fileCounter) {
-          
           this._fileCounter = 0;
           this.uploadFile();
         }
@@ -113,7 +113,7 @@ class FileCard extends React.PureComponent {
       });
       const { data } = response;
       this.props.handleChangeAttachments(data.attachment);
-      this.props.handleReplace({newActivities:data.activity});
+      this.props.handleReplace({ newActivities: data.activity });
 
       this.setState({
         temporaryAttachments: []

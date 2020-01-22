@@ -32,3 +32,11 @@ export const storeComment = (data, idCard, cancelToken) => {
   const url = `/api/comment/card/${idCard}`;
   return api.post(url, data, cancelToken);
 };
+
+export const downloadDSFile = (id, cancelToken) => {
+  const url = `/api/decision-support/file/${id}`;
+  // const url = `/api/decision-support/file/${id}`;
+  return api.get(url, cancelToken, {
+    responseType: "blob"
+  });
+};
