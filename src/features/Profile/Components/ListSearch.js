@@ -9,12 +9,13 @@ class ListSearch extends React.PureComponent {
     });
   };
   render() {
+    const {placeholder} = this.props;
     return (
       <React.Fragment>
         <div className="col-lg-24 mb-3 ">
           <InputSearch
             initialSearch=""
-            placeholder="Search Friend"
+            placeholder={placeholder}
             onSearchChange={value => this.props.beginSearch(value)}
             // autoFocus={!!"title"}
           />

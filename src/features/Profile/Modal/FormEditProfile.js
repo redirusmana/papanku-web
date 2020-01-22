@@ -36,7 +36,8 @@ class FormEditProfile extends React.PureComponent {
 
   handleSubmit = async (values, actions) => {
     const {
-      profile_picture,
+      // profile_picture,previewAvatar,
+      avatar_path,
       birth,
       id,
       email,
@@ -52,7 +53,6 @@ class FormEditProfile extends React.PureComponent {
       board_invitation_request,
       requested_board_invitation,
       notifications,
-      // profile_picture,
       ...allValues
     } = values;
     try {
@@ -66,6 +66,7 @@ class FormEditProfile extends React.PureComponent {
             ? birth.format("YYYY-MM-DD")
             : undefined
       };
+      console.log(newValues)
 
       const response = await apiEditProfile(
         newValues,

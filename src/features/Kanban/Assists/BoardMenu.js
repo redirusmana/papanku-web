@@ -71,7 +71,7 @@ class BoardMenu extends React.PureComponent {
     return (
       <React.Fragment>
         <div className="mb-2 m-3">
-          <ListSearch beginSearch={this.handleSearch} />
+          <ListSearch placeholder="Search Board" beginSearch={this.handleSearch} />
         </div>
         {listBoard}
         {/* <div className="d-flex flex-column my-2 px-0">

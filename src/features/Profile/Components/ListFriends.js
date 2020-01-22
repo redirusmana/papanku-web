@@ -185,7 +185,7 @@ class ListFriends extends React.PureComponent {
 
     return (
       <React.Fragment>
-        <ListSearch beginSearch={this.handleSearch} />
+        <ListSearch placeholder="Search Friends" beginSearch={this.handleSearch} />
         {listFriends}
         <div className="col-lg-8 mb-3">
           <div className="card p-5">
