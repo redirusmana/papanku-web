@@ -28,13 +28,14 @@ class FormEditPhone extends React.PureComponent {
   }
 
   handleSubmit = async (values, actions) => {
-    const { avatar_path, ...newValues } = values;
+    const { phone_number, ...newValues } = values;
     try {
       this.props.handleLoading(true);
       this._requestSource = api.generateCancelToken();
+      const initialValues = { phone_number };
 
       const response = await apiEditProfile(
-        newValues,
+        initialValues,
         this._requestSource.token
       );
       if (response.status === 200) {

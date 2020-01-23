@@ -290,12 +290,12 @@ class ListFriends extends React.PureComponent {
       <React.Fragment>
         {/* <ListSearch /> */}
         <div className="col-lg-24 ">
-          {loading || !!listFriendsRequest ? "" : TitlelistFriendsRequest}
+          {loading || !listFriendsRequest ? "" : TitlelistFriendsRequest}
           <div className="row mb-3">
             {loading ? <LoadingCard /> : listFriendsRequest}
           </div>
           <hr />
-          {loading || !!listRequestFriend ? "" : TitlelistRequestFriend}
+          {loading || !listRequestFriend ? "" : TitlelistRequestFriend}
           <div className="row mb-3">
             {loading ? <LoadingCard /> : listRequestFriend}
           </div>
