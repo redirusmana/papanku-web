@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import get from "lodash/get";
 import Drawer from "antd/lib/drawer";
 import Popover from "antd/lib/popover";
@@ -50,6 +51,7 @@ class NavbarKanbanPage extends React.PureComponent {
       dataSourcesUser,
       handleLogout,
       dataSources,
+      user,
       ...restProps
     } = this.props;
 
@@ -125,6 +127,9 @@ class NavbarKanbanPage extends React.PureComponent {
             </ul>
             <ul className="navbar-nav m-auto">
               <li className="nav-item py-0 ">
+                {/* <b className="text-center font-weight-bold text-white">
+                  Papanku
+                </b> */}
                 <img src={logo} width="30" height="30" alt="" />
               </li>
             </ul>
@@ -146,22 +151,18 @@ class NavbarKanbanPage extends React.PureComponent {
               </li>
               <li className="nav-item py-0">
                 <Popover
-                  title={
-                    <b className="">{get(dataSourcesUser, "data.name")}</b>
-                  }
+                  title={<b className="">{user.name}</b>}
                   trigger="click"
                   content={<ProfileMenu handleLogout={handleLogout} />}
                   overlayClassName="xl popover-no-padding popover-noarrow"
                 >
                   <div>
                     <Avatar
-                      name={get(dataSourcesUser, "data.name")}
-                      title={get(dataSourcesUser, "data.name")}
+                      name={user.name}
+                      title={user.name}
                       image={
-                        get(dataSourcesUser, "data.avatar_path")
-                          ? assetsApiUrl(
-                              get(dataSourcesUser, "data.avatar_path")
-                            )
+                        user.avatar_path
+                          ? assetsApiUrl(user.avatar_path)
                           : undefined
                       }
                       // style={{
@@ -272,4 +273,8 @@ class NavbarKanbanPage extends React.PureComponent {
   }
 }
 
-export default NavbarKanbanPage;
+const mapStateToProps = store => ({
+  user: store.auth.user
+});
+
+export default connect(mapStateToProps)(NavbarKanbanPage);

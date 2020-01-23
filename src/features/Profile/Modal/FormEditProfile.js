@@ -66,7 +66,7 @@ class FormEditProfile extends React.PureComponent {
             ? birth.format("YYYY-MM-DD")
             : undefined
       };
-      console.log(newValues)
+      console.log(newValues);
 
       const response = await apiEditProfile(
         newValues,
@@ -146,6 +146,7 @@ class FormEditProfile extends React.PureComponent {
                       onChange={handleChange}
                       onBlur={handleBlur}
                       value={values.name}
+                      autoComplete="off"
                     />
                   </div>
                   <div className="form-group">
@@ -160,6 +161,7 @@ class FormEditProfile extends React.PureComponent {
                       onChange={handleChange}
                       onBlur={handleBlur}
                       value={values.username}
+                      autoComplete="off"
                     />
                   </div>
                   <div className="form-group">

@@ -6,8 +6,8 @@ import PageLogin from "./features/Auth/Screens/PageLogin";
 import PageRegister from "./features/Auth/Screens/PageRegister";
 import PageProfileIndex from "./features/Profile/Screens/PageProfileIndex";
 import PageUsersIndex from "./features/Users/Screens/PageUsersIndex";
-import LandingPage from "./features/Landing/Screens/LandingPage";
-// import MercusuarPage from "./features/Landing/Screens/MercusuarPage";
+// import LandingPage from "./features/Landing/Screens/LandingPage";
+import MercusuarPage from "./features/Landing/Screens/MercusuarPage";
 import KanbanPageIndex from "./features/Kanban/Screens/KanbanPageIndex";
 import RoutePrivate from "./features/Auth/Components/RoutePrivate";
 import { getSavedToken, AUTH_SET_LOGIN } from "./features/Auth/action";
@@ -68,8 +68,8 @@ class App extends React.PureComponent {
     return (
       <React.Fragment>
         <Switch>
-          <Route path="/" exact component={LandingPage} />
-          {/* <Route path="/*" exact component={MercusuarPage} /> */}
+          {/* <Route path="/" exact component={LandingPage} /> */}
+          <Route path="/" exact component={MercusuarPage} />
           <RouteGuard path="/login" exact component={PageLogin} />
           <RouteGuard path="/register" exact component={PageRegister} />
 

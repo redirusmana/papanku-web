@@ -86,6 +86,7 @@ class FormEditPhone extends React.PureComponent {
                       name="phone_number"
                       onChange={value => setFieldValue("phone_number", value)}
                       value={values.phone_number}
+                      autoComplete="off"
                     />
                     {errors && errors.phone_number && (
                       <p className="text-danger">{errors.phone_number}</p>

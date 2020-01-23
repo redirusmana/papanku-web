@@ -20,6 +20,17 @@ import "../Style/style.css";
 //     .min(6, "Password too short")
 // });
 
+// const formRegisterValidation = yup.object().shape({
+//   password: yup
+//     .string()
+//     .required("Password is required")
+//     .min(6, "Password too short"),
+//   password_confirmation: yup
+//     .string()
+//     .oneOf([yup.ref("password")], "Password is not same")
+//     .required("Password confirmation is required")
+// });
+
 class FormEditPassWord extends React.PureComponent {
   constructor(props) {
     super(props);

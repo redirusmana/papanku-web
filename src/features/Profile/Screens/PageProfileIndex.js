@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import PageProfileInfo from "./PageProfileInfo";
+import PageProfileNavbar from "./PageProfileNavbar";
 import PageProfile from "./PageProfile";
 import "../Style/style.css";
 
@@ -10,8 +11,10 @@ class PageProfileIndex extends React.PureComponent {
     this.state = {};
   }
   render() {
+    const { ...restProps } = this.props;
     return (
       <React.Fragment>
+        <PageProfileNavbar {...restProps} />
         <div className="container-fluid">
           <div className="row p-3">
             <div className="col-lg-6">

@@ -290,7 +290,7 @@ class CardPage extends React.PureComponent {
     const { loadingProps } = this.props;
     if (loadingProps || loading) {
       return (
-        <div className="task-detail">
+        <div className="task-detail d-flex align-items-center">
           <LoadingCard />
         </div>
       );

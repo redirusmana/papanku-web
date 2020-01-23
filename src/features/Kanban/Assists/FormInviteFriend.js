@@ -1,5 +1,6 @@
 import React from "react";
 import get from "lodash/get";
+import * as yup from "yup";
 import { Empty } from "antd";
 import { Formik } from "formik";
 import cn from "classnames";
@@ -15,6 +16,10 @@ import alertFloat from "../../../provider/Display/alertFloat";
 import LoadingCard from "../../../provider/Display/LoadingCard";
 import { apiInvitetoBoard } from "../action";
 import { assetsApiUrl } from "../../../provider/Tools/general";
+
+const formInviteValidation = yup.object().shape({
+  members: yup.string().required("Field Must be filled in First")
+});
 
 class FormInviteFriend extends React.PureComponent {
   constructor(props) {
@@ -235,8 +240,15 @@ class FormInviteFriend extends React.PureComponent {
       <React.Fragment>
         <Formik
           initialValues={initialValues}
+          validationSchema={formInviteValidation}
           onSubmit={this.handleSubmit}
-          render={({ values, handleSubmit, isSubmitting, setFieldValue }) => (
+          render={({
+            values,
+            handleSubmit,
+            isSubmitting,
+            setFieldValue,
+            errors
+          }) => (
             <div className="row">
               <div className="col-lg-24">
                 <form className="form-horizontal p-2" onSubmit={handleSubmit}>
@@ -253,6 +265,9 @@ class FormInviteFriend extends React.PureComponent {
                       placeholder="Friend"
                       value={values.members}
                     />
+                    {errors && errors.members && (
+                      <p className="text-danger">{errors.members}</p>
+                    )}
                   </div>
                   <div className="form-group ">
                     <button

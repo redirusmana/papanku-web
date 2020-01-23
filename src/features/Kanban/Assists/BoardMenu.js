@@ -19,7 +19,8 @@ class BoardMenu extends React.PureComponent {
 
   render() {
     // , user
-    const { data } = this.props;
+    const { data, history } = this.props;
+    console.log(history);
     const { search } = this.state;
 
     const filteredFriend =
@@ -30,6 +31,10 @@ class BoardMenu extends React.PureComponent {
             );
           })
         : [];
+
+    // handleGo = (id) => {
+    //   history.replace(`/board/${id}`);
+    // };
 
     // const listBoards = filteredFriend.map(result => (
     //   <React.Fragment key={`list-board-dropdown-${result.id}`}>
@@ -60,6 +65,12 @@ class BoardMenu extends React.PureComponent {
       <React.Fragment key={`list-board-dropdown-${result.id}`}>
         <div
           // to={`/board/${result.id}`}
+          // onClick={() => {
+          //   this.handleGo(result.id);
+          // }}
+          onClick={() => {
+            history.push(`/board/${result.id}`);
+          }}
           className="p-2 text-dark pointer hovered-button-popover pointer "
         >
           {/* `${result.title} - ${result.created_by}` */}
@@ -71,7 +82,10 @@ class BoardMenu extends React.PureComponent {
     return (
       <React.Fragment>
         <div className="mb-2 m-3">
-          <ListSearch placeholder="Search Board" beginSearch={this.handleSearch} />
+          <ListSearch
+            placeholder="Search Board"
+            beginSearch={this.handleSearch}
+          />
         </div>
         {listBoard}
         {/* <div className="d-flex flex-column my-2 px-0">

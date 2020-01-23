@@ -14,7 +14,8 @@ import {
 import alertFloat from "../../../provider/Display/alertFloat";
 
 const formCreateBoardValidation = yup.object().shape({
-  title: yup.string().required("Title is required")
+  title: yup.string().required("Field Title Must be filled in First"),
+  visibility: yup.string().required("Field Visibility Must be filled in First")
 });
 
 class FormCreateBoard extends React.PureComponent {
@@ -71,7 +72,8 @@ class FormCreateBoard extends React.PureComponent {
             values,
             handleSubmit,
             setFieldValue,
-            isSubmitting
+            isSubmitting,
+            errors
           }) => (
             <div className="row">
               <div className="col-lg-24">
@@ -88,7 +90,11 @@ class FormCreateBoard extends React.PureComponent {
                       onChange={handleChange}
                       onBlur={handleBlur}
                       values={values.title}
+                      autoComplete="off"
                     />
+                    {errors && errors.title && (
+                      <p className="text-danger">{errors.title}</p>
+                    )}
                   </div>
                   <div className="form-group">
                     <label className="form-label" htmlFor="">
@@ -105,6 +111,9 @@ class FormCreateBoard extends React.PureComponent {
                       placeholder="Visibility"
                       value={values.visibility || undefined}
                     />
+                    {errors && errors.visibility && (
+                      <p className="text-danger">{errors.visibility}</p>
+                    )}
                   </div>
                   <div className="form-group ">
                     <button

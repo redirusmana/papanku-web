@@ -1,5 +1,6 @@
 import React from "react";
 import get from "lodash/get";
+import * as yup from "yup";
 import Popover from "antd/lib/popover";
 import "antd/lib/popover/style/index.css";
 import { Formik } from "formik";
@@ -16,6 +17,10 @@ import alertFloat from "../../../provider/Display/alertFloat";
 // import LoadingCard from "../../../provider/Display/LoadingCard";
 import { apiInvitetoCard } from "../action";
 import { assetsApiUrl } from "../../../provider/Tools/general";
+
+const formInviteValidation = yup.object().shape({
+  members: yup.string().required("Field Must be filled in First")
+});
 
 class MembersCard extends React.PureComponent {
   constructor(props) {
@@ -62,7 +67,9 @@ class MembersCard extends React.PureComponent {
       <div className="avatar-list">
         {Array.isArray(members) && members.length > 0 ? (
           members.map(result => (
-            <React.Fragment key={`list-member-on/in-card-${result.id}-${result.user_id}`}>
+            <React.Fragment
+              key={`list-member-on/in-card-${result.id}-${result.user_id}`}
+            >
               <Avatar
                 name={get(result, "user.name")}
                 title={get(result, "user.name")}
@@ -77,9 +84,7 @@ class MembersCard extends React.PureComponent {
           ))
         ) : (
           <React.Fragment>
-            <em>
-              No Member found
-              </em>;
+            <em>No Member found</em>;
           </React.Fragment>
         )}
       </div>
@@ -96,7 +101,7 @@ class MembersCard extends React.PureComponent {
         this._requestSource.token
       );
       const { data } = response;
-      this.props.handleAddMemberCard(data.results)
+      this.props.handleAddMemberCard(data.results);
       // this.props.handleReplace(data.activity)
 
       if (response.status === 200) {
@@ -131,8 +136,15 @@ class MembersCard extends React.PureComponent {
           <div className="mb-2 text-center font-weight-bold">List Members</div>
           <Formik
             initialValues={initialValues}
+            validationSchema={formInviteValidation}
             onSubmit={this.handleSubmit}
-            render={({ values, handleSubmit, isSubmitting, setFieldValue }) => (
+            render={({
+              values,
+              handleSubmit,
+              isSubmitting,
+              setFieldValue,
+              errors
+            }) => (
               <div className="row">
                 <div className="col-lg-24">
                   <form className="form-horizontal p-2" onSubmit={handleSubmit}>
@@ -146,12 +158,13 @@ class MembersCard extends React.PureComponent {
                         mode="multiple"
                         onChange={value => setFieldValue("members", value)}
                         // options={inviteOption || undefined}
-                        options={[
-                          { label: "name", value: "1" },
-                        ]}
+                        options={[{ label: "name", value: "1" }]}
                         placeholder="Friend"
                         value={values.members}
                       />
+                      {errors && errors.members && (
+                        <p className="text-danger">{errors.members}</p>
+                      )}
                     </div>
                     <div className="form-group ">
                       <button

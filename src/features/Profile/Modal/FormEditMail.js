@@ -89,6 +89,7 @@ class FormEditMail extends React.PureComponent {
                       onChange={handleChange}
                       onBlur={handleBlur}
                       value={values.email}
+                      autoComplete="off"
                     />
                     {errors && errors.email && (
                       <p className="text-danger">{errors.email}</p>

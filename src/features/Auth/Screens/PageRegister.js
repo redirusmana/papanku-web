@@ -163,6 +163,7 @@ class PageRegister extends React.PureComponent {
                                   onBlur={handleBlur}
                                   name="first_name"
                                   values={values.first_name}
+                                  autoComplete="off"
                                 />
                                 {errors && errors.first_name && (
                                   <p className="text-danger">
@@ -187,6 +188,7 @@ class PageRegister extends React.PureComponent {
                                   onBlur={handleBlur}
                                   name="last_name"
                                   values={values.last_name}
+                                  autoComplete="off"
                                 />
                                 {errors && errors.last_name && (
                                   <p className="text-danger">
@@ -208,6 +210,7 @@ class PageRegister extends React.PureComponent {
                               onBlur={handleBlur}
                               name="email"
                               values={values.email}
+                              autoComplete="off"
                             />
                             {errors && errors.email && (
                               <p className="text-danger">{errors.email}</p>
@@ -225,6 +228,7 @@ class PageRegister extends React.PureComponent {
                               onBlur={handleBlur}
                               name="username"
                               values={values.username}
+                              autoComplete="off"
                             />
                             {errors && errors.username && (
                               <p className="text-danger">{errors.username}</p>
@@ -242,6 +246,7 @@ class PageRegister extends React.PureComponent {
                               onBlur={handleBlur}
                               name="password"
                               values={values.password}
+                              autoComplete="off"
                             />
                             {errors && errors.password && (
                               <p className="text-danger">{errors.password}</p>
@@ -260,6 +265,7 @@ class PageRegister extends React.PureComponent {
                               onBlur={handleBlur}
                               name="password_confirmation"
                               values={values.password_confirmation}
+                              autoComplete="off"
                             />
                             {errors && errors.password_confirmation && (
                               <p className="text-danger">

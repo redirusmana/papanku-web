@@ -133,6 +133,7 @@ class PageLogin extends React.PureComponent {
                               onBlur={handleBlur}
                               name="email"
                               values={values.email}
+                              autoComplete="off"
                             />
                             {errors && errors.email && (
                               <p className="text-danger">{errors.email}</p>
