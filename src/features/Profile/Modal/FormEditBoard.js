@@ -3,7 +3,7 @@ import { Formik } from "formik";
 import { connect } from "react-redux";
 import * as yup from "yup";
 import cn from "classnames";
-import { apiCreateBoard } from "../action"; //apiAddFriend,
+import { apiUpdateBoard } from "../action"; //apiAddFriend,
 import InputSelectLong from "../../../provider/Commons/InputSelectLong";
 import api from "../../../provider/Tools/api";
 import "../Style/style.css";
@@ -13,28 +13,33 @@ import {
 } from "../../../provider/Tools/converter";
 import alertFloat from "../../../provider/Display/alertFloat";
 
-const formCreateBoardValidation = yup.object().shape({
+const FormEditBoardValidation = yup.object().shape({
   title: yup.string().required("Field Title Must be filled in First"),
   visibility: yup.string().required("Field Visibility Must be filled in First")
 });
 
-class FormCreateBoard extends React.PureComponent {
+class FormEditBoard extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      initialValues: {
-        title: "",
-        visibility: "public"
-      }
-    };
+    this.state = {};
   }
 
   handleSubmit = async (values, actions) => {
+    const { initialValue } = this.props;
+    const { title, visibility } = values;
+    const newResult = {
+      title,
+      visibility
+    };
     try {
       this.props.handleLoading(true);
       this._requestSource = api.generateCancelToken();
 
-      const response = await apiCreateBoard(values, this._requestSource.token);
+      const response = await apiUpdateBoard(
+        newResult,
+        initialValue.id,
+        this._requestSource.token
+      );
       const { data } = response;
 
       if (response.status === 200) {
@@ -42,7 +47,7 @@ class FormCreateBoard extends React.PureComponent {
           type: "success",
           content: data.message
         });
-        this.props.handleReplace(data.data);
+        this.props.handleReplace(data.boards);
       }
     } catch (e) {
       const error = axiosError(e);
@@ -59,12 +64,12 @@ class FormCreateBoard extends React.PureComponent {
     this.props.handleClose();
   };
   render() {
-    const { initialValues } = this.state;
+    const { initialValue } = this.props;
     return (
       <React.Fragment>
         <Formik
-          initialValues={initialValues}
-          validationSchema={formCreateBoardValidation}
+          initialValues={initialValue}
+          validationSchema={FormEditBoardValidation}
           onSubmit={this.handleSubmit}
           render={({
             handleChange,
@@ -83,13 +88,13 @@ class FormCreateBoard extends React.PureComponent {
                       Title Board
                     </label>
                     <input
-                      type="text"
-                      className={"form-control"}
-                      placeholder="Title Board"
                       name="title"
+                      type="text"
+                      className="form-control"
+                      placeholder="Title Board"
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      values={values.title}
+                      value={values.title}
                       autoComplete="off"
                     />
                     {errors && errors.title && (
@@ -145,4 +150,4 @@ const mapStateToProps = store => ({
   user: store.auth.user
 });
 
-export default connect(mapStateToProps)(FormCreateBoard);
+export default connect(mapStateToProps)(FormEditBoard);

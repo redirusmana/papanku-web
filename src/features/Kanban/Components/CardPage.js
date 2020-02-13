@@ -409,6 +409,7 @@ class CardPage extends React.PureComponent {
           afterClose={this.getCardInfo}
           wrapClassName="task-modal-wrapper"
           showTitle={false}
+          closeOnOutside={false}
         >
           {this.renderCard()}
         </Modal>

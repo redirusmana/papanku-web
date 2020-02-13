@@ -49,7 +49,7 @@ class ProfileMember extends React.PureComponent {
 
   render() {
     const { results } = this.props;
-    const hasAdmin = get(results, "role.name") === "admin";
+    // const hasAdmin = get(results, "role.name") === "admin";
     return (
       <React.Fragment>
         <div className="media">
@@ -96,14 +96,14 @@ class ProfileMember extends React.PureComponent {
           >
             Views Activity
           </Link>
-          {hasAdmin && (
+          {/* {hasAdmin && (
             <div
               onClick={() => this.handleRemove(results.user)}
               className="p-2 pointer hovered-button-popover text-dark"
             >
               Remove From Board..
             </div>
-          )}
+          )} */}
         </div>
       </React.Fragment>
     );

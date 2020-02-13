@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Route, Switch } from "react-router-dom";
+import { Switch } from "react-router-dom";
 import LoadingPage from "./provider/Display/LoadingPage";
 import PageLogin from "./features/Auth/Screens/PageLogin";
 import PageRegister from "./features/Auth/Screens/PageRegister";
@@ -69,13 +69,13 @@ class App extends React.PureComponent {
       <React.Fragment>
         <Switch>
           {/* <Route path="/" exact component={LandingPage} /> */}
-          <Route path="/" exact component={MercusuarPage} />
           <RouteGuard path="/login" exact component={PageLogin} />
           <RouteGuard path="/register" exact component={PageRegister} />
 
           <RoutePrivate path="/user" component={PageProfileIndex} />
           <RoutePrivate path="/users/:email" component={PageUsersIndex} />
           <RoutePrivate path="/board/:id" component={KanbanPageIndex} />
+          <RoutePrivate path="/*" exact component={MercusuarPage} />
         </Switch>
       </React.Fragment>
     );

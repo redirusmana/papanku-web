@@ -5,7 +5,7 @@ import Popover from "antd/lib/popover";
 import "antd/lib/drawer/style/index.css";
 import "antd/lib/popover/style/index.css";
 import { Link } from "react-router-dom";
-import logo from "../../../assets/images/bootstrap.png";
+// import logo from "../../../assets/images/bootstrap.png";
 import BoardMenu from "../../Kanban/Assists/BoardMenu";
 import ProfileMenu from "../../Kanban/Assists/ProfileMenu";
 import AllNotification from "../../Kanban/Assists/AllNotification";
@@ -86,10 +86,10 @@ class PageProfileNavbar extends React.PureComponent {
             </ul>
             <ul className="navbar-nav m-auto">
               <li className="nav-item py-0 ">
-                {/* <b className="text-center font-weight-bold text-white">
+                <b className="text-center font-weight-bold text-white">
                   Papanku
-                </b> */}
-                <img src={logo} width="30" height="30" alt="" />
+                </b>
+                {/* <img src={logo} width="30" height="30" alt="" /> */}
               </li>
             </ul>
             <ul className="navbar-nav ml-auto">

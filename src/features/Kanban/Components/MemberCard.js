@@ -45,7 +45,7 @@ class MembersCard extends React.PureComponent {
       },
       () => {
         const { cardId } = this.props;
-        const ROUTE_API = `api/card/${cardId}/member`;
+        const ROUTE_API = `api/friend/card/${cardId}`;
         this._requestSource = api.generateCancelToken();
         api
           .get(ROUTE_API, this._requestSource.token)
@@ -102,17 +102,16 @@ class MembersCard extends React.PureComponent {
       );
       const { data } = response;
       this.props.handleAddMemberCard(data.results);
-      // this.props.handleReplace(data.activity)
-
+      this.props.handleReplace({ newActivities: data.history });
+      this.setState({
+        initialValues: {
+          members: undefined
+        }
+      });
       if (response.status === 200) {
         alertFloat({
           type: "success",
           content: data.message
-        });
-        this.setState({
-          initialValues: {
-            members: undefined
-          }
         });
       }
     } catch (e) {
@@ -157,8 +156,7 @@ class MembersCard extends React.PureComponent {
                         name="members"
                         mode="multiple"
                         onChange={value => setFieldValue("members", value)}
-                        // options={inviteOption || undefined}
-                        options={[{ label: "name", value: "1" }]}
+                        options={inviteOption || undefined}
                         placeholder="Friend"
                         value={values.members}
                       />

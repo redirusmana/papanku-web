@@ -28,7 +28,7 @@ class FormEditPhone extends React.PureComponent {
   }
 
   handleSubmit = async (values, actions) => {
-    const { phone_number, ...newValues } = values;
+    const { phone_number } = values;
     try {
       this.props.handleLoading(true);
       this._requestSource = api.generateCancelToken();

@@ -36,7 +36,11 @@ class TaskList extends React.PureComponent {
             );
           })}
         {get(task, "members").length > 3 && (
-          <Avatar size="sm" name={get(task, "members").length - 3} />
+          <Avatar
+            size="sm"
+            name={get(task, "members").length - 3}
+            avatarClass="avatar-link my-1"
+          />
         )}
       </div>
     ) : null;
@@ -48,8 +52,9 @@ class TaskList extends React.PureComponent {
     const taskCheckLists = get(task, "checklists");
     if (Array.isArray(taskCheckLists) && taskCheckLists.length > 0) {
       const unChecked = taskCheckLists.map(taskCheckList => {
-        return taskCheckList.childs.filter(child => child.is_checked === null)
-          .length;
+        return taskCheckList.childs.filter(
+          child => child.is_checked === null || child.is_checked === false
+        ).length;
       });
       const newUnChecked = unChecked.reduce((prev, curr) => prev + curr);
 
@@ -59,11 +64,12 @@ class TaskList extends React.PureComponent {
       });
       const newChecked = Checked.reduce((prev, curr) => prev + curr);
 
+      const newValuesUnCheck = newChecked + newUnChecked;
+
       const checklist = (
         <Popover
           content={
-            <div className="text-center font-weight-bold">{`Remaining Task : ${newChecked -
-              newUnChecked}`}</div>
+            <div className="text-center font-weight-bold">{`Remaining Task : ${newUnChecked}`}</div>
           }
           trigger="hover"
           placement="bottom"
@@ -73,7 +79,7 @@ class TaskList extends React.PureComponent {
           <div className="mx-1">
             <i className="icofont-checked icon-left" />{" "}
             <small>
-              {newUnChecked}/{newChecked}
+              {newChecked}/{newValuesUnCheck}
             </small>
           </div>
         </Popover>

@@ -14,6 +14,7 @@ import {
 } from "../../../provider/Tools/converter";
 import alertFloat from "../../../provider/Display/alertFloat";
 import FormCreateBoard from "../Modal/FormCreateBoard";
+import FormEditBoard from "../Modal/FormEditBoard";
 import { apiAcceptFriend, apiDeclineFriend } from "../action";
 import "../Style/style.css";
 
@@ -21,7 +22,9 @@ class ListBoard extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      isVisible: false
+      isVisible: false,
+      condition: "",
+      newInitialValuesEdit: {}
     };
   }
 
@@ -50,9 +53,18 @@ class ListBoard extends React.PureComponent {
     );
   };
 
-  handleModal = () => {
+  handleModal = condition => {
     this.setState({
-      isVisible: true
+      isVisible: true,
+      condition
+    });
+  };
+
+  handleEdit = (condition, result) => {
+    this.setState({
+      isVisible: true,
+      condition,
+      newInitialValuesEdit: result
     });
   };
 
@@ -167,7 +179,7 @@ class ListBoard extends React.PureComponent {
           this.onLoadChange(true);
           this._requestSource = api.generateCancelToken();
           const response = await apiDeclineFriend(
-            `/api/board/${id}/delete`,
+            `/api/board/${id}`,
             this._requestSource.token
           );
           const { data } = response;
@@ -177,8 +189,16 @@ class ListBoard extends React.PureComponent {
               type: "success",
               content: data.message
             });
+            this.setState(prevState => {
+              const result = {
+                dataSources: {
+                  ...prevState.dataSources,
+                  boards: data.boards
+                }
+              };
+              return result;
+            });
             this.setState({
-              dataSources: data.data,
               loading: false
             });
           }
@@ -197,8 +217,26 @@ class ListBoard extends React.PureComponent {
     });
   };
 
+  handleUpdateReplace = newBoards => {
+    this.setState(prevState => {
+      const result = {
+        dataSources: {
+          ...prevState.dataSources,
+          boards: newBoards
+        }
+      };
+      return result;
+    });
+  };
+
   render() {
-    const { isVisible, dataSources, loading } = this.state;
+    const {
+      isVisible,
+      dataSources,
+      loading,
+      condition,
+      newInitialValuesEdit
+    } = this.state;
     const { user } = this.props;
 
     const TitleListBoard = (
@@ -228,7 +266,7 @@ class ListBoard extends React.PureComponent {
                         <div className="ml-2">
                           {result.created_by === user.username && (
                             <button
-                              onClick={() => this.handleModal("")}
+                              onClick={() => this.handleEdit("Edit", result)}
                               type="button"
                               className="btn btn-primary btn-sm ml-1"
                             >
@@ -341,7 +379,7 @@ class ListBoard extends React.PureComponent {
                   <div className="card bg-light">
                     <div
                       className="card-body text-center pointer"
-                      onClick={() => this.handleModal()}
+                      onClick={() => this.handleModal("Create")}
                     >
                       <h3 className="my-5 mx-auto py-4 font-weight-bold">
                         Add New Board
@@ -364,18 +402,31 @@ class ListBoard extends React.PureComponent {
         </div>
 
         <Modal
-          title="Create New Board "
+          title={`${condition} Board`}
           visible={isVisible}
           size="small"
           handleBack={this.handleClose}
         >
-          <div className="container">
-            <FormCreateBoard
-              handleReplace={this.handleReplace}
-              handleLoading={this.handleLoading}
-              handleClose={this.handleClose}
-            />
-          </div>
+          {condition === "Create" && (
+            <div className="container">
+              <FormCreateBoard
+                handleReplace={this.handleReplace}
+                handleLoading={this.handleLoading}
+                handleClose={this.handleClose}
+              />
+            </div>
+          )}
+
+          {condition === "Edit" && (
+            <div className="container">
+              <FormEditBoard
+                handleReplace={this.handleUpdateReplace}
+                initialValue={newInitialValuesEdit}
+                handleLoading={this.handleLoading}
+                handleClose={this.handleClose}
+              />
+            </div>
+          )}
         </Modal>
       </React.Fragment>
     );

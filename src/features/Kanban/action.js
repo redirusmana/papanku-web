@@ -35,7 +35,6 @@ export const storeComment = (data, idCard, cancelToken) => {
 
 export const downloadDSFile = (id, cancelToken) => {
   const url = `/api/decision-support/file/${id}`;
-  // const url = `/api/decision-support/file/${id}`;
   return api.get(url, cancelToken, {
     responseType: "blob"
   });

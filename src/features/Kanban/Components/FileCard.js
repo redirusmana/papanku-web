@@ -1,7 +1,7 @@
 import React from "react";
 // import PropTypes from 'prop-types';
 // import debounce from 'lodash/debounce';
-// import FileSaver from "file-saver";
+import FileSaver from "file-saver";
 import get from "lodash/get";
 import Upload from "antd/lib/upload";
 import "antd/lib/upload/style/index.css";
@@ -36,7 +36,7 @@ class FileCard extends React.PureComponent {
           this._requestSource.token
         );
         console.log(response);
-        // FileSaver.saveAs(response.data, file.attachment.name);
+        FileSaver.saveAs(response.data, file.attachment.name);
       }
     } catch (e) {
       console.log(e);

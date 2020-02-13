@@ -284,6 +284,30 @@ class ListActivity extends React.PureComponent {
                         </React.Fragment>
                       )}
 
+                      {result.event === "has updated" && (
+                        <React.Fragment>
+                          <div>
+                            {get(result, "before.title") &&
+                              get(result, "after.title") && (
+                                <div>
+                                  <small>
+                                    <b>Updated</b> Title Card
+                                    <br />
+                                    From :{" "}
+                                    <del>{get(result, "before.title")}</del>
+                                    <br />
+                                    To :{" "}
+                                    <b className="pt-2">
+                                      {get(result, "after.title")}
+                                    </b>
+                                    <br />
+                                  </small>
+                                </div>
+                              )}
+                          </div>
+                        </React.Fragment>
+                      )}
+
                       {result.event === "has updated card" && (
                         <React.Fragment>
                           <div>
