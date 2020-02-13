@@ -33,7 +33,7 @@ class ProfileMenu extends React.PureComponent {
             onClick={() => this.props.handleLogout()}
             className="p-2 text-dark pointer hovered-button-popover"
           >
-            Log out
+            Log out  <i className="icofont-exit"/>
           </div>
         </div>
       </React.Fragment>

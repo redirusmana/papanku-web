@@ -5,6 +5,7 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
+import debounce from 'lodash/debounce';
 import popConfirm from "../../../provider/Display/popConfirm";
 import api from "../../../provider/Tools/api";
 import {
@@ -25,6 +26,7 @@ class FormEditTitleCard extends React.PureComponent {
       renamingTitleName: "",
       isSubmitting: false
     };
+    this.delayFetchUnique = debounce(this.handleFetchTyping, 350);
   }
 
   onTitleRenamingStart(Source) {
@@ -46,7 +48,37 @@ class FormEditTitleCard extends React.PureComponent {
     const { value } = e.target;
     this.setState({
       renamingTitleName: value
+    },
+    () => {
+      this.delayFetchUnique(this.state.renamingTitleName);
     });
+  };
+
+  handleFetchTyping = async value => {
+    const { columnSource } = this.props;
+    const title = value;
+    try {
+      this._requestSource = api.generateCancelToken();
+      const url = `/api/list/${columnSource.id}`;
+      const { data } = await api.put(url, {
+        title
+      });
+
+      if (data.success === "OK") {
+        this.props.renameList({
+          newTask: data.lists,
+          columnIndex: this.props.columnIndex
+        });
+        this.setState({
+          isSubmitting: false
+        });
+      }
+    } catch (e) {
+      const error = axiosError(e);
+      if (error === AXIOS_CANCEL_MESSAGE) {
+        return;
+      }
+    }
   };
 
   onTitleRenamingKeypress = e => {

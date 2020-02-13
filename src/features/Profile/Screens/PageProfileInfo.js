@@ -199,7 +199,7 @@ class PageProfileInfo extends React.PureComponent {
                   onClick={() => this.handleLogout()}
                   className="btn btn-block btn-primary btn-sm" //danger
                 >
-                  <i className="font-weight-normal icofont-exit" /> Logout
+                  Logout   <i className="font-weight-normal icofont-exit" /> 
                 </button>
               </p>
             </div>

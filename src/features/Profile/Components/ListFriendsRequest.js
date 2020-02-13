@@ -206,7 +206,7 @@ class ListFriends extends React.PureComponent {
                         {get(result, "requester.name")}
                       </b>
                       <br />
-                      {get(result, "requester.username")}
+                      {get(result, "respondent.email")}
                     </h4>
                     <button
                       onClick={() => this.onAccept(result.id)}
@@ -263,7 +263,8 @@ class ListFriends extends React.PureComponent {
                       avatarClass="avatar-link mb-1"
                     />
                     <h4 className="card-title text-center pt-2">
-                      {get(result, "respondent.name")}
+                      {get(result, "respondent.name")}<br/>
+                      {get(result, "respondent.email")}
                     </h4>
                     <button
                       type="button"
@@ -290,12 +291,12 @@ class ListFriends extends React.PureComponent {
       <React.Fragment>
         {/* <ListSearch /> */}
         <div className="col-lg-24 ">
-          {loading || !listFriendsRequest ? "" : TitlelistFriendsRequest}
+          {!loading && !!listFriendsRequest ? TitlelistFriendsRequest : ""}
           <div className="row mb-3">
             {loading ? <LoadingCard /> : listFriendsRequest}
           </div>
           <hr />
-          {loading || !listRequestFriend ? "" : TitlelistRequestFriend}
+          {!loading && !!listRequestFriend ? TitlelistRequestFriend : ""}
           <div className="row mb-3">
             {loading ? <LoadingCard /> : listRequestFriend}
           </div>

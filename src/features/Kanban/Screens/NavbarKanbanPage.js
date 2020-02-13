@@ -45,6 +45,10 @@ class NavbarKanbanPage extends React.PureComponent {
       isDrawer: false
     });
   };
+
+  // handleExitBoard = () => {
+
+  // };
   render() {
     const { isVisible, isDrawer } = this.state;
     const {
@@ -229,6 +233,15 @@ class NavbarKanbanPage extends React.PureComponent {
                   </div>
                 </Popover>
               </li> */}
+              <li className="nav-item py-0 font-weight-bold">
+                <button
+                  type="button"
+                  // onClick={() => this.handleExitBoard()}
+                  className="btn btn-sm btn-outline-primary"
+                >
+                  Exit Board <i className="icofont-exit"/>
+                </button>
+              </li>
               <li className="nav-item py-0 font-weight-bold">
                 <button
                   type="button"

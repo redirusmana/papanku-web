@@ -12,10 +12,11 @@ import {
   axiosError,
   AXIOS_CANCEL_MESSAGE
 } from "../../../provider/Tools/converter";
+import popConfirm from "../../../provider/Display/popConfirm";
 import InputSelectLong from "../../../provider/Commons/InputSelectLong";
 import alertFloat from "../../../provider/Display/alertFloat";
 // import LoadingCard from "../../../provider/Display/LoadingCard";
-import { apiInvitetoCard } from "../action";
+import { apiInvitetoCard ,apiDeleteCard } from "../action";
 import { assetsApiUrl } from "../../../provider/Tools/general";
 
 const formInviteValidation = yup.object().shape({
@@ -61,6 +62,39 @@ class MembersCard extends React.PureComponent {
     );
   };
 
+  handleRemove = user => {
+    popConfirm({
+      title: `Are you sure to remove ${user.name} from this Card?`,
+      message: `${user.name} will deleted on card Member`,
+      okText: " Yes",
+      okType: "danger",
+      cancelText: " No",
+      onOkay: async () => {
+        try {
+          this._requestSource = api.generateCancelToken();
+          const response = await apiDeleteCard(
+            `/api/card/`,
+            this._requestSource.token
+          );
+          const { data } = response;
+          if (response.status === 200) {
+            alertFloat({
+              type: "success",
+              content: data.message
+            });
+          }
+        } catch (err) {
+          const error = axiosError(err);
+          if (error === AXIOS_CANCEL_MESSAGE) {
+            return;
+          }
+        }
+      },
+      onCancel: () => {}
+    });
+  }
+
+
   renderMembers() {
     const { members } = this.props;
     return (
@@ -70,7 +104,14 @@ class MembersCard extends React.PureComponent {
             <React.Fragment
               key={`list-member-on/in-card-${result.id}-${result.user_id}`}
             >
-              <Avatar
+              <Popover
+            trigger="click"
+            content={<button type="button" onClick={()=>{this.handleRemove(result.user)}} className="btn btn-sm btn-danger" title="Remove From Card"><i className="icofont-trash "></i></button>}
+            placement="bottom"
+            overlayClassName="popover-noarrow"
+          >
+            <div>
+            <Avatar
                 name={get(result, "user.name")}
                 title={get(result, "user.name")}
                 image={
@@ -80,6 +121,8 @@ class MembersCard extends React.PureComponent {
                 }
                 size="md"
               />
+            </div>
+          </Popover>
             </React.Fragment>
           ))
         ) : (
