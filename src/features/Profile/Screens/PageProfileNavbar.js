@@ -53,7 +53,7 @@ class PageProfileNavbar extends React.PureComponent {
   };
   render() {
     const { dataSourcesUser } = this.state;
-    const { handleLogout, user, ...restProps } = this.props;
+    const { user, ...restProps } = this.props;
 
     return (
       <React.Fragment>
@@ -112,7 +112,7 @@ class PageProfileNavbar extends React.PureComponent {
                 <Popover
                   title={<b className="">{user.name}</b>}
                   trigger="click"
-                  content={<ProfileMenu handleLogout={handleLogout} />}
+                  content={<ProfileMenu handleLogout={this.handleLogout} />}
                   overlayClassName="xl popover-no-padding popover-noarrow"
                 >
                   <div>
